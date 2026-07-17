@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Basics | Kaizen Tech Blog</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            scroll-behavior:smooth;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f6f8fa;
+            color:#24292f;
+            line-height:1.8;
+        }
+
+        .container{
+            max-width:1100px;
+            margin:auto;
+            background:white;
+            padding:40px;
+        }
+
+        .hero{
+            text-align:center;
+            padding:50px 20px;
+            border-bottom:2px solid #eaecef;
+        }
+
+        .hero h1{
+            font-size:48px;
+            color:#0969da;
+            margin-bottom:15px;
+        }
+
+        .hero p{
+            font-size:18px;
+            color:#555;
+            max-width:750px;
+            margin:auto;
+        }
+
+        .info{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:20px;
+            margin-top:40px;
+        }
+
+        .card{
+            background:#f6f8fa;
+            border-left:5px solid #0969da;
+            padding:20px;
+            border-radius:10px;
+        }
+
+        .card h3{
+            margin-bottom:10px;
+            color:#0969da;
+        }
+
+        .section{
+            margin-top:60px;
+        }
+
+        .section h2{
+            color:#0969da;
+            border-bottom:3px solid #0969da;
+            padding-bottom:10px;
+            margin-bottom:25px;
+        }
+
+        ul{
+            padding-left:25px;
+        }
+
+        li{
+            margin-bottom:10px;
+        }
+
+        code{
+            background:#eef2ff;
+            padding:3px 7px;
+            border-radius:5px;
+        }
+
+        pre{
+            background:#0d1117;
+            color:#58a6ff;
+            padding:20px;
+            overflow:auto;
+            border-radius:10px;
+            margin-top:15px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        table th{
+            background:#0969da;
+            color:white;
+            padding:12px;
+        }
+
+        table td{
+            border:1px solid #ddd;
+            padding:12px;
+        }
+
+        footer{
+            margin-top:70px;
+            text-align:center;
+            color:gray;
+        }
+
+        @media(max-width:768px){
+            .info{
+                grid-template-columns:1fr;
+            }
+
+            .hero h1{
+                font-size:35px;
+            }
+
+            .container{
+                padding:20px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<section class="hero">
+
+<h1>Git Basics</h1>
+
+<p>
+Learn the fundamentals of Git, the world's most popular version control system.
+This guide covers everything from basic concepts to real-world workflows,
+making it perfect for beginners and aspiring developers.
+</p>
+
+<div class="info">
+
+<div class="card">
+<h3>Difficulty</h3>
+<p>🟢 Beginner</p>
+</div>
+
+<div class="card">
+<h3>Reading Time</h3>
+<p>15–20 Minutes</p>
+</div>
+
+<div class="card">
+<h3>Prerequisites</h3>
+<p>Basic Computer Knowledge & Command Line Basics</p>
+</div>
+
+<div class="card">
+<h3>Tags</h3>
+<p>Git, Version Control, GitHub, Open Source</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>📚 Table of Contents</h2>
+
+<ul>
+
+<li>What is Git?</li>
+
+<li>Why Git Matters</li>
+
+<li>How Git Works</li>
+
+<li>Git Workflow</li>
+
+<li>Git Installation</li>
+
+<li>Git Commands</li>
+
+<li>Examples</li>
+
+<li>Common Mistakes</li>
+
+<li>Interview Questions</li>
+
+<li>Quick Revision</li>
+
+<li>Resources</li>
+
+</ul>
+
+</section>
+<section class="section">
+
+<h2>📖 What is Git?</h2>
+
+<p>
+Git is a <strong>distributed version control system</strong> used to track changes in source code during software development.
+It allows developers to save project history, collaborate with team members, experiment with new features safely, and restore previous versions whenever required.
+Unlike traditional file backups, Git stores snapshots of your project efficiently and keeps a complete history of every change.
+</p>
+
+<br>
+
+<p>
+Think of Git as a <strong>time machine for your code</strong>. Every time you save your work using Git, it creates a checkpoint called a <strong>commit</strong>. If something breaks later, you can simply go back to an earlier commit instead of rewriting everything.
+</p>
+
+</section>
+
+<section class="section">
+
+<h2>🚀 Why Git Matters</h2>
+
+<ul>
+
+<li>Tracks every change made in a project.</li>
+
+<li>Allows multiple developers to work together without overwriting each other's work.</li>
+
+<li>Makes collaboration easier through platforms like GitHub.</li>
+
+<li>Provides complete version history of the project.</li>
+
+<li>Allows developers to experiment using branches without affecting the main project.</li>
+
+<li>Enables quick recovery if files are deleted or code breaks.</li>
+
+<li>Industry standard tool used by almost every software company.</li>
+
+</ul>
+
+</section>
+
+<section class="section">
+
+<h2>💡 Imagine This...</h2>
+
+<div class="card">
+
+<p>
+
+Imagine you are writing your semester project report.
+
+Version 1 → First Draft
+
+Version 2 → Added Images
+
+Version 3 → Corrected Errors
+
+Version 4 → Final Submission
+
+Now imagine Version 4 gets corrupted.
+
+Without Git, you may lose everything.
+
+With Git, you simply return to Version 3 in seconds.
+
+That's exactly what Git does for software developers.
+
+</p>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>📊 Visual Workflow</h2>
+
+<pre>
+
+Working Directory
+        │
+        ▼
+git add
+        │
+        ▼
+Staging Area
+        │
+        ▼
+git commit
+        │
+        ▼
+Local Repository
+        │
+        ▼
+git push
+        │
+        ▼
+GitHub Repository
+
+</pre>
+
+<p>
+
+The Git workflow follows five simple steps:
+
+1. Write or modify your code.
+
+2. Add the modified files to the staging area.
+
+3. Commit your changes with a meaningful message.
+
+4. Push your commits to GitHub.
+
+5. Collaborate with your team.
+
+</p>
+
+</section>
+
+<section class="section">
+
+<h2>🎯 Advantages of Git</h2>
+
+<table>
+
+<tr>
+
+<th>Feature</th>
+
+<th>Benefit</th>
+
+</tr>
+
+<tr>
+
+<td>Version Control</td>
+
+<td>Tracks every modification made in a project.</td>
+
+</tr>
+
+<tr>
+
+<td>Branching</td>
+
+<td>Develop new features independently.</td>
+
+</tr>
+
+<tr>
+
+<td>Collaboration</td>
+
+<td>Multiple developers can work together.</td>
+
+</tr>
+
+<tr>
+
+<td>Backup</td>
+
+<td>Project history is always available.</td>
+
+</tr>
+
+<tr>
+
+<td>Speed</td>
+
+<td>Operations are extremely fast.</td>
+
+</tr>
+
+<tr>
+
+<td>Open Source</td>
+
+<td>Free for everyone to use.</td>
+
+</tr>
+
+</table>
+
+</section>
+  <section class="section">
+
+<h2>⚙️ Installing Git</h2>
+
+<p>
+Before using Git, you need to install it on your computer. Git is available for Windows, macOS, and Linux.
+After installation, you can access Git using the command line (Terminal or Command Prompt).
+</p>
+
+<ol>
+
+<li>Download Git from the official website.</li>
+
+<li>Install it using the default settings.</li>
+
+<li>Open Terminal (macOS/Linux) or Git Bash (Windows).</li>
+
+<li>Verify the installation by running the following command:</li>
+
+</ol>
+
+<pre><code class="language-bash">
+git --version
+</code></pre>
+
+<p>
+If Git is installed successfully, it will display the installed version number.
+</p>
+
+</section>
+
+<section class="section">
+
+<h2>🛠️ Configure Git</h2>
+
+<p>
+Before making your first commit, Git needs your name and email address.
+These details are stored inside every commit and help identify the author.
+</p>
+
+<pre><code class="language-bash">
+git config --global user.name "Your Name"
+
+git config --global user.email "you@example.com"
+</code></pre>
+
+<p>
+To check your configuration, use:
+</p>
+
+<pre><code class="language-bash">
+git config --list
+</code></pre>
+
+</section>
+
+<section class="section">
+
+<h2>📌 Essential Git Commands</h2>
+
+<table>
+
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td><code>git init</code></td>
+<td>Creates a new Git repository.</td>
+</tr>
+
+<tr>
+<td><code>git status</code></td>
+<td>Shows the current status of files.</td>
+</tr>
+
+<tr>
+<td><code>git add .</code></td>
+<td>Adds all modified files to the staging area.</td>
+</tr>
+
+<tr>
+<td><code>git commit -m "message"</code></td>
+<td>Saves changes permanently.</td>
+</tr>
+
+<tr>
+<td><code>git log</code></td>
+<td>Displays commit history.</td>
+</tr>
+
+<tr>
+<td><code>git branch</code></td>
+<td>Lists available branches.</td>
+</tr>
+
+<tr>
+<td><code>git checkout branch-name</code></td>
+<td>Switches to another branch.</td>
+</tr>
+
+<tr>
+<td><code>git merge branch-name</code></td>
+<td>Merges another branch into the current branch.</td>
+</tr>
+
+<tr>
+<td><code>git push</code></td>
+<td>Uploads commits to GitHub.</td>
+</tr>
+
+<tr>
+<td><code>git pull</code></td>
+<td>Downloads the latest changes from GitHub.</td>
+</tr>
+
+<tr>
+<td><code>git clone URL</code></td>
+<td>Copies an existing repository to your computer.</td>
+</tr>
+
+</table>
+
+</section>
+
+<section class="section">
+
+<h2>🧩 Basic Git Workflow</h2>
+
+<pre><code class="language-bash">
+git init
+
+git add .
+
+git commit -m "Initial Commit"
+
+git branch -M main
+
+git remote add origin https://github.com/username/repository.git
+
+git push -u origin main
+</code></pre>
+
+<p>
+This is the most common workflow followed by developers when creating and uploading a project to GitHub for the first time.
+</p>
+
+</section>
+
+<section class="section">
+
+<h2>💻 Real Example</h2>
+
+<p>
+Suppose you created a website named <strong>Portfolio Website</strong>. After finishing your work, you want to upload it to GitHub.
+</p>
+
+<pre><code class="language-bash">
+git init
+
+git add .
+
+git commit -m "Created Portfolio Website"
+
+git push origin main
+</code></pre>
+
+<p>
+Now your project becomes available on GitHub, making it easy to share, collaborate, and maintain version history.
+</p>
+
+</section>
+  <section class="section">
+
+<h2>🌿 Git Branches</h2>
+
+<p>
+A branch is an independent line of development in Git. It allows developers to work on new features or bug fixes without affecting the main project. Once the work is complete, the branch can be merged back into the main branch.
+</p>
+
+<h3>Common Branch Commands</h3>
+
+<pre><code class="language-bash">
+# View all branches
+git branch
+
+# Create a new branch
+git branch feature-login
+
+# Switch to a branch
+git checkout feature-login
+
+# Create and switch in one command
+git checkout -b feature-login
+
+# Switch back to main
+git checkout main
+</code></pre>
+
+<p>
+Using branches keeps your code organized and prevents unfinished work from affecting the stable version of the project.
+</p>
+
+</section>
+
+<section class="section">
+
+<h2>🔀 Merging Branches</h2>
+
+<p>
+After completing your work in a branch, you can combine it with the main branch using the <strong>merge</strong> command.
+</p>
+
+<pre><code class="language-bash">
+git checkout main
+
+git merge feature-login
+</code></pre>
+
+<p>
+Git automatically combines changes whenever possible. If the same lines are edited in both branches, Git creates a <strong>merge conflict</strong>, which must be resolved manually.
+</p>
+
+</section>
+
+<section class="section">
+
+<h2>📤 GitHub Pull Requests</h2>
+
+<p>
+A Pull Request (PR) is a request to merge your changes into another branch. It allows teammates to review your code, suggest improvements, and approve the changes before they become part of the main project.
+</p>
+
+<h3>Typical Pull Request Workflow</h3>
+
+<ol>
+<li>Create a new branch.</li>
+<li>Make changes to your code.</li>
+<li>Commit the changes.</li>
+<li>Push the branch to GitHub.</li>
+<li>Create a Pull Request.</li>
+<li>Team members review the code.</li>
+<li>Merge the Pull Request.</li>
+</ol>
+
+<p>
+Pull Requests improve code quality by introducing code reviews before merging.
+</p>
+
+</section>
+
+<section class="section">
+
+<h2>🍴 What is Forking?</h2>
+
+<p>
+A fork is your own copy of someone else's GitHub repository. It allows you to experiment, contribute to open-source projects, and make changes without affecting the original repository.
+</p>
+
+<p>
+After making changes in your fork, you can create a Pull Request to propose your updates to the original repository.
+</p>
+
+</section>
+
+<section class="section">
+
+<h2>🤝 Collaboration Workflow</h2>
+
+<p>
+Git and GitHub make teamwork simple. A common collaboration workflow looks like this:
+</p>
+
+<pre><code>
+Original Repository
+        │
+        ▼
+      Fork
+        │
+        ▼
+      Clone
+        │
+        ▼
+Create Branch
+        │
+        ▼
+Make Changes
+        │
+        ▼
+Commit Changes
+        │
+        ▼
+Push to GitHub
+        │
+        ▼
+Pull Request
+        │
+        ▼
+Code Review
+        │
+        ▼
+Merge into Main
+</code></pre>
+
+<p>
+This workflow is followed by most software companies and open-source projects around the world.
+</p>
+
+</section>
+
+<section class="section">
+
+<h2>⚡ Git vs GitHub</h2>
+
+<table>
+
+<tr>
+<th>Git</th>
+<th>GitHub</th>
+</tr>
+
+<tr>
+<td>Version Control System</td>
+<td>Cloud hosting platform for Git repositories</td>
+</tr>
+
+<tr>
+<td>Works offline</td>
+<td>Requires internet for synchronization</td>
+</tr>
+
+<tr>
+<td>Tracks project history</td>
+<td>Stores repositories online</td>
+</tr>
+
+<tr>
+<td>Installed locally</td>
+<td>Runs on the web</td>
+</tr>
+
+<tr>
+<td>Created by Linus Torvalds</td>
+<td>Owned by Microsoft</td>
+</tr>
+
+<tr>
+<td>Used for version management</td>
+<td>Used for collaboration and sharing</td>
+</tr>
+
+</table>
+
+</section>
+
+<section class="section">
+
+<h2>📊 Git Collaboration Diagram</h2>
+
+<pre><code>
+Developer A         Developer B
+      │                  │
+      ▼                  ▼
+    Branch A          Branch B
+          \            /
+           \          /
+            \        /
+             ▼      ▼
+             Pull Request
+                    │
+                    ▼
+              Code Review
+                    │
+                    ▼
+              Merge to Main
+                    │
+                    ▼
+            Updated Repository
+</code></pre>
+
+<p>
+This diagram illustrates how multiple developers can work on the same project simultaneously without interfering with each other's work.
+</p>
+
+</section>
+  <section class="section">
+
+<h2>⚠️ Common Mistakes Beginners Make</h2>
+
+<ul>
+
+<li><strong>Not committing frequently:</strong> Small, meaningful commits make it easier to track changes and debug issues.</li>
+
+<li><strong>Writing poor commit messages:</strong> Avoid messages like <code>Update</code> or <code>Changes</code>. Instead, write descriptive messages such as <code>Add login authentication</code>.</li>
+
+<li><strong>Working directly on the main branch:</strong> Always create a separate branch for new features or bug fixes.</li>
+
+<li><strong>Ignoring <code>git status</code>:</strong> Check the repository status before staging or committing files.</li>
+
+<li><strong>Forgetting to pull before pushing:</strong> Always pull the latest changes to avoid merge conflicts.</li>
+
+<li><strong>Uploading sensitive information:</strong> Never commit passwords, API keys, or confidential data to a public repository.</li>
+
+</ul>
+
+</section>
+
+<section class="section">
+
+<h2>💡 Best Practices</h2>
+
+<ul>
+
+<li>Commit your work regularly.</li>
+
+<li>Write meaningful commit messages.</li>
+
+<li>Keep commits small and focused.</li>
+
+<li>Use branches for every new feature.</li>
+
+<li>Pull the latest changes before starting work.</li>
+
+<li>Review your code before creating a Pull Request.</li>
+
+<li>Use a <code>.gitignore</code> file to exclude unnecessary files.</li>
+
+<li>Backup your projects on GitHub.</li>
+
+</ul>
+
+</section>
+
+<section class="section">
+
+<h2>🎯 Interview Questions</h2>
+
+<ol>
+
+<li>What is Git?</li>
+
+<li>What is the difference between Git and GitHub?</li>
+
+<li>What is Version Control?</li>
+
+<li>What is a Repository?</li>
+
+<li>Explain the Git workflow.</li>
+
+<li>What is a Commit?</li>
+
+<li>What is the Staging Area?</li>
+
+<li>What is a Branch?</li>
+
+<li>What is a Merge Conflict?</li>
+
+<li>Why are Pull Requests important?</li>
+
+</ol>
+
+</section>
+
+<section class="section">
+
+<h2>📄 Quick Revision Sheet</h2>
+
+<table>
+
+<tr>
+<th>Concept</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>Git</td>
+<td>Distributed Version Control System</td>
+</tr>
+
+<tr>
+<td>Repository</td>
+<td>Project managed by Git</td>
+</tr>
+
+<tr>
+<td>Commit</td>
+<td>Snapshot of your project</td>
+</tr>
+
+<tr>
+<td>Branch</td>
+<td>Independent line of development</td>
+</tr>
+
+<tr>
+<td>Merge</td>
+<td>Combines two branches</td>
+</tr>
+
+<tr>
+<td>Clone</td>
+<td>Creates a local copy of a repository</td>
+</tr>
+
+<tr>
+<td>Push</td>
+<td>Uploads commits to GitHub</td>
+</tr>
+
+<tr>
+<td>Pull</td>
+<td>Downloads latest changes from GitHub</td>
+</tr>
+
+<tr>
+<td>Fork</td>
+<td>Creates your own copy of a repository</td>
+</tr>
+
+</table>
+
+</section>
+
+<section class="section">
+
+<h2>📝 Practice Questions</h2>
+
+<h3>Beginner</h3>
+
+<ul>
+
+<li>Install Git on your computer.</li>
+
+<li>Create your first Git repository.</li>
+
+<li>Commit a file with a meaningful message.</li>
+
+</ul>
+
+<h3>Intermediate</h3>
+
+<ul>
+
+<li>Create multiple commits and view the history using <code>git log</code>.</li>
+
+<li>Create a new branch and merge it into the main branch.</li>
+
+</ul>
+
+<h3>Advanced</h3>
+
+<ul>
+
+<li>Fork an open-source repository and submit a Pull Request.</li>
+
+<li>Collaborate with a team using Git and GitHub.</li>
+
+</ul>
+
+</section>
+
+<section class="section">
+
+<h2>📚 Additional Resources</h2>
+
+<ul>
+
+<li>Official Git Documentation</li>
+
+<li>GitHub Documentation</li>
+
+<li>Pro Git Book</li>
+
+<li>Atlassian Git Tutorials</li>
+
+<li>freeCodeCamp Git Course</li>
+
+</ul>
+
+</section>
+
+<section class="section">
+
+<h2>🏁 Conclusion</h2>
+
+<p>
+
+Git has become an essential tool for modern software development. It enables developers to track changes, collaborate efficiently, recover previous versions, and maintain high-quality codebases.
+
+Whether you are building a college project, contributing to open-source software, or working in a professional development team, mastering Git is one of the most valuable skills you can learn.
+
+By understanding Git Basics, you are now prepared to explore advanced topics such as Branching, Merging, Pull Requests, Forking, and collaborative workflows with GitHub.
+
+</p>
+
+</section>
+
+<footer>
+
+<p>© 2026 Kaizen Tech | Git & GitHub Documentation</p>
+
+</footer>
+
+</div>
+
+</body>
+
+</html>
+  
