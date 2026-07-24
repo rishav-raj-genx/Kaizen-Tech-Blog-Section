@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Seaborn Fundamentals</title>
+</head>
+<body>
+
+<h1>Seaborn Fundamentals</h1>
+
+<p>
+Learn how to create attractive statistical visualizations using Seaborn.
+</p>
+
+<h2>Difficulty</h2>
+<p>Beginner</p>
+
+<h2>Reading Time</h2>
+<p>20 mins</p>
+
+<hr>
+
+<h2>Table of Contents</h2>
+
+<ul>
+<li>Introduction</li>
+<li>Line Plot</li>
+<li>Bar Plot</li>
+<li>Histogram</li>
+<li>Heatmap</li>
+<li>Pair Plot</li>
+<li>Interview Questions</li>
+<li>Quick Revision Sheet</li>
+</ul>
+
+<hr>
+
+<h2>Introduction</h2>
+
+<p>
+Seaborn is a Python visualization library built on top of Matplotlib. It provides beautiful default styles and simplifies statistical plotting.
+</p>
+
+<pre>
+import seaborn as sns
+import matplotlib.pyplot as plt
+</pre>
+
+<hr>
+
+<h2>Line Plot</h2>
+
+<pre>
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+x=[1,2,3,4]
+y=[10,20,15,25]
+
+sns.lineplot(x=x,y=y)
+
+plt.show()
+</pre>
+
+<p><strong>Output Screenshot:</strong> Add your image here.</p>
+
+<hr>
+
+<h2>Bar Plot</h2>
+
+<pre>
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+subjects=["Math","Science","English"]
+marks=[90,85,95]
+
+sns.barplot(x=subjects,y=marks)
+
+plt.show()
+</pre>
+
+<p><strong>Output Screenshot:</strong> Add your image here.</p>
+
+<hr>
+
+<h2>Histogram</h2>
+
+<pre>
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+marks=[70,75,80,85,90,95]
+
+sns.histplot(marks)
+
+plt.show()
+</pre>
+
+<p><strong>Output Screenshot:</strong> Add your image here.</p>
+
+<hr>
+
+<h2>Heatmap</h2>
+
+<pre>
+import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data={
+"A":[1,2,3],
+"B":[4,5,6],
+"C":[7,8,9]
+}
+
+df=pd.DataFrame(data)
+
+sns.heatmap(df)
+
+plt.show()
+</pre>
+
+<p><strong>Output Screenshot:</strong> Add your image here.</p>
+
+<hr>
+
+<h2>Pair Plot</h2>
+
+<pre>
+import seaborn as sns
+
+iris=sns.load_dataset("iris")
+
+sns.pairplot(iris)
+</pre>
+
+<p><strong>Output Screenshot:</strong> Add your image here.</p>
+
+<hr>
+
+<h2>Interview Questions</h2>
+
+<ul>
+<li>What is Seaborn?</li>
+<li>Why use Seaborn over Matplotlib?</li>
+<li>What is a Heatmap?</li>
+<li>What is a Pair Plot?</li>
+</ul>
+
+<h2>Quick Revision Sheet</h2>
+
+<table border="1">
+
+<tr>
+<th>Plot</th>
+<th>Purpose</th>
+</tr>
+
+<tr>
+<td>Line Plot</td>
+<td>Trend analysis</td>
+</tr>
+
+<tr>
+<td>Bar Plot</td>
+<td>Category comparison</td>
+</tr>
+
+<tr>
+<td>Histogram</td>
+<td>Distribution analysis</td>
+</tr>
+
+<tr>
+<td>Heatmap</td>
+<td>Correlation visualization</td>
+</tr>
+
+<tr>
+<td>Pair Plot</td>
+<td>Feature relationships</td>
+</tr>
+
+</table>
+
+</body>
+</html>

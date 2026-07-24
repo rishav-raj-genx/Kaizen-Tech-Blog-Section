@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Matplotlib Fundamentals</title>
+</head>
+<body>
+
+<h1>Matplotlib Fundamentals</h1>
+
+<p>
+Learn how to create visualizations using Matplotlib including Line Plots, Bar Charts, Histograms, Pie Charts, and Scatter Plots.
+</p>
+
+<h2>Difficulty</h2>
+<p>Beginner</p>
+
+<h2>Reading Time</h2>
+<p>20 mins</p>
+
+<hr>
+
+<h2>Table of Contents</h2>
+
+<ul>
+    <li>Line Plot</li>
+    <li>Bar Chart</li>
+    <li>Histogram</li>
+    <li>Pie Chart</li>
+    <li>Scatter Plot</li>
+    <li>Interview Questions</li>
+    <li>Quick Revision Sheet</li>
+</ul>
+
+<hr>
+
+<h2>Line Plot</h2>
+
+<p>
+A line plot is used to show trends over time or continuous data.
+</p>
+
+<pre>
+import matplotlib.pyplot as plt
+
+x=[1,2,3,4]
+y=[10,20,15,25]
+
+plt.plot(x,y)
+plt.title("Sales Trend")
+plt.show()
+</pre>
+
+<p><strong>Output Screenshot:</strong> Add your saved line plot image here.</p>
+
+<hr>
+
+<h2>Bar Chart</h2>
+
+<p>
+Bar charts compare values across categories.
+</p>
+
+<pre>
+import matplotlib.pyplot as plt
+
+subjects=["Math","Science","English"]
+marks=[90,85,95]
+
+plt.bar(subjects,marks)
+plt.show()
+</pre>
+
+<p><strong>Output Screenshot:</strong> Add your saved bar chart image here.</p>
+
+<hr>
+
+<h2>Histogram</h2>
+
+<p>
+Histograms display the frequency distribution of data.
+</p>
+
+<pre>
+import matplotlib.pyplot as plt
+
+marks=[70,75,80,85,90,95]
+
+plt.hist(marks)
+plt.show()
+</pre>
+
+<p><strong>Output Screenshot:</strong> Add your saved histogram image here.</p>
+
+<hr>
+
+<h2>Pie Chart</h2>
+
+<p>
+Pie charts show proportions of categories in a dataset.
+</p>
+
+<pre>
+import matplotlib.pyplot as plt
+
+sizes=[40,35,25]
+labels=["Python","Java","C++"]
+
+plt.pie(sizes,labels=labels,autopct="%1.1f%%")
+plt.show()
+</pre>
+
+<p><strong>Output Screenshot:</strong> Add your saved pie chart image here.</p>
+
+<hr>
+
+<h2>Scatter Plot</h2>
+
+<p>
+Scatter plots help identify relationships between two variables.
+</p>
+
+<pre>
+import matplotlib.pyplot as plt
+
+hours=[1,2,3,4,5]
+marks=[50,60,70,80,90]
+
+plt.scatter(hours,marks)
+plt.show()
+</pre>
+
+<p><strong>Output Screenshot:</strong> Add your saved scatter plot image here.</p>
+
+<hr>
+
+<h2>Interview Questions</h2>
+
+<ul>
+<li>What is Matplotlib?</li>
+<li>Difference between plot() and scatter()?</li>
+<li>When should you use a histogram?</li>
+<li>How do you add labels and titles?</li>
+</ul>
+
+<h2>Quick Revision Sheet</h2>
+
+<table border="1">
+<tr>
+<th>Chart Type</th>
+<th>Purpose</th>
+</tr>
+
+<tr>
+<td>Line Plot</td>
+<td>Show trends</td>
+</tr>
+
+<tr>
+<td>Bar Chart</td>
+<td>Compare categories</td>
+</tr>
+
+<tr>
+<td>Histogram</td>
+<td>Frequency distribution</td>
+</tr>
+
+<tr>
+<td>Pie Chart</td>
+<td>Show proportions</td>
+</tr>
+
+<tr>
+<td>Scatter Plot</td>
+<td>Relationship between variables</td>
+</tr>
+
+</table>
+
+</body>
+</html>

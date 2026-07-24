@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NumPy Fundamentals</title>
+</head>
+<body>
+
+<h1>NumPy Fundamentals</h1>
+
+<p>
+Learn Arrays, Indexing, Broadcasting and Operations using NumPy.
+</p>
+
+<h2>Difficulty</h2>
+<p>Beginner</p>
+
+<h2>Reading Time</h2>
+<p>15 mins</p>
+
+<hr>
+
+<h2>Table of Contents</h2>
+
+<ul>
+    <li>Arrays</li>
+    <li>Indexing</li>
+    <li>Broadcasting</li>
+    <li>Operations</li>
+</ul>
+
+<hr>
+
+<h2>Arrays</h2>
+
+<p>
+NumPy arrays are faster and more memory efficient than Python lists.
+</p>
+
+<pre>
+import numpy as np
+
+arr=np.array([1,2,3,4])
+
+print(arr)
+</pre>
+
+<h2>Indexing</h2>
+
+<p>
+Indexing allows us to access specific elements from an array.
+</p>
+
+<pre>
+import numpy as np
+
+arr=np.array([10,20,30,40])
+
+print(arr[2])
+</pre>
+
+<p>Output:</p>
+
+<pre>
+30
+</pre>
+
+<h2>Broadcasting</h2>
+
+<p>
+Broadcasting allows NumPy to perform operations on arrays of different shapes.
+</p>
+
+<pre>
+import numpy as np
+
+arr=np.array([1,2,3])
+
+print(arr+5)
+</pre>
+
+<p>Output:</p>
+
+<pre>
+[6 7 8]
+</pre>
+
+<h2>Operations</h2>
+
+<pre>
+import numpy as np
+
+a=np.array([1,2,3])
+b=np.array([4,5,6])
+
+print(a+b)
+print(a*b)
+</pre>
+
+<h2>Interview Questions</h2>
+
+<ul>
+<li>What is NumPy?</li>
+<li>Why is NumPy faster than Python Lists?</li>
+<li>What is Broadcasting?</li>
+<li>Difference between Array and List?</li>
+</ul>
+
+<h2>Quick Revision Sheet</h2>
+
+<table border="1">
+<tr>
+<th>Topic</th>
+<th>Definition</th>
+</tr>
+
+<tr>
+<td>Array</td>
+<td>Collection of same datatype elements</td>
+</tr>
+
+<tr>
+<td>Indexing</td>
+<td>Access elements using position</td>
+</tr>
+
+<tr>
+<td>Broadcasting</td>
+<td>Automatic shape matching</td>
+</tr>
+
+<tr>
+<td>Operations</td>
+<td>Vectorized calculations</td>
+</tr>
+
+</table>
+
+</body>
+</html>
