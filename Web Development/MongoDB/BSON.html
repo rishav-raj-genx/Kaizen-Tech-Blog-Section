@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSON or Binary JSON - KaizenTech</title>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
+        a { color: #1a73e8; }
+
+        /* HERO HEADER */
+        .article-hero { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 36px 40px 0; }
+        .hero-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 40px; align-items: center; flex-wrap: wrap; }
+        .hero-left { flex: 1; min-width: 280px; padding-bottom: 32px; }
+        .hero-tags { display: flex; gap: 0; margin-bottom: 18px; }
+        .hero-tag { display: inline-block; padding: 5px 20px 5px 12px; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #fff; }
+        .hero-tag.db { background: #3b5bdb; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%); }
+        .hero-tag.webdev { background: #00b37e; margin-left: -4px; padding: 5px 20px 5px 18px; clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%); }
+        .hero-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 900; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 18px; color: #0f1724; }
+        .skeleton-bars { display: flex; gap: 6px; margin-bottom: 18px; }
+        .skeleton-bar { height: 8px; border-radius: 4px; }
+        .hero-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font-size: .85rem; color: #718096; margin-bottom: 4px; }
+        .hero-share { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+        .share-btn { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid #e2e8f0; color: #4a5568; font-size: .85rem; cursor: pointer; background: #fff; transition: all .2s; text-decoration: none; font-weight: 600; }
+        .share-btn:hover { border-color: #3b5bdb; color: #3b5bdb; background: #eef2ff; }
+        .share-sep { width: 1px; height: 18px; background: #e2e8f0; }
+        .read-time { font-size: .85rem; color: #718096; font-weight: 500; }
+        .hero-poster { flex-shrink: 0; width: 480px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,.14); align-self: center; background: #f5f5f5; }
+        .hero-poster img { width: 100%; height: auto; display: block; object-fit: contain; }
+        .back-btn { display: inline-block; margin: 20px 40px; padding: 8px 16px; background: #3b5bdb; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-family: Arial, sans-serif; }
+        .back-btn:hover { background: #2846c7; color: #fff; }
+
+        /* CONTENT AREA */
+        #content { max-width: 800px; margin: 0 auto; text-align: left; background: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,.05); margin-top: 32px; margin-bottom: 40px; }
+
+        a { color: #1a73e8; }
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background: #f0f0f0;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        /* (back-btn defined above) */
+    </style>
+</head>
+<body>
+
+    <!-- BACK BUTTON -->
+    <a href="MongoDB.html" class="back-btn">&#8592; Back to MongoDB</a>
+
+    <!-- HERO HEADER -->
+    <div class="article-hero">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <div class="hero-tags">
+            <span class="hero-tag db">DATABASE</span>
+            <span class="hero-tag webdev">WEB DEVELOPMENT</span>
+          </div>
+          <h1 class="hero-title">BSON or Binary JSON: Complete Guide 2026</h1>
+          <div class="skeleton-bars" aria-hidden="true">
+            <div class="skeleton-bar" style="width:32px;background:#13AA52;opacity:.8;"></div>
+            <div class="skeleton-bar" style="width:28px;background:#13AA52;opacity:.6;"></div>
+            <div class="skeleton-bar" style="width:24px;background:#13AA52;opacity:.5;"></div>
+            <div class="skeleton-bar" style="width:20px;background:#13AA52;opacity:.4;"></div>
+            <div class="skeleton-bar" style="width:16px;background:#13AA52;opacity:.3;"></div>
+            <div class="skeleton-bar" style="width:12px;background:#13AA52;opacity:.2;"></div>
+          </div>
+          <div class="hero-meta">
+            <span>&#128100; <strong>Rituraj Sinha</strong></span>
+            <span style="width:1px;height:14px;background:#e2e8f0;display:inline-block;"></span>
+            <span>&#128197; Last updated: July 23, 2026</span>
+          </div>
+          <div class="hero-share">
+            <a class="share-btn" title="Share on X">&#120143;</a>
+            <a class="share-btn" title="Share on LinkedIn">in</a>
+            <a class="share-btn" title="Share on Reddit">r/</a>
+            <a class="share-btn" title="Copy link">&#128279;</a>
+            <a class="share-btn" title="More">&#8226;&#8226;&#8226;</a>
+            <span class="share-sep"></span>
+            <span class="read-time">&#9200; 10–15 Min Read</span>
+          </div>
+        </div>
+        <div class="hero-poster">
+          <img src="../../BLOGS/MongoDB.png" alt="MongoDB Masterclass Poster">
+        </div>
+      </div>
+    </div>
+
+    <!-- 2-COLUMN LAYOUT -->
+    <div style="max-width:1280px; margin:0 auto; display:grid; grid-template-columns:250px 1fr; gap:0; align-items:start; padding:0 16px;">
+
+      <!-- LEFT SIDEBAR: MongoDB Topics -->
+      <aside style="position:sticky; top:20px; padding:24px 16px 24px 0;">
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:18px; box-shadow:0 1px 4px rgba(0,0,0,.07);">
+          <div style="font-size:1rem; font-weight:800; margin-bottom:14px; color:#0f1724;">MongoDB Topics</div>
+          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px;">
+            <li><a href="BSON.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:700; color:#3b5bdb; background:#eef2ff; text-decoration:none;">1. BSON (Binary JSON)</a></li>
+            <li><a href="Collections.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">2. Collections</a></li>
+            <li><a href="CRUD.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">3. CRUD Operations</a></li>
+            <li><a href="Indexes.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">4. Indexes</a></li>
+            <li><a href="Aggregation.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">5. Aggregation</a></li>
+            <li><a href="Relationships.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">6. Relationships</a></li>
+            <li><a href="Mongoose.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">7. Mongoose </a></li>
+            <li><a href="SchemaDesign.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">8. Schema Design</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- CENTER: Article Body -->
+      <main id="content" style="background:#fff; border-left:1px solid #e2e8f0; padding:36px 40px; min-height:80vh;">
+
+        <p><strong>Title:</strong> BSON or Binary JSON</p>
+        <p><strong>Short Description:</strong> Learn how MongoDB stores data internally using BSON (Binary JSON), why it is more efficient than JSON, and how it enables powerful database features.</p>
+        <p><strong>Difficulty:</strong> Beginner</p>
+        <p><strong>Time Required:</strong> 10–15 min</p>
+
+        <p><strong>Prerequisites:</strong></p>
+        <ul>
+            <li>Basic understanding of JSON</li>
+            <li>Basic knowledge of MongoDB</li>
+        </ul>
+
+        <p><strong>Tags:</strong> <code>MongoDB</code> <code>BSON</code> <code>Database</code> <code>NoSQL</code> <code>JSON</code></p>
+
+        <hr>
+
+        <h2>Table of Contents</h2>
+        <ol>
+            <li><a href="#what-is-bson">What is BSON</a></li>
+            <li><a href="#why-it-matters">Why it matters</a></li>
+            <li><a href="#syntax">Syntax</a></li>
+            <li><a href="#examples">Examples</a>
+                <ul>
+                    <li><a href="#example-1">Example 1: Student Document</a></li>
+                    <li><a href="#example-2">Example 2: Date Field</a></li>
+                    <li><a href="#example-3">Example 3: Array</a></li>
+                </ul>
+            </li>
+            <li><a href="#common-mistakes">Common Mistakes</a></li>
+            <li><a href="#interview-questions">Interview Questions</a></li>
+            <li><a href="#quick-revision">Quick Revision Sheet</a></li>
+            <li><a href="#practice-questions">Practice Questions</a></li>
+            <li><a href="#resources">Resources</a></li>
+        </ol>
+
+        <hr>
+
+        <h2 id="what-is-bson">What is BSON</h2>
+        <p>BSON stands for <strong>Binary JSON</strong>. It is the format MongoDB uses to store data internally. Even though developers write data in a JSON-like format, MongoDB converts it into BSON before saving it in the database.</p>
+        <p>Think of BSON as an upgraded version of JSON. It stores data in binary format, which makes it easier and faster for MongoDB to process large amounts of data.</p>
+
+        <img src="../../BLOGS/bson_puzzle_diagram.png" alt="MongoDB Features Puzzle Diagram" style="max-width: 450px; width: 100%; display: block; margin: 20px auto; border-radius: 8px;">
+
+        <hr>
+
+        <h2 id="why-it-matters">Why it matters</h2>
+        <p>BSON is used to overcome JSON's limitations by providing better data type support and improved performance for machine processing.</p>
+        <ul>
+            <li>Addresses limitations of JSON.</li>
+            <li>Supports advanced data types (ObjectId, Date, Binary).</li>
+            <li>Encodes data more precisely.</li>
+            <li>Enables efficient storage and fast query performance.</li>
+            <li>Used by MongoDB as its primary data format.</li>
+            <li>Suitable for applications requiring a robust and efficient data format.</li>
+        </ul>
+
+        <table>
+            <thead>
+                <tr><th>Feature</th><th>JSON</th><th>BSON</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Format</td><td>Text</td><td>Binary</td></tr>
+                <tr><td>Human Readable</td><td>&#9989; Yes</td><td>&#10060; No</td></tr>
+                <tr><td>Speed</td><td>Medium</td><td>Fast</td></tr>
+                <tr><td>ObjectId</td><td>&#10060; No</td><td>&#9989; Yes</td></tr>
+                <tr><td>Date</td><td>&#10060; Stored as String</td><td>&#9989; Native Date Type</td></tr>
+                <tr><td>Binary Data</td><td>&#10060; No</td><td>&#9989; Yes</td></tr>
+                <tr><td>Arrays</td><td>&#9989; Yes</td><td>&#9989; Yes</td></tr>
+                <tr><td>Nested Objects</td><td>&#9989; Yes</td><td>&#9989; Yes</td></tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="syntax">Syntax</h2>
+        <p>When inserting data into MongoDB, you use JSON-like syntax.</p>
+        <pre><code>db.students.insertOne({
+    name:"Rituraj",
+    age:19,
+    course:"B.Tech AI"
+});</code></pre>
+        <p>Although this looks like JSON, MongoDB converts it into BSON before saving it.</p>
+
+        <hr>
+
+        <h2 id="examples">Examples</h2>
+
+        <h3 id="example-1">Example 1: Student Document</h3>
+        <pre><code>db.students.insertOne({
+    name:"Riya",
+    age:20,
+    city:"Delhi"
+});</code></pre>
+        <p>MongoDB automatically adds an <code>_id</code> field to uniquely identify the document.</p>
+
+        <h3 id="example-2">Example 2: Date Field</h3>
+        <pre><code>db.events.insertOne({
+    event:"Hackathon",
+    date: new Date()
+});</code></pre>
+        <p>Here, the <code>date</code> is stored as a BSON <strong>Date</strong> type instead of a normal string.</p>
+
+        <h3 id="example-3">Example 3: Array</h3>
+        <pre><code>db.students.insertOne({
+    name:"Aman",
+    skills: ["HTML","CSS","MongoDB"]
+});</code></pre>
+        <p>Arrays are directly supported in BSON.</p>
+
+        <hr>
+
+        <h2 id="common-mistakes">Common Mistakes</h2>
+        <p><strong>Mistake 1:</strong> Thinking BSON and JSON are the same.</p>
+        <p><strong>Correct:</strong> JSON is a text format, while BSON is a binary format used internally by MongoDB.</p>
+        <hr>
+        <p><strong>Mistake 2:</strong> Writing BSON manually.</p>
+        <p><strong>Correct:</strong> Developers only write JSON-like documents. MongoDB converts them into BSON automatically.</p>
+        <hr>
+        <p><strong>Mistake 3:</strong> Assuming <code>_id</code> is just a string.</p>
+        <p><strong>Correct:</strong> <code>_id</code> is an ObjectId, which is a special BSON data type.</p>
+
+        <hr>
+
+        <h2 id="interview-questions">Interview Questions</h2>
+        <ol>
+            <li>What is BSON?</li>
+            <li>Why does MongoDB use BSON?</li>
+            <li>What is the difference between JSON and BSON?</li>
+            <li>Name some BSON data types.</li>
+            <li>Does MongoDB store JSON or BSON?</li>
+        </ol>
+
+        <hr>
+
+        <h2 id="quick-revision">Quick Revision Sheet</h2>
+        <img src="../../BLOGS/BSON.png" alt="BSON Quick Revision Sheet" style="max-width:650px; width:100%; height:auto; display:block; margin:20px auto; border-radius:8px; border:1px solid #e2e8f0; box-shadow:0 4px 20px rgba(0,0,0,.08); image-rendering:-webkit-optimize-contrast;">
+
+        <hr>
+
+        <h2 id="practice-questions">Practice Questions</h2>
+        <h3>Easy</h3>
+        <ol>
+            <li>What does BSON stand for?</li>
+            <li>Why does MongoDB use BSON instead of JSON?</li>
+            <li>Is BSON human-readable?</li>
+        </ol>
+        <h3>Medium</h3>
+        <ol>
+            <li>Explain the difference between BSON and JSON.</li>
+            <li>List five BSON data types.</li>
+            <li>Why is ObjectId important in MongoDB?</li>
+        </ol>
+        <h3>Hard</h3>
+        <p>Design a MongoDB document for a Student Management System and identify which BSON data types are used for each field.</p>
+
+        <hr>
+
+        <h2 id="resources">Resources</h2>
+        <ul>
+            <li>MongoDB Official Documentation – BSON Types</li>
+            <li>MongoDB University</li>
+            <li>freeCodeCamp MongoDB Course</li>
+            <li>MongoDB: The Definitive Guide (Book)</li>
+        </ul>
+
+      </main>
+
+    </div><!-- end 2-col -->
+
+</body>
+</html>

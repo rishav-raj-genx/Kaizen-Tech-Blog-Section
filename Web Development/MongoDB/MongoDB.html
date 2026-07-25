@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MongoDB - KaizenTech</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        /* Poster Container Styling */
+        .poster-link {
+            display: inline-block;
+            text-decoration: none;
+            margin-top: 20px;
+            margin-bottom: 50px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        /* Simple active hover effect on cursor hover */
+        .poster-link:hover {
+            transform: scale(1.02);
+        }
+
+        /* Poster Image */
+        .poster-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>MongoDB Blog - KaizenTech</h1>
+    <p>Click on the poster below to read the full article!</p>
+
+    <!-- BSON Section Poster: clicking opens BSON.html as a new page -->
+    <a href="BSON.html" class="poster-link" title="Click to read BSON article">
+        <img src="../../BLOGS/MongoDB.png" alt="MongoDB Masterclass Poster" class="poster-image">
+    </a>
+
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections - KaizenTech MongoDB</title>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
+        a { color: #1a73e8; }
+
+        /* HERO HEADER */
+        .article-hero { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 36px 40px 0; }
+        .hero-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 40px; align-items: center; flex-wrap: wrap; }
+        .hero-left { flex: 1; min-width: 280px; padding-bottom: 32px; }
+        .hero-tags { display: flex; gap: 0; margin-bottom: 18px; }
+        .hero-tag { display: inline-block; padding: 5px 20px 5px 12px; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #fff; }
+        .hero-tag.db { background: #3b5bdb; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%); }
+        .hero-tag.webdev { background: #00b37e; margin-left: -4px; padding: 5px 20px 5px 18px; clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%); }
+        .hero-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 900; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 18px; color: #0f1724; }
+        .skeleton-bars { display: flex; gap: 6px; margin-bottom: 18px; }
+        .skeleton-bar { height: 8px; border-radius: 4px; }
+        .hero-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font-size: .85rem; color: #718096; margin-bottom: 4px; }
+        .hero-share { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+        .share-btn { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid #e2e8f0; color: #4a5568; font-size: .85rem; cursor: pointer; background: #fff; transition: all .2s; text-decoration: none; font-weight: 600; }
+        .share-btn:hover { border-color: #3b5bdb; color: #3b5bdb; background: #eef2ff; }
+        .share-sep { width: 1px; height: 18px; background: #e2e8f0; }
+        .read-time { font-size: .85rem; color: #718096; font-weight: 500; }
+        .hero-poster { flex-shrink: 0; width: 480px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,.14); align-self: center; background: #f5f5f5; }
+        .hero-poster img { width: 100%; height: auto; display: block; object-fit: contain; }
+        .back-btn { display: inline-block; margin: 20px 40px; padding: 8px 16px; background: #3b5bdb; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-family: Arial, sans-serif; }
+        .back-btn:hover { background: #2846c7; color: #fff; }
+
+        pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; overflow-x: auto; }
+        code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; }
+        pre code { background: none; padding: 0; }
+        table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+        th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+        th { background: #f0f0f0; }
+        img { max-width: 100%; border-radius: 8px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+    <!-- BACK BUTTON -->
+    <a href="MongoDB.html" class="back-btn">&#8592; Back to MongoDB</a>
+
+    <!-- HERO HEADER -->
+    <div class="article-hero">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <div class="hero-tags">
+            <span class="hero-tag db">DATABASE</span>
+            <span class="hero-tag webdev">WEB DEVELOPMENT</span>
+          </div>
+          <h1 class="hero-title">Collections: Organizing Documents in MongoDB 2026</h1>
+          <div class="skeleton-bars" aria-hidden="true">
+            <div class="skeleton-bar" style="width:32px;background:#13AA52;opacity:.8;"></div>
+            <div class="skeleton-bar" style="width:28px;background:#13AA52;opacity:.6;"></div>
+            <div class="skeleton-bar" style="width:24px;background:#13AA52;opacity:.5;"></div>
+            <div class="skeleton-bar" style="width:20px;background:#13AA52;opacity:.4;"></div>
+            <div class="skeleton-bar" style="width:16px;background:#13AA52;opacity:.3;"></div>
+            <div class="skeleton-bar" style="width:12px;background:#13AA52;opacity:.2;"></div>
+          </div>
+          <div class="hero-meta">
+            <span>&#128100; <strong>Rituraj Sinha</strong></span>
+            <span style="width:1px;height:14px;background:#e2e8f0;display:inline-block;"></span>
+            <span>&#128197; Last updated: July 23, 2026</span>
+          </div>
+          <div class="hero-share">
+            <a class="share-btn" title="Share on X">&#120143;</a>
+            <a class="share-btn" title="Share on LinkedIn">in</a>
+            <a class="share-btn" title="Share on Reddit">r/</a>
+            <a class="share-btn" title="Copy link">&#128279;</a>
+            <a class="share-btn" title="More">&#8226;&#8226;&#8226;</a>
+            <span class="share-sep"></span>
+            <span class="read-time">&#9200; 10&ndash;15 Min Read</span>
+          </div>
+        </div>
+        <div class="hero-poster">
+          <img src="../../BLOGS/MongoDB.png" alt="MongoDB Masterclass Poster">
+        </div>
+      </div>
+    </div>
+
+    <!-- 2-COLUMN LAYOUT -->
+    <div style="max-width:1280px; margin:0 auto; display:grid; grid-template-columns:250px 1fr; gap:0; align-items:start; padding:0 16px;">
+
+      <!-- LEFT SIDEBAR: MongoDB Topics -->
+      <aside style="position:sticky; top:20px; padding:24px 16px 24px 0;">
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:18px; box-shadow:0 1px 4px rgba(0,0,0,.07);">
+          <div style="font-size:1rem; font-weight:800; margin-bottom:14px; color:#0f1724;">MongoDB Topics</div>
+          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px;">
+            <li><a href="BSON.html"       style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">1. BSON (Binary JSON)</a></li>
+            <li><a href="Collections.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:700; color:#3b5bdb; background:#eef2ff; text-decoration:none;">2. Collections</a></li>
+            <li><a href="CRUD.html"        style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">3. CRUD Operations</a></li>
+            <li><a href="Indexes.html"     style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">4. Indexes</a></li>
+            <li><a href="Aggregation.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">5. Aggregation</a></li>
+            <li><a href="Relationships.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">6. Relationships</a></li>
+            <li><a href="Mongoose.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">7. Mongoose </a></li>
+            <li><a href="SchemaDesign.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">8. Schema Design</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- CENTER: Article Body -->
+      <main id="content" style="background:#fff; border-left:1px solid #e2e8f0; padding:36px 40px; min-height:80vh;">
+
+        <p><strong>Title:</strong> Collections</p>
+        <p><strong>Short Description:</strong> Learn what collections are in MongoDB, how they organize related documents, and why they are the foundation of storing and managing data efficiently.</p>
+        <p><strong>Difficulty:</strong> Beginner</p>
+        <p><strong>Time Required:</strong> 10&ndash;15 min</p>
+
+        <p><strong>Prerequisites:</strong></p>
+        <ul>
+            <li>Basic understanding of JSON</li>
+            <li>Basic knowledge of MongoDB</li>
+        </ul>
+
+        <p><strong>Tags:</strong> <code>MongoDB</code> <code>BSON</code> <code>Database</code> <code>NoSQL</code> <code>JSON</code></p>
+
+        <hr>
+
+        <!-- Table of Contents -->
+        <h2>Table of Contents (clickable)</h2>
+        <ol>
+            <li><a href="#what-is-collection">What is a Collection</a></li>
+            <li><a href="#why-it-matters">Why it matters</a></li>
+            <li><a href="#syntax">Syntax</a></li>
+            <li><a href="#examples">Examples</a>
+                <ul>
+                    <li><a href="#example-1">Example 1: Creating a Collection</a></li>
+                    <li><a href="#example-2">Example 2: Inserting Documents</a></li>
+                    <li><a href="#example-3">Example 3: Multiple Documents in One Collection</a></li>
+                </ul>
+            </li>
+            <li><a href="#common-mistakes">Common Mistakes</a></li>
+            <li><a href="#interview-questions">Interview Questions</a></li>
+            <li><a href="#quick-revision">Quick Revision Sheet</a></li>
+            <li><a href="#practice-questions">Practice Questions</a></li>
+            <li><a href="#resources">Resources</a></li>
+        </ol>
+
+        <hr>
+
+        <!-- What is a Collection -->
+        <h2 id="what-is-collection">What is a Collection</h2>
+
+        <p>A <strong>Collection</strong> in MongoDB is a group of related documents. It is similar to a <strong>table</strong> in a relational database, but unlike SQL tables, a collection does <strong>not require a fixed schema</strong>. This means different documents in the same collection can have different fields.</p>
+
+        <p>Think of a collection as a <strong>folder</strong> that stores multiple documents of the same type.</p>
+
+        <p style="text-align:center;"><strong>OR</strong></p>
+
+        <p>A <strong>Collection</strong> in MongoDB is a group of related <strong>documents</strong>. It is used to <u>organize</u> and store similar types of data in one place.</p>
+
+        <p>For example, if you're building a <strong>college management system</strong>, you can create different collections such as:</p>
+        <ul>
+            <li><strong>Students</strong> &#8594; Stores student details</li>
+            <li><strong>Teachers</strong> &#8594; Stores teacher information</li>
+            <li><strong>Courses</strong> &#8594; Stores course details</li>
+        </ul>
+
+        <div style="text-align:center; margin:20px 0;">
+            <img src="../../BLOGS/collections_overview.png" alt="MongoDB Collections Overview Diagram" style="max-width:420px; width:100%; height:auto; display:block; margin:0 auto; border-radius:10px; border:1px solid #e2e8f0; box-shadow:0 4px 16px rgba(0,0,0,.08); image-rendering:-webkit-optimize-contrast;">
+            <p style="font-size:.82rem; color:#718096; margin-top:6px;"><em>Figure: Collections are containers for MongoDB documents inside a database.</em></p>
+        </div>
+
+        <hr>
+
+        <!-- Why it matters -->
+        <h2 id="why-it-matters">Why it matters</h2>
+
+        <p>Collections are important because they help <u>organize</u> data efficiently.</p>
+        <p>Some reasons why collections matter are:</p>
+        <ul>
+            <li>They group related documents together.</li>
+            <li>They do not require a fixed schema.</li>
+            <li>They allow applications to evolve without changing the database structure.</li>
+            <li>They improve data organization and management.</li>
+            <li>They support indexing for faster searching.</li>
+            <li>They make MongoDB suitable for dynamic applications.</li>
+        </ul>
+        <p>Without collections, storing and managing documents would become difficult.</p>
+
+        <hr>
+
+        <!-- Syntax -->
+        <h2 id="syntax">Syntax</h2>
+
+        <p>A collection is created automatically when you insert the first document.</p>
+        <pre><code>db.students.insertOne({
+    name:"Rituraj",
+    age:19,
+    course:"B.Tech AI"
+});</code></pre>
+
+        <p>You can also create one manually.</p>
+        <pre><code>db.createCollection("students")</code></pre>
+
+        <hr>
+
+        <!-- Examples -->
+        <h2 id="examples">Examples</h2>
+
+        <h3 id="example-1">Example 1: Creating a Collection</h3>
+        <pre><code>db.createCollection("employees")</code></pre>
+        <p>This creates a new collection named <strong>employees</strong>.</p>
+
+        <h3 id="example-2">Example 2: Inserting Documents</h3>
+        <pre><code>db.students.insertOne({
+    name:"Riya",
+    age:20,
+    city:"Delhi"
+});</code></pre>
+        <p>If the <strong>students</strong> collection does not exist, MongoDB creates it automatically.</p>
+
+        <h3 id="example-3">Example 3: Multiple Documents in One Collection</h3>
+        <pre><code>db.students.insertMany([
+{
+    name:"Rituraj",
+    age:19
+},
+{
+    name:"Aman",
+    course:"BCA"
+},
+{
+    name:"Priya",
+    city:"Lucknow"
+}
+]);</code></pre>
+        <p>All three documents are stored in the same <strong>students</strong> collection, even though they have different fields.</p>
+
+        <hr>
+
+        <!-- Common Mistakes -->
+        <h2 id="common-mistakes">Common Mistakes</h2>
+
+        <h3>Mistake 1: Thinking Collections Require a Fixed Schema</h3>
+        <p><strong>Wrong:</strong> Every document must have the same fields.</p>
+        <p><strong>Correct:</strong> Documents in a collection can have different structures.</p>
+
+        <h3>Mistake 2: Creating Too Many Collections</h3>
+        <p><strong>Wrong:</strong> Creating a separate collection for every user.</p>
+        <p><strong>Correct:</strong> Store similar documents in one collection whenever possible.</p>
+
+        <h3>Mistake 3: Assuming Collections Must Be Created First</h3>
+        <p><strong>Wrong:</strong> You must create a collection before inserting data.</p>
+        <p><strong>Correct:</strong> MongoDB automatically creates a collection when the first document is inserted.</p>
+
+        <hr>
+
+        <!-- Interview Questions -->
+        <h2 id="interview-questions">Interview Questions</h2>
+
+        <h3>1. What is a Collection in MongoDB?</h3>
+        <p>A collection is a group of related documents stored together in MongoDB.</p>
+        <hr>
+        <h3>2. Is a Collection similar to a SQL Table?</h3>
+        <p>Yes, but unlike SQL tables, collections do not have a fixed schema.</p>
+        <hr>
+        <h3>3. Can documents inside the same collection have different fields?</h3>
+        <p>Yes. MongoDB allows flexible document structures.</p>
+        <hr>
+        <h3>4. How is a Collection created?</h3>
+        <p>It can be created manually using <code>db.createCollection()</code> or automatically when the first document is inserted.</p>
+        <hr>
+        <h3>5. Can a collection contain millions of documents?</h3>
+        <p>Yes. Collections are designed to store a very large number of documents efficiently.</p>
+
+        <hr>
+
+        <!-- Quick Revision Sheet -->
+        <h2 id="quick-revision">Quick Revision Sheet</h2>
+        <img src="../../BLOGS/collections.png" alt="Collections Quick Revision Sheet" style="max-width:650px; width:100%; height:auto; display:block; margin:20px auto; border-radius:8px; border:1px solid #e2e8f0; box-shadow:0 4px 20px rgba(0,0,0,.08); image-rendering:-webkit-optimize-contrast;">
+
+        <hr>
+
+        <!-- Practice Questions -->
+        <h2 id="practice-questions">Practice Questions</h2>
+
+        <h3>Easy</h3>
+        <ol>
+            <li>What is a Collection in MongoDB?</li>
+            <li>How is a Collection different from a SQL Table?</li>
+            <li>Can documents in the same Collection have different fields?</li>
+        </ol>
+
+        <h3>Medium</h3>
+        <ol>
+            <li>Create a collection named <code>employees</code>.</li>
+            <li>Insert three employee documents into the collection.</li>
+            <li>Explain why MongoDB does not require a fixed schema.</li>
+        </ol>
+
+        <h3>Hard</h3>
+        <p>Design a <strong>Library Management System</strong> using MongoDB.</p>
+        <p>Create collections for:</p>
+        <ul>
+            <li>Books</li>
+            <li>Students</li>
+            <li>Librarians</li>
+            <li>Borrow Records</li>
+        </ul>
+        <p>Explain why each collection is needed and what kind of documents it will store.</p>
+
+        <hr>
+
+        <!-- Resources -->
+        <h2 id="resources">Resources</h2>
+        <ul>
+            <li>MongoDB Official Documentation &ndash; Collections</li>
+            <li>MongoDB University</li>
+            <li>freeCodeCamp MongoDB Course</li>
+            <li>MongoDB: The Definitive Guide (Book)</li>
+        </ul>
+
+      </main>
+
+    </div><!-- end 2-col -->
+
+</body>
+</html>
