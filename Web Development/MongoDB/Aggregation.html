@@ -31,13 +31,28 @@
         .back-btn { display: inline-block; margin: 20px 40px; padding: 8px 16px; background: #3b5bdb; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-family: Arial, sans-serif; }
         .back-btn:hover { background: #2846c7; color: #fff; }
 
-        pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; overflow-x: auto; }
-        code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; }
-        pre code { background: none; padding: 0; }
+        
+        
+        
         table { width: 100%; border-collapse: collapse; margin: 16px 0; }
         th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
         th { background: #f0f0f0; }
         img { max-width: 100%; border-radius: 8px; margin: 20px 0; }
+    
+        pre { background: #f8fafc; color: #0f1724; padding: 16px 20px; border-radius: 10px; border: 1px solid #e2e8f0; border-left: 4px solid #13AA52; overflow-x: auto; font-family: 'Fira Code', 'Consolas', 'Monaco', monospace; font-size: 0.9rem; line-height: 1.6; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        code { background: #eef2ff; color: #3b5bdb; padding: 2px 6px; border-radius: 4px; font-size: 0.88em; }
+        pre code { background: none; color: inherit; padding: 0; }
+
+        /* Syntax Highlighting Colors for Students */
+        .t-kw { color: #d97706; font-weight: 700; }
+        .t-fn { color: #2563eb; font-weight: 700; }
+        .t-str { color: #059669; font-weight: 500; }
+        .t-num { color: #7c3aed; font-weight: 700; }
+        .t-prop { color: #e11d48; font-weight: 600; }
+        .t-op { color: #0284c7; font-weight: 700; }
+        .t-cm { color: #64748b; font-style: italic; }
+        .t-type { color: #0891b2; font-weight: 700; }
+
     </style>
 </head>
 <body>
@@ -173,9 +188,9 @@
 
         <p>For example, suppose you have the following student records:</p>
         <pre><code>[
-    { "name":"Riya", "course":"B.Tech AI", "marks":90 },
-    { "name":"Anan", "course":"B.Tech AI", "marks":85 },
-    { "name":"Rohan", "course":"BCA", "marks":78 }
+    { <span class="t-str">"name"</span>:<span class="t-str">"Riya"</span>, <span class="t-str">"course"</span>:<span class="t-str">"B.Tech AI"</span>, <span class="t-str">"marks"</span>:<span class="t-num">90</span> },
+    { <span class="t-str">"name"</span>:<span class="t-str">"Anan"</span>, <span class="t-str">"course"</span>:<span class="t-str">"B.Tech AI"</span>, <span class="t-str">"marks"</span>:<span class="t-num">85</span> },
+    { <span class="t-str">"name"</span>:<span class="t-str">"Rohan"</span>, <span class="t-str">"course"</span>:<span class="t-str">"BCA"</span>, <span class="t-str">"marks"</span>:<span class="t-num">78</span> }
 ]</code></pre>
 
         <p>Using Aggregation, MongoDB can calculate the average marks of students in each course.</p>
@@ -202,17 +217,17 @@
         <h2 id="syntax">Syntax</h2>
 
         <h3>Basic Aggregation Pipeline</h3>
-        <pre><code>db.students.aggregate([
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">aggregate</span>([
     {
-        $match:{
-            course:"B.Tech AI"
+        $<span class="t-prop">match</span>:{
+            <span class="t-prop">course</span>:<span class="t-str">"B.Tech AI"</span>
         }
     },
     {
-        $group:{
-            _id:"$course",
-            averageMarks:{
-                $avg:"$marks"
+        $<span class="t-prop">group</span>:{
+            <span class="t-prop">_id</span>:<span class="t-str">"$course"</span>,
+            <span class="t-prop">averageMarks</span>:{
+                $<span class="t-prop">avg</span>:<span class="t-str">"$marks"</span>
             }
         }
     }
@@ -224,12 +239,12 @@
         <h2 id="examples">Examples</h2>
 
         <h3 id="example-1">Example 1: Find Average Marks</h3>
-        <pre><code>db.students.aggregate([
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">aggregate</span>([
     {
-        $group:{
-            _id:null,
-            averageMarks:{
-                $avg:"$marks"
+        $<span class="t-prop">group</span>:{
+            <span class="t-prop">_id</span>:null,
+            <span class="t-prop">averageMarks</span>:{
+                $<span class="t-prop">avg</span>:<span class="t-str">"$marks"</span>
             }
         }
     }
@@ -237,12 +252,12 @@
         <p>This calculates the average marks of all students.</p>
 
         <h3 id="example-2">Example 2: Count Students</h3>
-        <pre><code>db.students.aggregate([
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">aggregate</span>([
     {
-        $group:{
-            _id:"$course",
-            totalStudents:{
-                $sum:1
+        $<span class="t-prop">group</span>:{
+            <span class="t-prop">_id</span>:<span class="t-str">"$course"</span>,
+            <span class="t-prop">totalStudents</span>:{
+                $<span class="t-prop">sum</span>:<span class="t-num">1</span>
             }
         }
     }
@@ -250,12 +265,12 @@
         <p>This counts how many students belong to each course.</p>
 
         <h3 id="example-3">Example 3: Highest Marks</h3>
-        <pre><code>db.students.aggregate([
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">aggregate</span>([
     {
-        $group:{
-            _id:null,
-            highestMarks:{
-                $max:"$marks"
+        $<span class="t-prop">group</span>:{
+            <span class="t-prop">_id</span>:null,
+            <span class="t-prop">highestMarks</span>:{
+                $<span class="t-prop">max</span>:<span class="t-str">"$marks"</span>
             }
         }
     }
@@ -263,17 +278,17 @@
         <p>This finds the highest marks among all students.</p>
 
         <h3 id="example-4">Example 4: Filter Then Group</h3>
-        <pre><code>db.students.aggregate([
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">aggregate</span>([
     {
-        $match:{
-            course:"B.Tech AI"
+        $<span class="t-prop">match</span>:{
+            <span class="t-prop">course</span>:<span class="t-str">"B.Tech AI"</span>
         }
     },
     {
-        $group:{
-            _id:"$course",
-            averageMarks:{
-                $avg:"$marks"
+        $<span class="t-prop">group</span>:{
+            <span class="t-prop">_id</span>:<span class="t-str">"$course"</span>,
+            <span class="t-prop">averageMarks</span>:{
+                $<span class="t-prop">avg</span>:<span class="t-str">"$marks"</span>
             }
         }
     }
@@ -287,9 +302,9 @@
 
         <h3>Mistake 1: Forgetting the <code>$</code> Before Field Names</h3>
         <p><strong>Wrong</strong></p>
-        <pre><code>$avg:"marks"</code></pre>
+        <pre><code>$<span class="t-prop">avg</span>:<span class="t-str">"marks"</span></code></pre>
         <p><strong>Correct</strong></p>
-        <pre><code>$avg:"$marks"</code></pre>
+        <pre><code>$<span class="t-prop">avg</span>:<span class="t-str">"$marks"</span></code></pre>
         <p>Always use <code>$</code> before field names.</p>
 
         <hr>
@@ -312,22 +327,27 @@
         <h2 id="interview-questions">Interview Questions</h2>
 
         <h3>1. What is Aggregation in MongoDB?</h3>
+        <p><strong>Answer:</strong> Aggregation is an advanced data processing framework in MongoDB used to process data records, perform analytics operations (like grouping, averaging, summing), and return computed results.</p>
 
         <hr>
 
         <h3>2. What is an Aggregation Pipeline?</h3>
+        <p><strong>Answer:</strong> An Aggregation Pipeline is a sequence of multi-stage operations through which documents pass. Each stage transforms the documents as they pass through (e.g. <code>$match</code> filters, <code>$group</code> aggregates, <code>$sort</code> orders, <code>$project</code> reshapes output).</p>
 
         <hr>
 
-        <h3>3. What is the purpose of <code>$group</code>?</h3>
+        <h3>3. What is the purpose of <code>$group</code> in an aggregation pipeline?</h3>
+        <p><strong>Answer:</strong> The <code>$group</code> stage groups input documents by a specified identifier expression (<code>_id</code>) and applies accumulator expressions (like <code>$sum</code>, <code>$avg</code>, <code>$max</code>, <code>$min</code>) to calculate aggregate statistics for each group.</p>
 
         <hr>
 
         <h3>4. What does <code>$match</code> do?</h3>
+        <p><strong>Answer:</strong> The <code>$match</code> stage filters documents to allow only those matching specified query criteria to pass into the next pipeline stage. Placing <code>$match</code> at the beginning of a pipeline improves efficiency by reducing the number of documents processed in subsequent stages.</p>
 
         <hr>
 
         <h3>5. Name some common Aggregation operators.</h3>
+        <p><strong>Answer:</strong> Common pipeline stage operators include <code>$match</code>, <code>$group</code>, <code>$sort</code>, <code>$project</code>, <code>$limit</code>, <code>$skip</code>, and <code>$lookup</code>. Common group accumulator operators include <code>$sum</code>, <code>$avg</code>, <code>$min</code>, <code>$max</code>, <code>$first</code>, <code>$last</code>, and <code>$push</code>.</p>
 
         <hr>
 

@@ -31,13 +31,28 @@
         .back-btn { display: inline-block; margin: 20px 40px; padding: 8px 16px; background: #3b5bdb; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-family: Arial, sans-serif; }
         .back-btn:hover { background: #2846c7; color: #fff; }
 
-        pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; overflow-x: auto; }
-        code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; }
-        pre code { background: none; padding: 0; }
+        
+        
+        
         table { width: 100%; border-collapse: collapse; margin: 16px 0; }
         th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
         th { background: #f0f0f0; }
         img { max-width: 100%; border-radius: 8px; margin: 20px 0; }
+    
+        pre { background: #f8fafc; color: #0f1724; padding: 16px 20px; border-radius: 10px; border: 1px solid #e2e8f0; border-left: 4px solid #13AA52; overflow-x: auto; font-family: 'Fira Code', 'Consolas', 'Monaco', monospace; font-size: 0.9rem; line-height: 1.6; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        code { background: #eef2ff; color: #3b5bdb; padding: 2px 6px; border-radius: 4px; font-size: 0.88em; }
+        pre code { background: none; color: inherit; padding: 0; }
+
+        /* Syntax Highlighting Colors for Students */
+        .t-kw { color: #d97706; font-weight: 700; }
+        .t-fn { color: #2563eb; font-weight: 700; }
+        .t-str { color: #059669; font-weight: 500; }
+        .t-num { color: #7c3aed; font-weight: 700; }
+        .t-prop { color: #e11d48; font-weight: 600; }
+        .t-op { color: #0284c7; font-weight: 700; }
+        .t-cm { color: #64748b; font-style: italic; }
+        .t-type { color: #0891b2; font-weight: 700; }
+
     </style>
 </head>
 <body>
@@ -207,23 +222,23 @@
         <h2 id="syntax">Syntax</h2>
 
         <h3 id="install-mongoose">Install Mongoose</h3>
-        <pre><code>npm install mongoose</code></pre>
+        <pre><code><span class="t-kw">npm</span> <span class="t-kw">install</span> mongoose</code></pre>
 
         <h3 id="import-mongoose">Import Mongoose</h3>
-        <pre><code>const mongoose = require("mongoose");</code></pre>
+        <pre><code><span class="t-kw">const</span> mongoose = <span class="t-kw">require</span>(<span class="t-str">"mongoose"</span>);</code></pre>
 
         <h3 id="connect-to-mongodb">Connect to MongoDB</h3>
-        <pre><code>mongoose.connect("mongodb://127.0.0.1:27017/studentDB");</code></pre>
+        <pre><code>mongoose.<span class="t-fn">connect</span>(<span class="t-str">"mongodb://127.0.0.1:27017/studentDB"</span>);</code></pre>
 
         <h3 id="create-a-schema">Create a Schema</h3>
-        <pre><code>const studentSchema = new mongoose.Schema({
-    name:String,
-    age:Number,
-    course:String
+        <pre><code><span class="t-kw">const</span> studentSchema = <span class="t-kw">new</span> mongoose.<span class="t-type">Schema</span>({
+    <span class="t-prop">name</span>:<span class="t-type">String</span>,
+    <span class="t-prop">age</span>:<span class="t-type">Number</span>,
+    <span class="t-prop">course</span>:<span class="t-type">String</span>
 });</code></pre>
 
         <h3 id="create-a-model">Create a Model</h3>
-        <pre><code>const Student = mongoose.model("Student",studentSchema);</code></pre>
+        <pre><code><span class="t-kw">const</span> Student = mongoose.<span class="t-fn">model</span>(<span class="t-str">"Student"</span>,studentSchema);</code></pre>
 
         <hr>
 
@@ -231,43 +246,43 @@
         <h2 id="examples">Examples</h2>
 
         <h3 id="example-1">Example 1: Connect to MongoDB</h3>
-        <pre><code>const mongoose = require("mongoose");
-mongoose.connect("mongodb://127.0.0.1:27017/studentDB");
-console.log("Connected Successfully");</code></pre>
+        <pre><code><span class="t-kw">const</span> mongoose = <span class="t-kw">require</span>(<span class="t-str">"mongoose"</span>);
+mongoose.<span class="t-fn">connect</span>(<span class="t-str">"mongodb://127.0.0.1:27017/studentDB"</span>);
+console.log(<span class="t-str">"Connected Successfully"</span>);</code></pre>
         <p>This connects your Node.js application to MongoDB.</p>
 
         <h3 id="example-2">Example 2: Create a Document</h3>
-        <pre><code>const student = new Student({
-    name:"Rituraj",
-    age:19,
-    course:"B.Tech AI"
+        <pre><code><span class="t-kw">const</span> student = <span class="t-kw">new</span> Student({
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>,
+    <span class="t-prop">age</span>:<span class="t-num">19</span>,
+    <span class="t-prop">course</span>:<span class="t-str">"B.Tech AI"</span>
 });
-student.save();</code></pre>
+student.<span class="t-fn">save</span>();</code></pre>
         <p>This saves a new student document into MongoDB.</p>
 
         <h3 id="example-3">Example 3: Read Documents</h3>
-        <pre><code>Student.find();</code></pre>
+        <pre><code>Student.<span class="t-fn">find</span>();</code></pre>
         <p>This retrieves all student documents.</p>
 
         <p>Retrieve one document:</p>
-        <pre><code>Student.findOne({
-    name:"Rituraj"
+        <pre><code>Student.<span class="t-fn">findOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>
 });</code></pre>
 
         <h3 id="example-4">Example 4: Update a Document</h3>
-        <pre><code>Student.updateOne(
+        <pre><code>Student.<span class="t-fn">updateOne</span>(
     {
-        name:"Rituraj"
+        <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>
     },
     {
-        age:20
+        <span class="t-prop">age</span>:<span class="t-num">20</span>
     }
 );</code></pre>
         <p>This updates Rituraj's age.</p>
 
         <h3 id="example-5">Example 5: Delete a Document</h3>
-        <pre><code>Student.deleteOne({
-    name:"Rituraj"
+        <pre><code>Student.<span class="t-fn">deleteOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>
 });</code></pre>
         <p>This removes the document from MongoDB.</p>
 
@@ -278,16 +293,16 @@ student.save();</code></pre>
 
         <h3>Mistake 1: Forgetting to Connect</h3>
         <p><strong>Wrong</strong></p>
-        <pre><code>Student.find();</code></pre>
+        <pre><code>Student.<span class="t-fn">find</span>();</code></pre>
         <p><strong>Correct</strong></p>
-        <pre><code>mongoose.connect("mongodb://127.0.0.1:27017/studentDB");</code></pre>
+        <pre><code>mongoose.<span class="t-fn">connect</span>(<span class="t-str">"mongodb://127.0.0.1:27017/studentDB"</span>);</code></pre>
         <p>Always connect before performing database operations.</p>
 
         <hr>
 
         <h3>Mistake 2: Saving Without Creating a Model</h3>
         <p><strong>Wrong</strong></p>
-        <pre><code>student.save();</code></pre>
+        <pre><code>student.<span class="t-fn">save</span>();</code></pre>
         <p><strong>Correct</strong></p>
         <p>Create a model first using <code>mongoose.model()</code>.</p>
 
@@ -295,23 +310,23 @@ student.save();</code></pre>
 
         <h3>Mistake 3: Forgetting to Await Database Operations</h3>
         <p><strong>Wrong</strong></p>
-        <pre><code>Student.find();</code></pre>
+        <pre><code>Student.<span class="t-fn">find</span>();</code></pre>
         <p><strong>Correct</strong></p>
-        <pre><code>await Student.find();</code></pre>
+        <pre><code><span class="t-kw">await</span> Student.<span class="t-fn">find</span>();</code></pre>
         <p>Use <code>await</code> (or <code>.then()</code>) because most Mongoose operations are asynchronous.</p>
 
         <hr>
 
         <h3>Mistake 4: Not Defining Required Fields</h3>
         <p><strong>Wrong</strong></p>
-        <pre><code>const studentSchema = new mongoose.Schema({
-    name:String
+        <pre><code><span class="t-kw">const</span> studentSchema = <span class="t-kw">new</span> mongoose.<span class="t-type">Schema</span>({
+    <span class="t-prop">name</span>:<span class="t-type">String</span>
 });</code></pre>
         <p><strong>Correct</strong></p>
-        <pre><code>const studentSchema = new mongoose.Schema({
-    name: {
-        type:String,
-        required:true
+        <pre><code><span class="t-kw">const</span> studentSchema = <span class="t-kw">new</span> mongoose.<span class="t-type">Schema</span>({
+    <span class="t-prop">name</span>: {
+        <span class="t-prop">type</span>:<span class="t-type">String</span>,
+        <span class="t-prop">required</span>:true
     }
 });</code></pre>
         <p>Use validation whenever necessary.</p>
@@ -322,30 +337,37 @@ student.save();</code></pre>
         <h2 id="interview-questions">Interview Questions</h2>
 
         <h3>1. What is Mongoose?</h3>
+        <p><strong>Answer:</strong> Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js. It manages relationships between data, provides schema validation, and translates between code objects and MongoDB documents.</p>
 
         <hr>
 
         <h3>2. What is the difference between MongoDB and Mongoose?</h3>
+        <p><strong>Answer:</strong> MongoDB is the NoSQL database server that stores data in BSON format, while Mongoose is a Node.js JavaScript library that connects to MongoDB to enforce schemas, validate models, and simplify database operations.</p>
 
         <hr>
 
-        <h3>3. What is a Schema?</h3>
+        <h3>3. What is a Schema in Mongoose?</h3>
+        <p><strong>Answer:</strong> A Mongoose Schema defines the structure of documents within a collection, specifying field names, data types, default values, validators, and middleware hooks.</p>
 
         <hr>
 
-        <h3>4. What is a Model?</h3>
+        <h3>4. What is a Model in Mongoose?</h3>
+        <p><strong>Answer:</strong> A Mongoose Model is a wrapper around a Schema that provides an interface to the database for creating, querying, updating, and deleting documents (e.g. <code>Student.find()</code>).</p>
 
         <hr>
 
         <h3>5. What is validation in Mongoose?</h3>
+        <p><strong>Answer:</strong> Validation ensures that document fields conform to defined rules (such as <code>required: true</code>, <code>min</code>, <code>max</code>, or custom regex) before saving data to MongoDB, preventing corrupted or incomplete records.</p>
 
         <hr>
 
         <h3>6. Why is Mongoose called an ODM?</h3>
+        <p><strong>Answer:</strong> Mongoose is called an <strong>Object Data Modeling (ODM)</strong> library because it maps JavaScript Objects in your Node.js application directly to Document Data in the MongoDB database.</p>
 
         <hr>
 
         <h3>7. Which method connects Mongoose to MongoDB?</h3>
+        <p><strong>Answer:</strong> The <code>mongoose.connect('mongodb://127.0.0.1:27017/databaseName')</code> method connects a Node.js application to a MongoDB database instance.</p>
 
         <hr>
 

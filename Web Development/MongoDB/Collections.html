@@ -31,13 +31,28 @@
         .back-btn { display: inline-block; margin: 20px 40px; padding: 8px 16px; background: #3b5bdb; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-family: Arial, sans-serif; }
         .back-btn:hover { background: #2846c7; color: #fff; }
 
-        pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; overflow-x: auto; }
-        code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; }
-        pre code { background: none; padding: 0; }
+        
+        
+        
         table { width: 100%; border-collapse: collapse; margin: 16px 0; }
         th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
         th { background: #f0f0f0; }
         img { max-width: 100%; border-radius: 8px; margin: 20px 0; }
+    
+        pre { background: #f8fafc; color: #0f1724; padding: 16px 20px; border-radius: 10px; border: 1px solid #e2e8f0; border-left: 4px solid #13AA52; overflow-x: auto; font-family: 'Fira Code', 'Consolas', 'Monaco', monospace; font-size: 0.9rem; line-height: 1.6; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        code { background: #eef2ff; color: #3b5bdb; padding: 2px 6px; border-radius: 4px; font-size: 0.88em; }
+        pre code { background: none; color: inherit; padding: 0; }
+
+        /* Syntax Highlighting Colors for Students */
+        .t-kw { color: #d97706; font-weight: 700; }
+        .t-fn { color: #2563eb; font-weight: 700; }
+        .t-str { color: #059669; font-weight: 500; }
+        .t-num { color: #7c3aed; font-weight: 700; }
+        .t-prop { color: #e11d48; font-weight: 600; }
+        .t-op { color: #0284c7; font-weight: 700; }
+        .t-cm { color: #64748b; font-style: italic; }
+        .t-type { color: #0891b2; font-weight: 700; }
+
     </style>
 </head>
 <body>
@@ -189,14 +204,14 @@
         <h2 id="syntax">Syntax</h2>
 
         <p>A collection is created automatically when you insert the first document.</p>
-        <pre><code>db.students.insertOne({
-    name:"Rituraj",
-    age:19,
-    course:"B.Tech AI"
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>,
+    <span class="t-prop">age</span>:<span class="t-num">19</span>,
+    <span class="t-prop">course</span>:<span class="t-str">"B.Tech AI"</span>
 });</code></pre>
 
         <p>You can also create one manually.</p>
-        <pre><code>db.createCollection("students")</code></pre>
+        <pre><code><span class="t-fn">db</span>.<span class="t-fn">createCollection</span>(<span class="t-str">"students"</span>)</code></pre>
 
         <hr>
 
@@ -204,30 +219,30 @@
         <h2 id="examples">Examples</h2>
 
         <h3 id="example-1">Example 1: Creating a Collection</h3>
-        <pre><code>db.createCollection("employees")</code></pre>
+        <pre><code><span class="t-fn">db</span>.<span class="t-fn">createCollection</span>(<span class="t-str">"employees"</span>)</code></pre>
         <p>This creates a new collection named <strong>employees</strong>.</p>
 
         <h3 id="example-2">Example 2: Inserting Documents</h3>
-        <pre><code>db.students.insertOne({
-    name:"Riya",
-    age:20,
-    city:"Delhi"
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Riya"</span>,
+    <span class="t-prop">age</span>:<span class="t-num">20</span>,
+    <span class="t-prop">city</span>:<span class="t-str">"Delhi"</span>
 });</code></pre>
         <p>If the <strong>students</strong> collection does not exist, MongoDB creates it automatically.</p>
 
         <h3 id="example-3">Example 3: Multiple Documents in One Collection</h3>
-        <pre><code>db.students.insertMany([
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertMany</span>([
 {
-    name:"Rituraj",
-    age:19
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>,
+    <span class="t-prop">age</span>:<span class="t-num">19</span>
 },
 {
-    name:"Aman",
-    course:"BCA"
+    <span class="t-prop">name</span>:<span class="t-str">"Aman"</span>,
+    <span class="t-prop">course</span>:<span class="t-str">"BCA"</span>
 },
 {
-    name:"Priya",
-    city:"Lucknow"
+    <span class="t-prop">name</span>:<span class="t-str">"Priya"</span>,
+    <span class="t-prop">city</span>:<span class="t-str">"Lucknow"</span>
 }
 ]);</code></pre>
         <p>All three documents are stored in the same <strong>students</strong> collection, even though they have different fields.</p>
@@ -255,19 +270,29 @@
         <h2 id="interview-questions">Interview Questions</h2>
 
         <h3>1. What is a Collection in MongoDB?</h3>
-        <p>A collection is a group of related documents stored together in MongoDB.</p>
+        <p><strong>Answer:</strong> A Collection is a group of related BSON documents stored together inside a MongoDB database. It serves as the primary organizational container for documents of a similar domain (e.g., <code>students</code>, <code>orders</code>).</p>
+
         <hr>
+
         <h3>2. Is a Collection similar to a SQL Table?</h3>
-        <p>Yes, but unlike SQL tables, collections do not have a fixed schema.</p>
+        <p><strong>Answer:</strong> Yes, a collection in MongoDB is conceptually equivalent to a table in a relational database (SQL). However, unlike SQL tables that enforce strict column structures and data types across all rows, MongoDB collections are schema-flexible, allowing documents within the same collection to have different fields.</p>
+
         <hr>
+
         <h3>3. Can documents inside the same collection have different fields?</h3>
-        <p>Yes. MongoDB allows flexible document structures.</p>
+        <p><strong>Answer:</strong> Yes. Because MongoDB is schema-flexible (NoSQL), documents in the same collection do not need to share the exact same fields or structure. One document can have 3 fields while another has 10 fields.</p>
+
         <hr>
-        <h3>4. How is a Collection created?</h3>
-        <p>It can be created manually using <code>db.createCollection()</code> or automatically when the first document is inserted.</p>
+
+        <h3>4. How is a Collection created in MongoDB?</h3>
+        <p><strong>Answer:</strong> A collection can be created in two ways:
+        <br>1. <strong>Implicitly (Automatic):</strong> Created automatically when you insert the first document using commands like <code>db.collectionName.insertOne()</code>.
+        <br>2. <strong>Explicitly (Manual):</strong> Created manually using <code>db.createCollection("collectionName", { options })</code> to specify options like capped collection sizes or validation rules.</p>
+
         <hr>
+
         <h3>5. Can a collection contain millions of documents?</h3>
-        <p>Yes. Collections are designed to store a very large number of documents efficiently.</p>
+        <p><strong>Answer:</strong> Yes. MongoDB collections are engineered to scale horizontally and vertically, holding millions or billions of documents efficiently when indexed properly.</p>
 
         <hr>
 

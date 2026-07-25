@@ -31,13 +31,28 @@
         .back-btn { display: inline-block; margin: 20px 40px; padding: 8px 16px; background: #3b5bdb; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-family: Arial, sans-serif; }
         .back-btn:hover { background: #2846c7; color: #fff; }
 
-        pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; overflow-x: auto; }
-        code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; }
-        pre code { background: none; padding: 0; }
+        
+        
+        
         table { width: 100%; border-collapse: collapse; margin: 16px 0; }
         th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
         th { background: #f0f0f0; }
         img { max-width: 100%; border-radius: 8px; margin: 20px 0; }
+    
+        pre { background: #f8fafc; color: #0f1724; padding: 16px 20px; border-radius: 10px; border: 1px solid #e2e8f0; border-left: 4px solid #13AA52; overflow-x: auto; font-family: 'Fira Code', 'Consolas', 'Monaco', monospace; font-size: 0.9rem; line-height: 1.6; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        code { background: #eef2ff; color: #3b5bdb; padding: 2px 6px; border-radius: 4px; font-size: 0.88em; }
+        pre code { background: none; color: inherit; padding: 0; }
+
+        /* Syntax Highlighting Colors for Students */
+        .t-kw { color: #d97706; font-weight: 700; }
+        .t-fn { color: #2563eb; font-weight: 700; }
+        .t-str { color: #059669; font-weight: 500; }
+        .t-num { color: #7c3aed; font-weight: 700; }
+        .t-prop { color: #e11d48; font-weight: 600; }
+        .t-op { color: #0284c7; font-weight: 700; }
+        .t-cm { color: #64748b; font-style: italic; }
+        .t-type { color: #0891b2; font-weight: 700; }
+
     </style>
 </head>
 <body>
@@ -206,11 +221,11 @@
 
         <p><strong>Example:</strong></p>
         <pre><code>{
-    name:"Rituraj",
-    course:"B.Tech AI",
-    address: {
-        city:"Ghaziabad",
-        state:"Uttar Pradesh"
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>,
+    <span class="t-prop">course</span>:<span class="t-str">"B.Tech AI"</span>,
+    <span class="t-prop">address</span>: {
+        <span class="t-prop">city</span>:<span class="t-str">"Ghaziabad"</span>,
+        <span class="t-prop">state</span>:<span class="t-str">"Uttar Pradesh"</span>
     }
 }</code></pre>
 
@@ -236,15 +251,15 @@
         <p><strong>Example</strong></p>
         <p><strong>Student Collection</strong></p>
         <pre><code>{
-    _id:ObjectId("101"),
-    name:"Rituraj",
-    departmentId:ObjectId("501")
+    <span class="t-prop">_id</span>:<span class="t-type">ObjectId</span>(<span class="t-str">"101"</span>),
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>,
+    <span class="t-prop">departmentId</span>:<span class="t-type">ObjectId</span>(<span class="t-str">"501"</span>)
 }</code></pre>
 
         <p><strong>Department Collection</strong></p>
         <pre><code>{
-    _id:ObjectId("501"),
-    department:"Computer Science"
+    <span class="t-prop">_id</span>:<span class="t-type">ObjectId</span>(<span class="t-str">"501"</span>),
+    <span class="t-prop">department</span>:<span class="t-str">"Computer Science"</span>
 }</code></pre>
 
         <p><strong>Advantages</strong></p>
@@ -265,29 +280,29 @@
         <h2 id="syntax">Syntax</h2>
 
         <h3>Embedded Document</h3>
-        <pre><code>db.students.insertOne({
-    name:"Rituraj",
-    course:"B.Tech AI",
-    address: {
-        city:"Ghaziabad",
-        state:"UP"
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>,
+    <span class="t-prop">course</span>:<span class="t-str">"B.Tech AI"</span>,
+    <span class="t-prop">address</span>: {
+        <span class="t-prop">city</span>:<span class="t-str">"Ghaziabad"</span>,
+        <span class="t-prop">state</span>:<span class="t-str">"UP"</span>
     }
 });</code></pre>
 
         <h3>Referenced Document</h3>
-        <pre><code>db.students.insertOne({
-    name:"Rituraj",
-    departmentId:ObjectId("64ab123456789")
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>,
+    <span class="t-prop">departmentId</span>:<span class="t-type">ObjectId</span>(<span class="t-str">"64ab123456789"</span>)
 });</code></pre>
 
         <h3>Using $lookup</h3>
-        <pre><code>db.students.aggregate([
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">aggregate</span>([
     {
-        $lookup:{
-            from:"departments",
-            localField:"departmentId",
-            foreignField:"_id",
-            as:"departmentInfo"
+        $<span class="t-prop">lookup</span>:{
+            <span class="t-prop">from</span>:<span class="t-str">"departments"</span>,
+            <span class="t-prop">localField</span>:<span class="t-str">"departmentId"</span>,
+            <span class="t-prop">foreignField</span>:<span class="t-str">"_id"</span>,
+            <span class="t-prop">as</span>:<span class="t-str">"departmentInfo"</span>
         }
     }
 ]);</code></pre>
@@ -298,11 +313,11 @@
         <h2 id="examples">Examples</h2>
 
         <h3>Example 1: Embedded Relationship</h3>
-        <pre><code>db.students.insertOne({
-    name:"Aman",
-    address:{
-        city:"Delhi",
-        state:"Delhi"
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Aman"</span>,
+    <span class="t-prop">address</span>:{
+        <span class="t-prop">city</span>:<span class="t-str">"Delhi"</span>,
+        <span class="t-prop">state</span>:<span class="t-str">"Delhi"</span>
     }
 });</code></pre>
         <p>Everything is stored inside one document.</p>
@@ -311,26 +326,26 @@
 
         <h3>Example 2: Referenced Relationship</h3>
         <p><strong>Student Collection</strong></p>
-        <pre><code>{name:"Riya",courseId:ObjectId("5001")}</code></pre>
+        <pre><code>{<span class="t-prop">name</span>:<span class="t-str">"Riya"</span>,<span class="t-prop">courseId</span>:<span class="t-type">ObjectId</span>(<span class="t-str">"5001"</span>)}</code></pre>
 
         <p><strong>Course Collection</strong></p>
-        <pre><code>{_id:ObjectId("5001"),course:"B.Tech AI"}</code></pre>
+        <pre><code>{<span class="t-prop">_id</span>:<span class="t-type">ObjectId</span>(<span class="t-str">"5001"</span>),<span class="t-prop">course</span>:<span class="t-str">"B.Tech AI"</span>}</code></pre>
         <p>Both collections are connected using <strong>ObjectId</strong>.</p>
 
         <hr>
 
         <h3>Example 3: One-to-Many Relationship</h3>
-        <pre><code>{customer:"Rahul",orders:["Laptop","Mouse","Keyboard"]}</code></pre>
+        <pre><code>{<span class="t-prop">customer</span>:<span class="t-str">"Rahul"</span>,<span class="t-prop">orders</span>:[<span class="t-str">"Laptop"</span>,<span class="t-str">"Mouse"</span>,<span class="t-str">"Keyboard"</span>]}</code></pre>
         <p>One customer has many orders.</p>
 
         <hr>
 
         <h3>Example 4: Many-to-Many Relationship</h3>
         <p><strong>Student Collection</strong></p>
-        <pre><code>{name:"Rituraj",courses:[ObjectId("101"),ObjectId("102")]}</code></pre>
+        <pre><code>{<span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>,<span class="t-prop">courses</span>:[<span class="t-type">ObjectId</span>(<span class="t-str">"101"</span>),<span class="t-type">ObjectId</span>(<span class="t-str">"102"</span>)]}</code></pre>
 
         <p><strong>Course Collection</strong></p>
-        <pre><code>{name:"MongoDB"}</code></pre>
+        <pre><code>{<span class="t-prop">name</span>:<span class="t-str">"MongoDB"</span>}</code></pre>
         <p>A student can enroll in multiple courses, and a course can have multiple students.</p>
 
         <hr>
@@ -356,9 +371,9 @@
 
         <h3>Mistake 3: Forgetting ObjectId</h3>
         <p><strong>Wrong</strong></p>
-        <pre><code>departmentId:"501"</code></pre>
+        <pre><code><span class="t-prop">departmentId</span>:<span class="t-str">"501"</span></code></pre>
         <p><strong>Correct</strong></p>
-        <pre><code>departmentId:ObjectId("501")</code></pre>
+        <pre><code><span class="t-prop">departmentId</span>:<span class="t-type">ObjectId</span>(<span class="t-str">"501"</span>)</code></pre>
         <p>Always use <strong>ObjectId</strong> for references.</p>
 
         <hr>
@@ -367,30 +382,45 @@
         <h2 id="interview-questions">Interview Questions</h2>
 
         <h3>1. What are relationships in MongoDB?</h3>
+        <p><strong>Answer:</strong> Relationships in MongoDB define how different entities and data models are connected to each other (e.g. Students to Courses, Customers to Orders).</p>
 
         <hr>
 
-        <h3>2. What are the two types of relationships?</h3>
+        <h3>2. What are the two types of relationships in MongoDB?</h3>
+        <p><strong>Answer:</strong> The two primary ways to represent data relationships in MongoDB are:
+        <br>1. <strong>Embedded Documents (Denormalized Data)</strong>
+        <br>2. <strong>Referenced Documents (Normalized Data)</strong></p>
 
         <hr>
 
-        <h3>3. What is embedding?</h3>
+        <h3>3. What is embedding in MongoDB?</h3>
+        <p><strong>Answer:</strong> Embedding (or denormalization) is storing related data as nested sub-documents or arrays directly within a single parent document. It allows fetching all related data in a single read operation without joins.</p>
 
         <hr>
 
-        <h3>4. What is referencing?</h3>
+        <h3>4. What is referencing in MongoDB?</h3>
+        <p><strong>Answer:</strong> Referencing (or normalization) is storing related data in separate collections and linking documents using reference IDs (usually <code>ObjectId</code>). Data is joined dynamically using <code>$lookup</code> during queries.</p>
 
         <hr>
 
-        <h3>5. When should you use embedding?</h3>
+        <h3>5. When should you use embedding over referencing?</h3>
+        <p><strong>Answer:</strong> Use embedding when:
+        <br>&bull; Data has 1-to-1 or 1-to-few relationships.
+        <br>&bull; Related data is frequently read together.
+        <br>&bull; The nested data size is bounded and won't exceed the 16MB document limit.</p>
 
         <hr>
 
-        <h3>6. When should you use referencing?</h3>
+        <h3>6. When should you use referencing over embedding?</h3>
+        <p><strong>Answer:</strong> Use referencing when:
+        <br>&bull; Data has 1-to-Many or Many-to-Many relationships that grow independently or infinitely.
+        <br>&bull; Data is shared and updated frequently across multiple entities.
+        <br>&bull; Embedded documents would exceed the 16MB limit.</p>
 
         <hr>
 
-        <h3>7. Which aggregation stage is used to join collections?</h3>
+        <h3>7. Which aggregation stage is used to join collections in MongoDB?</h3>
+        <p><strong>Answer:</strong> The <code>$lookup</code> aggregation pipeline stage performs a left outer join between collections, pulling in documents from a referenced collection based on matching key fields.</p>
 
         <hr>
 

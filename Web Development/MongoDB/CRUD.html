@@ -31,13 +31,28 @@
         .back-btn { display: inline-block; margin: 20px 40px; padding: 8px 16px; background: #3b5bdb; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-family: Arial, sans-serif; }
         .back-btn:hover { background: #2846c7; color: #fff; }
 
-        pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; overflow-x: auto; }
-        code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; }
-        pre code { background: none; padding: 0; }
+        
+        
+        
         table { width: 100%; border-collapse: collapse; margin: 16px 0; }
         th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
         th { background: #f0f0f0; }
         img { max-width: 100%; border-radius: 8px; margin: 20px 0; }
+    
+        pre { background: #f8fafc; color: #0f1724; padding: 16px 20px; border-radius: 10px; border: 1px solid #e2e8f0; border-left: 4px solid #13AA52; overflow-x: auto; font-family: 'Fira Code', 'Consolas', 'Monaco', monospace; font-size: 0.9rem; line-height: 1.6; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        code { background: #eef2ff; color: #3b5bdb; padding: 2px 6px; border-radius: 4px; font-size: 0.88em; }
+        pre code { background: none; color: inherit; padding: 0; }
+
+        /* Syntax Highlighting Colors for Students */
+        .t-kw { color: #d97706; font-weight: 700; }
+        .t-fn { color: #2563eb; font-weight: 700; }
+        .t-str { color: #059669; font-weight: 500; }
+        .t-num { color: #7c3aed; font-weight: 700; }
+        .t-prop { color: #e11d48; font-weight: 600; }
+        .t-op { color: #0284c7; font-weight: 700; }
+        .t-cm { color: #64748b; font-style: italic; }
+        .t-type { color: #0891b2; font-weight: 700; }
+
     </style>
 </head>
 <body>
@@ -197,28 +212,28 @@
         <h2 id="syntax">Syntax</h2>
 
         <h3>Create</h3>
-        <pre><code>db.students.insertOne({
-    name:"Rituraj",
-    age:19,
-    course:"B.Tech AI"
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>,
+    <span class="t-prop">age</span>:<span class="t-num">19</span>,
+    <span class="t-prop">course</span>:<span class="t-str">"B.Tech AI"</span>
 });</code></pre>
 
         <h3>Read</h3>
-        <pre><code>db.students.find();</code></pre>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">find</span>();</code></pre>
 
         <h3>Update</h3>
-        <pre><code>db.students.updateOne(
-    { name:"Rituraj" },
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">updateOne</span>(
+    { <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span> },
     {
-        $set: {
-            age:20
+        $<span class="t-prop">set</span>: {
+            <span class="t-prop">age</span>:<span class="t-num">20</span>
         }
     }
 );</code></pre>
 
         <h3>Delete</h3>
-        <pre><code>db.students.deleteOne({
-    name:"Rituraj"
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">deleteOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>
 });</code></pre>
 
         <hr>
@@ -227,38 +242,38 @@
         <h2 id="examples">Examples</h2>
 
         <h3 id="example-1">Example 1: Create a Document</h3>
-        <pre><code>db.students.insertOne({
-    name:"Riya",
-    age:20,
-    city:"Delhi"
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Riya"</span>,
+    <span class="t-prop">age</span>:<span class="t-num">20</span>,
+    <span class="t-prop">city</span>:<span class="t-str">"Delhi"</span>
 });</code></pre>
         <p>This command adds a new student document to the <strong>students</strong> collection.</p>
 
         <h3 id="example-2">Example 2: Read Documents</h3>
         <p>Retrieve all students:</p>
-        <pre><code>db.students.find();</code></pre>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">find</span>();</code></pre>
 
         <p>Retrieve one specific student:</p>
-        <pre><code>db.students.findOne({
-    name:"Riya"
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">findOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Riya"</span>
 });</code></pre>
 
         <h3 id="example-3">Example 3: Update a Document</h3>
-        <pre><code>db.students.updateOne(
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">updateOne</span>(
     {
-        name:"Riya"
+        <span class="t-prop">name</span>:<span class="t-str">"Riya"</span>
     },
     {
-        $set: {
-            city:"Mumbai"
+        $<span class="t-prop">set</span>: {
+            <span class="t-prop">city</span>:<span class="t-str">"Mumbai"</span>
         }
     }
 );</code></pre>
         <p>This updates Riya's city from <strong>Delhi</strong> to <strong>Mumbai</strong>.</p>
 
         <h3 id="example-4">Example 4: Delete a Document</h3>
-        <pre><code>db.students.deleteOne({
-    name:"Riya"
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">deleteOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Riya"</span>
 });</code></pre>
         <p>This removes Riya's document from the collection.</p>
 
@@ -269,11 +284,11 @@
 
         <h3>Mistake 1: Forgetting a Filter in Update</h3>
         <p><strong>Wrong</strong></p>
-        <pre><code>db.students.updateMany(
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">updateMany</span>(
     {},
     {
-        $set: {
-            course:"AI"
+        $<span class="t-prop">set</span>: {
+            <span class="t-prop">course</span>:<span class="t-str">"AI"</span>
         }
     }
 );</code></pre>
@@ -285,8 +300,8 @@
 
         <h3>Mistake 2: Using <code>deleteMany()</code> Instead of <code>deleteOne()</code></h3>
         <p><strong>Wrong</strong></p>
-        <pre><code>db.students.deleteMany({
-    name:"Riya"
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">deleteMany</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Riya"</span>
 });</code></pre>
         <p>This deletes every matching document.</p>
         <p><strong>Correct</strong></p>
@@ -296,23 +311,23 @@
 
         <h3>Mistake 3: Forgetting the <code>$set</code> Operator</h3>
         <p><strong>Wrong</strong></p>
-        <pre><code>db.students.updateOne(
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">updateOne</span>(
     {
-        name:"Riya"
+        <span class="t-prop">name</span>:<span class="t-str">"Riya"</span>
     },
     {
-        age:21
+        <span class="t-prop">age</span>:<span class="t-num">21</span>
     }
 );</code></pre>
         <p>This replaces the entire document instead of updating one field.</p>
         <p><strong>Correct</strong></p>
-        <pre><code>db.students.updateOne(
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">updateOne</span>(
     {
-        name:"Riya"
+        <span class="t-prop">name</span>:<span class="t-str">"Riya"</span>
     },
     {
-        $set: {
-            age:21
+        $<span class="t-prop">set</span>: {
+            <span class="t-prop">age</span>:<span class="t-num">21</span>
         }
     }
 );</code></pre>
@@ -323,33 +338,31 @@
         <h2 id="interview-questions">Interview Questions</h2>
 
         <h3>1. What does CRUD stand for?</h3>
-        <p>CRUD stands for <strong>Create, Read, Update, and Delete</strong>.</p>
+        <p><strong>Answer:</strong> CRUD stands for <strong>Create, Read, Update, and Delete</strong>. They represent the four fundamental persistent storage operations in software development and database systems.</p>
 
         <hr>
 
-        <h3>2. Which command is used to insert a document?</h3>
-        <p><code>insertOne()</code> or <code>insertMany()</code>.</p>
+        <h3>2. Which command is used to insert a document in MongoDB?</h3>
+        <p><strong>Answer:</strong> In MongoDB, you use <code>db.collection.insertOne()</code> to insert a single document, or <code>db.collection.insertMany()</code> to insert an array of multiple documents into a collection.</p>
 
         <hr>
 
         <h3>3. What is the difference between <code>find()</code> and <code>findOne()</code>?</h3>
-        <ul>
-            <li><code>find()</code> returns all matching documents.</li>
-            <li><code>findOne()</code> returns only the first matching document.</li>
-        </ul>
+        <p><strong>Answer:</strong>
+        <br>&bull; <code>find()</code> returns a cursor pointing to <strong>all documents</strong> that match the query criteria (or an empty cursor if none match).
+        <br>&bull; <code>findOne()</code> returns the <strong>first single document</strong> that satisfies the query criteria as a plain object (or <code>null</code> if no document matches).</p>
 
         <hr>
 
-        <h3>4. What is the purpose of the <code>$set</code> operator?</h3>
-        <p>The <code>$set</code> operator updates specific fields without replacing the entire document.</p>
+        <h3>4. What is the purpose of the <code>$set</code> operator in MongoDB?</h3>
+        <p><strong>Answer:</strong> The <code>$set</code> operator is an update field operator that replaces the value of a specified field with a new value without affecting or overwriting other fields in the document. Without <code>$set</code>, an update object will replace the entire document content.</p>
 
         <hr>
 
         <h3>5. What is the difference between <code>deleteOne()</code> and <code>deleteMany()</code>?</h3>
-        <ul>
-            <li><code>deleteOne()</code> removes a single document.</li>
-            <li><code>deleteMany()</code> removes all matching documents.</li>
-        </ul>
+        <p><strong>Answer:</strong>
+        <br>&bull; <code>deleteOne()</code> removes at most <strong>one single document</strong> matching the selection criteria, even if multiple documents match.
+        <br>&bull; <code>deleteMany()</code> removes <strong>all documents</strong> that match the specified query filter from the collection.</p>
 
         <hr>
 

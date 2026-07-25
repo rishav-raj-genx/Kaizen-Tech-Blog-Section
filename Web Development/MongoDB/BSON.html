@@ -35,22 +35,9 @@
         #content { max-width: 800px; margin: 0 auto; text-align: left; background: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,.05); margin-top: 32px; margin-bottom: 40px; }
 
         a { color: #1a73e8; }
-        pre {
-            background: #1e1e1e;
-            color: #d4d4d4;
-            padding: 16px;
-            border-radius: 8px;
-            overflow-x: auto;
-        }
-        code {
-            background: #f0f0f0;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-        pre code {
-            background: none;
-            padding: 0;
-        }
+        
+        
+        
         table {
             width: 100%;
             border-collapse: collapse;
@@ -70,6 +57,21 @@
             margin: 20px 0;
         }
         /* (back-btn defined above) */
+    
+        pre { background: #f8fafc; color: #0f1724; padding: 16px 20px; border-radius: 10px; border: 1px solid #e2e8f0; border-left: 4px solid #13AA52; overflow-x: auto; font-family: 'Fira Code', 'Consolas', 'Monaco', monospace; font-size: 0.9rem; line-height: 1.6; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        code { background: #eef2ff; color: #3b5bdb; padding: 2px 6px; border-radius: 4px; font-size: 0.88em; }
+        pre code { background: none; color: inherit; padding: 0; }
+
+        /* Syntax Highlighting Colors for Students */
+        .t-kw { color: #d97706; font-weight: 700; }
+        .t-fn { color: #2563eb; font-weight: 700; }
+        .t-str { color: #059669; font-weight: 500; }
+        .t-num { color: #7c3aed; font-weight: 700; }
+        .t-prop { color: #e11d48; font-weight: 600; }
+        .t-op { color: #0284c7; font-weight: 700; }
+        .t-cm { color: #64748b; font-style: italic; }
+        .t-type { color: #0891b2; font-weight: 700; }
+
     </style>
 </head>
 <body>
@@ -213,10 +215,10 @@
 
         <h2 id="syntax">Syntax</h2>
         <p>When inserting data into MongoDB, you use JSON-like syntax.</p>
-        <pre><code>db.students.insertOne({
-    name:"Rituraj",
-    age:19,
-    course:"B.Tech AI"
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>,
+    <span class="t-prop">age</span>:<span class="t-num">19</span>,
+    <span class="t-prop">course</span>:<span class="t-str">"B.Tech AI"</span>
 });</code></pre>
         <p>Although this looks like JSON, MongoDB converts it into BSON before saving it.</p>
 
@@ -225,24 +227,24 @@
         <h2 id="examples">Examples</h2>
 
         <h3 id="example-1">Example 1: Student Document</h3>
-        <pre><code>db.students.insertOne({
-    name:"Riya",
-    age:20,
-    city:"Delhi"
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Riya"</span>,
+    <span class="t-prop">age</span>:<span class="t-num">20</span>,
+    <span class="t-prop">city</span>:<span class="t-str">"Delhi"</span>
 });</code></pre>
         <p>MongoDB automatically adds an <code>_id</code> field to uniquely identify the document.</p>
 
         <h3 id="example-2">Example 2: Date Field</h3>
-        <pre><code>db.events.insertOne({
-    event:"Hackathon",
-    date: new Date()
+        <pre><code><span class="t-fn">db</span>.events.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">event</span>:<span class="t-str">"Hackathon"</span>,
+    <span class="t-prop">date</span>: <span class="t-kw">new</span> <span class="t-type">Date</span>()
 });</code></pre>
         <p>Here, the <code>date</code> is stored as a BSON <strong>Date</strong> type instead of a normal string.</p>
 
         <h3 id="example-3">Example 3: Array</h3>
-        <pre><code>db.students.insertOne({
-    name:"Aman",
-    skills: ["HTML","CSS","MongoDB"]
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Aman"</span>,
+    <span class="t-prop">skills</span>: [<span class="t-str">"HTML"</span>,<span class="t-str">"CSS"</span>,<span class="t-str">"MongoDB"</span>]
 });</code></pre>
         <p>Arrays are directly supported in BSON.</p>
 
@@ -261,13 +263,29 @@
         <hr>
 
         <h2 id="interview-questions">Interview Questions</h2>
-        <ol>
-            <li>What is BSON?</li>
-            <li>Why does MongoDB use BSON?</li>
-            <li>What is the difference between JSON and BSON?</li>
-            <li>Name some BSON data types.</li>
-            <li>Does MongoDB store JSON or BSON?</li>
-        </ol>
+
+        <h3>1. What is BSON?</h3>
+        <p><strong>Answer:</strong> BSON stands for <strong>Binary JSON</strong>. It is a binary-encoded serialization format used by MongoDB to store documents in collections and transmit data over network sockets.</p>
+
+        <hr>
+
+        <h3>2. Why does MongoDB use BSON?</h3>
+        <p><strong>Answer:</strong> MongoDB uses BSON because it is optimized for high performance: it enables fast parsing, supports rich data types (like <code>ObjectId</code> and <code>Date</code>), and contains length prefixes that allow MongoDB to quickly skip unneeded fields during queries.</p>
+
+        <hr>
+
+        <h3>3. What is the difference between JSON and BSON?</h3>
+        <p><strong>Answer:</strong> JSON is a human-readable text format supporting basic types (String, Number, Boolean, Array, Object), while BSON is a machine-optimized binary format supporting additional types (<code>ObjectId</code>, <code>Date</code>, <code>Decimal128</code>, <code>Binary</code>) built for speed and efficient database operations.</p>
+
+        <hr>
+
+        <h3>4. Name some BSON data types.</h3>
+        <p><strong>Answer:</strong> Common BSON data types include <code>ObjectId</code>, <code>String</code>, <code>Int32</code>, <code>Int64</code>, <code>Double</code>, <code>Decimal128</code>, <code>Boolean</code>, <code>Date</code>, <code>Array</code>, <code>Embedded Document</code>, and <code>Null</code>.</p>
+
+        <hr>
+
+        <h3>5. Does MongoDB store JSON or BSON?</h3>
+        <p><strong>Answer:</strong> MongoDB stores data on disk and in memory as <strong>BSON</strong>. However, it displays documents as JSON in shells, drivers, and UI tools for developer convenience.</p>
 
         <hr>
 

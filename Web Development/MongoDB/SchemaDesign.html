@@ -31,13 +31,28 @@
         .back-btn { display: inline-block; margin: 20px 40px; padding: 8px 16px; background: #3b5bdb; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-family: Arial, sans-serif; }
         .back-btn:hover { background: #2846c7; color: #fff; }
 
-        pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; overflow-x: auto; }
-        code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; }
-        pre code { background: none; padding: 0; }
+        
+        
+        
         table { width: 100%; border-collapse: collapse; margin: 16px 0; }
         th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
         th { background: #f0f0f0; }
         img { max-width: 100%; border-radius: 8px; margin: 20px 0; }
+    
+        pre { background: #f8fafc; color: #0f1724; padding: 16px 20px; border-radius: 10px; border: 1px solid #e2e8f0; border-left: 4px solid #13AA52; overflow-x: auto; font-family: 'Fira Code', 'Consolas', 'Monaco', monospace; font-size: 0.9rem; line-height: 1.6; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        code { background: #eef2ff; color: #3b5bdb; padding: 2px 6px; border-radius: 4px; font-size: 0.88em; }
+        pre code { background: none; color: inherit; padding: 0; }
+
+        /* Syntax Highlighting Colors for Students */
+        .t-kw { color: #d97706; font-weight: 700; }
+        .t-fn { color: #2563eb; font-weight: 700; }
+        .t-str { color: #059669; font-weight: 500; }
+        .t-num { color: #7c3aed; font-weight: 700; }
+        .t-prop { color: #e11d48; font-weight: 600; }
+        .t-op { color: #0284c7; font-weight: 700; }
+        .t-cm { color: #64748b; font-style: italic; }
+        .t-type { color: #0891b2; font-weight: 700; }
+
     </style>
 </head>
 <body>
@@ -204,26 +219,26 @@
         <h2 id="syntax">Syntax</h2>
 
         <h3 id="embedded-document">Embedded Document</h3>
-        <pre><code>db.students.insertOne({
-    name:"Rituraj",
-    age:19,
-    address: {
-        city:"Ghaziabad",
-        state:"Uttar Pradesh"
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>,
+    <span class="t-prop">age</span>:<span class="t-num">19</span>,
+    <span class="t-prop">address</span>: {
+        <span class="t-prop">city</span>:<span class="t-str">"Ghaziabad"</span>,
+        <span class="t-prop">state</span>:<span class="t-str">"Uttar Pradesh"</span>
     }
 });</code></pre>
 
         <h3 id="referenced-document">Referenced Document</h3>
         <p><strong>Students Collection</strong></p>
-        <pre><code>db.students.insertOne({
-    name:"Rituraj",
-    courseId:ObjectId("64abc123...")
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>,
+    <span class="t-prop">courseId</span>:<span class="t-type">ObjectId</span>(<span class="t-str">"64abc123..."</span>)
 });</code></pre>
 
         <p><strong>Courses Collection</strong></p>
-        <pre><code>db.courses.insertOne({
-    _id:ObjectId("64abc123..."),
-    course:"B.Tech AI"
+        <pre><code><span class="t-fn">db</span>.courses.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">_id</span>:<span class="t-type">ObjectId</span>(<span class="t-str">"64abc123..."</span>),
+    <span class="t-prop">course</span>:<span class="t-str">"B.Tech AI"</span>
 });</code></pre>
 
         <hr>
@@ -232,33 +247,33 @@
         <h2 id="examples">Examples</h2>
 
         <h3 id="example-1">Example 1: Embedded Schema</h3>
-        <pre><code>db.students.insertOne({
-    name:"Riya",
-    age:20,
-    address: {
-        city:"Delhi",
-        pincode:110001
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Riya"</span>,
+    <span class="t-prop">age</span>:<span class="t-num">20</span>,
+    <span class="t-prop">address</span>: {
+        <span class="t-prop">city</span>:<span class="t-str">"Delhi"</span>,
+        <span class="t-prop">pincode</span>:<span class="t-num">110001</span>
     }
 });</code></pre>
         <p>The address is stored inside the student document because it belongs only to that student.</p>
 
         <h3 id="example-2">Example 2: Referenced Schema</h3>
-        <pre><code>db.students.insertOne({
-    name:"Aman",
-    departmentId:ObjectId("507f191e810c19729de860ea")
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Aman"</span>,
+    <span class="t-prop">departmentId</span>:<span class="t-type">ObjectId</span>(<span class="t-str">"507f191e810c19729de860ea"</span>)
 });</code></pre>
-        <pre><code>db.departments.insertOne({
-    _id:ObjectId("507f191e810c19729de860ea"),
-    department:"Computer Science"
+        <pre><code><span class="t-fn">db</span>.departments.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">_id</span>:<span class="t-type">ObjectId</span>(<span class="t-str">"507f191e810c19729de860ea"</span>),
+    <span class="t-prop">department</span>:<span class="t-str">"Computer Science"</span>
 });</code></pre>
         <p>Here, multiple students can reference the same department.</p>
 
         <h3 id="example-3">Example 3: Array of Embedded Documents</h3>
-        <pre><code>db.students.insertOne({
-    name:"Rituraj",
-    skills: [
-        { name:"HTML", level:"Advanced" },
-        { name:"MongoDB", level:"Intermediate" }
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>,
+    <span class="t-prop">skills</span>: [
+        { <span class="t-prop">name</span>:<span class="t-str">"HTML"</span>, <span class="t-prop">level</span>:<span class="t-str">"Advanced"</span> },
+        { <span class="t-prop">name</span>:<span class="t-str">"MongoDB"</span>, <span class="t-prop">level</span>:<span class="t-str">"Intermediate"</span> }
     ]
 });</code></pre>
         <p>Arrays help store related information together.</p>
@@ -295,31 +310,30 @@
         <!-- Interview Questions -->
         <h2 id="interview-questions">Interview Questions</h2>
 
-        <h3>1. What is Schema Design?</h3>
-        <p>Schema Design is the process of organizing data in MongoDB for better performance and scalability.</p>
+        <h3>1. What is Schema Design in MongoDB?</h3>
+        <p><strong>Answer:</strong> Schema Design is the process of planning and deciding how data should be structured, organized, embedded, or referenced in MongoDB collections to optimize read/write performance, maintainability, and application scalability.</p>
 
         <hr>
 
         <h3>2. Does MongoDB require a fixed schema?</h3>
-        <p>No. MongoDB is schema-flexible, but good schema design is still recommended.</p>
+        <p><strong>Answer:</strong> No. MongoDB is schema-flexible (dynamic schema), meaning documents in the same collection can have different fields or structures. However, designing a thoughtful schema is still essential for query performance and data integrity.</p>
 
         <hr>
 
         <h3>3. What are the two main schema design approaches?</h3>
-        <ul>
-            <li>Embedded Documents</li>
-            <li>Referenced Documents</li>
-        </ul>
+        <p><strong>Answer:</strong> The two primary approaches are:
+        <br>1. <strong>Embedded Documents (Denormalized Model):</strong> Storing related data within a single document.
+        <br>2. <strong>Referenced Documents (Normalized Model):</strong> Storing related data across separate collections and linking them using references (e.g. <code>ObjectId</code>).</p>
 
         <hr>
 
-        <h3>4. When should you use embedding?</h3>
-        <p>When related data is frequently accessed together and does not grow too large.</p>
+        <h3>4. When should you use embedding in Schema Design?</h3>
+        <p><strong>Answer:</strong> Use embedding when related data is small, has a 1-to-1 or 1-to-few relationship, is frequently retrieved together in queries, and will not cause documents to exceed the 16MB limit.</p>
 
         <hr>
 
-        <h3>5. When should you use referencing?</h3>
-        <p>When data is shared across multiple documents or grows independently.</p>
+        <h3>5. When should you use referencing in Schema Design?</h3>
+        <p><strong>Answer:</strong> Use referencing when related data has a 1-to-Many or Many-to-Many relationship, grows independently or infinitely (unbounded data), or is shared and updated frequently across multiple documents.</p>
 
         <hr>
 
