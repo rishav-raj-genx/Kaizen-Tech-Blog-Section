@@ -1,0 +1,2629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Git & GitHub | Kaizen Tech Knowledge Hub</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+
+background:#f8fafc;
+color:#1e293b;
+
+}
+
+header{
+
+position:sticky;
+top:0;
+background:white;
+border-bottom:1px solid #e5e7eb;
+z-index:1000;
+
+}
+
+.nav{
+
+max-width:1200px;
+margin:auto;
+padding:18px 30px;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+}
+
+.brand{
+
+display:flex;
+align-items:center;
+gap:12px;
+
+}
+
+.brand img{
+
+width:42px;
+
+}
+
+.brand h2{
+
+font-size:24px;
+color:#2563eb;
+font-weight:700;
+
+}
+
+.hero{
+
+max-width:1200px;
+
+margin:auto;
+
+padding:70px 30px 40px;
+
+}
+
+.badge{
+
+display:inline-block;
+
+background:#dbeafe;
+
+color:#2563eb;
+
+padding:8px 16px;
+
+border-radius:30px;
+
+font-size:14px;
+
+font-weight:600;
+
+margin-bottom:25px;
+
+}
+
+.hero h1{
+
+font-size:60px;
+
+font-weight:800;
+
+margin-bottom:20px;
+
+}
+
+.hero p{
+
+font-size:20px;
+
+color:#475569;
+
+max-width:760px;
+
+line-height:1.8;
+
+margin-bottom:35px;
+
+}
+
+.details{
+
+display:flex;
+
+gap:15px;
+
+flex-wrap:wrap;
+
+}
+
+.details div{
+
+background:white;
+
+padding:14px 22px;
+
+border:1px solid #e2e8f0;
+
+border-radius:12px;
+
+font-size:15px;
+
+font-weight:500;
+
+}
+
+.line{
+
+height:1px;
+
+background:#e5e7eb;
+
+margin-top:50px;
+
+}
+
+@media(max-width:768px){
+
+.hero h1{
+
+font-size:40px;
+
+}
+
+.hero{
+
+padding:40px 20px;
+
+}
+
+.nav{
+
+padding:15px 20px;
+
+}
+
+.brand h2{
+
+font-size:20px;
+
+}
+}
+
+/* ===============================
+   TABLE OF CONTENTS
+================================= */
+
+.toc{
+    max-width:1200px;
+    margin:70px auto;
+    padding:0 30px;
+}
+
+.toc h2{
+    font-size:36px;
+    color:#0f172a;
+    margin-bottom:30px;
+    font-weight:700;
+}
+
+.toc-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(300px,1fr));
+    gap:20px;
+}
+
+.toc-grid a{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:22px;
+    background:#ffffff;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    text-decoration:none;
+    transition:all .3s ease;
+}
+
+.toc-grid a:hover{
+    transform:translateY(-4px);
+    border-color:#2563eb;
+    box-shadow:0 12px 25px rgba(37,99,235,.12);
+}
+
+.toc-grid span{
+    width:48px;
+    height:48px;
+    min-width:48px;
+    border-radius:50%;
+    background:#2563eb;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.toc-grid h3{
+    color:#0f172a;
+    font-size:20px;
+    margin:0 0 6px;
+}
+
+.toc-grid p{
+    color:#64748b;
+    font-size:15px;
+    margin:0;
+    line-height:1.5;
+}
+
+/* ===============================
+   ARTICLE
+================================= */
+
+.article{
+    max-width:1200px;
+    margin:80px auto;
+    padding:0 30px;
+}
+
+.article h2{
+    font-size:40px;
+    color:#0f172a;
+    margin-bottom:20px;
+}
+
+.article h3{
+    font-size:28px;
+    color:#0f172a;
+    margin:40px 0 15px;
+}
+
+.article p{
+    font-size:18px;
+    line-height:1.9;
+    color:#475569;
+    margin-bottom:18px;
+}
+
+.article ul{
+    padding-left:24px;
+}
+
+.article li{
+    font-size:18px;
+    color:#475569;
+    margin-bottom:12px;
+}
+
+.note{
+    margin:35px 0;
+    padding:20px;
+    border-left:5px solid #2563eb;
+    background:#eff6ff;
+    border-radius:10px;
+}
+
+.note strong{
+    display:block;
+    color:#2563eb;
+    margin-bottom:10px;
+    font-size:18px;
+}
+/* ===============================
+   TABLES
+================================= */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin:30px 0;
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+}
+
+table th{
+    background:#2563eb;
+    color:#fff;
+    padding:16px;
+    text-align:left;
+    font-size:17px;
+}
+
+table td{
+    padding:16px;
+    border-bottom:1px solid #e2e8f0;
+    color:#475569;
+    font-size:17px;
+}
+
+table tr:last-child td{
+    border-bottom:none;
+}
+
+table tr:hover{
+    background:#f8fafc;
+}
+
+
+/* ===============================
+   CODE BLOCKS
+================================= */
+
+pre{
+    background:#0f172a;
+    color:#e2e8f0;
+    padding:22px;
+    border-radius:12px;
+    overflow-x:auto;
+    margin:30px 0;
+    line-height:1.7;
+    font-size:15px;
+}
+
+code{
+    font-family:Consolas, Monaco, monospace;
+}
+
+
+/* ===============================
+   INLINE CODE
+================================= */
+
+p code,
+td code,
+li code{
+    background:#dbeafe;
+    color:#1d4ed8;
+    padding:3px 8px;
+    border-radius:6px;
+    font-size:15px;
+}
+
+
+/* ===============================
+   SECTION SPACING
+================================= */
+
+.article section{
+    margin-bottom:60px;
+}
+
+
+/* ===============================
+   HORIZONTAL LINE
+================================= */
+
+.article hr{
+    margin:60px 0;
+    border:none;
+    border-top:1px solid #e2e8f0;
+}
+
+@media (max-width:768px){
+
+    .toc-grid{
+        grid-template-columns:1fr;
+    }
+
+    .toc h2{
+        font-size:30px;
+    }
+
+    .article h2{
+        font-size:32px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="nav">
+
+<div class="brand">
+
+<img src="kaizen-logo.png">
+
+<h2>Kaizen Tech</h2>
+
+</div>
+
+</div>
+
+</header>
+
+<section class="hero">
+
+<div class="badge">
+
+Kaizen Tech Knowledge Hub
+
+</div>
+
+<h1>
+
+Git & GitHub
+
+</h1>
+
+<p>
+
+A complete beginner-friendly guide to Git and GitHub. Learn version control, repositories, branching, merging, pull requests, GitHub workflow, and industry best practices with practical examples.
+
+</p>
+
+<div class="details">
+
+<div>Difficulty : Beginner</div>
+
+<div>Reading Time : 20 min</div>
+
+<div>Last Updated : July 2026</div>
+
+</div>
+
+<div class="line"></div>
+
+</section>
+
+<!-- ================= TABLE OF CONTENTS ================= -->
+
+<section id="table-of-contents" class="toc">
+
+    <h2>Table of Contents</h2>
+
+    <div class="toc-grid">
+
+        <a href="#introduction">
+            <span>01</span>
+            <div>
+                <h3>Introduction</h3>
+                <p>Overview of Version Control</p>
+            </div>
+        </a>
+
+        <a href="#git-basics">
+            <span>02</span>
+            <div>
+                <h3>Git Basics</h3>
+                <p>Repository, Commit & Staging</p>
+            </div>
+        </a>
+
+        <a href="#branches">
+            <span>03</span>
+            <div>
+                <h3>Branches</h3>
+                <p>Create & Manage Branches</p>
+            </div>
+        </a>
+
+        <a href="#merge">
+            <span>04</span>
+            <div>
+                <h3>Merge</h3>
+                <p>Combine Different Branches</p>
+            </div>
+        </a>
+
+        <a href="#pullrequest">
+            <span>05</span>
+            <div>
+                <h3>Pull Requests</h3>
+                <p>Collaborate with Team</p>
+            </div>
+        </a>
+
+        <a href="#workflow">
+            <span>06</span>
+            <div>
+                <h3>GitHub Workflow</h3>
+                <p>Complete Development Flow</p>
+            </div>
+        </a>
+
+        <a href="#fork">
+            <span>07</span>
+            <div>
+                <h3>Fork</h3>
+                <p>Create Repository Copy</p>
+            </div>
+        </a>
+
+        <a href="#clone">
+            <span>08</span>
+            <div>
+                <h3>Clone</h3>
+                <p>Download Repository</p>
+            </div>
+        </a>
+
+        <a href="#gitignore">
+            <span>09</span>
+            <div>
+                <h3>.gitignore</h3>
+                <p>Ignore Unwanted Files</p>
+            </div>
+        </a>
+
+        <a href="#conflicts">
+            <span>10</span>
+            <div>
+                <h3>Merge Conflicts</h3>
+                <p>Resolve Code Conflicts</p>
+            </div>
+        </a>
+
+        <a href="#best-practices">
+            <span>11</span>
+            <div>
+                <h3>Best Practices</h3>
+                <p>Professional Git Usage</p>
+            </div>
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ================= INTRODUCTION ================= -->
+
+<section id="introduction" class="article">
+
+<h2>Introduction</h2>
+
+<p>
+
+Version Control is a system that records changes made to files over time. It allows developers to track modifications, restore previous versions, and collaborate efficiently on software projects. Without version control, managing changes becomes difficult, especially when multiple developers work on the same project.
+
+</p>
+
+<p>
+
+Git is a distributed Version Control System (VCS) developed by Linus Torvalds in 2005. It enables developers to work independently, maintain project history, and merge changes safely. Git is lightweight, fast, and one of the most widely used version control systems in the software industry.
+
+</p>
+
+<div class="note">
+
+<strong>Note</strong>
+
+<p>
+
+Git is the Version Control System, while GitHub is a cloud platform used to host Git repositories and collaborate with other developers.
+
+</p>
+
+</div>
+
+<h3>Why Version Control?</h3>
+
+<ul>
+
+<li>Tracks every change made in a project.</li>
+
+<li>Allows multiple developers to work together.</li>
+
+<li>Provides complete project history.</li>
+
+<li>Enables rollback to previous versions.</li>
+
+<li>Reduces chances of losing important work.</li>
+
+</ul>
+
+</section>
+<!-- ================= GIT BASICS ================= -->
+
+<section id="git-basics" class="article">
+
+<h2>Git Basics</h2>
+
+<p>
+
+Git is a distributed Version Control System (VCS) that helps developers track changes in source code during software development. It records every modification made to a project, allowing developers to review previous versions, restore deleted files, and collaborate efficiently with teams. Unlike traditional version control systems, Git stores the complete project history on every developer's machine, making it fast, reliable, and capable of working even without an internet connection.
+
+</p>
+
+<p>
+
+Whether you are working on a personal project or contributing to a large enterprise application, Git provides a structured workflow that helps maintain code quality and prevents accidental data loss. Today, Git has become the industry standard for software development and is widely used by companies and open-source communities around the world.
+
+</p>
+
+<h3>Key Features of Git</h3>
+
+<ul>
+
+<li>Distributed Version Control System.</li>
+
+<li>Stores complete project history.</li>
+
+<li>Works both online and offline.</li>
+
+<li>Fast and lightweight.</li>
+
+<li>Supports collaboration among multiple developers.</li>
+
+<li>Open-source and completely free.</li>
+
+<li>Provides branching and merging capabilities.</li>
+
+</ul>
+
+<div class="note">
+
+<strong>Did You Know?</strong>
+
+<p>
+
+Git was created by <strong>Linus Torvalds</strong> in 2005 to manage the development of the Linux kernel. Today, millions of developers use Git for software development.
+
+</p>
+
+</div>
+
+<h3>Installing Git</h3>
+
+<p>
+
+Before using Git, it must be installed on your operating system. Git is available for Windows, macOS, and Linux.
+
+</p>
+
+<table>
+
+<tr>
+
+<th>Operating System</th>
+
+<th>Installation Method</th>
+
+</tr>
+
+<tr>
+
+<td>Windows</td>
+
+<td>Download and install Git from the official installer.</td>
+
+</tr>
+
+<tr>
+
+<td>macOS</td>
+
+<td>Install using Homebrew or Xcode Command Line Tools.</td>
+
+</tr>
+
+<tr>
+
+<td>Linux</td>
+
+<td>Install using the package manager (APT, DNF, or YUM).</td>
+
+</tr>
+
+</table>
+
+<p>
+
+After installation, verify that Git is correctly installed by running the following command in the terminal.
+
+</p>
+
+<pre><code>git --version</code></pre>
+
+<p>
+
+If Git is installed successfully, the terminal will display the installed Git version.
+
+</p>
+
+<h3>Local Repository vs Remote Repository</h3>
+
+<p>
+
+A repository is a storage location where Git keeps all files, folders, commits, and project history.
+
+</p>
+
+<table>
+
+<tr>
+
+<th>Local Repository</th>
+
+<th>Remote Repository</th>
+
+</tr>
+
+<tr>
+
+<td>Stored on your computer.</td>
+
+<td>Stored on platforms like GitHub.</td>
+
+</tr>
+
+<tr>
+
+<td>Works offline.</td>
+
+<td>Requires internet for synchronization.</td>
+
+</tr>
+
+<tr>
+
+<td>Used for development.</td>
+
+<td>Used for collaboration and backup.</td>
+
+</tr>
+
+<tr>
+
+<td>Private to your system.</td>
+
+<td>Can be shared with team members.</td>
+
+</tr>
+
+</table>
+
+<h3>Basic Git Workflow</h3>
+
+<p>
+
+Git follows a simple workflow that allows developers to manage changes efficiently.
+
+</p>
+
+<pre><code>
+Working Directory
+        │
+        ▼
+   Staging Area
+        │
+        ▼
+ Local Repository
+        │
+        ▼
+ GitHub Repository
+</code></pre>
+
+<h3>Frequently Used Git Commands</h3>
+
+<table>
+
+<tr>
+
+<th>Command</th>
+
+<th>Description</th>
+
+</tr>
+
+<tr>
+
+<td><code>git init</code></td>
+
+<td>Creates a new Git repository.</td>
+
+</tr>
+
+<tr>
+
+<td><code>git status</code></td>
+
+<td>Shows the current repository status.</td>
+
+</tr>
+
+<tr>
+
+<td><code>git add .</code></td>
+
+<td>Stages all modified files.</td>
+
+</tr>
+
+<tr>
+
+<td><code>git commit -m "message"</code></td>
+
+<td>Saves staged changes permanently.</td>
+
+</tr>
+
+<tr>
+
+<td><code>git log</code></td>
+
+<td>Displays commit history.</td>
+
+</tr>
+
+</table>
+
+<h3>Practical Example</h3>
+
+<p>
+
+The following example demonstrates how to create a new Git repository and make the first commit.
+
+</p>
+
+<pre><code>mkdir GitDemo
+cd GitDemo
+git init
+touch index.html
+git add .
+git commit -m "Initial Commit"</code></pre>
+
+<p>
+
+In this example, a new project folder is created, Git is initialized, an HTML file is added, the changes are staged, and the first commit is created.
+
+</p>
+
+<div class="note">
+
+<strong>Beginner Tip</strong>
+
+<p>
+
+Always execute <code>git status</code> before creating a commit. It helps verify which files are staged, modified, or untracked.
+
+</p>
+
+</div>
+
+<h3>Common Mistakes Beginners Make</h3>
+
+<ul>
+
+<li>Forgetting to stage files using <code>git add</code>.</li>
+
+<li>Writing unclear commit messages.</li>
+
+<li>Initializing Git in the wrong folder.</li>
+
+<li>Making unnecessary commits for very small changes.</li>
+
+<li>Ignoring the output of <code>git status</code>.</li>
+
+</ul>
+
+<h3>Quick Summary</h3>
+
+<p>
+
+Git is the foundation of modern software development. Understanding repositories, commits, staging, and the basic workflow makes it easier to collaborate with other developers and maintain high-quality projects. Mastering these concepts will prepare you for advanced topics such as branching, merging, and GitHub collaboration.
+
+</p>
+
+<!-- ================= BRANCHES ================= -->
+
+<section id="branches" class="article">
+
+<h2>Branches</h2>
+
+<p>
+
+A branch in Git is an independent line of development that allows developers to work on new features, bug fixes, or experiments without affecting the main project. Branches make collaboration easier because multiple developers can work on different tasks simultaneously without interfering with each other's code.
+
+</p>
+
+<p>
+
+The default branch in most repositories is called <strong>main</strong> (older repositories may use <strong>master</strong>). Developers usually create a new branch for every feature or bug fix and merge it back into the main branch after testing.
+
+</p>
+
+<div class="note">
+
+<strong>Why Use Branches?</strong>
+
+<p>
+
+Branches keep the main project stable while allowing developers to build and test new features independently.
+
+</p>
+
+</div>
+
+<h3>Benefits of Using Branches</h3>
+
+<ul>
+
+<li>Develop multiple features simultaneously.</li>
+
+<li>Fix bugs without affecting production code.</li>
+
+<li>Test experimental ideas safely.</li>
+
+<li>Simplifies collaboration in teams.</li>
+
+<li>Makes code review easier before merging.</li>
+
+</ul>
+
+<h3>Branch Workflow</h3>
+
+<pre><code>
+          main
+            │
+            │
+      ──────●──────
+            │
+      ┌─────┴─────┐
+      │           │
+ Feature-A   Feature-B
+      │           │
+      ●           ●
+      │           │
+      └─────┬─────┘
+            │
+          Merge
+            │
+            ▼
+           main
+</code></pre>
+
+<h3>Common Git Branch Commands</h3>
+
+<table>
+
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td><code>git branch</code></td>
+<td>Displays all local branches.</td>
+</tr>
+
+<tr>
+<td><code>git branch feature-login</code></td>
+<td>Creates a new branch.</td>
+</tr>
+
+<tr>
+<td><code>git switch feature-login</code></td>
+<td>Switches to another branch.</td>
+</tr>
+
+<tr>
+<td><code>git switch -c feature-login</code></td>
+<td>Creates and switches to a new branch.</td>
+</tr>
+
+<tr>
+<td><code>git branch -d feature-login</code></td>
+<td>Deletes a branch after it has been merged.</td>
+</tr>
+
+</table>
+
+<h3>Practical Example</h3>
+
+<pre><code>git branch feature-login
+
+git switch feature-login
+
+git status
+
+git add .
+
+git commit -m "Added Login Page"</code></pre>
+
+<p>
+
+In this example, a new branch named <strong>feature-login</strong> is created. The developer switches to that branch, makes changes, stages the files, and creates a commit. This keeps the new feature isolated from the main branch until it is ready.
+
+</p>
+
+<div class="note">
+
+<strong>Best Practice</strong>
+
+<p>
+
+Create a separate branch for every new feature or bug fix. Avoid making direct commits to the <code>main</code> branch unless absolutely necessary.
+
+</p>
+
+</div>
+
+<h3>Common Mistakes</h3>
+
+<ul>
+
+<li>Working directly on the main branch.</li>
+
+<li>Using unclear branch names.</li>
+
+<li>Creating too many unused branches.</li>
+
+<li>Forgetting to switch to the correct branch before making changes.</li>
+
+<li>Deleting a branch before its work has been merged.</li>
+
+</ul>
+
+<h3>Interview Questions</h3>
+
+<p><strong>Q1. What is a Git branch?</strong></p>
+
+<p>
+
+A Git branch is an independent line of development that allows developers to work on features or fixes without affecting the main project.
+
+</p>
+
+<p><strong>Q2. Why are branches important?</strong></p>
+
+<p>
+
+Branches improve collaboration, isolate development work, reduce conflicts, and help maintain a stable main branch.
+
+</p>
+
+<h3>Quick Summary</h3>
+
+<p>
+
+Branches are one of Git's most powerful features. They allow developers to develop features independently, collaborate efficiently, and safely merge completed work back into the main branch.
+
+</p>
+<!-- ================= MERGE ================= -->
+
+<section id="merge" class="article">
+
+<h2>Merge</h2>
+
+<p>
+
+Git Merge is a feature that combines changes from one branch into another. After developers complete their work on a feature branch, the branch is merged into the main branch so that the new code becomes part of the project. Merging preserves the complete history of development while integrating new features safely.
+
+</p>
+
+<p>
+
+Git provides different merge strategies depending on the project history. The two most common merge strategies are Fast-Forward Merge and Three-Way Merge. Understanding these strategies helps developers maintain a clean and organized project history.
+
+</p>
+
+<div class="note">
+
+<strong>Important</strong>
+
+<p>
+
+Always review your code and ensure the feature branch is tested before merging it into the main branch.
+
+</p>
+
+</div>
+
+<h3>Why Do We Use Merge?</h3>
+
+<ul>
+
+<li>Combines completed features into the main branch.</li>
+
+<li>Allows multiple developers to work independently.</li>
+
+<li>Maintains complete project history.</li>
+
+<li>Helps integrate bug fixes safely.</li>
+
+<li>Supports collaborative software development.</li>
+
+</ul>
+
+
+
+</table> -->
+<h3>Types of Merge</h3>
+
+<table>
+
+<tr>
+<th>Feature</th>
+<th>Fast-Forward Merge</th>
+<th>Three-Way Merge</th>
+</tr>
+
+<tr>
+<td>Definition</td>
+<td>Moves the branch pointer forward without creating a new merge commit.</td>
+<td>Creates a new merge commit to combine changes from both branches.</td>
+</tr>
+
+<tr>
+<td>Merge Commit</td>
+<td>No</td>
+<td> Yes</td>
+</tr>
+
+<tr>
+<td>Branch History</td>
+<td>Linear history.</td>
+<td>Preserves the history of both branches.</td>
+</tr>
+
+<tr>
+<td>When Used</td>
+<td>When the target branch has no new commits.</td>
+<td>When both branches contain independent commits.</td>
+</tr>
+
+<tr>
+<td>Complexity</td>
+<td>Simple and straightforward.</td>
+<td>Slightly more complex but preserves complete history.</td>
+</tr>
+
+</table>
+
+<div class="note">
+
+<strong>Quick Tip</strong>
+
+<p>
+
+Use a <strong>Fast-Forward Merge</strong> whenever possible for a clean, linear history. Use a <strong>Three-Way Merge</strong> when both branches have new commits and you want to preserve the complete development history.
+
+</p>
+
+</div>
+<h3>Practical Example</h3>
+
+<pre><code>git switch main
+
+git merge feature-login
+
+git push origin main
+</code></pre>
+
+<p>
+
+In this example, the developer switches to the <strong>main</strong> branch, merges the <strong>feature-login</strong> branch, and then uploads the updated repository to GitHub.
+
+</p>
+
+<div class="note">
+
+<strong>Best Practice</strong>
+
+<p>
+
+Pull the latest changes from the remote repository before performing a merge. This reduces the chances of merge conflicts.
+
+</p>
+
+</div>
+
+<h3>Common Mistakes</h3>
+
+<ul>
+
+<li>Merging an untested branch.</li>
+
+<li>Ignoring merge conflicts.</li>
+
+<li>Deleting a branch before verifying the merge.</li>
+
+<li>Merging outdated branches without pulling recent changes.</li>
+
+<li>Working directly on the main branch instead of using feature branches.</li>
+
+</ul>
+
+<h3>Interview Questions</h3>
+
+<p><strong>Q1. What is Git Merge?</strong></p>
+
+<p>
+
+Git Merge is the process of combining changes from one branch into another while preserving project history.
+
+</p>
+
+<p><strong>Q2. What is the difference between Fast-Forward Merge and Three-Way Merge?</strong></p>
+
+<p>
+
+<p>
+
+A <strong>Fast-Forward Merge</strong> moves the branch pointer forward without creating a new merge commit because there are no separate changes between the branches. In contrast, a <strong>Three-Way Merge</strong> creates a new merge commit when both branches have independent changes, preserving the complete history of the project.
+
+</p>
+</section>
+</section>
+
+<!-- ================= PULL REQUESTS ================= -->
+
+<section id="pullrequest" class="article">
+
+<h2>Pull Requests</h2>
+
+<p>
+
+A Pull Request (PR) is one of GitHub's most important collaboration features. It allows developers to propose changes made in one branch and request that they be reviewed before being merged into another branch. Pull Requests improve code quality by enabling discussions, code reviews, and automated testing before changes become part of the main project.
+
+</p>
+
+<p>
+
+In professional software development, developers rarely merge code directly into the <strong>main</strong> branch. Instead, they create a Pull Request so that teammates can review the code, suggest improvements, and approve the changes.
+
+</p>
+
+<div class="note">
+
+<strong>Important</strong>
+
+<p>
+
+A Pull Request does not immediately merge your code. It first allows reviewers to examine your work and provide feedback before approval.
+
+</p>
+
+</div>
+
+<h3>Why Use Pull Requests?</h3>
+
+<ul>
+
+<li>Improves code quality through peer review.</li>
+
+<li>Encourages team collaboration.</li>
+
+<li>Helps detect bugs before merging.</li>
+
+<li>Maintains a clean and stable main branch.</li>
+
+<li>Provides a complete discussion history for every change.</li>
+
+</ul>
+
+<h3>Pull Request Workflow</h3>
+
+<div class="flow-diagram">
+
+<div class="flow-card">Fork Repository</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Create Feature Branch</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Commit Changes</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Push to GitHub</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Open Pull Request</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Code Review</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Merge</div>
+
+</div>
+
+<h3>How to Create a Pull Request</h3>
+
+<ol>
+
+<li>Push your feature branch to GitHub.</li>
+
+<li>Open the repository on GitHub.</li>
+
+<li>Click <strong>Compare & Pull Request</strong>.</li>
+
+<li>Add a clear title and description.</li>
+
+<li>Request reviewers if required.</li>
+
+<li>Submit the Pull Request.</li>
+
+<li>After approval, merge the Pull Request.</li>
+
+</ol>
+
+<h3>Example Workflow</h3>
+
+<pre><code>git switch feature-login
+
+git add .
+
+git commit -m "Added Login Feature"
+
+git push origin feature-login
+</code></pre>
+
+<p>
+
+After pushing the branch, open GitHub and create a Pull Request to merge <strong>feature-login</strong> into the <strong>main</strong> branch.
+
+</p>
+
+<h3>Benefits of Pull Requests</h3>
+
+<table>
+
+<tr>
+<th>Benefit</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>Code Review</td>
+<td>Allows teammates to review changes before merging.</td>
+</tr>
+
+<tr>
+<td>Collaboration</td>
+<td>Encourages discussion and feedback.</td>
+</tr>
+
+<tr>
+<td>Quality</td>
+<td>Reduces bugs and improves maintainability.</td>
+</tr>
+
+<tr>
+<td>Documentation</td>
+<td>Keeps a history of every proposed change.</td>
+</tr>
+
+</table>
+
+<div class="note">
+
+<strong>Best Practice</strong>
+
+<p>
+
+Keep Pull Requests small and focused on a single feature or bug fix. Small Pull Requests are easier to review and less likely to introduce errors.
+
+</p>
+
+</div>
+
+<h3>Common Mistakes</h3>
+
+<ul>
+
+<li>Creating very large Pull Requests.</li>
+
+<li>Writing unclear Pull Request titles.</li>
+
+<li>Merging without reviewing the code.</li>
+
+<li>Ignoring reviewer comments.</li>
+
+<li>Opening a Pull Request from the wrong branch.</li>
+
+</ul>
+
+<h3>Interview Questions</h3>
+
+<p><strong>Q1. What is a Pull Request?</strong></p>
+
+<p>
+
+A Pull Request is a request to merge changes from one branch into another after code review and approval.
+
+</p>
+
+<p><strong>Q2. Why are Pull Requests important?</strong></p>
+
+<p>
+
+They improve collaboration, ensure code quality, encourage peer review, and help maintain a stable codebase.
+
+</p>
+
+<h3>Quick Summary</h3>
+
+<p>
+
+Pull Requests are an essential part of modern software development. They provide a structured way to review, discuss, and safely merge code changes while maintaining high-quality software projects.
+
+</p>
+
+</section>
+<!-- ================= GITHUB WORKFLOW ================= -->
+
+<section id="workflow" class="article">
+
+<h2>GitHub Workflow</h2>
+
+<p>
+
+The GitHub Workflow is a standard development process followed by developers and software teams to build features, fix bugs, and collaborate efficiently. Instead of working directly on the main branch, developers create feature branches, make changes, review code through Pull Requests, and finally merge approved changes into the main branch.
+
+</p>
+
+<p>
+
+Following a structured workflow keeps the repository organized, minimizes merge conflicts, and ensures that every change is reviewed before becoming part of the project.
+
+</p>
+
+<div class="note">
+
+<strong>Industry Standard Workflow</strong>
+
+<p>
+
+Almost every modern software company follows a GitHub workflow because it improves collaboration, maintains code quality, and keeps the project stable.
+
+</p>
+
+</div>
+
+<h3>GitHub Development Workflow</h3>
+
+<div class="flow-diagram">
+
+<div class="flow-card">Fork Repository</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Clone Repository</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Create Feature Branch</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Write Code</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Commit Changes</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Push Changes</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Open Pull Request</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Review & Merge</div>
+
+</div>
+
+<h3>Step-by-Step Workflow</h3>
+
+<ol>
+
+<li><strong>Fork</strong> the repository to create your own copy.</li>
+
+<li><strong>Clone</strong> the forked repository to your local computer.</li>
+
+<li>Create a new <strong>feature branch</strong>.</li>
+
+<li>Write or modify the code.</li>
+
+<li>Stage and commit your changes.</li>
+
+<li>Push the feature branch to GitHub.</li>
+
+<li>Create a Pull Request.</li>
+
+<li>After review and approval, merge the Pull Request.</li>
+
+</ol>
+
+<h3>Example Commands</h3>
+
+<pre><code>git clone https://github.com/username/project.git
+
+cd project
+
+git switch -c feature-login
+
+git add .
+
+git commit -m "Added login page"
+
+git push origin feature-login
+</code></pre>
+
+<p>
+
+After pushing your branch to GitHub, open the repository in your browser and create a Pull Request to merge your feature branch into the main branch.
+
+</p>
+
+<h3>Workflow Benefits</h3>
+
+<table>
+
+<tr>
+<th>Benefit</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>Collaboration</td>
+<td>Multiple developers can work on different features simultaneously.</td>
+</tr>
+
+<tr>
+<td>Code Quality</td>
+<td>Every change is reviewed before merging.</td>
+</tr>
+
+<tr>
+<td>Version History</td>
+<td>Maintains a complete record of project changes.</td>
+</tr>
+
+<tr>
+<td>Reduced Risk</td>
+<td>Prevents unstable code from reaching the main branch.</td>
+</tr>
+
+</table>
+
+<div class="note">
+
+<strong>Best Practice</strong>
+
+<p>
+
+Use meaningful commit messages, create one branch for each feature, and always update your branch with the latest changes before opening a Pull Request.
+
+</p>
+
+</div>
+
+<h3>Common Mistakes</h3>
+
+<ul>
+
+<li>Working directly on the main branch.</li>
+
+<li>Creating very large Pull Requests.</li>
+
+<li>Not pulling the latest changes before starting work.</li>
+
+<li>Using unclear commit messages.</li>
+
+<li>Ignoring code review comments.</li>
+
+</ul>
+
+<h3>Interview Questions</h3>
+
+<p><strong>Q1. Why is the GitHub Workflow important?</strong></p>
+
+<p>
+
+It provides a structured approach to software development, improves collaboration, reduces conflicts, and ensures that every code change is reviewed before being merged.
+
+</p>
+
+<p><strong>Q2. Why should developers use feature branches?</strong></p>
+
+<p>
+
+Feature branches isolate development work, allowing developers to build and test new features without affecting the stability of the main branch.
+
+</p>
+
+<h3>Quick Summary</h3>
+
+<p>
+
+The GitHub Workflow provides a reliable and organized method for software development. By following the workflow of Fork → Clone → Branch → Commit → Push → Pull Request → Merge, developers can collaborate effectively while maintaining a clean and stable codebase.
+
+</p>
+
+</section>
+<!-- ================= FORK ================= -->
+
+<section id="fork" class="article">
+
+<h2>Fork</h2>
+
+<p>
+
+A <strong>Fork</strong> is a personal copy of someone else's GitHub repository. It allows you to experiment with code, add new features, or fix bugs without modifying the original project. Forking is widely used in open-source development because contributors usually do not have direct write access to the original repository.
+
+</p>
+
+<p>
+
+When you fork a repository, GitHub creates a complete copy under your own account. You are free to make changes in your fork and later contribute those changes back to the original repository through a Pull Request.
+
+</p>
+
+<div class="note">
+
+<strong>Did You Know?</strong>
+
+<p>
+
+Forking does not affect the original repository. It creates an independent copy that belongs to your GitHub account.
+
+</p>
+
+</div>
+
+<h3>Why Do We Use Fork?</h3>
+
+<ul>
+
+<li>Contribute to open-source projects.</li>
+
+<li>Experiment without affecting the original project.</li>
+
+<li>Create your own copy for learning purposes.</li>
+
+<li>Safely develop new features.</li>
+
+<li>Submit changes using Pull Requests.</li>
+
+</ul>
+
+<h3>Fork Workflow</h3>
+
+<div class="flow-diagram">
+
+<div class="flow-card">Original Repository</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Fork to Your GitHub</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Clone Repository</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Make Changes</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Commit & Push</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Open Pull Request</div>
+
+</div>
+
+<h3>How to Fork a Repository</h3>
+
+<ol>
+
+<li>Open the GitHub repository.</li>
+
+<li>Click the <strong>Fork</strong> button in the top-right corner.</li>
+
+<li>Wait for GitHub to create a copy in your account.</li>
+
+<li>Clone your forked repository to your local machine.</li>
+
+<li>Start making changes in your own repository.</li>
+
+</ol>
+
+<h3>Example</h3>
+
+<p>
+
+Suppose you want to contribute to the <strong>Kaizen Tech Blog Section</strong> repository. Since you do not have direct access, you first fork the repository into your GitHub account. After making changes, you push them to your fork and create a Pull Request so the maintainers can review your work.
+
+</p>
+
+<h3>Fork vs Clone</h3>
+
+<table>
+
+<tr>
+
+<th>Fork</th>
+
+<th>Clone</th>
+
+</tr>
+
+<tr>
+
+<td>Creates a copy on GitHub.</td>
+
+<td>Downloads a repository to your computer.</td>
+
+</tr>
+
+<tr>
+
+<td>Used for contributing to external projects.</td>
+
+<td>Used for local development.</td>
+
+</tr>
+
+<tr>
+
+<td>Stored in your GitHub account.</td>
+
+<td>Stored on your local machine.</td>
+
+</tr>
+
+<tr>
+
+<td>Performed on GitHub.</td>
+
+<td>Performed using Git.</td>
+
+</tr>
+
+</table>
+
+<div class="note">
+
+<strong>Best Practice</strong>
+
+<p>
+
+Always keep your fork updated with the latest changes from the original repository before starting new work.
+
+</p>
+
+</div>
+
+<h3>Common Mistakes</h3>
+
+<ul>
+
+<li>Editing the original repository instead of your fork.</li>
+
+<li>Forgetting to sync your fork with the upstream repository.</li>
+
+<li>Opening a Pull Request from the wrong repository.</li>
+
+<li>Making unrelated changes in one Pull Request.</li>
+
+</ul>
+
+<h3>Interview Questions</h3>
+
+<p><strong>Q1. What is Fork in GitHub?</strong></p>
+
+<p>
+
+Fork is a GitHub feature that creates your own copy of another repository, allowing you to work independently without modifying the original project.
+
+</p>
+
+<p><strong>Q2. What is the difference between Fork and Clone?</strong></p>
+
+<p>
+
+Fork creates a copy on GitHub, whereas Clone downloads a repository from GitHub to your local computer.
+
+</p>
+
+<h3>Quick Summary</h3>
+
+<p>
+
+Forking enables developers to contribute to open-source projects safely. It creates an independent copy of a repository where changes can be developed, tested, and later submitted through Pull Requests.
+
+</p>
+
+</section>
+<!-- ================= CLONE ================= -->
+
+<section id="clone" class="article">
+
+<h2>Clone</h2>
+
+<p>
+
+Cloning is the process of creating a local copy of a Git repository from a remote server such as GitHub. It downloads all project files, branches, commit history, and repository configuration to your computer, allowing you to work on the project locally.
+
+</p>
+
+<p>
+
+Unlike downloading a ZIP file, a cloned repository remains connected to the remote repository. This enables you to pull the latest changes, push your own commits, and collaborate efficiently with other developers.
+
+</p>
+
+<div class="note">
+
+<strong>Important</strong>
+
+<p>
+
+A cloned repository contains the complete commit history and remains linked to the original remote repository.
+
+</p>
+
+</div>
+
+<h3>Why Do We Use Clone?</h3>
+
+<ul>
+
+<li>Download a GitHub repository to your computer.</li>
+
+<li>Start working on an existing project.</li>
+
+<li>Collaborate with team members.</li>
+
+<li>Maintain synchronization with the remote repository.</li>
+
+<li>Access the complete commit history.</li>
+
+</ul>
+
+<h3>Clone Workflow</h3>
+
+<div class="flow-diagram">
+
+<div class="flow-card">GitHub Repository</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Copy Repository URL</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Run git clone</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Local Repository</div>
+
+</div>
+
+<h3>Clone Command</h3>
+
+<pre><code>git clone https://github.com/username/repository.git</code></pre>
+
+<p>
+
+This command downloads the complete repository, including its files, branches, and commit history, into your local machine.
+
+</p>
+
+<h3>Practical Example</h3>
+
+<pre><code>git clone https://github.com/rishav-raj-genx/Kaizen-Tech-Blog-Section.git
+
+cd Kaizen-Tech-Blog-Section
+
+git status
+</code></pre>
+
+<p>
+
+The first command downloads the repository. The second moves into the project directory, and the third checks the current repository status.
+
+</p>
+
+<h3>Clone vs Download ZIP</h3>
+
+<table>
+
+<tr>
+<th>Clone</th>
+<th>Download ZIP</th>
+</tr>
+
+<tr>
+<td>Maintains Git history.</td>
+<td>No Git history.</td>
+</tr>
+
+<tr>
+<td>Supports Pull and Push.</td>
+<td>Cannot synchronize changes.</td>
+</tr>
+
+<tr>
+<td>Suitable for development.</td>
+<td>Suitable only for viewing files.</td>
+</tr>
+
+<tr>
+<td>Connected to GitHub.</td>
+<td>No repository connection.</td>
+</tr>
+
+</table>
+
+<div class="note">
+
+<strong>Best Practice</strong>
+
+<p>
+
+Always clone your own fork when contributing to open-source projects instead of cloning the original repository directly.
+
+</p>
+
+</div>
+
+<h3>Common Mistakes</h3>
+
+<ul>
+
+<li>Cloning the wrong repository.</li>
+
+<li>Cloning into an incorrect folder.</li>
+
+<li>Downloading the ZIP instead of cloning.</li>
+
+<li>Forgetting to configure Git after cloning.</li>
+
+<li>Making changes without checking the current branch.</li>
+
+</ul>
+
+<h3>Interview Questions</h3>
+
+<p><strong>Q1. What is Git Clone?</strong></p>
+
+<p>
+
+Git Clone creates a complete local copy of a remote repository, including its files, branches, and commit history.
+
+</p>
+
+<p><strong>Q2. What is the difference between Clone and Download ZIP?</strong></p>
+
+<p>
+
+Clone creates a Git repository connected to the remote server, while Download ZIP simply downloads the project files without Git history or version control.
+
+</p>
+
+<h3>Quick Summary</h3>
+
+<p>
+
+Git Clone is the first step in working on an existing project. It creates a complete local copy of the repository, allowing developers to modify code, track history, and collaborate using Git commands.
+
+</p>
+
+</section>
+<!-- ================= GITIGNORE ================= -->
+
+<section id="gitignore" class="article">
+
+<h2>.gitignore</h2>
+
+<p>
+
+A <strong>.gitignore</strong> file tells Git which files and folders should be ignored and not tracked in the repository. It is commonly used to exclude temporary files, build outputs, log files, operating system files, and sensitive information such as API keys or passwords.
+
+</p>
+
+<p>
+
+Using a <strong>.gitignore</strong> file keeps the repository clean, reduces unnecessary files, and prevents confidential data from being accidentally uploaded to GitHub.
+
+</p>
+
+<div class="note">
+
+<strong>Important</strong>
+
+<p>
+
+Files listed in the <strong>.gitignore</strong> file are ignored only if they have not already been tracked by Git.
+
+</p>
+
+</div>
+
+<h3>Why Use .gitignore?</h3>
+
+<ul>
+
+<li>Prevents unnecessary files from being committed.</li>
+
+<li>Protects sensitive information from being uploaded.</li>
+
+<li>Keeps the repository clean and organized.</li>
+
+<li>Reduces repository size.</li>
+
+<li>Makes collaboration easier by excluding machine-specific files.</li>
+
+</ul>
+
+<h3>How .gitignore Works</h3>
+
+<div class="flow-diagram">
+
+<div class="flow-card">Create .gitignore</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Add File Patterns</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Git Ignores Matching Files</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Commit Remaining Files</div>
+
+</div>
+
+<h3>Example .gitignore File</h3>
+
+<pre><code># Log files
+*.log
+
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Build folder
+dist/
+
+# VS Code settings
+.vscode/
+
+# macOS system files
+.DS_Store
+</code></pre>
+
+<h3>Common File Patterns</h3>
+
+<table>
+
+<tr>
+<th>Pattern</th>
+<th>Meaning</th>
+</tr>
+
+<tr>
+<td>*.log</td>
+<td>Ignore all log files.</td>
+</tr>
+
+<tr>
+<td>*.tmp</td>
+<td>Ignore temporary files.</td>
+</tr>
+
+<tr>
+<td>node_modules/</td>
+<td>Ignore the Node.js dependencies folder.</td>
+</tr>
+
+<tr>
+<td>.env</td>
+<td>Ignore environment variable files.</td>
+</tr>
+
+<tr>
+<td>dist/</td>
+<td>Ignore compiled project files.</td>
+</tr>
+
+</table>
+
+<h3>Useful Commands</h3>
+
+<pre><code>git status
+
+git add .
+
+git commit -m "Added .gitignore file"
+</code></pre>
+
+<p>
+
+If a file has already been committed before adding it to <strong>.gitignore</strong>, Git will continue tracking it. To stop tracking the file, remove it from the Git index first.
+
+</p>
+
+<pre><code>git rm --cached filename
+
+git commit -m "Stop tracking file"
+</code></pre>
+
+<div class="note">
+
+<strong>Best Practice</strong>
+
+<p>
+
+Create a <strong>.gitignore</strong> file at the beginning of a project so that unnecessary files are never added to the repository.
+
+</p>
+
+</div>
+
+<h3>Common Mistakes</h3>
+
+<ul>
+
+<li>Adding sensitive files after they have already been committed.</li>
+
+<li>Forgetting to create a .gitignore file at the start of the project.</li>
+
+<li>Ignoring important project files by mistake.</li>
+
+<li>Assuming .gitignore removes files already tracked by Git.</li>
+
+</ul>
+
+<h3>Interview Questions</h3>
+
+<p><strong>Q1. What is a .gitignore file?</strong></p>
+
+<p>
+
+A .gitignore file specifies which files and directories Git should ignore and not include in version control.
+
+</p>
+
+<p><strong>Q2. Does .gitignore remove files that are already tracked?</strong></p>
+
+<p>
+
+No. Files already tracked by Git must first be removed from the Git index using <code>git rm --cached</code> before .gitignore can prevent them from being tracked in future commits.
+
+</p>
+
+<h3>Quick Summary</h3>
+
+<p>
+
+The <strong>.gitignore</strong> file is an essential part of every Git project. It keeps repositories clean, protects sensitive information, and ensures that only necessary project files are tracked by Git.
+
+</p>
+
+</section>
+<!-- ================= MERGE CONFLICTS ================= -->
+
+<section id="conflicts" class="article">
+
+<h2>Merge Conflicts</h2>
+
+<p>
+
+A <strong>Merge Conflict</strong> occurs when Git is unable to automatically combine changes from two different branches because the same part of a file has been modified differently. Git pauses the merge process and asks the developer to manually resolve the conflict.
+
+</p>
+
+<p>
+
+Merge conflicts are a normal part of collaborative software development. They do not indicate an error in Git; instead, they require the developer to decide which changes should be kept.
+
+</p>
+
+<div class="note">
+
+<strong>Important</strong>
+
+<p>
+
+A merge conflict happens only when Git cannot determine which version of the code should be used automatically.
+
+</p>
+
+</div>
+
+<h3>When Do Merge Conflicts Occur?</h3>
+
+<ul>
+
+<li>Two developers edit the same line of a file.</li>
+
+<li>One developer deletes a file while another modifies it.</li>
+
+<li>Different branches contain incompatible changes.</li>
+
+<li>Branches remain separate for a long period before merging.</li>
+
+</ul>
+
+<h3>Merge Conflict Workflow</h3>
+
+<div class="flow-diagram">
+
+<div class="flow-card">Branch A Changes</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Branch B Changes</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Git Detects Conflict</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Resolve Conflict</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Commit Merge</div>
+
+</div>
+
+<h3>Example Conflict</h3>
+
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+Welcome to Kaizen Tech
+=======
+Welcome to GitHub Documentation
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature-branch
+</code></pre>
+
+<p>
+
+Git marks the conflicting changes using special symbols. The developer must edit the file, choose the correct content, remove the conflict markers, and save the file.
+
+</p>
+
+<h3>Resolving a Merge Conflict</h3>
+
+<ol>
+
+<li>Open the conflicted file.</li>
+
+<li>Review both versions of the code.</li>
+
+<li>Edit the file and keep the correct changes.</li>
+
+<li>Remove the conflict markers.</li>
+
+<li>Stage the resolved file.</li>
+
+<li>Commit the merge.</li>
+
+</ol>
+
+<h3>Useful Commands</h3>
+
+<pre><code>git status
+
+git add .
+
+git commit -m "Resolved merge conflict"
+</code></pre>
+
+<h3>How to Avoid Merge Conflicts</h3>
+
+<table>
+
+<tr>
+<th>Best Practice</th>
+<th>Benefit</th>
+</tr>
+
+<tr>
+<td>Pull changes regularly.</td>
+<td>Stay updated with the latest code.</td>
+</tr>
+
+<tr>
+<td>Create small feature branches.</td>
+<td>Reduces overlapping changes.</td>
+</tr>
+
+<tr>
+<td>Commit frequently.</td>
+<td>Makes conflicts easier to resolve.</td>
+</tr>
+
+<tr>
+<td>Communicate with teammates.</td>
+<td>Avoids editing the same code simultaneously.</td>
+</tr>
+
+</table>
+
+<div class="note">
+
+<strong>Best Practice</strong>
+
+<p>
+
+Resolve conflicts carefully instead of simply choosing one version. Review both changes to ensure that no important code is lost.
+
+</p>
+
+</div>
+
+<h3>Common Mistakes</h3>
+
+<ul>
+
+<li>Deleting code without reviewing both versions.</li>
+
+<li>Leaving conflict markers in the file.</li>
+
+<li>Forgetting to stage resolved files.</li>
+
+<li>Creating one large merge after weeks of development.</li>
+
+</ul>
+
+<h3>Interview Questions</h3>
+
+<p><strong>Q1. What is a merge conflict?</strong></p>
+
+<p>
+
+A merge conflict occurs when Git cannot automatically merge changes because different branches have modified the same part of a file.
+
+</p>
+
+<p><strong>Q2. How can merge conflicts be avoided?</strong></p>
+
+<p>
+
+Merge conflicts can be reduced by pulling changes regularly, creating small feature branches, committing frequently, and communicating with team members.
+
+</p>
+
+<h3>Quick Summary</h3>
+
+<p>
+
+Merge conflicts are a normal part of collaborative development. Understanding how to identify, resolve, and prevent them is an essential skill for every Git developer.
+
+</p>
+
+</section>
+<!-- ================= GIT BEST PRACTICES ================= -->
+
+<section id="best-practices" class="article">
+
+<h2>Git Best Practices</h2>
+
+<p>
+
+Learning Git commands is important, but following best practices is equally essential. Good Git habits make collaboration easier, reduce errors, and help maintain a clean and organized project history. Professional software teams follow these practices to improve productivity and code quality.
+
+</p>
+
+<div class="note">
+
+<strong>Remember</strong>
+
+<p>
+
+A clean Git history makes it easier for developers to understand project changes, debug issues, and collaborate efficiently.
+
+</p>
+
+</div>
+
+<h3>Recommended Best Practices</h3>
+
+<table>
+
+<tr>
+<th>Best Practice</th>
+<th>Reason</th>
+</tr>
+
+<tr>
+<td>Write meaningful commit messages.</td>
+<td>Helps others understand what changed.</td>
+</tr>
+
+<tr>
+<td>Create a new branch for every feature.</td>
+<td>Keeps the main branch stable.</td>
+</tr>
+
+<tr>
+<td>Commit small, focused changes.</td>
+<td>Makes debugging and reviewing easier.</td>
+</tr>
+
+<tr>
+<td>Pull the latest changes before starting work.</td>
+<td>Reduces merge conflicts.</td>
+</tr>
+
+<tr>
+<td>Review code before merging.</td>
+<td>Improves software quality.</td>
+</tr>
+
+<tr>
+<td>Use a .gitignore file.</td>
+<td>Prevents unnecessary files from entering the repository.</td>
+</tr>
+
+<tr>
+<td>Keep repositories organized.</td>
+<td>Improves maintainability.</td>
+</tr>
+
+</table>
+
+<h3>Good vs Bad Commit Messages</h3>
+
+<table>
+
+<tr>
+<th>Good Commit Message ✅</th>
+<th>Bad Commit Message ❌</th>
+</tr>
+
+<tr>
+<td>Add user authentication system</td>
+<td>Update</td>
+</tr>
+
+<tr>
+<td>Fix login validation bug</td>
+<td>Changes</td>
+</tr>
+
+<tr>
+<td>Improve dashboard performance</td>
+<td>Final Version</td>
+</tr>
+
+<tr>
+<td>Update README documentation</td>
+<td>Test</td>
+</tr>
+
+</table>
+
+<h3>Professional Git Workflow</h3>
+
+<div class="flow-diagram">
+
+<div class="flow-card">Pull Latest Code</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Create Feature Branch</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Develop Feature</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Commit Changes</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Push Branch</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Open Pull Request</div>
+
+<div class="flow-arrow">➜</div>
+
+<div class="flow-card">Review & Merge</div>
+
+</div>
+
+<h3>Tips for Beginners</h3>
+
+<ul>
+
+<li>Commit your work regularly instead of making one large commit.</li>
+
+<li>Use descriptive branch names such as <code>feature-login</code> or <code>bugfix-navbar</code>.</li>
+
+<li>Never commit passwords, API keys, or confidential files.</li>
+
+<li>Pull the latest changes before starting new work.</li>
+
+<li>Read Pull Request comments carefully and make improvements when needed.</li>
+
+<li>Test your code before pushing it to GitHub.</li>
+
+</ul>
+
+<div class="note">
+
+<strong>Pro Tip</strong>
+
+<p>
+
+Think of each commit as a small milestone. Each commit should represent one logical change that can easily be understood by other developers.
+
+</p>
+
+</div>
+
+<h3>Common Mistakes to Avoid</h3>
+
+<ul>
+
+<li>Working directly on the <strong>main</strong> branch.</li>
+
+<li>Creating extremely large commits.</li>
+
+<li>Ignoring Pull Request reviews.</li>
+
+<li>Using unclear commit messages.</li>
+
+<li>Uploading unnecessary or sensitive files.</li>
+
+<li>Not syncing your branch before merging.</li>
+
+</ul>
+
+<h3>Interview Questions</h3>
+
+<p><strong>Q1. Why should commit messages be meaningful?</strong></p>
+
+<p>
+
+Meaningful commit messages help developers understand the purpose of each change, making collaboration and debugging much easier.
+
+</p>
+
+<p><strong>Q2. Why is it recommended to create feature branches?</strong></p>
+
+<p>
+
+Feature branches isolate development work, allowing new features to be developed and tested without affecting the stability of the main branch.
+
+</p>
+
+<h3>Quick Summary</h3>
+
+<p>
+
+Following Git Best Practices results in cleaner repositories, better teamwork, easier debugging, and higher-quality software. These habits are followed by professional developers and are essential for successful software development.
+
+</p>
+
+</section>
+</body>
+</html>
