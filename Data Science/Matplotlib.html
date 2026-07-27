@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Matplotlib Fundamentals</title>
+</head>
+<body>
+
+<h1>Matplotlib Fundamentals</h1>
+
+<p>
+Learn how to create visualizations using Matplotlib including Line Plots, Bar Charts, Histograms, Pie Charts, and Scatter Plots.
+</p>
+
+<h2>Difficulty</h2>
+<p>Beginner</p>
+
+<h2>Reading Time</h2>
+<p>20 mins</p>
+
+<hr>
+
+<h2>Table of Contents</h2>
+
+<ul>
+    <li>Line Plot</li>
+    <li>Bar Chart</li>
+    <li>Histogram</li>
+    <li>Pie Chart</li>
+    <li>Scatter Plot</li>
+    <li>Interview Questions</li>
+    <li>Quick Revision Sheet</li>
+</ul>
+
+<hr>
+
+<h2>Line Plot</h2>
+
+<p>
+A line plot is used to show trends over time or continuous data.
+</p>
+
+<pre>
+import matplotlib.pyplot as plt
+
+months = ["Jan", "Feb", "Mar", "Apr", "May"]
+sales = [100, 120, 150, 130, 180]
+
+plt.plot(months, sales)
+plt.title("Monthly Sales Trend")
+plt.xlabel("Month")
+plt.ylabel("Sales")
+plt.show()
+</pre>
+
+<img src="line_plot.png" alt="Line Plot Output" width="700">
+
+<hr>
+
+<h2>Bar Chart</h2>
+
+<p>
+Bar charts compare values across different categories.
+</p>
+
+<pre>
+import matplotlib.pyplot as plt
+
+subjects = ["Math", "Science", "English"]
+marks = [90, 85, 95]
+
+plt.bar(subjects, marks)
+plt.title("Student Marks")
+plt.xlabel("Subjects")
+plt.ylabel("Marks")
+plt.show()
+</pre>
+
+<img src="bar_chart.png" alt="Bar Chart Output" width="700">
+
+<hr>
+
+<h2>Histogram</h2>
+
+<p>
+Histograms display the frequency distribution of data.
+</p>
+
+<pre>
+import matplotlib.pyplot as plt
+
+marks = [55,60,65,70,75,80,85,90,95]
+
+plt.hist(marks)
+plt.title("Distribution of Marks")
+plt.xlabel("Marks")
+plt.ylabel("Frequency")
+plt.show()
+</pre>
+
+<img src="histogram.png" alt="Histogram Output" width="700">
+
+<hr>
+
+<h2>Pie Chart</h2>
+
+<p>
+Pie charts show proportions of categories in a dataset.
+</p>
+
+<pre>
+import matplotlib.pyplot as plt
+
+languages = ["Python","Java","C++"]
+students = [50,30,20]
+
+plt.pie(
+    students,
+    labels=languages,
+    autopct="%1.1f%%"
+)
+
+plt.title("Programming Language Preference")
+plt.show()
+</pre>
+
+<img src="pie_chart.png" alt="Pie Chart Output" width="700">
+
+<hr>
+
+<h2>Scatter Plot</h2>
+
+<p>
+Scatter plots help identify relationships between two variables.
+</p>
+
+<pre>
+import matplotlib.pyplot as plt
+
+hours = [1,2,3,4,5]
+marks = [50,60,70,80,90]
+
+plt.scatter(hours, marks)
+plt.title("Study Hours vs Marks")
+plt.xlabel("Study Hours")
+plt.ylabel("Marks")
+plt.show()
+</pre>
+
+<img src="scatter_plot.png" alt="Scatter Plot Output" width="700">
+
+<hr>
+
+<h2>Why Matplotlib Matters</h2>
+
+<p>
+Data is much easier to understand when presented visually. Matplotlib helps data scientists and analysts identify trends, patterns, and relationships that may not be obvious from raw numbers alone.
+</p>
+
+<hr>
+
+<h2>Common Mistakes</h2>
+
+<table border="1">
+<tr>
+    <th>Mistake</th>
+    <th>Why It Happens</th>
+    <th>Correct Approach</th>
+</tr>
+
+<tr>
+    <td>Forgetting plt.show()</td>
+    <td>The graph does not display.</td>
+    <td>Always call plt.show().</td>
+</tr>
+
+<tr>
+    <td>Mismatched X and Y lengths</td>
+    <td>Different numbers of values.</td>
+    <td>Keep both arrays the same size.</td>
+</tr>
+
+<tr>
+    <td>Missing labels</td>
+    <td>Graphs become difficult to understand.</td>
+    <td>Add titles and axis labels.</td>
+</tr>
+
+</table>
+
+<hr>
+
+<h2>Interview Questions</h2>
+
+<ul>
+<li>What is Matplotlib?</li>
+<li>Why is Matplotlib used in Data Science?</li>
+<li>Difference between plot() and scatter()?</li>
+<li>When should you use a histogram?</li>
+<li>How do you save a graph as an image?</li>
+<li>What does plt.show() do?</li>
+</ul>
+
+<hr>
+
+<h2>Quick Revision Sheet</h2>
+
+<table border="1">
+
+<tr>
+<th>Chart Type</th>
+<th>Purpose</th>
+</tr>
+
+<tr>
+<td>Line Plot</td>
+<td>Shows trends over time</td>
+</tr>
+
+<tr>
+<td>Bar Chart</td>
+<td>Compares categories</td>
+</tr>
+
+<tr>
+<td>Histogram</td>
+<td>Displays distribution of data</td>
+</tr>
+
+<tr>
+<td>Pie Chart</td>
+<td>Shows proportions</td>
+</tr>
+
+<tr>
+<td>Scatter Plot</td>
+<td>Shows relationships between variables</td>
+</tr>
+
+</table>
+
+<hr>
+
+<h2>Practice Problems</h2>
+
+<h3>Easy</h3>
+
+<ul>
+<li>Create a line plot of monthly temperatures.</li>
+<li>Create a bar chart of student marks.</li>
+</ul>
+
+<h3>Medium</h3>
+
+<ul>
+<li>Create a histogram of exam scores.</li>
+<li>Create a scatter plot of study hours versus marks.</li>
+</ul>
+
+<h3>Hard</h3>
+
+<ul>
+<li>Analyze a CSV dataset and create multiple visualizations.</li>
+<li>Build a dashboard containing at least three different chart types.</li>
+</ul>
+
+<hr>
+
+<h2>Resources</h2>
+
+<ul>
+<li>Official Matplotlib Documentation</li>
+<li>Matplotlib Tutorials on YouTube</li>
+<li>Python Data Science Handbook</li>
+<li>Matplotlib Gallery Examples</li>
+</ul>
+
+</body>
+</html>

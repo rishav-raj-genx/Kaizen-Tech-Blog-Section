@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pandas Fundamentals</title>
+</head>
+<body>
+
+<h1>Pandas Fundamentals</h1>
+
+<p>
+Learn DataFrames, CSV files, Filtering, GroupBy and Merge operations.
+</p>
+
+<h2>Difficulty</h2>
+<p>Beginner</p>
+
+<h2>Reading Time</h2>
+<p>20 mins</p>
+
+<hr>
+
+<h2>Table of Contents</h2>
+
+<ul>
+<li>DataFrames</li>
+<li>CSV</li>
+<li>Filtering</li>
+<li>GroupBy</li>
+<li>Merge</li>
+</ul>
+
+<hr>
+
+<h2>DataFrames</h2>
+
+<pre>
+import pandas as pd
+
+data={
+"Name":["John","Alice"],
+"Age":[20,22]
+}
+
+df=pd.DataFrame(data)
+
+print(df)
+</pre>
+
+<h2>CSV</h2>
+
+<pre>
+import pandas as pd
+
+df=pd.read_csv("students.csv")
+
+print(df.head())
+</pre>
+
+<h2>Filtering</h2>
+
+<pre>
+df[df["Age"]>20]
+</pre>
+
+<h2>GroupBy</h2>
+
+<pre>
+df.groupby("Department")["Salary"].mean()
+</pre>
+
+<h2>Merge</h2>
+
+<pre>
+pd.merge(df1,df2,on="ID")
+</pre>
+
+<h2>Mini Data Analysis Project</h2>
+
+<p>
+Analyze student performance using Pandas and Matplotlib.
+</p>
+
+<pre>
+import pandas as pd
+
+df=pd.read_csv("students.csv")
+
+print(df.info())
+print(df.describe())
+</pre>
+
+<h2>Interview Questions</h2>
+
+<ul>
+<li>What is a DataFrame?</li>
+<li>Difference between loc and iloc?</li>
+<li>What is GroupBy?</li>
+<li>What is Merge?</li>
+</ul>
+
+<h2>Quick Revision Sheet</h2>
+
+<table border="1">
+
+<tr>
+<th>Topic</th>
+<th>Definition</th>
+</tr>
+
+<tr>
+<td>DataFrame</td>
+<td>Tabular data structure</td>
+</tr>
+
+<tr>
+<td>CSV</td>
+<td>Comma Separated Values file</td>
+</tr>
+
+<tr>
+<td>Filtering</td>
+<td>Select rows matching condition</td>
+</tr>
+
+<tr>
+<td>GroupBy</td>
+<td>Aggregate data by category</td>
+</tr>
+
+<tr>
+<td>Merge</td>
+<td>Combine datasets</td>
+</tr>
+
+</table>
+
+</body>
+</html>
