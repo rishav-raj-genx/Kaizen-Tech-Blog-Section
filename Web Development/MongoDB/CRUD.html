@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD And it's Operation - KaizenTech MongoDB</title>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
+        a { color: #1a73e8; }
+
+        /* HERO HEADER */
+        .article-hero { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 36px 40px 0; }
+        .hero-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 40px; align-items: center; flex-wrap: wrap; }
+        .hero-left { flex: 1; min-width: 280px; padding-bottom: 32px; }
+        .hero-tags { display: flex; gap: 0; margin-bottom: 18px; }
+        .hero-tag { display: inline-block; padding: 5px 20px 5px 12px; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #fff; }
+        .hero-tag.db { background: #3b5bdb; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%); }
+        .hero-tag.webdev { background: #00b37e; margin-left: -4px; padding: 5px 20px 5px 18px; clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%); }
+        .hero-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 900; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 18px; color: #0f1724; }
+        .skeleton-bars { display: flex; gap: 6px; margin-bottom: 18px; }
+        .skeleton-bar { height: 8px; border-radius: 4px; }
+        .hero-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font-size: .85rem; color: #718096; margin-bottom: 4px; }
+        .hero-share { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+        .share-btn { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid #e2e8f0; color: #4a5568; font-size: .85rem; cursor: pointer; background: #fff; transition: all .2s; text-decoration: none; font-weight: 600; }
+        .share-btn:hover { border-color: #3b5bdb; color: #3b5bdb; background: #eef2ff; }
+        .share-sep { width: 1px; height: 18px; background: #e2e8f0; }
+        .read-time { font-size: .85rem; color: #718096; font-weight: 500; }
+        .hero-poster { flex-shrink: 0; width: 480px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,.14); align-self: center; background: #f5f5f5; }
+        .hero-poster img { width: 100%; height: auto; display: block; object-fit: contain; }
+        .back-btn { display: inline-block; margin: 20px 40px; padding: 8px 16px; background: #3b5bdb; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-family: Arial, sans-serif; }
+        .back-btn:hover { background: #2846c7; color: #fff; }
+
+        
+        
+        
+        table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+        th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+        th { background: #f0f0f0; }
+        img { max-width: 100%; border-radius: 8px; margin: 20px 0; }
+    
+        pre { background: #f8fafc; color: #0f1724; padding: 16px 20px; border-radius: 10px; border: 1px solid #e2e8f0; border-left: 4px solid #13AA52; overflow-x: auto; font-family: 'Fira Code', 'Consolas', 'Monaco', monospace; font-size: 0.9rem; line-height: 1.6; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        code { background: #eef2ff; color: #3b5bdb; padding: 2px 6px; border-radius: 4px; font-size: 0.88em; }
+        pre code { background: none; color: inherit; padding: 0; }
+
+        /* Syntax Highlighting Colors for Students */
+        .t-kw { color: #d97706; font-weight: 700; }
+        .t-fn { color: #2563eb; font-weight: 700; }
+        .t-str { color: #059669; font-weight: 500; }
+        .t-num { color: #7c3aed; font-weight: 700; }
+        .t-prop { color: #e11d48; font-weight: 600; }
+        .t-op { color: #0284c7; font-weight: 700; }
+        .t-cm { color: #64748b; font-style: italic; }
+        .t-type { color: #0891b2; font-weight: 700; }
+
+    </style>
+</head>
+<body>
+
+    <!-- BACK BUTTON -->
+    <a href="MongoDB.html" class="back-btn">&#8592; Back to MongoDB</a>
+
+    <!-- HERO HEADER -->
+    <div class="article-hero">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <div class="hero-tags">
+            <span class="hero-tag db">DATABASE</span>
+            <span class="hero-tag webdev">WEB DEVELOPMENT</span>
+          </div>
+          <h1 class="hero-title">CRUD And it's Operation: Fundamentals Guide 2026</h1>
+          <div class="skeleton-bars" aria-hidden="true">
+            <div class="skeleton-bar" style="width:32px;background:#13AA52;opacity:.8;"></div>
+            <div class="skeleton-bar" style="width:28px;background:#13AA52;opacity:.6;"></div>
+            <div class="skeleton-bar" style="width:24px;background:#13AA52;opacity:.5;"></div>
+            <div class="skeleton-bar" style="width:20px;background:#13AA52;opacity:.4;"></div>
+            <div class="skeleton-bar" style="width:16px;background:#13AA52;opacity:.3;"></div>
+            <div class="skeleton-bar" style="width:12px;background:#13AA52;opacity:.2;"></div>
+          </div>
+          <div class="hero-meta">
+            <span>&#128100; <strong>Rituraj Sinha</strong></span>
+            <span style="width:1px;height:14px;background:#e2e8f0;display:inline-block;"></span>
+            <span>&#128197; Last updated: July 24, 2026</span>
+          </div>
+          <div class="hero-share">
+            <a class="share-btn" title="Share on X">&#120143;</a>
+            <a class="share-btn" title="Share on LinkedIn">in</a>
+            <a class="share-btn" title="Share on Reddit">r/</a>
+            <a class="share-btn" title="Copy link">&#128279;</a>
+            <a class="share-btn" title="More">&#8226;&#8226;&#8226;</a>
+            <span class="share-sep"></span>
+            <span class="read-time">&#9200; 20&ndash;25 Min Read</span>
+          </div>
+        </div>
+        <div class="hero-poster">
+          <img src="../../BLOGS/MongoDB.png" alt="MongoDB Masterclass Poster">
+        </div>
+      </div>
+    </div>
+
+    <!-- 2-COLUMN LAYOUT -->
+    <div style="max-width:1280px; margin:0 auto; display:grid; grid-template-columns:250px 1fr; gap:0; align-items:start; padding:0 16px;">
+
+      <!-- LEFT SIDEBAR: MongoDB Topics -->
+      <aside style="position:sticky; top:20px; padding:24px 16px 24px 0;">
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:18px; box-shadow:0 1px 4px rgba(0,0,0,.07);">
+          <div style="font-size:1rem; font-weight:800; margin-bottom:14px; color:#0f1724;">MongoDB Topics</div>
+          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px;">
+            <li><a href="BSON.html"        style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">1. BSON (Binary JSON)</a></li>
+            <li><a href="Collections.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">2. Collections</a></li>
+            <li><a href="CRUD.html"        style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:700; color:#3b5bdb; background:#eef2ff; text-decoration:none;">3. CRUD Operations</a></li>
+            <li><a href="Indexes.html"     style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">4. Indexes</a></li>
+            <li><a href="Aggregation.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">5. Aggregation</a></li>
+            <li><a href="Relationships.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">6. Relationships</a></li>
+            <li><a href="Mongoose.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">7. Mongoose &amp; Node.js</a></li>
+            <li><a href="SchemaDesign.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">8. Schema Design</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- CENTER: Article Body -->
+      <main id="content" style="background:#fff; border-left:1px solid #e2e8f0; padding:36px 40px; min-height:80vh;">
+
+        <p><strong>Title:</strong> CRUD And it's Operation</p>
+        <p><strong>Short Description:</strong> Learn the fundamentals of CRUD (Create, Read, Update, Delete) operations in MongoDB. Understand how to insert, retrieve, modify, and remove documents using simple MongoDB commands, with practical examples and real-world use cases.</p>
+        <p><strong>Difficulty:</strong> Beginner</p>
+        <p><strong>Time Required:</strong> 20&ndash;25 minutes</p>
+
+        <p><strong>Prerequisites:</strong></p>
+        <ul>
+            <li>Basic understanding of MongoDB</li>
+            <li>Knowledge of Documents and Collections</li>
+            <li>Familiarity with BSON and JSON</li>
+            <li>MongoDB installed (optional for practice)</li>
+            <li>Basic command-line knowledge</li>
+        </ul>
+
+        <p><strong>Tags:</strong> <code>MongoDB</code> <code>BSON</code> <code>Database</code> <code>NoSQL</code> <code>JSON</code></p>
+
+        <hr>
+
+        <!-- Table of Contents -->
+        <h2>Table of Contents (clickable)</h2>
+        <ol>
+            <li><a href="#what-are-crud">What are CRUD Operations</a></li>
+            <li><a href="#why-it-matters">Why it matters</a></li>
+            <li><a href="#syntax">Syntax</a></li>
+            <li><a href="#examples">Examples</a>
+                <ul>
+                    <li><a href="#example-1">Example 1: Create a Document</a></li>
+                    <li><a href="#example-2">Example 2: Read Documents</a></li>
+                    <li><a href="#example-3">Example 3: Update a Document</a></li>
+                    <li><a href="#example-4">Example 4: Delete a Document</a></li>
+                </ul>
+            </li>
+            <li><a href="#common-mistakes">Common Mistakes</a></li>
+            <li><a href="#interview-questions">Interview Questions</a></li>
+            <li><a href="#quick-revision">Quick Revision Sheet</a></li>
+            <li><a href="#practice-questions">Practice Questions</a></li>
+            <li><a href="#resources">Resources</a></li>
+        </ol>
+
+        <hr>
+
+        <!-- What are CRUD Operations -->
+        <h2 id="what-are-crud">What are CRUD Operations</h2>
+
+        <p>CRUD stands for <strong>Create, Read, Update, and Delete</strong>. These are the four basic operations used to manage data in MongoDB.</p>
+
+        <p>Whenever you build an application like a student management system, shopping website, or social media platform, you use CRUD operations to interact with the database.</p>
+
+        <p>Think of CRUD like managing a notebook:</p>
+        <ul>
+            <li><strong>Create</strong> &#8594; Write a new page.</li>
+            <li><strong>Read</strong> &#8594; Read an existing page.</li>
+            <li><strong>Update</strong> &#8594; Edit information on a page.</li>
+            <li><strong>Delete</strong> &#8594; Remove a page.</li>
+        </ul>
+
+        <p>For example, in a student database:</p>
+        <ul>
+            <li>Add a new student &#8594; <strong>Create</strong></li>
+            <li>View student details &#8594; <strong>Read</strong></li>
+            <li>Change a student's course &#8594; <strong>Update</strong></li>
+            <li>Remove a student record &#8594; <strong>Delete</strong></li>
+        </ul>
+
+        <div style="text-align:center; margin:20px 0;">
+            <img src="../../BLOGS/crud_operations_overview.png" alt="MongoDB CRUD Operations Overview Diagram" style="max-width:420px; width:100%; height:auto; display:block; margin:0 auto; border-radius:10px; border:1px solid #e2e8f0; box-shadow:0 4px 16px rgba(0,0,0,.08); image-rendering:-webkit-optimize-contrast;">
+            <p style="font-size:.82rem; color:#718096; margin-top:6px;"><em>Figure: CRUD is the foundation of any database operation.</em></p>
+        </div>
+
+        <hr>
+
+        <!-- Why it matters -->
+        <h2 id="why-it-matters">Why it matters</h2>
+
+        <p>CRUD operations are important because they are the foundation of every database application.</p>
+        <p>Some reasons why CRUD matters are:</p>
+        <ul>
+            <li>It allows applications to store and manage data.</li>
+            <li>It helps users add, view, edit, and remove information.</li>
+            <li>Every web and mobile application uses CRUD operations.</li>
+            <li>MongoDB provides simple commands for performing CRUD.</li>
+            <li>CRUD makes database management fast and efficient.</li>
+        </ul>
+        <p>Without CRUD operations, applications cannot interact with their databases.</p>
+
+        <hr>
+
+        <!-- Syntax -->
+        <h2 id="syntax">Syntax</h2>
+
+        <h3>Create</h3>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>,
+    <span class="t-prop">age</span>:<span class="t-num">19</span>,
+    <span class="t-prop">course</span>:<span class="t-str">"B.Tech AI"</span>
+});</code></pre>
+
+        <h3>Read</h3>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">find</span>();</code></pre>
+
+        <h3>Update</h3>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">updateOne</span>(
+    { <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span> },
+    {
+        $<span class="t-prop">set</span>: {
+            <span class="t-prop">age</span>:<span class="t-num">20</span>
+        }
+    }
+);</code></pre>
+
+        <h3>Delete</h3>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">deleteOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>
+});</code></pre>
+
+        <hr>
+
+        <!-- Examples -->
+        <h2 id="examples">Examples</h2>
+
+        <h3 id="example-1">Example 1: Create a Document</h3>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">insertOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Riya"</span>,
+    <span class="t-prop">age</span>:<span class="t-num">20</span>,
+    <span class="t-prop">city</span>:<span class="t-str">"Delhi"</span>
+});</code></pre>
+        <p>This command adds a new student document to the <strong>students</strong> collection.</p>
+
+        <h3 id="example-2">Example 2: Read Documents</h3>
+        <p>Retrieve all students:</p>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">find</span>();</code></pre>
+
+        <p>Retrieve one specific student:</p>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">findOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Riya"</span>
+});</code></pre>
+
+        <h3 id="example-3">Example 3: Update a Document</h3>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">updateOne</span>(
+    {
+        <span class="t-prop">name</span>:<span class="t-str">"Riya"</span>
+    },
+    {
+        $<span class="t-prop">set</span>: {
+            <span class="t-prop">city</span>:<span class="t-str">"Mumbai"</span>
+        }
+    }
+);</code></pre>
+        <p>This updates Riya's city from <strong>Delhi</strong> to <strong>Mumbai</strong>.</p>
+
+        <h3 id="example-4">Example 4: Delete a Document</h3>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">deleteOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Riya"</span>
+});</code></pre>
+        <p>This removes Riya's document from the collection.</p>
+
+        <hr>
+
+        <!-- Common Mistakes -->
+        <h2 id="common-mistakes">Common Mistakes</h2>
+
+        <h3>Mistake 1: Forgetting a Filter in Update</h3>
+        <p><strong>Wrong</strong></p>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">updateMany</span>(
+    {},
+    {
+        $<span class="t-prop">set</span>: {
+            <span class="t-prop">course</span>:<span class="t-str">"AI"</span>
+        }
+    }
+);</code></pre>
+        <p>This updates <strong>every document</strong> in the collection.</p>
+        <p><strong>Correct</strong></p>
+        <p>Always provide a filter unless you intentionally want to update all documents.</p>
+
+        <hr>
+
+        <h3>Mistake 2: Using <code>deleteMany()</code> Instead of <code>deleteOne()</code></h3>
+        <p><strong>Wrong</strong></p>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">deleteMany</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Riya"</span>
+});</code></pre>
+        <p>This deletes every matching document.</p>
+        <p><strong>Correct</strong></p>
+        <p>Use <code>deleteOne()</code> if only one document should be removed.</p>
+
+        <hr>
+
+        <h3>Mistake 3: Forgetting the <code>$set</code> Operator</h3>
+        <p><strong>Wrong</strong></p>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">updateOne</span>(
+    {
+        <span class="t-prop">name</span>:<span class="t-str">"Riya"</span>
+    },
+    {
+        <span class="t-prop">age</span>:<span class="t-num">21</span>
+    }
+);</code></pre>
+        <p>This replaces the entire document instead of updating one field.</p>
+        <p><strong>Correct</strong></p>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">updateOne</span>(
+    {
+        <span class="t-prop">name</span>:<span class="t-str">"Riya"</span>
+    },
+    {
+        $<span class="t-prop">set</span>: {
+            <span class="t-prop">age</span>:<span class="t-num">21</span>
+        }
+    }
+);</code></pre>
+
+        <hr>
+
+        <!-- Interview Questions -->
+        <h2 id="interview-questions">Interview Questions</h2>
+
+        <h3>1. What does CRUD stand for?</h3>
+        <p><strong>Answer:</strong> CRUD stands for <strong>Create, Read, Update, and Delete</strong>. They represent the four fundamental persistent storage operations in software development and database systems.</p>
+
+        <hr>
+
+        <h3>2. Which command is used to insert a document in MongoDB?</h3>
+        <p><strong>Answer:</strong> In MongoDB, you use <code>db.collection.insertOne()</code> to insert a single document, or <code>db.collection.insertMany()</code> to insert an array of multiple documents into a collection.</p>
+
+        <hr>
+
+        <h3>3. What is the difference between <code>find()</code> and <code>findOne()</code>?</h3>
+        <p><strong>Answer:</strong>
+        <br>&bull; <code>find()</code> returns a cursor pointing to <strong>all documents</strong> that match the query criteria (or an empty cursor if none match).
+        <br>&bull; <code>findOne()</code> returns the <strong>first single document</strong> that satisfies the query criteria as a plain object (or <code>null</code> if no document matches).</p>
+
+        <hr>
+
+        <h3>4. What is the purpose of the <code>$set</code> operator in MongoDB?</h3>
+        <p><strong>Answer:</strong> The <code>$set</code> operator is an update field operator that replaces the value of a specified field with a new value without affecting or overwriting other fields in the document. Without <code>$set</code>, an update object will replace the entire document content.</p>
+
+        <hr>
+
+        <h3>5. What is the difference between <code>deleteOne()</code> and <code>deleteMany()</code>?</h3>
+        <p><strong>Answer:</strong>
+        <br>&bull; <code>deleteOne()</code> removes at most <strong>one single document</strong> matching the selection criteria, even if multiple documents match.
+        <br>&bull; <code>deleteMany()</code> removes <strong>all documents</strong> that match the specified query filter from the collection.</p>
+
+        <hr>
+
+        <!-- Quick Revision Sheet -->
+        <h2 id="quick-revision">Quick Revision Sheet</h2>
+        <img src="../../BLOGS/crud_quick_revision_sheet.png" alt="CRUD Operations Quick Revision Sheet" style="max-width:650px; width:100%; height:auto; display:block; margin:20px auto; border-radius:8px; border:1px solid #e2e8f0; box-shadow:0 4px 20px rgba(0,0,0,.08); image-rendering:-webkit-optimize-contrast;">
+
+        <hr>
+
+        <!-- Practice Questions -->
+        <h2 id="practice-questions">Practice Questions</h2>
+
+        <h3>Easy</h3>
+        <ol>
+            <li>What does CRUD stand for?</li>
+            <li>Which command is used to insert a document?</li>
+            <li>What is the difference between <code>find()</code> and <code>findOne()</code>?</li>
+        </ol>
+
+        <h3>Medium</h3>
+        <ol>
+            <li>Insert three student documents into a collection.</li>
+            <li>Update the age of one student.</li>
+            <li>Find all students whose age is greater than 18.</li>
+            <li>Delete one student document.</li>
+        </ol>
+
+        <h3>Hard</h3>
+        <p>Design a <strong>Student Management System</strong> using CRUD operations.</p>
+        <ul>
+            <li>Insert 10 student records.</li>
+            <li>Find students enrolled in <strong>B.Tech AI</strong>.</li>
+            <li>Update the city of all students from Delhi.</li>
+            <li>Delete students whose course is "Completed".</li>
+            <li>Explain which CRUD operation is used in each step.</li>
+        </ul>
+
+        <hr>
+
+        <!-- Resources -->
+        <h2 id="resources">Resources</h2>
+        <ul>
+            <li>MongoDB Official Documentation &ndash; BSON Types</li>
+            <li>MongoDB University</li>
+            <li>freeCodeCamp MongoDB Course</li>
+            <li>MongoDB: The Definitive Guide (Book)</li>
+        </ul>
+
+      </main>
+
+    </div><!-- end 2-col -->
+
+</body>
+</html>

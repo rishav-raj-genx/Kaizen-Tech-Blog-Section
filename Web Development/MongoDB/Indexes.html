@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indexes in MongoDB - KaizenTech</title>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
+        a { color: #1a73e8; }
+
+        /* HERO HEADER */
+        .article-hero { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 36px 40px 0; }
+        .hero-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 40px; align-items: center; flex-wrap: wrap; }
+        .hero-left { flex: 1; min-width: 280px; padding-bottom: 32px; }
+        .hero-tags { display: flex; gap: 0; margin-bottom: 18px; }
+        .hero-tag { display: inline-block; padding: 5px 20px 5px 12px; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #fff; }
+        .hero-tag.db { background: #3b5bdb; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%); }
+        .hero-tag.webdev { background: #00b37e; margin-left: -4px; padding: 5px 20px 5px 18px; clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%); }
+        .hero-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 900; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 18px; color: #0f1724; }
+        .skeleton-bars { display: flex; gap: 6px; margin-bottom: 18px; }
+        .skeleton-bar { height: 8px; border-radius: 4px; }
+        .hero-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font-size: .85rem; color: #718096; margin-bottom: 4px; }
+        .hero-share { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+        .share-btn { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid #e2e8f0; color: #4a5568; font-size: .85rem; cursor: pointer; background: #fff; transition: all .2s; text-decoration: none; font-weight: 600; }
+        .share-btn:hover { border-color: #3b5bdb; color: #3b5bdb; background: #eef2ff; }
+        .share-sep { width: 1px; height: 18px; background: #e2e8f0; }
+        .read-time { font-size: .85rem; color: #718096; font-weight: 500; }
+        .hero-poster { flex-shrink: 0; width: 480px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,.14); align-self: center; background: #f5f5f5; }
+        .hero-poster img { width: 100%; height: auto; display: block; object-fit: contain; }
+        .back-btn { display: inline-block; margin: 20px 40px; padding: 8px 16px; background: #3b5bdb; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-family: Arial, sans-serif; }
+        .back-btn:hover { background: #2846c7; color: #fff; }
+
+        
+        
+        
+        table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+        th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+        th { background: #f0f0f0; }
+        img { max-width: 100%; border-radius: 8px; margin: 20px 0; }
+    
+        pre { background: #f8fafc; color: #0f1724; padding: 16px 20px; border-radius: 10px; border: 1px solid #e2e8f0; border-left: 4px solid #13AA52; overflow-x: auto; font-family: 'Fira Code', 'Consolas', 'Monaco', monospace; font-size: 0.9rem; line-height: 1.6; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        code { background: #eef2ff; color: #3b5bdb; padding: 2px 6px; border-radius: 4px; font-size: 0.88em; }
+        pre code { background: none; color: inherit; padding: 0; }
+
+        /* Syntax Highlighting Colors for Students */
+        .t-kw { color: #d97706; font-weight: 700; }
+        .t-fn { color: #2563eb; font-weight: 700; }
+        .t-str { color: #059669; font-weight: 500; }
+        .t-num { color: #7c3aed; font-weight: 700; }
+        .t-prop { color: #e11d48; font-weight: 600; }
+        .t-op { color: #0284c7; font-weight: 700; }
+        .t-cm { color: #64748b; font-style: italic; }
+        .t-type { color: #0891b2; font-weight: 700; }
+
+    </style>
+</head>
+<body>
+
+    <!-- BACK BUTTON -->
+    <a href="MongoDB.html" class="back-btn">&#8592; Back to MongoDB</a>
+
+    <!-- HERO HEADER -->
+    <div class="article-hero">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <div class="hero-tags">
+            <span class="hero-tag db">DATABASE</span>
+            <span class="hero-tag webdev">WEB DEVELOPMENT</span>
+          </div>
+          <h1 class="hero-title">Indexes: MongoDB Indexing Guide 2026</h1>
+          <div class="skeleton-bars" aria-hidden="true">
+            <div class="skeleton-bar" style="width:32px;background:#13AA52;opacity:.8;"></div>
+            <div class="skeleton-bar" style="width:28px;background:#13AA52;opacity:.6;"></div>
+            <div class="skeleton-bar" style="width:24px;background:#13AA52;opacity:.5;"></div>
+            <div class="skeleton-bar" style="width:20px;background:#13AA52;opacity:.4;"></div>
+            <div class="skeleton-bar" style="width:16px;background:#13AA52;opacity:.3;"></div>
+            <div class="skeleton-bar" style="width:12px;background:#13AA52;opacity:.2;"></div>
+          </div>
+          <div class="hero-meta">
+            <span>&#128100; <strong>Rituraj Sinha</strong></span>
+            <span style="width:1px;height:14px;background:#e2e8f0;display:inline-block;"></span>
+            <span>&#128197; Last updated: July 25, 2026</span>
+          </div>
+          <div class="hero-share">
+            <a class="share-btn" title="Share on X">&#120143;</a>
+            <a class="share-btn" title="Share on LinkedIn">in</a>
+            <a class="share-btn" title="Share on Reddit">r/</a>
+            <a class="share-btn" title="Copy link">&#128279;</a>
+            <a class="share-btn" title="More">&#8226;&#8226;&#8226;</a>
+            <span class="share-sep"></span>
+            <span class="read-time">&#9200; 20&ndash;25 Min Read</span>
+          </div>
+        </div>
+        <div class="hero-poster">
+          <img src="../../BLOGS/MongoDB.png" alt="MongoDB Masterclass Poster">
+        </div>
+      </div>
+    </div>
+
+    <!-- 2-COLUMN LAYOUT -->
+    <div style="max-width:1280px; margin:0 auto; display:grid; grid-template-columns:250px 1fr; gap:0; align-items:start; padding:0 16px;">
+
+      <!-- LEFT SIDEBAR: MongoDB Topics -->
+      <aside style="position:sticky; top:20px; padding:24px 16px 24px 0;">
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:18px; box-shadow:0 1px 4px rgba(0,0,0,.07);">
+          <div style="font-size:1rem; font-weight:800; margin-bottom:14px; color:#0f1724;">MongoDB Topics</div>
+          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px;">
+            <li><a href="BSON.html"        style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">1. BSON (Binary JSON)</a></li>
+            <li><a href="Collections.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">2. Collections</a></li>
+            <li><a href="CRUD.html"        style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">3. CRUD Operations</a></li>
+            <li><a href="Indexes.html"     style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:700; color:#3b5bdb; background:#eef2ff; text-decoration:none;">4. Indexes</a></li>
+            <li><a href="Aggregation.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">5. Aggregation</a></li>
+            <li><a href="Relationships.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">6. Relationships</a></li>
+            <li><a href="Mongoose.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">7. Mongoose &amp; Node.js</a></li>
+            <li><a href="SchemaDesign.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">8. Schema Design</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- CENTER: Article Body -->
+      <main id="content" style="background:#fff; border-left:1px solid #e2e8f0; padding:36px 40px; min-height:80vh;">
+
+        <p><strong>Title:</strong> Indexes in MongoDB</p>
+        <p><strong>Short Description:</strong> Learn how MongoDB indexes improve query performance by allowing the database to find documents quickly without scanning every record. Understand different index types, syntax, examples, and best practices.</p>
+        <p><strong>Difficulty:</strong> Beginner</p>
+        <p><strong>Time Required:</strong> 20&ndash;25 minutes</p>
+
+        <p><strong>Prerequisites:</strong></p>
+        <ul>
+            <li>Basic understanding of MongoDB</li>
+            <li>Knowledge of Documents and Collections</li>
+            <li>Familiarity with CRUD Operations</li>
+            <li>Basic understanding of BSON</li>
+            <li>MongoDB installed (optional for practice)</li>
+        </ul>
+
+        <p><strong>Tags:</strong> <code>MongoDB</code> <code>Indexes</code> <code>Database</code> <code>Performance</code> <code>NoSQL</code></p>
+
+        <hr>
+
+        <!-- Table of Contents -->
+        <h2>Table of Contents (clickable)</h2>
+        <ol>
+            <li><a href="#what-are-indexes">What are Indexes</a></li>
+            <li><a href="#why-it-matters">Why it matters</a></li>
+            <li><a href="#syntax">Syntax</a></li>
+            <li><a href="#examples">Examples</a>
+                <ul>
+                    <li><a href="#example-1">Example 1: Create an Index</a></li>
+                    <li><a href="#example-2">Example 2: Search Using an Index</a></li>
+                    <li><a href="#example-3">Example 3: Compound Index</a></li>
+                    <li><a href="#example-4">Example 4: Unique Index</a></li>
+                </ul>
+            </li>
+            <li><a href="#common-mistakes">Common Mistakes</a></li>
+            <li><a href="#interview-questions">Interview Questions</a></li>
+            <li><a href="#quick-revision">Quick Revision Sheet</a></li>
+            <li><a href="#practice-questions">Practice Questions</a></li>
+            <li><a href="#resources">Resources</a></li>
+        </ol>
+
+        <hr>
+
+        <!-- What are Indexes -->
+        <h2 id="what-are-indexes">What are Indexes</h2>
+
+        <p>An <strong>Index</strong> is a special data structure that helps MongoDB find documents much faster.</p>
+
+        <p>Imagine a textbook with <strong>500 pages</strong>. If you want to find the topic <strong>"Binary Search"</strong>, you don't read every page&mdash;you simply open the <strong>index page</strong> at the back of the book. The index tells you the page number directly.</p>
+
+        <p>MongoDB indexes work in the same way.</p>
+        <ul>
+            <li>Without an index, MongoDB checks every document one by one.</li>
+            <li>With an index, MongoDB directly locates the required documents.</li>
+        </ul>
+
+        <p>For example, suppose you have a <strong>students</strong> collection containing <strong>1,000,000 student records</strong>.</p>
+        <p>If you search for:</p>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">find</span>({
+    <span class="t-prop">rollNo</span>:<span class="t-num">1056</span>
+});</code></pre>
+
+        <p>Without an index, MongoDB scans all documents.</p>
+        <p>With an index on <strong>rollNo</strong>, MongoDB directly jumps to the matching record.</p>
+
+        <div style="text-align:center; margin:20px 0;">
+            <img src="../../BLOGS/indexes_overview.png" alt="MongoDB Indexes Overview Diagram" style="max-width:420px; width:100%; height:auto; display:block; margin:0 auto; border-radius:10px; border:1px solid #e2e8f0; box-shadow:0 4px 16px rgba(0,0,0,.08); image-rendering:-webkit-optimize-contrast;">
+            <p style="font-size:.82rem; color:#718096; margin-top:6px;"><em>Figure: Indexes improve the speed of data retrieval like a book index.</em></p>
+        </div>
+
+        <hr>
+
+        <!-- Why it matters -->
+        <h2 id="why-it-matters">Why it matters</h2>
+
+        <p>Indexes are important because they improve the speed and efficiency of database operations.</p>
+        <p>Some reasons why indexes matter are:</p>
+        <ul>
+            <li>They make search operations much faster.</li>
+            <li>They reduce the number of documents MongoDB needs to scan.</li>
+            <li>They improve query performance.</li>
+            <li>They speed up sorting operations.</li>
+            <li>They help large applications handle millions of records efficiently.</li>
+        </ul>
+        <p>Without indexes, MongoDB performs a <strong>Collection Scan</strong>, which becomes slow as data grows.</p>
+
+        <hr>
+
+        <!-- Syntax -->
+        <h2 id="syntax">Syntax</h2>
+
+        <h3>Create an Index</h3>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">createIndex</span>({
+    <span class="t-prop">name</span>:<span class="t-num">1</span>
+});</code></pre>
+        <p><code>1</code> means Ascending order.</p>
+
+        <h3>Descending Index</h3>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">createIndex</span>({
+    <span class="t-prop">age</span>:-<span class="t-num">1</span>
+});</code></pre>
+        <p><code>-1</code> means Descending order.</p>
+
+        <h3>View All Indexes</h3>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">getIndexes</span>();</code></pre>
+
+        <h3>Drop an Index</h3>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">dropIndex</span>({
+    <span class="t-prop">name</span>:<span class="t-num">1</span>
+});</code></pre>
+
+        <hr>
+
+        <!-- Examples -->
+        <h2 id="examples">Examples</h2>
+
+        <h3 id="example-1">Example 1: Create an Index</h3>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">createIndex</span>({
+    <span class="t-prop">rollNo</span>:<span class="t-num">1</span>
+});</code></pre>
+        <p>This creates an ascending index on the <strong>rollNo</strong> field.</p>
+
+        <h3 id="example-2">Example 2: Search Using an Index</h3>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">find</span>({
+    <span class="t-prop">rollNo</span>:<span class="t-num">101</span>
+});</code></pre>
+        <p>MongoDB uses the index to quickly find the matching document.</p>
+
+        <h3 id="example-3">Example 3: Compound Index</h3>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">createIndex</span>({
+    <span class="t-prop">course</span>:<span class="t-num">1</span>,
+    <span class="t-prop">city</span>:<span class="t-num">1</span>
+});</code></pre>
+        <p>This index helps queries that search using both <strong>course</strong> and <strong>city</strong>.</p>
+        <p>Example:</p>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">find</span>({
+    <span class="t-prop">course</span>:<span class="t-str">"B.Tech AI"</span>,
+    <span class="t-prop">city</span>:<span class="t-str">"Delhi"</span>
+});</code></pre>
+
+        <h3 id="example-4">Example 4: Unique Index</h3>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">createIndex</span>(
+    {
+        <span class="t-prop">email</span>:<span class="t-num">1</span>
+    },
+    {
+        <span class="t-prop">unique</span>:true
+    }
+);</code></pre>
+        <p>This prevents duplicate email addresses.</p>
+
+        <hr>
+
+        <!-- Common Mistakes -->
+        <h2 id="common-mistakes">Common Mistakes</h2>
+
+        <h3>Mistake 1: Creating Too Many Indexes</h3>
+        <p><strong>Wrong</strong></p>
+        <p>Creating indexes on every field.</p>
+        <p>This wastes storage and slows insert/update operations.</p>
+        <p><strong>Correct</strong></p>
+        <p>Create indexes only on frequently searched fields.</p>
+
+        <hr>
+
+        <h3>Mistake 2: Forgetting That Indexes Use Storage</h3>
+        <p>Some beginners think indexes don't consume space.</p>
+        <p><strong>Correct</strong></p>
+        <p>Indexes require additional disk space.</p>
+
+        <hr>
+
+        <h3>Mistake 3: Creating an Index on Rarely Used Fields</h3>
+        <p>Suppose users never search by phone number. Creating an index like:</p>
+        <pre><code><span class="t-fn">db</span>.students.<span class="t-fn">createIndex</span>({
+    <span class="t-prop">phone</span>:<span class="t-num">1</span>
+});</code></pre>
+        <p>adds unnecessary overhead.</p>
+        <p><strong>Correct</strong></p>
+        <p>Index only those fields used in searching, sorting, or filtering.</p>
+
+        <hr>
+
+        <!-- Interview Questions -->
+        <h2 id="interview-questions">Interview Questions</h2>
+
+        <h3>1. What is an Index in MongoDB?</h3>
+        <p><strong>Answer:</strong> An Index is a special B-tree data structure that stores a small portion of the collection's data set in an easy-to-traverse form. It speeds up query execution by allowing MongoDB to locate documents without performing a full collection scan.</p>
+
+        <hr>
+
+        <h3>2. Why are indexes used in MongoDB?</h3>
+        <p><strong>Answer:</strong> Indexes dramatically increase query performance for search, filtering, and sorting operations. Without indexes, MongoDB must perform a <i>collection scan</i> (scanning every document in the collection), which is extremely slow on large datasets.</p>
+
+        <hr>
+
+        <h3>3. What does <code>1</code> and <code>-1</code> mean while creating an index?</h3>
+        <p><strong>Answer:</strong> In <code>createIndex({ fieldName: 1 })</code>, <code>1</code> specifies an <strong>ascending index</strong> (sorted from smallest to largest value), while <code>-1</code> specifies a <strong>descending index</strong> (sorted from largest to smallest value).</p>
+
+        <hr>
+
+        <h3>4. What is a Compound Index?</h3>
+        <p><strong>Answer:</strong> A Compound Index is an index on <strong>multiple fields</strong> (e.g. <code>{ course: 1, age: -1 }</code>). It supports queries that filter or sort on all specified fields or any prefix subset of those fields.</p>
+
+        <hr>
+
+        <h3>5. What is a Unique Index?</h3>
+        <p><strong>Answer:</strong> A Unique Index rejects duplicate values for the indexed field across documents in a collection (e.g. <code>createIndex({ email: 1 }, { unique: true })</code>), enforcing data uniqueness like a primary/unique key constraint in SQL.</p>
+
+        <hr>
+
+        <!-- Quick Revision Sheet -->
+        <h2 id="quick-revision">Quick Revision Sheet</h2>
+        <img src="../../BLOGS/Indexes.png" alt="Indexes Quick Revision Sheet" style="max-width:650px; width:100%; height:auto; display:block; margin:20px auto; border-radius:8px; border:1px solid #e2e8f0; box-shadow:0 4px 20px rgba(0,0,0,.08); image-rendering:-webkit-optimize-contrast;">
+
+        <hr>
+
+        <!-- Practice Questions -->
+        <h2 id="practice-questions">Practice Questions</h2>
+
+        <h3>Easy</h3>
+        <ol>
+            <li>What is an Index?</li>
+            <li>Why do we use indexes?</li>
+            <li>What does <code>1</code> represent while creating an index?</li>
+        </ol>
+
+        <h3>Medium</h3>
+        <ol>
+            <li>Create an index on the <code>name</code> field.</li>
+            <li>Create a descending index on <code>age</code>.</li>
+            <li>Create a compound index using <code>course</code> and <code>city</code>.</li>
+            <li>View all indexes in a collection.</li>
+        </ol>
+
+        <h3>Hard</h3>
+        <p>Design indexes for a <strong>Student Management System</strong>.</p>
+        <ul>
+            <li>Create an index on <strong>rollNo</strong>.</li>
+            <li>Create a unique index on <strong>email</strong>.</li>
+            <li>Create a compound index on <strong>course</strong> and <strong>city</strong>.</li>
+            <li>Explain which queries will benefit from each index.</li>
+            <li>Explain why creating too many indexes can reduce performance.</li>
+        </ul>
+
+        <hr>
+
+        <!-- Resources -->
+        <h2 id="resources">Resources</h2>
+        <ul>
+            <li>MongoDB Official Documentation &ndash; Indexes</li>
+            <li>MongoDB University</li>
+            <li>freeCodeCamp MongoDB Course</li>
+            <li>MongoDB: The Definitive Guide (Book)</li>
+        </ul>
+
+      </main>
+
+    </div><!-- end 2-col -->
+
+</body>
+</html>

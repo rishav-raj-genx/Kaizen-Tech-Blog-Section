@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mongoose (MongoDB ODM) - KaizenTech</title>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
+        a { color: #1a73e8; }
+
+        /* HERO HEADER */
+        .article-hero { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 36px 40px 0; }
+        .hero-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 40px; align-items: center; flex-wrap: wrap; }
+        .hero-left { flex: 1; min-width: 280px; padding-bottom: 32px; }
+        .hero-tags { display: flex; gap: 0; margin-bottom: 18px; }
+        .hero-tag { display: inline-block; padding: 5px 20px 5px 12px; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #fff; }
+        .hero-tag.db { background: #3b5bdb; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%); }
+        .hero-tag.webdev { background: #00b37e; margin-left: -4px; padding: 5px 20px 5px 18px; clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%); }
+        .hero-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 900; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 18px; color: #0f1724; }
+        .skeleton-bars { display: flex; gap: 6px; margin-bottom: 18px; }
+        .skeleton-bar { height: 8px; border-radius: 4px; }
+        .hero-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font-size: .85rem; color: #718096; margin-bottom: 4px; }
+        .hero-share { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+        .share-btn { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid #e2e8f0; color: #4a5568; font-size: .85rem; cursor: pointer; background: #fff; transition: all .2s; text-decoration: none; font-weight: 600; }
+        .share-btn:hover { border-color: #3b5bdb; color: #3b5bdb; background: #eef2ff; }
+        .share-sep { width: 1px; height: 18px; background: #e2e8f0; }
+        .read-time { font-size: .85rem; color: #718096; font-weight: 500; }
+        .hero-poster { flex-shrink: 0; width: 480px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,.14); align-self: center; background: #f5f5f5; }
+        .hero-poster img { width: 100%; height: auto; display: block; object-fit: contain; }
+        .back-btn { display: inline-block; margin: 20px 40px; padding: 8px 16px; background: #3b5bdb; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-family: Arial, sans-serif; }
+        .back-btn:hover { background: #2846c7; color: #fff; }
+
+        
+        
+        
+        table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+        th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+        th { background: #f0f0f0; }
+        img { max-width: 100%; border-radius: 8px; margin: 20px 0; }
+    
+        pre { background: #f8fafc; color: #0f1724; padding: 16px 20px; border-radius: 10px; border: 1px solid #e2e8f0; border-left: 4px solid #13AA52; overflow-x: auto; font-family: 'Fira Code', 'Consolas', 'Monaco', monospace; font-size: 0.9rem; line-height: 1.6; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        code { background: #eef2ff; color: #3b5bdb; padding: 2px 6px; border-radius: 4px; font-size: 0.88em; }
+        pre code { background: none; color: inherit; padding: 0; }
+
+        /* Syntax Highlighting Colors for Students */
+        .t-kw { color: #d97706; font-weight: 700; }
+        .t-fn { color: #2563eb; font-weight: 700; }
+        .t-str { color: #059669; font-weight: 500; }
+        .t-num { color: #7c3aed; font-weight: 700; }
+        .t-prop { color: #e11d48; font-weight: 600; }
+        .t-op { color: #0284c7; font-weight: 700; }
+        .t-cm { color: #64748b; font-style: italic; }
+        .t-type { color: #0891b2; font-weight: 700; }
+
+    </style>
+</head>
+<body>
+
+    <!-- BACK BUTTON -->
+    <a href="MongoDB.html" class="back-btn">&#8592; Back to MongoDB</a>
+
+    <!-- HERO HEADER -->
+    <div class="article-hero">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <div class="hero-tags">
+            <span class="hero-tag db">DATABASE</span>
+            <span class="hero-tag webdev">WEB DEVELOPMENT</span>
+          </div>
+          <h1 class="hero-title">Mongoose: MongoDB ODM for Node.js Guide 2026</h1>
+          <div class="skeleton-bars" aria-hidden="true">
+            <div class="skeleton-bar" style="width:32px;background:#13AA52;opacity:.8;"></div>
+            <div class="skeleton-bar" style="width:28px;background:#13AA52;opacity:.6;"></div>
+            <div class="skeleton-bar" style="width:24px;background:#13AA52;opacity:.5;"></div>
+            <div class="skeleton-bar" style="width:20px;background:#13AA52;opacity:.4;"></div>
+            <div class="skeleton-bar" style="width:16px;background:#13AA52;opacity:.3;"></div>
+            <div class="skeleton-bar" style="width:12px;background:#13AA52;opacity:.2;"></div>
+          </div>
+          <div class="hero-meta">
+            <span>&#128100; <strong>Rituraj Sinha</strong></span>
+            <span style="width:1px;height:14px;background:#e2e8f0;display:inline-block;"></span>
+            <span>&#128197; Last updated: July 25, 2026</span>
+          </div>
+          <div class="hero-share">
+            <a class="share-btn" title="Share on X">&#120143;</a>
+            <a class="share-btn" title="Share on LinkedIn">in</a>
+            <a class="share-btn" title="Share on Reddit">r/</a>
+            <a class="share-btn" title="Copy link">&#128279;</a>
+            <a class="share-btn" title="More">&#8226;&#8226;&#8226;</a>
+            <span class="share-sep"></span>
+            <span class="read-time">&#9200; 25&ndash;30 Min Read</span>
+          </div>
+        </div>
+        <div class="hero-poster">
+          <img src="../../BLOGS/MongoDB.png" alt="MongoDB Masterclass Poster">
+        </div>
+      </div>
+    </div>
+
+    <!-- 2-COLUMN LAYOUT -->
+    <div style="max-width:1280px; margin:0 auto; display:grid; grid-template-columns:250px 1fr; gap:0; align-items:start; padding:0 16px;">
+
+      <!-- LEFT SIDEBAR: MongoDB Topics -->
+      <aside style="position:sticky; top:20px; padding:24px 16px 24px 0;">
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:18px; box-shadow:0 1px 4px rgba(0,0,0,.07);">
+          <div style="font-size:1rem; font-weight:800; margin-bottom:14px; color:#0f1724;">MongoDB Topics</div>
+          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px;">
+            <li><a href="BSON.html"        style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">1. BSON (Binary JSON)</a></li>
+            <li><a href="Collections.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">2. Collections</a></li>
+            <li><a href="CRUD.html"        style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">3. CRUD Operations</a></li>
+            <li><a href="Indexes.html"     style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">4. Indexes</a></li>
+            <li><a href="Aggregation.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">5. Aggregation</a></li>
+            <li><a href="Relationships.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">6. Relationships</a></li>
+            <li><a href="Mongoose.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:700; color:#3b5bdb; background:#eef2ff; text-decoration:none;">7. Mongoose &amp; Node.js</a></li>
+            <li><a href="SchemaDesign.html" style="display:block; padding:8px 10px; border-radius:6px; font-size:.85rem; font-weight:500; color:#4a5568; text-decoration:none;">8. Schema Design</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- CENTER: Article Body -->
+      <main id="content" style="background:#fff; border-left:1px solid #e2e8f0; padding:36px 40px; min-height:80vh;">
+
+        <p><strong>Title:</strong> Mongoose (MongoDB ODM)</p>
+        <p><strong>Short Description:</strong> Learn how Mongoose simplifies working with MongoDB in Node.js by providing schemas, models, validation, and easy database operations. Understand how to connect, create models, and perform CRUD operations using Mongoose.</p>
+        <p><strong>Difficulty:</strong> Beginner</p>
+        <p><strong>Time Required:</strong> 25&ndash;30 minutes</p>
+
+        <p><strong>Prerequisites:</strong></p>
+        <ul>
+            <li>Basic understanding of MongoDB</li>
+            <li>Knowledge of Documents and Collections</li>
+            <li>Familiarity with CRUD Operations</li>
+            <li>Basic JavaScript</li>
+            <li>Basic Node.js</li>
+            <li>MongoDB installed (optional for practice)</li>
+        </ul>
+
+        <p><strong>Tags:</strong> <code>MongoDB</code> <code>Mongoose</code> <code>Node.js</code> <code>ODM</code> <code>JavaScript</code></p>
+
+        <hr>
+
+        <!-- Table of Contents -->
+        <h2>Table of Contents (clickable)</h2>
+        <ol>
+            <li><a href="#what-is-mongoose">What is Mongoose</a></li>
+            <li><a href="#why-it-matters">Why it matters</a></li>
+            <li><a href="#syntax">Syntax</a>
+                <ul>
+                    <li><a href="#install-mongoose">Install Mongoose</a></li>
+                    <li><a href="#import-mongoose">Import Mongoose</a></li>
+                    <li><a href="#connect-to-mongodb">Connect to MongoDB</a></li>
+                    <li><a href="#create-a-schema">Create a Schema</a></li>
+                    <li><a href="#create-a-model">Create a Model</a></li>
+                </ul>
+            </li>
+            <li><a href="#examples">Examples</a>
+                <ul>
+                    <li><a href="#example-1">Example 1: Connect to MongoDB</a></li>
+                    <li><a href="#example-2">Example 2: Create a Document</a></li>
+                    <li><a href="#example-3">Example 3: Read Documents</a></li>
+                    <li><a href="#example-4">Example 4: Update a Document</a></li>
+                    <li><a href="#example-5">Example 5: Delete a Document</a></li>
+                </ul>
+            </li>
+            <li><a href="#common-mistakes">Common Mistakes</a></li>
+            <li><a href="#interview-questions">Interview Questions</a></li>
+            <li><a href="#quick-revision">Quick Revision Sheet</a></li>
+            <li><a href="#practice-questions">Practice Questions</a></li>
+            <li><a href="#resources">Resources</a></li>
+        </ol>
+
+        <hr>
+
+        <!-- What is Mongoose -->
+        <h2 id="what-is-mongoose">What is Mongoose</h2>
+
+        <p><strong>Mongoose</strong> is an <strong>Object Data Modeling (ODM)</strong> library for MongoDB and Node.js.</p>
+
+        <p>It acts as a bridge between your <strong>Node.js application</strong> and the <strong>MongoDB database</strong>.</p>
+
+        <p>Instead of writing MongoDB commands directly, Mongoose allows developers to work with JavaScript objects and provides features like schemas, models, validation, and middleware.</p>
+
+        <p>Think of Mongoose as a <strong>translator</strong>.</p>
+
+        <p>Imagine two people speaking different languages.</p>
+        <ul>
+            <li><strong>Node.js</strong> understands JavaScript.</li>
+            <li><strong>MongoDB</strong> stores data as BSON documents.</li>
+        </ul>
+
+        <p>Mongoose translates JavaScript objects into MongoDB documents and converts MongoDB documents back into JavaScript objects.</p>
+
+        <p>For example, instead of manually creating MongoDB documents, you define a schema and let Mongoose handle the database operations.</p>
+
+        <div style="text-align:center; margin:20px 0;">
+            <img src="../../BLOGS/mongoose_overview.png" alt="Mongoose ODM Overview Diagram" style="max-width:440px; width:100%; height:auto; display:block; margin:0 auto; border-radius:10px; border:1px solid #e2e8f0; box-shadow:0 4px 16px rgba(0,0,0,.08); image-rendering:-webkit-optimize-contrast;">
+            <p style="font-size:.82rem; color:#718096; margin-top:6px;"><em>Figure: Mongoose (ODM) bridges Node.js applications and MongoDB databases.</em></p>
+        </div>
+
+        <hr>
+
+        <!-- Why it matters -->
+        <h2 id="why-it-matters">Why it matters</h2>
+
+        <p>Mongoose is important because it makes MongoDB development easier and more organized.</p>
+        <p>Some reasons why Mongoose matters are:</p>
+        <ul>
+            <li>It provides <strong>schemas</strong> to define document structure.</li>
+            <li>It <strong>validates</strong> data before saving.</li>
+            <li>It simplifies <strong>CRUD operations</strong>.</li>
+            <li>It converts JavaScript objects into MongoDB documents.</li>
+            <li>It provides middleware (hooks) for custom logic.</li>
+            <li>It improves code readability and maintainability.</li>
+            <li>It reduces repetitive database code.</li>
+        </ul>
+        <p>Without Mongoose, developers need to manually manage validation and document structure.</p>
+
+        <hr>
+
+        <!-- Syntax -->
+        <h2 id="syntax">Syntax</h2>
+
+        <h3 id="install-mongoose">Install Mongoose</h3>
+        <pre><code><span class="t-kw">npm</span> <span class="t-kw">install</span> mongoose</code></pre>
+
+        <h3 id="import-mongoose">Import Mongoose</h3>
+        <pre><code><span class="t-kw">const</span> mongoose = <span class="t-kw">require</span>(<span class="t-str">"mongoose"</span>);</code></pre>
+
+        <h3 id="connect-to-mongodb">Connect to MongoDB</h3>
+        <pre><code>mongoose.<span class="t-fn">connect</span>(<span class="t-str">"mongodb://127.0.0.1:27017/studentDB"</span>);</code></pre>
+
+        <h3 id="create-a-schema">Create a Schema</h3>
+        <pre><code><span class="t-kw">const</span> studentSchema = <span class="t-kw">new</span> mongoose.<span class="t-type">Schema</span>({
+    <span class="t-prop">name</span>:<span class="t-type">String</span>,
+    <span class="t-prop">age</span>:<span class="t-type">Number</span>,
+    <span class="t-prop">course</span>:<span class="t-type">String</span>
+});</code></pre>
+
+        <h3 id="create-a-model">Create a Model</h3>
+        <pre><code><span class="t-kw">const</span> Student = mongoose.<span class="t-fn">model</span>(<span class="t-str">"Student"</span>,studentSchema);</code></pre>
+
+        <hr>
+
+        <!-- Examples -->
+        <h2 id="examples">Examples</h2>
+
+        <h3 id="example-1">Example 1: Connect to MongoDB</h3>
+        <pre><code><span class="t-kw">const</span> mongoose = <span class="t-kw">require</span>(<span class="t-str">"mongoose"</span>);
+mongoose.<span class="t-fn">connect</span>(<span class="t-str">"mongodb://127.0.0.1:27017/studentDB"</span>);
+console.log(<span class="t-str">"Connected Successfully"</span>);</code></pre>
+        <p>This connects your Node.js application to MongoDB.</p>
+
+        <h3 id="example-2">Example 2: Create a Document</h3>
+        <pre><code><span class="t-kw">const</span> student = <span class="t-kw">new</span> Student({
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>,
+    <span class="t-prop">age</span>:<span class="t-num">19</span>,
+    <span class="t-prop">course</span>:<span class="t-str">"B.Tech AI"</span>
+});
+student.<span class="t-fn">save</span>();</code></pre>
+        <p>This saves a new student document into MongoDB.</p>
+
+        <h3 id="example-3">Example 3: Read Documents</h3>
+        <pre><code>Student.<span class="t-fn">find</span>();</code></pre>
+        <p>This retrieves all student documents.</p>
+
+        <p>Retrieve one document:</p>
+        <pre><code>Student.<span class="t-fn">findOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>
+});</code></pre>
+
+        <h3 id="example-4">Example 4: Update a Document</h3>
+        <pre><code>Student.<span class="t-fn">updateOne</span>(
+    {
+        <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>
+    },
+    {
+        <span class="t-prop">age</span>:<span class="t-num">20</span>
+    }
+);</code></pre>
+        <p>This updates Rituraj's age.</p>
+
+        <h3 id="example-5">Example 5: Delete a Document</h3>
+        <pre><code>Student.<span class="t-fn">deleteOne</span>({
+    <span class="t-prop">name</span>:<span class="t-str">"Rituraj"</span>
+});</code></pre>
+        <p>This removes the document from MongoDB.</p>
+
+        <hr>
+
+        <!-- Common Mistakes -->
+        <h2 id="common-mistakes">Common Mistakes</h2>
+
+        <h3>Mistake 1: Forgetting to Connect</h3>
+        <p><strong>Wrong</strong></p>
+        <pre><code>Student.<span class="t-fn">find</span>();</code></pre>
+        <p><strong>Correct</strong></p>
+        <pre><code>mongoose.<span class="t-fn">connect</span>(<span class="t-str">"mongodb://127.0.0.1:27017/studentDB"</span>);</code></pre>
+        <p>Always connect before performing database operations.</p>
+
+        <hr>
+
+        <h3>Mistake 2: Saving Without Creating a Model</h3>
+        <p><strong>Wrong</strong></p>
+        <pre><code>student.<span class="t-fn">save</span>();</code></pre>
+        <p><strong>Correct</strong></p>
+        <p>Create a model first using <code>mongoose.model()</code>.</p>
+
+        <hr>
+
+        <h3>Mistake 3: Forgetting to Await Database Operations</h3>
+        <p><strong>Wrong</strong></p>
+        <pre><code>Student.<span class="t-fn">find</span>();</code></pre>
+        <p><strong>Correct</strong></p>
+        <pre><code><span class="t-kw">await</span> Student.<span class="t-fn">find</span>();</code></pre>
+        <p>Use <code>await</code> (or <code>.then()</code>) because most Mongoose operations are asynchronous.</p>
+
+        <hr>
+
+        <h3>Mistake 4: Not Defining Required Fields</h3>
+        <p><strong>Wrong</strong></p>
+        <pre><code><span class="t-kw">const</span> studentSchema = <span class="t-kw">new</span> mongoose.<span class="t-type">Schema</span>({
+    <span class="t-prop">name</span>:<span class="t-type">String</span>
+});</code></pre>
+        <p><strong>Correct</strong></p>
+        <pre><code><span class="t-kw">const</span> studentSchema = <span class="t-kw">new</span> mongoose.<span class="t-type">Schema</span>({
+    <span class="t-prop">name</span>: {
+        <span class="t-prop">type</span>:<span class="t-type">String</span>,
+        <span class="t-prop">required</span>:true
+    }
+});</code></pre>
+        <p>Use validation whenever necessary.</p>
+
+        <hr>
+
+        <!-- Interview Questions -->
+        <h2 id="interview-questions">Interview Questions</h2>
+
+        <h3>1. What is Mongoose?</h3>
+        <p><strong>Answer:</strong> Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js. It manages relationships between data, provides schema validation, and translates between code objects and MongoDB documents.</p>
+
+        <hr>
+
+        <h3>2. What is the difference between MongoDB and Mongoose?</h3>
+        <p><strong>Answer:</strong> MongoDB is the NoSQL database server that stores data in BSON format, while Mongoose is a Node.js JavaScript library that connects to MongoDB to enforce schemas, validate models, and simplify database operations.</p>
+
+        <hr>
+
+        <h3>3. What is a Schema in Mongoose?</h3>
+        <p><strong>Answer:</strong> A Mongoose Schema defines the structure of documents within a collection, specifying field names, data types, default values, validators, and middleware hooks.</p>
+
+        <hr>
+
+        <h3>4. What is a Model in Mongoose?</h3>
+        <p><strong>Answer:</strong> A Mongoose Model is a wrapper around a Schema that provides an interface to the database for creating, querying, updating, and deleting documents (e.g. <code>Student.find()</code>).</p>
+
+        <hr>
+
+        <h3>5. What is validation in Mongoose?</h3>
+        <p><strong>Answer:</strong> Validation ensures that document fields conform to defined rules (such as <code>required: true</code>, <code>min</code>, <code>max</code>, or custom regex) before saving data to MongoDB, preventing corrupted or incomplete records.</p>
+
+        <hr>
+
+        <h3>6. Why is Mongoose called an ODM?</h3>
+        <p><strong>Answer:</strong> Mongoose is called an <strong>Object Data Modeling (ODM)</strong> library because it maps JavaScript Objects in your Node.js application directly to Document Data in the MongoDB database.</p>
+
+        <hr>
+
+        <h3>7. Which method connects Mongoose to MongoDB?</h3>
+        <p><strong>Answer:</strong> The <code>mongoose.connect('mongodb://127.0.0.1:27017/databaseName')</code> method connects a Node.js application to a MongoDB database instance.</p>
+
+        <hr>
+
+        <!-- Quick Revision Sheet -->
+        <h2 id="quick-revision">Quick Revision Sheet</h2>
+        <img src="../../BLOGS/Mongoose.png" alt="Mongoose Quick Revision Sheet" style="max-width:650px; width:100%; height:auto; display:block; margin:20px auto; border-radius:8px; border:1px solid #e2e8f0; box-shadow:0 4px 20px rgba(0,0,0,.08); image-rendering:-webkit-optimize-contrast;">
+
+        <hr>
+
+        <!-- Practice Questions -->
+        <h2 id="practice-questions">Practice Questions</h2>
+
+        <h3>Easy</h3>
+        <ol>
+            <li>What is Mongoose?</li>
+            <li>What does ODM stand for?</li>
+            <li>Which command installs Mongoose?</li>
+            <li>Which method connects to MongoDB?</li>
+        </ol>
+
+        <h3>Medium</h3>
+        <ol>
+            <li>Create a Student schema.</li>
+            <li>Create a Student model.</li>
+            <li>Insert a student document using Mongoose.</li>
+            <li>Retrieve all student documents.</li>
+            <li>Update one student's age.</li>
+        </ol>
+
+        <h3>Hard</h3>
+        <p>Design a <strong>Student Management System</strong> using Mongoose.</p>
+        <ul>
+            <li>Create a Student schema with validation.</li>
+            <li>Create a Student model.</li>
+            <li>Connect to MongoDB.</li>
+            <li>Insert 10 student records.</li>
+            <li>Find all students enrolled in <strong>B.Tech AI</strong>.</li>
+            <li>Update the city of one student.</li>
+            <li>Delete students whose course is <strong>Completed</strong>.</li>
+            <li>Explain how Mongoose simplifies these operations compared to using the MongoDB driver directly.</li>
+        </ul>
+
+        <hr>
+
+        <!-- Resources -->
+        <h2 id="resources">Resources</h2>
+        <ul>
+            <li>MongoDB Official Documentation &ndash; Mongoose Integration</li>
+            <li>Mongoose Official Documentation</li>
+            <li>MongoDB University</li>
+            <li>freeCodeCamp Mongoose Course</li>
+            <li>MongoDB: The Definitive Guide (Book)</li>
+        </ul>
+
+      </main>
+
+    </div><!-- end 2-col -->
+
+</body>
+</html>
