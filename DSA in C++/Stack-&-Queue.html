@@ -1,0 +1,1169 @@
+# Hero Section
+
+** Prerequisites: **
+
+* Arrays
+* Functions
+* Basic C++
+* Linked List (Optional)
+
+** Tags: **
+DSA • C++ • Stack • LIFO • STL
+
+---
+
+# Table of Contents
+
+1. What is a Stack?
+2. Why Stacks Matter
+3. Real-Life Analogy
+4. LIFO Principle
+5. Visual Diagram
+6. Stack Operations
+7. Stack Implementation using Array
+8. Stack Implementation using Linked List
+9. STL Stack
+10. Applications
+11. Time Complexity
+12. Common Mistakes
+13. Interview Questions
+14. Quick Revision Sheet
+15. Practice Problems
+16. Resources
+
+---
+
+# What is a Stack?
+
+A **Stack** is a linear data structure that follows the **LIFO (Last In, First Out)** principle.
+
+The last element inserted into the stack is the first one to be removed.
+
+Only one end of the stack, called the **Top**, is used for insertion and deletion.
+
+---
+
+# Why Stacks Matter
+
+Stacks are used whenever you need to remember the most recent item first.
+
+Examples include:
+
+* Undo/Redo in editors
+* Browser back button
+* Function call management
+* Expression evaluation
+* Parentheses matching
+* DFS in Graphs
+* Backtracking algorithms
+
+---
+
+# Think Like This...
+
+Imagine a stack of dinner plates.
+
+You always place a new plate on the top.
+
+When removing a plate, you also remove it from the top.
+
+You cannot remove a plate from the middle.
+
+A Stack behaves in exactly the same way.
+
+---
+
+# LIFO Principle
+
+LIFO stands for **Last In, First Out**.
+
+Example:
+
+```text
+Push 10
+Push 20
+Push 30
+
+Stack
+
+Top
+ ↓
+30
+20
+10
+
+Pop
+
+30 removed first
+```
+
+---
+
+# Visual Diagram
+
+```text
+        TOP
+         ↓
++---------+
+|   40    |
++---------+
+|   30    |
++---------+
+|   20    |
++---------+
+|   10    |
++---------+
+```
+
+Push adds a new element to the top.
+
+Pop removes the top element.
+
+---
+
+# Basic Operations
+
+## Push
+
+Adds an element to the top.
+
+Example
+
+Before
+
+```text
+20
+10
+```
+
+After Push(30)
+
+```text
+30
+20
+10
+```
+
+Complexity
+
+O(1)
+
+---
+
+## Pop
+
+Removes the top element.
+
+Example
+
+Before
+
+```text
+30
+20
+10
+```
+
+After Pop()
+
+```text
+20
+10
+```
+
+Complexity
+
+O(1)
+
+---
+
+## Top / Peek
+
+Returns the top element without removing it.
+
+Complexity
+
+O(1)
+
+---
+
+## isEmpty()
+
+Checks whether the stack contains any elements.
+
+Complexity
+
+O(1)
+
+---
+
+## Size()
+
+Returns the total number of elements.
+
+Complexity
+
+O(1)
+
+---
+
+# Stack Implementation using Array
+
+```cpp
+#include<iostream>
+using namespace std;
+
+class Stack
+{
+    int arr[100];
+    int topIndex;
+
+public:
+
+    Stack()
+    {
+        topIndex = -1;
+    }
+
+    void push(int x)
+    {
+        arr[++topIndex] = x;
+    }
+
+    void pop()
+    {
+        if(topIndex >= 0)
+            topIndex--;
+    }
+
+    int top()
+    {
+        return arr[topIndex];
+    }
+
+    bool empty()
+    {
+        return topIndex == -1;
+    }
+};
+```
+
+Advantages
+
+* Fast
+* Cache friendly
+* Simple implementation
+
+Disadvantages
+
+* Fixed size
+
+---
+
+# Stack Implementation using Linked List
+
+```cpp
+class Node
+{
+public:
+    int data;
+    Node* next;
+
+    Node(int x)
+    {
+        data=x;
+        next=nullptr;
+    }
+};
+
+class Stack
+{
+    Node* topNode;
+
+public:
+
+    Stack()
+    {
+        topNode=nullptr;
+    }
+
+    void push(int x)
+    {
+        Node* temp=new Node(x);
+
+        temp->next=topNode;
+
+        topNode=temp;
+    }
+
+    void pop()
+    {
+        if(topNode==nullptr)
+            return;
+
+        Node* temp=topNode;
+
+        topNode=topNode->next;
+
+        delete temp;
+    }
+};
+```
+
+Advantages
+
+* Dynamic size
+* No overflow until memory is exhausted
+
+---
+
+# Stack using STL
+
+```cpp
+#include<stack>
+
+using namespace std;
+
+int main()
+{
+    stack<int> st;
+
+    st.push(10);
+
+    st.push(20);
+
+    st.push(30);
+
+    cout<<st.top()<<endl;
+
+    st.pop();
+
+    cout<<st.size()<<endl;
+}
+```
+
+Common STL Functions
+
+| Function | Description        |
+| -------- | ------------------ |
+| push()   | Insert element     |
+| pop()    | Remove top         |
+| top()    | Return top         |
+| empty()  | Check if empty     |
+| size()   | Number of elements |
+
+---
+
+# Time Complexity
+
+| Operation | Complexity |
+| --------- | ---------- |
+| Push      | O(1)       |
+| Pop       | O(1)       |
+| Top       | O(1)       |
+| Size      | O(1)       |
+| Empty     | O(1)       |
+
+---
+
+# Advantages
+
+* Simple implementation
+* Constant time insertion
+* Constant time deletion
+* Useful for recursive problems
+* Efficient memory access
+
+---
+
+# Disadvantages
+
+* No random access
+* Cannot access middle elements
+* Array implementation has fixed capacity
+
+---
+
+# Real-World Applications
+
+* Browser Back Button
+* Undo / Redo
+* Compiler Syntax Checking
+* Expression Evaluation
+* Parentheses Matching
+* Function Call Stack
+* Depth First Search (DFS)
+* Backtracking
+* String Reversal
+* Maze Solving
+
+---
+
+# Common Mistakes
+
+## Mistake
+
+Calling pop() on an empty stack.
+
+Why?
+
+Causes stack underflow.
+
+Correct Way
+
+Always check empty() before pop().
+
+---
+
+## Mistake
+
+Accessing top() on an empty stack.
+
+Always verify that the stack is not empty.
+
+---
+
+## Mistake
+
+Ignoring overflow in array implementation.
+
+Ensure sufficient capacity before push().
+
+---
+
+## Mistake
+
+Memory leaks in linked-list implementation.
+
+Always delete removed nodes.
+
+---
+
+# Interview Questions
+
+1. What is a Stack?
+2. Explain the LIFO principle.
+3. Difference between Stack and Queue.
+4. Implement Stack using Array.
+5. Implement Stack using Linked List.
+6. Which implementation is better?
+7. What is Stack Overflow?
+8. What is Stack Underflow?
+9. Explain the Call Stack.
+10. Evaluate a postfix expression.
+11. Convert infix to postfix.
+12. Check balanced parentheses.
+13. Reverse a string using Stack.
+14. Design a Min Stack.
+15. Implement two stacks in one array.
+
+---
+
+# Quick Revision Sheet
+
+| Topic           | Summary              |
+| --------------- | -------------------- |
+| Principle       | LIFO                 |
+| Insert          | Push                 |
+| Delete          | Pop                  |
+| Top Element     | Peek/Top             |
+| Access          | Top only             |
+| Push Complexity | O(1)                 |
+| Pop Complexity  | O(1)                 |
+| Best Use        | Undo, DFS, Recursion |
+
+---
+
+# Practice Problems
+
+## Easy
+
+* Implement Stack
+* Valid Parentheses
+* Baseball Game
+* Remove All Adjacent Duplicates
+* Next Greater Element I
+
+---
+
+## Medium
+
+* Daily Temperatures
+* Asteroid Collision
+* Decode String
+* Online Stock Span
+* Evaluate Reverse Polish Notation
+
+---
+
+## Hard
+
+* Largest Rectangle in Histogram
+* Maximal Rectangle
+* Trapping Rain Water
+* Basic Calculator
+* Sliding Window Maximum (Deque concept)
+
+---
+
+# Best Practices
+
+* Check for underflow before pop().
+* Check empty() before top().
+* Prefer STL `stack` in contests unless implementation is required.
+* Use meaningful variable names.
+* Handle edge cases like empty stacks.
+
+---
+
+# Summary
+
+A Stack is one of the most fundamental linear data structures. It follows the LIFO principle, making it ideal for problems involving recursion, undo operations, expression evaluation, and depth-first search. Understanding stacks also helps in mastering parsing algorithms, compiler design, and many interview problems.
+
+---
+
+# Resources
+
+## Official Documentation
+
+* C++ STL `stack` documentation
+* C++ Reference Library
+
+## Books
+
+* Introduction to Algorithms (CLRS)
+* Data Structures and Algorithm Analysis in C++
+* Data Structures Using C++ — Reema Thareja
+
+## YouTube
+
+* Abdul Bari
+* William Fiset
+* take U forward (Striver)
+* freeCodeCamp.org
+
+## Practice Platforms
+
+* LeetCode
+* GeeksforGeeks
+* Codeforces
+* CodeChef
+* HackerRank
+
+---
+
+# Related Articles
+
+* Linked List
+* Queue
+* Arrays
+* Recursion
+* Trees
+* Graphs
+
+
+
+
+# Hero Section
+
+** Prerequisites: **
+
+* Arrays
+* Functions
+* Basic C++
+* Linked List (Optional)
+
+** Tags: **
+
+DSA • C++ • Queue • FIFO • STL
+
+---
+
+# Table of Contents
+
+1. What is a Queue?
+2. Why Queues Matter
+3. Real-Life Analogy
+4. FIFO Principle
+5. Visual Diagram
+6. Queue Operations
+7. Queue Implementation using Array
+8. Queue Implementation using Linked List
+9. Circular Queue
+10. STL Queue
+11. Applications
+12. Time Complexity
+13. Common Mistakes
+14. Interview Questions
+15. Quick Revision Sheet
+16. Practice Problems
+17. Resources
+
+---
+
+# What is a Queue?
+
+A **Queue** is a linear data structure that follows the **FIFO (First In, First Out)** principle.
+
+The first element inserted into the queue is the first one to be removed.
+
+Elements are inserted from the **Rear** and removed from the **Front**.
+
+---
+
+# Why Queues Matter
+
+Queues are used whenever tasks need to be processed in the same order they arrive.
+
+Examples include:
+
+* Printer Queue
+* Ticket Booking System
+* CPU Scheduling
+* Customer Service Lines
+* Task Scheduling
+* Network Packet Routing
+* Breadth First Search (BFS)
+
+---
+
+# Think Like This...
+
+Imagine waiting in a line at a movie ticket counter.
+
+The person who joins the line first gets the ticket first.
+
+New people always join at the back.
+
+Nobody can leave from the middle.
+
+A Queue works exactly like this.
+
+---
+
+# FIFO Principle
+
+FIFO stands for **First In, First Out**.
+
+Example
+
+```text
+Enqueue 10
+Enqueue 20
+Enqueue 30
+
+Front → 10 20 30 ← Rear
+
+Dequeue
+
+10 removed first
+```
+
+---
+
+# Visual Diagram
+
+```text
+          FRONT
+            ↓
++----+----+----+----+
+|10  |20  |30  |40  |
++----+----+----+----+
+                    ↑
+                  REAR
+```
+
+Enqueue → Insert at Rear
+
+Dequeue → Remove from Front
+
+---
+
+# Basic Operations
+
+## Enqueue
+
+Adds an element at the rear.
+
+Example
+
+Before
+
+```text
+Front → 10 20
+```
+
+After Enqueue(30)
+
+```text
+Front → 10 20 30
+```
+
+Complexity
+
+O(1)
+
+---
+
+## Dequeue
+
+Removes the front element.
+
+Example
+
+Before
+
+```text
+Front → 10 20 30
+```
+
+After
+
+```text
+Front → 20 30
+```
+
+Complexity
+
+O(1)
+
+---
+
+## Front
+
+Returns the first element without removing it.
+
+Complexity
+
+O(1)
+
+---
+
+## Rear
+
+Returns the last inserted element.
+
+Complexity
+
+O(1)
+
+---
+
+## isEmpty()
+
+Checks whether the queue contains any elements.
+
+Complexity
+
+O(1)
+
+---
+
+## Size()
+
+Returns the total number of elements.
+
+Complexity
+
+O(1)
+
+---
+
+# Queue Implementation using Array
+
+```cpp
+#include<iostream>
+using namespace std;
+
+class Queue
+{
+    int arr[100];
+    int frontIndex;
+    int rearIndex;
+
+public:
+
+    Queue()
+    {
+        frontIndex = 0;
+        rearIndex = -1;
+    }
+
+    void enqueue(int x)
+    {
+        arr[++rearIndex] = x;
+    }
+
+    void dequeue()
+    {
+        if(frontIndex <= rearIndex)
+            frontIndex++;
+    }
+
+    int front()
+    {
+        return arr[frontIndex];
+    }
+
+    bool empty()
+    {
+        return frontIndex > rearIndex;
+    }
+};
+```
+
+Advantages
+
+* Simple implementation
+* Fast access
+
+Disadvantages
+
+* Wasted memory after multiple dequeue operations
+* Fixed size
+
+---
+
+# Queue Implementation using Linked List
+
+```cpp
+class Node
+{
+public:
+    int data;
+    Node* next;
+
+    Node(int x)
+    {
+        data = x;
+        next = nullptr;
+    }
+};
+
+class Queue
+{
+    Node* frontNode;
+    Node* rearNode;
+
+public:
+
+    Queue()
+    {
+        frontNode = rearNode = nullptr;
+    }
+
+    void enqueue(int x)
+    {
+        Node* temp = new Node(x);
+
+        if(rearNode == nullptr)
+        {
+            frontNode = rearNode = temp;
+            return;
+        }
+
+        rearNode->next = temp;
+        rearNode = temp;
+    }
+
+    void dequeue()
+    {
+        if(frontNode == nullptr)
+            return;
+
+        Node* temp = frontNode;
+
+        frontNode = frontNode->next;
+
+        if(frontNode == nullptr)
+            rearNode = nullptr;
+
+        delete temp;
+    }
+};
+```
+
+Advantages
+
+* Dynamic size
+* Efficient memory usage
+* No fixed capacity
+
+---
+
+# Circular Queue
+
+A Circular Queue connects the last position back to the first position.
+
+Instead of wasting unused array positions, it reuses them.
+
+Visual
+
+```text
+      FRONT
+        ↓
++----+----+----+----+
+|10  |20  |30  |40  |
++----+----+----+----+
+  ↑                 ↓
+  └─────────────────┘
+```
+
+Applications
+
+* CPU Scheduling
+* Buffers
+* Streaming
+* Network Routers
+
+---
+
+# Queue using STL
+
+```cpp
+#include<queue>
+
+using namespace std;
+
+int main()
+{
+    queue<int> q;
+
+    q.push(10);
+
+    q.push(20);
+
+    q.push(30);
+
+    cout << q.front() << endl;
+
+    cout << q.back() << endl;
+
+    q.pop();
+
+    cout << q.size();
+}
+```
+
+Common STL Functions
+
+| Function | Description        |
+| -------- | ------------------ |
+| push()   | Insert element     |
+| pop()    | Remove front       |
+| front()  | First element      |
+| back()   | Last element       |
+| empty()  | Check empty        |
+| size()   | Number of elements |
+
+---
+
+# Time Complexity
+
+| Operation | Complexity |
+| --------- | ---------- |
+| Enqueue   | O(1)       |
+| Dequeue   | O(1)       |
+| Front     | O(1)       |
+| Rear      | O(1)       |
+| Size      | O(1)       |
+| Empty     | O(1)       |
+
+---
+
+# Advantages
+
+* Maintains insertion order
+* Constant-time insertion
+* Constant-time deletion
+* Efficient scheduling
+* Easy implementation
+
+---
+
+# Disadvantages
+
+* No random access
+* Array implementation has fixed capacity
+* Standard array queue wastes space without circular implementation
+
+---
+
+# Real-World Applications
+
+* Printer Queue
+* CPU Scheduling
+* BFS Traversal
+* Call Center Systems
+* Ticket Reservation
+* Network Packet Scheduling
+* Chat Message Delivery
+* Video Streaming Buffers
+* Task Scheduling
+* Web Server Request Handling
+
+---
+
+# Common Mistakes
+
+## Mistake
+
+Calling dequeue() on an empty queue.
+
+Why?
+
+Queue Underflow occurs.
+
+Correct Way
+
+Always check empty() before dequeue().
+
+---
+
+## Mistake
+
+Accessing front() on an empty queue.
+
+Always verify that the queue is not empty.
+
+---
+
+## Mistake
+
+Ignoring rear update after deleting the last element.
+
+Always reset both front and rear to nullptr when the queue becomes empty.
+
+---
+
+## Mistake
+
+Using a simple array queue where a circular queue is needed.
+
+Result
+
+Memory is wasted even though free positions exist.
+
+---
+
+# Interview Questions
+
+1. What is a Queue?
+2. Explain FIFO.
+3. Difference between Stack and Queue.
+4. Implement Queue using Array.
+5. Implement Queue using Linked List.
+6. What is a Circular Queue?
+7. Why is Circular Queue preferred over a normal array queue?
+8. What is Queue Overflow?
+9. What is Queue Underflow?
+10. Implement Queue using Two Stacks.
+11. Implement Stack using Two Queues.
+12. Explain Deque.
+13. Explain Priority Queue.
+14. Explain BFS using Queue.
+15. Real-life applications of Queue.
+
+---
+
+# Quick Revision Sheet
+
+| Topic              | Summary         |
+| ------------------ | --------------- |
+| Principle          | FIFO            |
+| Insert             | Enqueue         |
+| Delete             | Dequeue         |
+| First Element      | Front           |
+| Last Element       | Rear            |
+| Enqueue Complexity | O(1)            |
+| Dequeue Complexity | O(1)            |
+| Best Use           | Scheduling, BFS |
+
+---
+
+# Practice Problems
+
+## Easy
+
+* Implement Queue
+* Number of Recent Calls
+* Moving Average from Data Stream
+* Implement Queue using Stacks
+* Design Circular Queue
+
+---
+
+## Medium
+
+* Rotting Oranges
+* Open the Lock
+* Walls and Gates
+* Binary Tree Level Order Traversal
+* Time Needed to Buy Tickets
+
+---
+
+## Hard
+
+* Sliding Window Maximum (Deque)
+* Shortest Path in Binary Matrix
+* Word Ladder
+* Bus Routes
+* Minimum Knight Moves
+
+---
+
+# Best Practices
+
+* Always check empty() before dequeue().
+* Handle queue underflow properly.
+* Prefer `std::queue` in contests unless manual implementation is required.
+* Use a Circular Queue when implementing queues using arrays.
+* Test edge cases such as an empty queue and a single-element queue.
+
+---
+
+# Summary
+
+A Queue is a fundamental linear data structure that follows the FIFO principle. It is widely used in scheduling systems, networking, graph algorithms, operating systems, and many real-world applications where tasks must be processed in the order they arrive. Mastering queues provides a strong foundation for understanding BFS, deques, priority queues, and advanced scheduling techniques.
+
+---
+
+# Resources
+
+## Official Documentation
+
+* C++ STL `queue` documentation
+* C++ Reference Library
+
+## Books
+
+* Introduction to Algorithms (CLRS)
+* Data Structures and Algorithm Analysis in C++
+* Data Structures Using C++ — Reema Thareja
+
+## YouTube
+
+* Abdul Bari
+* William Fiset
+* take U forward (Striver)
+* freeCodeCamp.org
+
+## Practice Platforms
+
+* LeetCode
+* GeeksforGeeks
+* Codeforces
+* CodeChef
+* HackerRank
+
+---
+
+# Related Articles
+
+* Linked List
+* Stack
+* Arrays
+* Trees
+* Graphs
+* Dynamic Programming
