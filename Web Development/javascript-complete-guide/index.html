@@ -1,0 +1,3006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Complete JavaScript Reference Guide — Kaizen Tech Hub</title>
+    <!-- Google Fonts: Outfit for restrained technical headings -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================================================
+           1. RESET & DESIGN SYSTEM TOKENS (8px Spacing Scale, MDN / Shadcn Aesthetic)
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            /* Light Mode Palette: Neutral white/slate with single Restrained Cobalt accent */
+            --bg-main: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-alt: #f8fafc;
+            --bg-code: #f1f5f9;
+            --text-main: #1e293b;
+            --text-heading: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --accent-color: #2563eb;
+            --accent-hover: #1d4ed8;
+            --accent-bg: #eff6ff;
+
+            /* Syntax Highlighting Tokens (Light Mode - Clean Editor Palette) */
+            --kw-color: #cf222e;     /* Keywords (Crimson Red) */
+            --kw-glow: none;
+            --bool-color: #9333ea;   /* Booleans & Null (Vivid Purple) */
+            --bool-glow: none;
+            --str-color: #15803d;    /* Strings (Forest Green) */
+            --str-glow: none;
+            --num-color: #0284c7;    /* Numbers (Sky Blue) */
+            --num-glow: none;
+            --fn-color: #2563eb;     /* Functions & Methods (Cobalt Accent) */
+            --fn-glow: none;
+            --cmt-color: #64748b;    /* Comments (Muted Slate) */
+            --cmt-glow: none;
+
+            /* Typography */
+            --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        /* ==========================================================================
+           1b. CYBER-TECH DARK MODE & SHADCN PREMIUM PALETTE
+           ========================================================================== */
+        html.dark-mode {
+            /* High-Contrast Cyber-Tech Dark Palette */
+            --bg-main: #050505;      /* True deep neutral charcoal / carbon */
+            --bg-sidebar: #080A10;   /* Deeper structural depth for sidebar */
+            --bg-alt: #0d1117;       /* Elevated cards, callouts, and space gray containers */
+            --bg-code: #0d1117;      /* Deep, rich space gray code surface */
+            --text-main: #e5e7eb;    /* Highly legible crisp off-white body text */
+            --text-heading: #F8FAFC; /* Brilliant off-white headings */
+            --text-muted: #8b949e;   /* Clean slate gray secondary text */
+            --border-color: rgba(255, 255, 255, 0.08); /* Razor-thin low-opacity separator */
+            --accent-color: #3b82f6; /* Calibrated high-luminance electric blue */
+            --accent-hover: #60a5fa; /* Vibrant hover tint */
+            --accent-bg: rgba(59, 130, 246, 0.15);
+
+            /* Shadcn Premium Code Syntax Tokens (Vibrant & Eye-Strain Free!) */
+            --kw-color: #ff7b72;     /* Vibrant Coral/Pink for let, const, function, return */
+            --kw-glow: 0 0 12px rgba(255, 123, 114, 0.4);
+
+            --bool-color: #f472b6;   /* Hot Neon Pink for booleans/null/undefined */
+            --bool-glow: 0 0 10px rgba(244, 114, 182, 0.4);
+
+            --str-color: #a5d6ff;    /* Light Electric Blue for strings */
+            --str-glow: 0 0 10px rgba(165, 214, 255, 0.35);
+
+            --num-color: #79c0ff;    /* Bright Blue for numbers */
+            --num-glow: 0 0 10px rgba(121, 192, 255, 0.35);
+
+            --fn-color: #d2a8ff;     /* Soft Neon Purple for function names & methods */
+            --fn-glow: 0 0 12px rgba(210, 168, 255, 0.45);
+
+            --cmt-color: #8b949e;    /* Muted Slate for comments */
+            --cmt-glow: none;
+        }
+
+        /* Cinematic 250ms Transitions */
+        body, .top-navbar, .sidebar, .sidebar nav a, .content, header#top, section, article, 
+        pre, code, .copy-btn, .diagram-container, .mistake-callout, .table-container, table, th, td, tr, footer, .theme-toggle-btn, .theme-toggle-btn svg, .use-case-card {
+            transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), 
+                        color 250ms cubic-bezier(0.4, 0, 0.2, 1), 
+                        border-color 250ms cubic-bezier(0.4, 0, 0.2, 1), 
+                        box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Tactile Noise Texture & Smooth Volumetric Shadows in Dark Mode */
+        html.dark-mode body {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+        }
+
+        html.dark-mode .sidebar {
+            box-shadow: 4px 0 24px rgba(0, 0, 0, 0.45);
+        }
+
+        /* 2. THE ULTRA-SMOOTH LAYERED SHADOW FOR CODE BLOCKS & CARDS (Shadcn Architecture) */
+        pre, .terminal-window, .table-container, .diagram-container, .mistake-callout {
+            border-radius: 12px; /* Sleek rounded component structure */
+        }
+
+        html.dark-mode pre {
+            background-color: #0d1117; /* Deep, rich space gray */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #c9d1d9; /* Off-white for operators and punctuation */
+            box-shadow: 
+              0 2px 4px rgba(0, 0, 0, 0.2),    /* Tight, dark shadow for immediate edge */
+              0 8px 16px rgba(0, 0, 0, 0.15),  /* Mid-tier shadow for elevation */
+              0 16px 32px rgba(0, 0, 0, 0.1);  /* Soft wide spread for floating feel */
+        }
+
+        html.dark-mode pre:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+              0 4px 8px rgba(0, 0, 0, 0.3), 
+              0 12px 24px rgba(0, 0, 0, 0.2), 
+              0 24px 48px rgba(0, 0, 0, 0.15),
+              0 0 20px rgba(210, 168, 255, 0.12); /* Subtle purple neon glow on hover! */
+        }
+
+        html.dark-mode pre code,
+        html.dark-mode td code,
+        html.dark-mode p code,
+        html.dark-mode li code {
+            color: #c9d1d9; /* Off-white operator token default */
+        }
+
+        html.dark-mode td code,
+        html.dark-mode p code,
+        html.dark-mode li code {
+            border-color: rgba(255, 255, 255, 0.1);
+            background-color: #0d1117;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        html.dark-mode .mistake-callout,
+        html.dark-mode .diagram-container,
+        html.dark-mode .table-container {
+            background-color: #0d1117;
+            box-shadow: 
+              0 2px 4px rgba(0, 0, 0, 0.2), 
+              0 8px 16px rgba(0, 0, 0, 0.15), 
+              0 16px 32px rgba(0, 0, 0, 0.1);
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        html.dark-mode tr:hover td {
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+            background-color: #161b22;
+        }
+
+        html.dark-mode th {
+            background-color: #0d1117;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        html.dark-mode tr:nth-child(even) td {
+            background-color: #080a0f;
+        }
+
+        html.dark-mode .sidebar nav a:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-left-color: rgba(255, 255, 255, 0.3);
+        }
+
+        html.dark-mode .sidebar nav a.active {
+            background-color: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            border-left-color: #3b82f6;
+            box-shadow: inset 24px 0 24px -24px rgba(59, 130, 246, 0.35);
+        }
+
+        html.dark-mode .copy-btn {
+            background-color: #161b22;
+            color: #c9d1d9;
+            border-color: rgba(255, 255, 255, 0.12);
+            border-radius: 6px;
+        }
+
+        html.dark-mode .copy-btn:hover {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+        }
+
+        html.dark-mode .copy-btn.copied {
+            background-color: rgba(59, 130, 246, 0.25);
+            color: #60a5fa;
+            border-color: #3b82f6;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 72px; /* Offset for 56px sticky top navbar */
+        }
+
+        /* ==========================================================================
+           1c. ACCESSIBILITY POLISH & KEYBOARD FOCUS INDICATORS (WCAG 2.1 AA)
+           ========================================================================== */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 16px;
+            background: var(--accent-color);
+            color: #ffffff;
+            padding: 12px 20px;
+            z-index: 9999;
+            font-weight: 600;
+            border-radius: 6px;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: top 200ms ease-out;
+        }
+        .skip-link:focus {
+            top: 16px;
+        }
+
+        a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
+            outline: 2px solid var(--accent-color) !important;
+            outline-offset: 3px !important;
+        }
+
+        html.dark-mode a:focus-visible, html.dark-mode button:focus-visible, html.dark-mode [tabindex]:focus-visible {
+            outline-color: #60a5fa !important;
+        }
+
+        /* RESPECT REDUCED MOTION — Complete Animation Disable */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .scroll-reveal {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+            .use-case-card, .typewriter-cursor {
+                animation: none !important;
+            }
+        }
+
+        /* ==========================================================================
+           1d. PRINT STYLESHEET (@media print) — Clean PDF Documentation Export
+           ========================================================================== */
+        @media print {
+            body, html.dark-mode body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                background-image: none !important;
+            }
+            .top-navbar, .sidebar, .theme-toggle-btn, .copy-btn, .skip-link {
+                display: none !important;
+            }
+            .layout-container, .content {
+                display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            pre, code, .table-container, table, th, td, .terminal-window, .use-case-card {
+                border: 1px solid #cccccc !important;
+                background: #f9f9f9 !important;
+                color: #000000 !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+                page-break-inside: avoid;
+            }
+            .kw, .bool, .str, .num, .fn, .cmt, .typewriter-line {
+                text-shadow: none !important;
+            }
+            .kw { color: #800000 !important; }
+            .bool { color: #800080 !important; }
+            .str { color: #008000 !important; }
+            .num { color: #000080 !important; }
+            .fn { color: #000000 !important; font-weight: bold !important; }
+            .cmt { color: #666666 !important; }
+            a { color: #000000 !important; text-decoration: underline !important; }
+            section, article { page-break-inside: avoid; }
+            h1, h2, h3, h4 { page-break-after: avoid; color: #000000 !important; }
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.7;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ==========================================================================
+           2. STICKY TOP NAVBAR, LOGO IMAGE & THEME TOGGLE BUTTON
+           ========================================================================== */
+        .top-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--bg-main);
+            border-bottom: 1px solid var(--border-color);
+            height: 56px;
+            display: flex;
+            align-items: center;
+            padding: 0 32px;
+            width: 100%;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-image {
+            height: 30px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .logo-wordmark {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.08em;
+            color: var(--text-heading);
+        }
+
+        /* Theme Toggle Button Styling */
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-left: 6px;
+            margin-right: 6px;
+            padding: 0;
+            outline: none;
+        }
+
+        .theme-toggle-btn:hover {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            background-color: var(--accent-bg);
+        }
+
+        .theme-toggle-btn .icon-sun { display: none; }
+        .theme-toggle-btn .icon-moon { display: block; }
+        
+        html.dark-mode .theme-toggle-btn .icon-sun { display: block; }
+        html.dark-mode .theme-toggle-btn .icon-moon { display: none; }
+
+        .logo-divider {
+            color: var(--border-color);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .logo-doc-title {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           3. FLAT TWO-COLUMN DOCUMENTATION LAYOUT
+           ========================================================================== */
+        .layout-container {
+            display: flex;
+            max-width: 1440px;
+            margin: 0 auto;
+            min-height: calc(100vh - 56px);
+        }
+
+        /* Left Sticky Sidebar (Table of Contents) — Redesigned */
+        .sidebar {
+            width: 320px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 56px;
+            height: calc(100vh - 56px);
+            overflow-y: auto;
+            padding: 32px 20px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar-group {
+            margin-bottom: 40px;
+        }
+
+        .sidebar-title {
+            font-family: var(--font-heading);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #64748b;
+            margin-bottom: 12px;
+            padding-left: 12px;
+        }
+
+        .sidebar nav ol,
+        .sidebar nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar nav li {
+            margin-bottom: 4px;
+        }
+
+        .sidebar nav a {
+            display: block;
+            padding: 8px 12px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .sidebar nav a:hover {
+            color: var(--accent-color);
+            background-color: var(--bg-alt);
+            border-left-color: #cbd5e1;
+        }
+
+        /* SCROLL SPY ACTIVE LINK STYLING */
+        .sidebar nav a.active {
+            color: var(--accent-color);
+            background-color: var(--accent-bg);
+            border-left-color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* Main Content Area — Enforcing 8px spacing rhythm */
+        .content {
+            flex-grow: 1;
+            max-width: 960px;
+            padding: 48px 64px;
+            overflow-x: hidden;
+        }
+
+        /* Responsive Mobile Breakdown */
+        @media (max-width: 1024px) {
+            .content {
+                padding: 40px 32px;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .layout-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                position: relative;
+                top: 0;
+                height: auto;
+                max-height: 400px;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 24px;
+            }
+
+            .content {
+                padding: 32px 20px;
+            }
+
+            .top-navbar {
+                padding: 0 16px;
+            }
+            .logo-doc-title {
+                display: none; /* Keep header compact on mobile */
+            }
+            .logo-divider {
+                display: none;
+            }
+        }
+
+        /* ==========================================================================
+           4. TYPOGRAPHY & 8px VERTICAL RHYTHM
+           ========================================================================== */
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            color: var(--text-heading);
+            font-weight: 600;
+        }
+
+        header#top {
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            line-height: 1.2;
+            letter-spacing: -0.025em;
+            margin-bottom: 16px;
+        }
+
+        header#top p {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 24px;
+        }
+
+        section, article {
+            margin-bottom: 64px;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            line-height: 1.35;
+            margin-top: 64px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        section:first-of-type h2 {
+            margin-top: 0;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            line-height: 1.45;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            color: var(--text-heading);
+        }
+
+        h4 {
+            font-size: 1.05rem;
+            margin-top: 24px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: var(--text-main);
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        a:hover {
+            color: var(--accent-hover);
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid var(--border-color);
+            margin: 48px 0;
+        }
+
+        .hero-meta {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background-color: var(--bg-alt);
+            padding: 16px 24px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-top: 16px;
+            line-height: 1.6;
+        }
+
+        .hero-meta strong {
+            color: var(--text-heading);
+        }
+
+        /* ==========================================================================
+           4b. THE ENGINE OF THE WEB: WHAT IS JAVASCRIPT? (Terminal & Use-Case Grid)
+           ========================================================================== */
+        .what-is-js-section {
+            position: relative;
+            padding: 36px 32px;
+            margin: 48px 0 64px 0;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.05) 0%, var(--bg-main) 75%);
+            overflow: hidden;
+        }
+
+        html.dark-mode .what-is-js-section {
+            background: radial-gradient(circle at 50% 0%, rgba(210, 168, 255, 0.1) 0%, #050505 80%);
+            border-color: rgba(210, 168, 255, 0.2);
+            box-shadow: 
+              0 2px 4px rgba(0, 0, 0, 0.2), 
+              0 8px 16px rgba(0, 0, 0, 0.15), 
+              0 16px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .what-is-js-section h2 {
+            margin-top: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        /* Terminal Window Styling (Shadcn aesthetic) */
+        .terminal-window {
+            background-color: var(--bg-alt);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 36px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        html.dark-mode .terminal-window {
+            background-color: #0d1117;
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 
+              0 2px 4px rgba(0, 0, 0, 0.2), 
+              0 8px 16px rgba(0, 0, 0, 0.15), 
+              0 16px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .terminal-header {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        html.dark-mode .terminal-header {
+            background-color: #161b22;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .terminal-dot.red { background-color: #ff5f56; }
+        .terminal-dot.yellow { background-color: #ffbd2e; }
+        .terminal-dot.green { background-color: #27c93f; }
+
+        .terminal-title {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+        }
+
+        .terminal-body {
+            padding: 24px;
+            font-family: var(--font-mono);
+        }
+
+        .typewriter-line {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 16px;
+            min-height: 1.6em;
+            display: flex;
+            align-items: center;
+        }
+
+        html.dark-mode .typewriter-line {
+            color: #d2a8ff; /* Shadcn Soft Neon Purple! */
+            text-shadow: 0 0 12px rgba(210, 168, 255, 0.65);
+        }
+
+        .typewriter-cursor {
+            display: inline-block;
+            margin-left: 4px;
+            color: var(--accent-color);
+            font-weight: 700;
+            animation: blink-cursor 800ms step-end infinite;
+        }
+
+        html.dark-mode .typewriter-cursor {
+            color: #ff7b72; /* Coral Pink cursor! */
+            text-shadow: 0 0 10px rgba(255, 123, 114, 0.65);
+        }
+
+        @keyframes blink-cursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .terminal-desc {
+            font-family: var(--font-body);
+            font-size: 0.98rem;
+            line-height: 1.7;
+            color: var(--text-main);
+            margin-bottom: 0;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 16px;
+        }
+
+        html.dark-mode .terminal-desc {
+            color: #c9d1d9;
+        }
+
+        /* Use-Case Grid & Floating Cards */
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .use-case-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .use-case-card {
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+            /* Zero-gravity vertical oscillation keyframe animation */
+            animation: cyber-float 6s ease-in-out infinite;
+        }
+
+        .use-case-card.card-stagger-2 { animation-delay: -2s; }
+        .use-case-card.card-stagger-3 { animation-delay: -4s; }
+
+        @keyframes cyber-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* Staggered Entrance via JS Observer Classes */
+        @media (prefers-reduced-motion: no-preference) {
+            .use-case-card.stagger-ready {
+                opacity: 0;
+                transform: translateY(28px);
+                animation: none; /* Pause floating until revealed */
+                transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1), 
+                            transform 600ms cubic-bezier(0.16, 1, 0.3, 1),
+                            border-color 250ms cubic-bezier(0.4, 0, 0.2, 1), 
+                            box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .use-case-card.stagger-ready.revealed {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            /* Re-enable floating after entrance transition finishes */
+            .use-case-card.stagger-ready.revealed.floating-active {
+                animation: cyber-float 6s ease-in-out infinite;
+            }
+        }
+
+        /* Sleek Shadcn Space Gray Card Styling & Layered Shadows */
+        html.dark-mode .use-case-card {
+            background-color: #0d1117;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 
+              0 2px 4px rgba(0, 0, 0, 0.2), 
+              0 8px 16px rgba(0, 0, 0, 0.15), 
+              0 16px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Smooth Volumetric Hover state! */
+        .use-case-card:hover {
+            transform: translateY(-8px) scale(1.025) !important;
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+            z-index: 10;
+        }
+
+        html.dark-mode .use-case-card:hover {
+            border-color: #d2a8ff; /* Soft Neon Purple border! */
+            box-shadow: 
+              0 4px 8px rgba(0, 0, 0, 0.3), 
+              0 12px 24px rgba(0, 0, 0, 0.2), 
+              0 24px 48px rgba(0, 0, 0, 0.15),
+              0 0 20px rgba(210, 168, 255, 0.15); /* Subtle purple neon glow on hover! */
+        }
+
+        .card-icon {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+
+        .use-case-card h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            color: var(--text-heading);
+        }
+
+        .use-case-card p {
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: var(--text-main);
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .card-tags span {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 500;
+            background-color: var(--bg-alt);
+            color: var(--text-muted);
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        html.dark-mode .card-tags span {
+            background-color: #161b22;
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #d2a8ff;
+        }
+
+        /* ==========================================================================
+           5. CODE BLOCKS & CLICKABLE COPY BUTTON (Shadcn Architecture)
+           ========================================================================== */
+        pre {
+            background-color: var(--bg-alt);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            overflow-x: auto;
+            margin: 24px 0;
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: var(--text-heading);
+            position: relative;
+        }
+
+        code {
+            font-family: var(--font-mono);
+            background-color: var(--bg-code);
+            padding: 0.2em 0.4em;
+            font-size: 0.875em;
+            color: var(--text-heading);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            border: none;
+            font-size: inherit;
+            color: inherit;
+        }
+
+        /* Copy Button Styling with Clickable Hover State */
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            opacity: 0;
+        }
+
+        pre:hover .copy-btn,
+        .copy-btn:focus {
+            opacity: 1;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            border-color: var(--accent-color);
+        }
+
+        @media (hover: none) {
+            .copy-btn {
+                opacity: 1;
+            }
+        }
+
+        .copy-btn.copied {
+            background-color: var(--accent-bg);
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           5b. SYNTAX HIGHLIGHTING TOKENS (Shadcn Vibrant & Eye-Strain Free Palette!)
+           ========================================================================== */
+        .kw   { color: var(--kw-color); font-weight: 600; text-shadow: var(--kw-glow, none); }   /* Keywords (Coral/Pink) */
+        .bool { color: var(--bool-color); font-weight: 600; text-shadow: var(--bool-glow, none); } /* Booleans/Null (Hot Pink) */
+        .str  { color: var(--str-color); text-shadow: var(--str-glow, none); }                   /* Strings (Electric Blue) */
+        .num  { color: var(--num-color); text-shadow: var(--num-glow, none); }                   /* Numbers (Bright Blue) */
+        .fn   { color: var(--fn-color); font-weight: 600; text-shadow: var(--fn-glow, none); }   /* Functions (Soft Neon Purple) */
+        .cmt  { color: var(--cmt-color); font-style: italic; text-shadow: var(--cmt-glow, none); } /* Comments (Muted Slate) */
+
+        /* ==========================================================================
+           6. DIAGRAMS STYLING
+           ========================================================================== */
+        .diagram-container {
+            margin: 32px 0;
+            padding: 24px;
+            background-color: var(--bg-alt);
+            border: 1px solid var(--border-color);
+            text-align: center;
+            border-radius: 12px;
+        }
+
+        .diagram-container svg {
+            max-width: 100%;
+            height: auto;
+            max-height: 180px;
+        }
+
+        /* ==========================================================================
+           7. COMMON MISTAKE CALLOUTS (Flat, 3px Left Accent Border, Rounded Corners)
+           ========================================================================== */
+        .mistake-callout {
+            background-color: var(--bg-alt);
+            border-left: 3px solid var(--accent-color);
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 24px;
+            margin: 32px 0;
+            border-radius: 12px;
+        }
+
+        .mistake-callout h4 {
+            color: var(--text-heading);
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .mistake-callout ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .mistake-callout li {
+            margin-bottom: 8px;
+        }
+
+        .mistake-callout li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ==========================================================================
+           8. REDESIGNED TABLES (Generous Padding, Horizontal Scroll, Alternating Rows)
+           ========================================================================== */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 24px 0 48px 0;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-main);
+            border-radius: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 16px 20px;
+            vertical-align: top;
+            border: none;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--bg-alt);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            color: var(--text-heading);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:nth-child(even) td {
+            background-color: var(--bg-alt);
+        }
+
+        tr:hover td {
+            background-color: var(--accent-bg);
+        }
+
+        td code {
+            font-family: var(--font-mono);
+            background-color: var(--bg-code);
+            padding: 0.25em 0.5em;
+            font-size: 0.85em;
+            color: var(--text-heading);
+            border: 1px solid var(--border-color);
+            display: inline-block;
+            border-radius: 4px;
+        }
+
+        ol, ul {
+            padding-left: 24px;
+            margin-bottom: 24px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Questions & Practice formatting */
+        article {
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        article:last-of-type {
+            border-bottom: none;
+        }
+
+        /* ==========================================================================
+           9. SCROLL REVEAL ANIMATION (Fail-safe: defaults visible unless .js-ready)
+           ========================================================================== */
+        @media (prefers-reduced-motion: no-preference) {
+            .scroll-reveal.js-ready {
+                opacity: 0;
+                transform: translateY(14px);
+                transition: opacity 350ms ease-out, transform 350ms ease-out;
+            }
+            .scroll-reveal.revealed {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Skip to Main Content Link for Keyboard & Screen Reader Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Top Sticky Header Bar with Kaizen Tech Logo Image & Theme Toggle Button -->
+    <header class="top-navbar" role="banner">
+        <a href="#top" class="navbar-logo" aria-label="Kaizen Tech Home">
+            <img src="assets/kaizen-logo.png" alt="Kaizen Tech Logo" class="logo-image" onerror="this.style.display='none'">
+            <span class="logo-wordmark">KAIZEN TECH</span>
+        </a>
+        
+        <!-- Sleek Theme Toggle Button -->
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme (Light / Dark)" aria-pressed="false" title="Switch theme">
+            <!-- Sun Icon (Shown in Dark Mode to switch to Light) -->
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <!-- Moon Icon (Shown in Light Mode to switch to Dark) -->
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+
+        <span class="logo-divider" aria-hidden="true">/</span>
+        <span class="logo-doc-title">JavaScript Complete Guide</span>
+    </header>
+
+    <div class="layout-container">
+        <!-- Left Sticky Sidebar (Table of Contents) — Redesigned with Groups -->
+        <aside class="sidebar" aria-label="Table of Contents Navigation">
+            <div class="sidebar-group">
+                <div class="sidebar-title" id="toc-manual-heading">Reference Manual</div>
+                <nav id="table-of-contents-manual" aria-labelledby="toc-manual-heading">
+                    <ol>
+                        <li><a href="#what-is-javascript">0. What is JavaScript?</a></li>
+                        <li><a href="#variables">1. Variables</a></li>
+                        <li><a href="#data-types">2. Data Types</a></li>
+                        <li><a href="#operators">3. Operators</a></li>
+                        <li><a href="#functions">4. Functions</a></li>
+                        <li><a href="#scope">5. Scope</a></li>
+                        <li><a href="#hoisting">6. Hoisting</a></li>
+                        <li><a href="#closures">7. Closures</a></li>
+                        <li><a href="#objects">8. Objects</a></li>
+                        <li><a href="#arrays">9. Arrays</a></li>
+                        <li><a href="#array-methods">10. Array Methods</a></li>
+                        <li><a href="#strings">11. Strings</a></li>
+                        <li><a href="#es6">12. ES6+ Foundation</a></li>
+                        <li><a href="#async">13. Async & Event Loop</a></li>
+                        <li><a href="#promises">14. Promises</a></li>
+                        <li><a href="#fetch">15. Fetch API</a></li>
+                        <li><a href="#dom">16. DOM Manipulation</a></li>
+                        <li><a href="#events">17. Events & Delegation</a></li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="sidebar-group">
+                <div class="sidebar-title" id="toc-appendix-heading">Appendix & Practice</div>
+                <nav id="table-of-contents-appendix" aria-labelledby="toc-appendix-heading">
+                    <ul>
+                        <li><a href="#interview-questions">Interview Questions (17)</a></li>
+                        <li><a href="#quick-revision">Quick Revision Table</a></li>
+                        <li><a href="#practice-problems">Practice Problems</a></li>
+                        <li><a href="#resources">Recommended Resources</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content" id="main-content" tabindex="-1">
+            <!-- Hero / Intro Section -->
+            <header id="top" class="scroll-reveal">
+                <h1>The Complete JavaScript Reference Guide</h1>
+                <p>A concise, practical, text-first reference manual covering foundational concepts, functional patterns, asynchronous programming, and DOM manipulation.</p>
+                <div class="hero-meta">
+                    <strong>Author:</strong> Aarav | 
+                    <strong>Difficulty Level:</strong> Beginner to Intermediate | 
+                    <strong>Estimated Reading Time:</strong> ~25 minutes (4,500 words) | 
+                    <strong>Prerequisites:</strong> Basic HTML & CSS familiarity
+                </div>
+            </header>
+
+            <!-- Section 0: What is JavaScript? (Dynamic Cyber-Tech Section) -->
+            <section id="what-is-javascript" class="what-is-js-section scroll-reveal" aria-labelledby="what-is-js-title">
+                <h2 id="what-is-js-title">The Engine of the Web: What is JavaScript?</h2>
+                
+                <!-- Mock Terminal Window / Glassmorphic Panel -->
+                <div class="terminal-window" role="region" aria-label="Interactive terminal definition">
+                    <div class="terminal-header" aria-hidden="true">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                        <span class="terminal-title">bash — kaizen-core — 80×24</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="typewriter-line" aria-live="polite">
+                            <span id="typewriter-text" class="typewriter-text"></span><span class="typewriter-cursor" aria-hidden="true">|</span>
+                        </div>
+                        <p class="terminal-desc">
+                            JavaScript is a high-level, multi-paradigm, dynamic programming language that serves as the executable engine of the modern internet. Originally created in just 10 days in 1995 to add simple form validation to static webpages, it has evolved into a ubiquitous runtime architecture capable of powering real-time interactive user interfaces, scalable enterprise backend servers, mobile applications, and native desktop software.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Responsive Use-Case Grid -->
+                <div class="use-case-grid">
+                    <article class="use-case-card card-stagger-1">
+                        <div class="card-icon" aria-hidden="true">⚡</div>
+                        <h3>Interactive UIs</h3>
+                        <p>Dominate the browser by building reactive, single-page web applications (SPAs) with state-of-the-art declarative frameworks like <strong>React</strong>, <strong>Vue</strong>, and modern DOM manipulation.</p>
+                        <div class="card-tags" aria-label="Technologies">
+                            <span>#DOM</span>
+                            <span>#React</span>
+                            <span>#Vue</span>
+                        </div>
+                    </article>
+
+                    <article class="use-case-card card-stagger-2">
+                        <div class="card-icon" aria-hidden="true">🛠️</div>
+                        <h3>Backend & APIs</h3>
+                        <p>Power high-concurrency event-driven network servers, microservices, and REST/GraphQL APIs using <strong>Node.js</strong>, <strong>Express</strong>, and serverless edge runtimes.</p>
+                        <div class="card-tags" aria-label="Technologies">
+                            <span>#NodeJS</span>
+                            <span>#Express</span>
+                            <span>#APIs</span>
+                        </div>
+                    </article>
+
+                    <article class="use-case-card card-stagger-3">
+                        <div class="card-icon" aria-hidden="true">🌐</div>
+                        <h3>Beyond the Browser</h3>
+                        <p>Break out of the browser sandbox to develop cross-platform native iOS and Android apps with <strong>React Native</strong>, or desktop applications using <strong>Electron</strong> and Tauri.</p>
+                        <div class="card-tags" aria-label="Technologies">
+                            <span>#ReactNative</span>
+                            <span>#Electron</span>
+                            <span>#Desktop</span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Topic 1: Variables -->
+            <section id="variables" class="scroll-reveal">
+                <h2>1. Variables: Storage, Reassignment, and Mutability</h2>
+                <p>Variables are named containers used to store data values in computer memory. JavaScript provides three keywords to declare variables: <code>var</code>, <code>let</code>, and <code>const</code>. Understanding the differences in mutability, scope, and reassignment between these three is essential for writing bug-free code.</p>
+                <p>Think of a variable like a labeled box on a shelf. With <code>let</code>, you can open the box and replace its contents anytime. With <code>const</code>, the box is sealed shut so you cannot swap it out for a different box, but if the box contains an open organizer (an object or array), you can still rearrange the items inside it. Meanwhile, <code>var</code> is an older legacy keyword with loose boundaries that can cause unexpected behavior, especially inside loops.</p>
+
+                <h3>Syntax</h3>
+                <pre><code>// Modern variable declarations
+let mutableVariable = "Initial Value";
+const immutableReference = { key: "value" };
+
+// Legacy variable declaration (avoid in modern code)
+var legacyVariable = "Old Way";</code></pre>
+
+                <h3>Working Example: Reassignment vs. Object Mutability</h3>
+                <pre><code>// 1. Reassigning let
+let counter = 1;
+counter = 2; // Perfectly valid
+console.log(counter); // Output: 2
+
+// 2. Mutating a const object vs attempting reassignment
+const user = { name: "Aarav", role: "Developer" };
+
+// Valid: Modifying a property inside a const object
+user.role = "Senior Developer"; 
+console.log(user.role); // Output: Senior Developer
+
+// Invalid: Reassigning the entire reference throws TypeError
+try {
+    user = { name: "Rishav" };
+} catch (error) {
+    console.error("Error caught:", error.message); // Output: Assignment to constant variable.
+}
+
+// 3. Why var causes bugs in loops
+// Using var in an asynchronous loop shares ONE binding across all iterations
+for (var i = 1; i <= 3; i++) {
+    setTimeout(() => {
+        console.log("var loop:", i); // Prints "4" three times!
+    }, 10);
+}
+
+// Using let creates a brand new block-scoped binding for each iteration
+for (let j = 1; j <= 3; j++) {
+    setTimeout(() => {
+        console.log("let loop:", j); // Prints 1, 2, 3 correctly
+    }, 10);
+}</code></pre>
+
+                <div class="mistake-callout" role="note" aria-label="Common Mistake on Variables">
+                    <h4>⚠️ Common Mistake: Assuming <code>const</code> makes objects immutable</h4>
+                    <ul>
+                        <li><strong>The Mistake:</strong> Believing that declaring an object or array with <code>const</code> prevents its internal properties or elements from being changed.</li>
+                        <li><strong>Why it happens:</strong> Confusing reference immutability (not being able to reassign the variable identifier to a new memory address) with value immutability (freezing the internal structure of the data).</li>
+                        <li><strong>The Correct Way:</strong> Remember that <code>const</code> only locks the binding reference. If you need true immutability where properties cannot be modified, use <code>Object.freeze(myObject)</code>.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Topic 2: Data Types -->
+            <section id="data-types" class="scroll-reveal">
+                <h2>2. Data Types & Memory Allocation</h2>
+                <p>JavaScript is a loosely typed language, meaning variables can hold any type of data without specifying a type definition upfront. JavaScript organizes data into two foundational categories: <strong>Primitives</strong> (7 types) and <strong>Objects</strong> (reference types).</p>
+                <p>The 7 primitive types are <code>string</code>, <code>number</code>, <code>boolean</code>, <code>undefined</code>, <code>null</code>, <code>bigint</code>, and <code>symbol</code>. Primitives represent single, immutable values stored directly in the variable's memory space (stack). Objects, on the other hand, are complex data structures (including arrays and functions) stored in the heap; their variables hold a pointer (reference address) to that memory location rather than the data directly.</p>
+
+                <h3>Syntax</h3>
+                <pre><code>// 7 Primitive Types
+const str = "Hello";         // string
+const num = 42;              // number
+const bool = true;           // boolean
+const undef = undefined;     // undefined
+const empty = null;          // null
+const huge = 9007199254740991n; // bigint
+const sym = Symbol("id");    // symbol
+
+// Reference Type
+const obj = { id: 1 };       // object</code></pre>
+
+                <h3>Working Example: Value Copying vs. Reference Copying</h3>
+                <pre><code>// 1. Copying Primitives (By Value)
+let originalScore = 100;
+let copyScore = originalScore; // Creates a completely independent copy of the value 100
+
+copyScore = 50; // Changing the copy does NOT affect the original
+console.log("Original Score:", originalScore); // Output: 100
+console.log("Copy Score:", copyScore);         // Output: 50
+
+// 2. Copying Objects (By Reference)
+const originalConfig = { theme: "dark", notifications: true };
+const copyConfig = originalConfig; // Copies the REFERENCE pointer, not the actual object!
+
+copyConfig.theme = "light"; // Modifying the copy modifies the underlying shared object
+console.log("Original Config Theme:", originalConfig.theme); // Output: "light"
+console.log("Copy Config Theme:", copyConfig.theme);         // Output: "light"
+
+// Correct way to make an independent shallow copy of an object:
+const independentCopy = { ...originalConfig };
+independentCopy.theme = "solarized";
+console.log("Original after shallow copy change:", originalConfig.theme); // Output: "light"</code></pre>
+
+                <div class="mistake-callout" role="note" aria-label="Common Mistake on Data Types">
+                    <h4>⚠️ Common Mistake: Using <code>typeof null</code> and expecting "null"</h4>
+                    <ul>
+                        <li><strong>The Mistake:</strong> Checking <code>typeof null === "null"</code> when debugging type definitions.</li>
+                        <li><strong>Why it happens:</strong> Due to a legacy bug in JavaScript's initial implementation from 1995, values were stored in 32-bit units where the first 3 bits represented the type tag. Object tags were <code>000</code>. Since <code>null</code> was represented as all zeros, its type tag was read as an object. This historical quirk was never fixed to prevent breaking old web pages.</li>
+                        <li><strong>The Correct Way:</strong> Always use strict equality <code>val === null</code> to reliably check if a value is explicitly null.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Topic 3: Operators -->
+            <section id="operators" class="scroll-reveal">
+                <h2>3. Operators & Type Coercion</h2>
+                <p>Operators allow you to manipulate values, perform mathematical calculations, and evaluate logical conditions. JavaScript includes arithmetic (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>), comparison (<code>></code>, <code><</code>, <code>>=</code>, <code><=</code>), and logical operators (<code>&&</code>, <code>||</code>, <code>!</code>, <code>??</code>).</p>
+                <p>A critical concept in JavaScript is <strong>type coercion</strong>—the automatic conversion of values from one data type to another during evaluation. This is most apparent when comparing values using loose equality (<code>==</code>), which converts operands to the same type before comparing, versus strict equality (<code>===</code>), which compares both value and data type without conversion.</p>
+
+                <h3>Syntax</h3>
+                <pre><code>// Strict vs Loose Equality
+value1 === value2; // Strict: Checks Value AND Type (Recommended)
+value1 == value2;  // Loose: Coerces types before comparison (Avoid)
+
+// Nullish Coalescing Operator (??)
+const result = maybeNull ?? "Fallback Value";</code></pre>
+
+                <h3>Working Example: Type Coercion & Equality Cases</h3>
+                <pre><code>// 1. Loose Equality Coercion Cases
+console.log(5 == "5");        // Output: true  (string "5" is coerced to number 5)
+console.log(0 == false);      // Output: true  (boolean false is coerced to 0)
+console.log(null == undefined); // Output: true (special rule in JS specification)
+
+// 2. Strict Equality Cases (No Coercion)
+console.log(5 === "5");       // Output: false (number is not equal to string)
+console.log(0 === false);     // Output: false (number is not equal to boolean)
+console.log(null === undefined); // Output: false (different primitive types)
+
+// 3. Logical Short-Circuiting and Nullish Coalescing
+const userCount = 0;
+
+// || checks for any FALSY value (0, "", false, null, undefined, NaN)
+const defaultWithOr = userCount || 10; 
+console.log("Using ||:", defaultWithOr); // Output: 10 (Bug! 0 is a valid count)
+
+// ?? checks strictly for null or undefined (Nullish Coalescing)
+const defaultWithNullish = userCount ?? 10;
+console.log("Using ??:", defaultWithNullish); // Output: 0 (Correctly preserves 0)</code></pre>
+
+                <div class="mistake-callout" role="note" aria-label="Common Mistake on Operators">
+                    <h4>⚠️ Common Mistake: Using loose equality (<code>==</code>) for user input validation</h4>
+                    <ul>
+                        <li><strong>The Mistake:</strong> Using <code>if (inputValue == 0)</code> to check if a numeric input is zero.</li>
+                        <li><strong>Why it happens:</strong> Developers assume loose equality simply handles string-to-number conversions. However, loose equality also evaluates empty strings <code>""</code>, arrays <code>[]</code>, and boolean <code>false</code> as equal to <code>0</code>!</li>
+                        <li><strong>The Correct Way:</strong> Always convert input data types explicitly (e.g., using <code>Number(inputValue)</code> or `parseInt()`) and evaluate expressions using strict equality (<code>===</code>).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Topic 4: Functions -->
+            <section id="functions" class="scroll-reveal">
+                <h2>4. Functions: Declarations, Expressions, and Parameters</h2>
+                <p>Functions are reusable blocks of executable code designed to perform a particular task. JavaScript supports three primary ways to define functions: <strong>Function Declarations</strong>, <strong>Function Expressions</strong>, and modern ES6 <strong>Arrow Functions</strong>.</p>
+                <p>Modern JavaScript functions are equipped with powerful parameter handling capabilities. <strong>Default parameters</strong> allow you to initialize arguments with default values if they are omitted or passed as <code>undefined</code>. <strong>Rest parameters</strong> (<code>...args</code>) allow a function to accept an indefinite number of arguments as a clean, standard array, replacing the legacy array-like <code>arguments</code> object.</p>
+
+                <h3>Syntax</h3>
+                <pre><code>// 1. Function Declaration
+function greet(name = "Guest") {
+    return `Hello, ${name}!`;
+}
+
+// 2. Function Expression
+const multiply = function(a, b) {
+    return a * b;
+};
+
+// 3. Arrow Function with Rest Parameters
+const sumAll = (...numbers) => numbers.reduce((acc, curr) => acc + curr, 0);</code></pre>
+
+                <h3>Working Example: Rest Parameters & Arrow Functions</h3>
+                <pre><code>// Function using rest parameters to sum an unknown number of arguments
+const calculateTotal = (currency = "$", ...prices) => {
+    // 'prices' is gathered into a genuine Array containing all subsequent arguments
+    const sum = prices.reduce((total, price) => total + price, 0);
+    return `${currency}${sum.toFixed(2)}`;
+};
+
+console.log(calculateTotal("$", 19.99, 4.99, 12.50)); // Output: "$37.48"
+console.log(calculateTotal("€", 100, 50));             // Output: "€150.00"
+console.log(calculateTotal("¥"));                      // Output: "¥0.00"
+
+// Comparing standard function 'this' binding vs Arrow Function lexical 'this'
+const timer = {
+    seconds: 0,
+    startLegacy: function() {
+        // In standard functions, 'this' depends on how the callback is invoked
+        setTimeout(function() {
+            // Here, 'this' defaults to the global window object (or undefined in strict mode)
+            // this.seconds++; // Would fail or cause bugs!
+        }, 100);
+    },
+    startModern: function() {
+        // Arrow functions inherit 'this' lexically from their enclosing scope
+        setTimeout(() => {
+            this.seconds++;
+            console.log("Timer seconds:", this.seconds); // Output: 1
+        }, 100);
+    }
+};
+
+timer.startModern();</code></pre>
+
+                <div class="mistake-callout" role="note" aria-label="Common Mistake on Functions">
+                    <h4>⚠️ Common Mistake: Using arrow functions as object methods when you need <code>this</code></h4>
+                    <ul>
+                        <li><strong>The Mistake:</strong> Writing object methods as arrow functions: <code>const user = { name: "Aarav", getName: () => this.name }</code>.</li>
+                        <li><strong>Why it happens:</strong> Arrow functions provide clean, concise syntax, leading developers to use them everywhere. However, arrow functions do not bind their own <code>this</code>; they inherit it from the outer lexical scope (usually the global window object in this context).</li>
+                        <li><strong>The Correct Way:</strong> Always use standard function shorthand for object methods: <code>getName() { return this.name; }</code>.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Topic 5: Scope -->
+            <section id="scope" class="scroll-reveal">
+                <h2>5. Scope & The Scope Chain</h2>
+                <p>Scope determines the accessibility (visibility) of variables and functions in different parts of your code during runtime. JavaScript has three main types of scope: <strong>Global Scope</strong> (accessible everywhere), <strong>Function Scope</strong> (accessible only within the declaring function), and ES6 <strong>Block Scope</strong> (accessible only within the enclosing curly braces <code>{}</code> when declared with <code>let</code> or <code>const</code>).</p>
+                <p>Think of scope like security badges in a corporate building. A global badge lets you enter any room. A function or block badge only opens doors inside your specific department. When JavaScript tries to read a variable, it performs a lookup starting from the innermost block scope. If the variable isn't found locally, it travels outward up the <strong>Scope Chain</strong> to parent scopes until it reaches the global scope. If it still isn't found, a <code>ReferenceError</code> is thrown.</p>
+
+                <!-- DIAGRAM 1: SCOPE NESTED BOXES (Dynamic CSS Variables) -->
+                <div class="diagram-container" role="img" aria-label="Nested scope boxes diagram showing Global, Function, and Block scope hierarchy">
+                    <svg viewBox="0 0 600 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="10" y="10" width="580" height="140" fill="var(--bg-main)" stroke="var(--border-color)" stroke-width="1.5" rx="4"/>
+                        <text x="25" y="32" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" fill="var(--text-muted)">GLOBAL SCOPE: const appName = "Kaizen Hub"</text>
+                        <rect x="30" y="45" width="540" height="95" fill="var(--bg-code)" stroke="var(--border-color)" stroke-width="1.5" rx="4"/>
+                        <text x="45" y="67" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" fill="var(--text-muted)">FUNCTION SCOPE: const role = "Admin", var legacyLog</text>
+                        <rect x="50" y="80" width="500" height="50" fill="var(--accent-bg)" stroke="var(--accent-color)" stroke-width="2" rx="4"/>
+                        <text x="65" y="102" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="var(--accent-color)">BLOCK SCOPE (if): let accessLevel [Trapped Cleanly]</text>
+                        <text x="65" y="120" font-family="SFMono-Regular, monospace" font-size="11" fill="var(--text-main)">⬆️ Lookup chain travels outward from innermost box to global root</text>
+                    </svg>
+                </div>
+
+                <h3>Syntax</h3>
+                <pre><code>// Global Scope
+const globalVar = "Available everywhere";
+
+function outerFunction() {
+    // Function Scope
+    const functionVar = "Available inside outerFunction";
+
+    if (true) {
+        // Block Scope
+        let blockVar = "Available only inside this if-block";
+    }
+}</code></pre>
+
+                <h3>Working Example: Block Scope & Scope Chain Lookup</h3>
+                <pre><code>const appName = "Kaizen Hub"; // Global Scope
+
+function processUser(username) {
+    const role = "Admin"; // Function Scope
+
+    if (username) {
+        let accessLevel = "Full Access"; // Block Scope (let/const)
+        var legacyLog = "User processed"; // Function Scope (var ignores block boundaries!)
+
+        console.log(`Welcome ${username} to ${appName}. Role: ${role}`); 
+        // Scope chain lookup finds 'username' & 'role' in function scope, 'appName' in global scope
+    }
+
+    console.log(legacyLog); // Output: "User processed" (var leaked out of the if-block!)
+
+    try {
+        console.log(accessLevel); 
+    } catch (error) {
+        console.error("Scope Error:", error.message); 
+        // Output: accessLevel is not defined (let is cleanly trapped in the block)
+    }
+}
+
+processUser("Aarav");</code></pre>
+
+                <div class="mistake-callout" role="note" aria-label="Common Mistake on Scope">
+                    <h4>⚠️ Common Mistake: Accidental global variables by omitting declaration keywords</h4>
+                    <ul>
+                        <li><strong>The Mistake:</strong> Assigning a value to an undeclared variable inside a function: <code>function calc() { total = 100; }</code>.</li>
+                        <li><strong>Why it happens:</strong> In non-strict mode, if you assign a value without <code>let</code>, <code>const</code>, or <code>var</code>, JavaScript travels up the scope chain to the top. Finding no existing binding, it automatically attaches a property named <code>total</code> to the global object!</li>
+                        <li><strong>The Correct Way:</strong> Always declare variables explicitly with <code>let</code> or <code>const</code>, and enforce strict mode by placing <code>"use strict";</code> at the top of your scripts.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Topic 6: Hoisting -->
+            <section id="hoisting" class="scroll-reveal">
+                <h2>6. Hoisting & The Temporal Dead Zone (TDZ)</h2>
+                <p><strong>Hoisting</strong> refers to JavaScript's behavior of moving variable and function declarations to the top of their respective scopes during the compilation phase, before the code executes. However, how hoisting behaves depends entirely on how the identifier was declared.</p>
+                <p>Function declarations are completely hoisted—both the name and the body—allowing you to call a function before it appears in the code. Variables declared with <code>var</code> are hoisted and initialized with a default value of <code>undefined</code>. Conversely, variables declared with <code>let</code> and <code>const</code> are hoisted to the top of their block, but they are <em>not initialized</em>. The period between entering the scope and reaching the actual line of declaration is called the <strong>Temporal Dead Zone (TDZ)</strong>. Accessing a let/const variable in its TDZ throws a fatal <code>ReferenceError</code>.</p>
+
+                <!-- DIAGRAM 2: HOISTING BEFORE VS AFTER (Dynamic CSS Variables) -->
+                <div class="diagram-container" role="img" aria-label="Hoisting compilation comparison diagram showing Temporal Dead Zone behavior">
+                    <svg viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="10" y="15" width="260" height="120" fill="var(--bg-main)" stroke="var(--border-color)" stroke-width="1.5" rx="4"/>
+                        <text x="25" y="38" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="var(--text-heading)">WHAT YOU WRITE:</text>
+                        <text x="25" y="65" font-family="SFMono-Regular, monospace" font-size="11" fill="var(--text-muted)">console.log(hoistedVar);</text>
+                        <text x="25" y="85" font-family="SFMono-Regular, monospace" font-size="11" fill="var(--text-main)">var hoistedVar = "Ready";</text>
+                        <text x="25" y="105" font-family="SFMono-Regular, monospace" font-size="11" fill="var(--text-muted)">console.log(modernLet);</text>
+                        <text x="25" y="125" font-family="SFMono-Regular, monospace" font-size="11" fill="var(--text-main)">let modernLet = "Safe";</text>
+                        <path d="M 285 75 L 315 75" stroke="var(--accent-color)" stroke-width="2" marker-end="url(#arrow)"/>
+                        <rect x="330" y="15" width="260" height="120" fill="var(--accent-bg)" stroke="var(--accent-color)" stroke-width="1.5" rx="4"/>
+                        <text x="345" y="38" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="var(--accent-color)">HOW ENGINE COMPILES IT:</text>
+                        <text x="345" y="65" font-family="SFMono-Regular, monospace" font-size="11" fill="var(--text-main)">var hoistedVar = undefined;</text>
+                        <text x="345" y="85" font-family="SFMono-Regular, monospace" font-size="11" fill="var(--text-muted)">// [Temporal Dead Zone Start]</text>
+                        <text x="345" y="105" font-family="SFMono-Regular, monospace" font-size="11" fill="var(--accent-color)">console.log(modernLet); 🛑</text>
+                        <text x="345" y="125" font-family="SFMono-Regular, monospace" font-size="11" fill="var(--text-main)">// ReferenceError in TDZ!</text>
+                        <defs>
+                            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent-color)"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+
+                <h3>Syntax</h3>
+                <pre><code>// Function declarations can be invoked before definition
+hoistedFunction(); 
+
+function hoistedFunction() {
+    console.log("Fully hoisted!");
+}
+
+// Variables declared with let/const exist in TDZ before declaration line
+// console.log(tdzVariable); // Throws ReferenceError
+let tdzVariable = "Safe to access now";</code></pre>
+
+                <h3>Working Example: Comparing Hoisting Behaviors</h3>
+                <pre><code>// 1. Function Declaration Hoisting
+console.log(getStatus()); // Output: "System Operational" (Works cleanly!)
+
+function getStatus() {
+    return "System Operational";
+}
+
+// 2. var Hoisting vs let/const TDZ
+console.log("hoistedVar value before line:", hoistedVar); // Output: undefined
+var hoistedVar = "Initialized now";
+
+try {
+    console.log(modernLet); // Attempting to access variable inside its Temporal Dead Zone
+} catch (error) {
+    console.error("TDZ Error:", error.name, "-", error.message); 
+    // Output: ReferenceError - Cannot access 'modernLet' before initialization
+}
+
+let modernLet = "I am out of the TDZ now";
+
+// 3. Function Expression Hoisting
+try {
+    expressionFunc(); 
+} catch (error) {
+    console.error("Expression Error:", error.name, "-", error.message);
+    // Output: TypeError - expressionFunc is not a function (it is hoisted as undefined!)
+}
+
+var expressionFunc = function() {
+    console.log("This will fail when called before line");
+};</code></pre>
+
+                <div class="mistake-callout" role="note" aria-label="Common Mistake on Hoisting">
+                    <h4>⚠️ Common Mistake: Calling function expressions or arrow functions before declaration</h4>
+                    <ul>
+                        <li><strong>The Mistake:</strong> Writing <code>myFunc(); const myFunc = () => {};</code> and expecting it to execute like a standard function declaration.</li>
+                        <li><strong>Why it happens:</strong> Developers assume all functions are hoisted identically. However, function expressions stored in variables follow variable hoisting rules. If declared with <code>const</code> or <code>let</code>, they trigger a ReferenceError in the TDZ; if declared with <code>var</code>, the variable is hoisted as <code>undefined</code>, throwing a TypeError when called as a function.</li>
+                        <li><strong>The Correct Way:</strong> Always define function expressions and arrow functions before invoking them in your execution flow.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Topic 7: Closures -->
+            <section id="closures" class="scroll-reveal">
+                <h2>7. Closures: Persistent Lexical Scope</h2>
+                <p>A <strong>closure</strong> is the combination of a function bundled together (enclosed) with references to its surrounding lexical state. In simple terms, a closure allows an inner function to retain access to variables from its outer (parent) function's scope, even after the outer function has finished executing and returned from the call stack.</p>
+                <p>Think of a closure like a backpack. When a function creates and returns an inner function, that inner function packs a private backpack containing all the local variables it needs from the surrounding room before leaving. Everywhere the inner function goes in the program, it carries that backpack with it, allowing it to read and update those private variables safely without exposing them to the global scope.</p>
+
+                <!-- DIAGRAM 3: CLOSURES ENCAPSULATION BOX (Dynamic CSS Variables) -->
+                <div class="diagram-container" role="img" aria-label="Closure persistent lexical scope diagram illustrating inner function encapsulation">
+                    <svg viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="20" y="15" width="560" height="120" fill="var(--bg-main)" stroke="var(--border-color)" stroke-width="1.5" rx="4"/>
+                        <text x="35" y="38" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="var(--text-muted)">OUTER FUNCTION: makeCounter(startValue = 0)</text>
+                        <text x="35" y="60" font-family="SFMono-Regular, monospace" font-size="11" fill="var(--text-main)">let count = startValue; // Private variable</text>
+                        <rect x="50" y="75" width="340" height="45" fill="var(--accent-bg)" stroke="var(--accent-color)" stroke-width="1.5" rx="4"/>
+                        <text x="65" y="96" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" fill="var(--accent-color)">INNER FUNCTION (Returned Closure):</text>
+                        <text x="65" y="112" font-family="SFMono-Regular, monospace" font-size="11" fill="var(--text-main)">return () =&gt; { count++; return count; }</text>
+                        <path d="M 400 97 C 450 97, 450 56, 210 56" fill="none" stroke="var(--accent-color)" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrow-closure)"/>
+                        <text x="405" y="80" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="var(--accent-color)">Retains access after outer return!</text>
+                        <defs>
+                            <marker id="arrow-closure" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent-color)"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+
+                <h3>Syntax</h3>
+                <pre><code>function createClosure(initialValue) {
+    let privateState = initialValue; // Enclosed variable
+    
+    return function(step) {
+        privateState += step;
+        return privateState;
+    };
+}</code></pre>
+
+                <h3>Working Example: Data Privacy with a Counter Function</h3>
+                <pre><code>// makeCounter factory function creates a private lexical environment
+function makeCounter(counterName, startValue = 0) {
+    let count = startValue; // Private variable encapsulated by the closure
+    
+    // Return an object containing closure methods that manipulate the private state
+    return {
+        increment: () => {
+            count++;
+            return `${counterName} count: ${count}`;
+        },
+        decrement: () => {
+            count--;
+            return `${counterName} count: ${count}`;
+        },
+        getCount: () => count
+    };
+}
+
+// Create two completely independent counter instances
+const scoreCounter = makeCounter("Player Score", 10);
+const retryCounter = makeCounter("Login Retries", 3);
+
+console.log(scoreCounter.increment()); // Output: "Player Score count: 11"
+console.log(scoreCounter.increment()); // Output: "Player Score count: 12"
+console.log(retryCounter.decrement()); // Output: "Login Retries count: 2"
+
+// Notice that the private 'count' variable cannot be accessed or tampered with directly
+console.log(scoreCounter.count);       // Output: undefined
+console.log(scoreCounter.getCount());  // Output: 12 (Retained safely in closure!)</code></pre>
+
+                <div class="mistake-callout" role="note" aria-label="Common Mistake on Closures">
+                    <h4>⚠️ Common Mistake: Creating stale closures inside asynchronous event handlers or loops</h4>
+                    <ul>
+                        <li><strong>The Mistake:</strong> Setting up an interval or listener that references a variable whose value changes over time, but always seeing the old initial value.</li>
+                        <li><strong>Why it happens:</strong> A closure captures the variable binding from its lexical environment at creation time. In asynchronous code (like React useEffect hooks or timers), if the callback isn't refreshed when external state changes, it continues reading the stale value trapped in its initial backpack.</li>
+                        <li><strong>The Correct Way:</strong> Ensure functional state updaters are used (e.g., passing a function <code>prev => prev + 1</code>) or re-register asynchronous closures whenever their dependent outer variables change.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Topic 8: Objects -->
+            <section id="objects" class="scroll-reveal">
+                <h2>8. Objects: Structured Key-Value Data</h2>
+                <p>Objects are the fundamental building blocks of complex data in JavaScript. An object is an unordered collection of properties, where each property is a key-value pair. Keys are usually strings (or Symbols), and values can be any data type, including arrays, other objects, or functions (which are known as <strong>methods</strong> when attached to an object).</p>
+                <p>Properties can be accessed using dot notation (<code>obj.key</code>) when the key is a valid static identifier, or bracket notation (<code>obj["key"]</code>) when the key is dynamic, stored in a variable, or contains special characters. Modern JavaScript simplifies working with objects via destructuring (extracting properties directly into variables) and the spread operator (<code>...</code>, used to cleanly merge or shallow-copy objects without mutation).</p>
+
+                <h3>Syntax</h3>
+                <pre><code>const user = { name: "Aarav", id: 101 };
+
+// Destructuring extraction
+const { name, id: userId } = user;
+
+// Spread operator for shallow copying & merging
+const updatedUser = { ...user, role: "Author", active: true };</code></pre>
+
+                <h3>Working Example: Destructuring and Spreading to Update Fields</h3>
+                <pre><code>// 1. Object Creation with Methods
+const developer = {
+    username: "aarav_dev",
+    skills: ["JavaScript", "HTML", "CSS"],
+    location: { city: "Bangalore", country: "India" },
+    
+    // Object Method (using concise ES6 shorthand)
+    getSummary() {
+        return `${this.username} knows ${this.skills.join(", ")} in ${this.location.city}.`;
+    }
+};
+
+console.log(developer.getSummary()); 
+// Output: "aarav_dev knows JavaScript, HTML, CSS in Bangalore."
+
+// 2. Dynamic Property Access using Bracket Notation
+const propertyToFetch = "username";
+console.log("Dynamic Access:", developer[propertyToFetch]); // Output: "aarav_dev"
+
+// 3. Destructuring with Default Values and Renaming
+const { username: devName, experience = "3 Years", location: { city } } = developer;
+console.log(`Extracted: ${devName}, Exp: ${experience}, City: ${city}`);
+// Output: "Extracted: aarav_dev, Exp: 3 Years, City: Bangalore"
+
+// 4. Immutable Object Updating via Spread Operator
+// We want to add a new skill and change city WITHOUT mutating original 'developer' object
+const updatedDeveloper = {
+    ...developer,
+    skills: [...developer.skills, "TypeScript"], // Spreading nested array cleanly
+    location: { ...developer.location, city: "Hyderabad" } // Spreading nested object
+};
+
+console.log("Original City:", developer.location.city);        // Output: "Bangalore" (Unchanged!)
+console.log("Updated City:", updatedDeveloper.location.city);  // Output: "Hyderabad"
+console.log("Updated Skills:", updatedDeveloper.skills);       // Output: ["JavaScript", "HTML", "CSS", "TypeScript"]</code></pre>
+
+                <div class="mistake-callout" role="note" aria-label="Common Mistake on Objects">
+                    <h4>⚠️ Common Mistake: Expecting the spread operator (<code>...</code>) to perform a deep clone</h4>
+                    <ul>
+                        <li><strong>The Mistake:</strong> Using <code>const copy = { ...original }</code> and assuming modifying nested objects in <code>copy</code> won't affect <code>original</code>.</li>
+                        <li><strong>Why it happens:</strong> The spread operator only performs a <em>shallow copy</em> at the top level. Any nested objects or arrays inside the newly created object still share reference pointers with the original object!</li>
+                        <li><strong>The Correct Way:</strong> For nested updates, explicitly spread each nested layer (as shown in the example above), or use <code>structuredClone(original)</code> for a true, native deep clone.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Topic 9: Arrays -->
+            <section id="arrays" class="scroll-reveal">
+                <h2>9. Arrays: Ordered Indexed Collections</h2>
+                <p>Arrays are specialized, ordered lists used to store multiple values in a single variable. Each item in an array is assigned a sequential numerical index, starting at <code>0</code> for the first element. Arrays in JavaScript are highly dynamic—they can expand or shrink dynamically and can store mixed data types simultaneously.</p>
+                <p>Think of an array like a train with numbered cars. You can easily attach new cars to the end of the train (<code>push</code>), decouple cars from the end (<code>pop</code>), inspect a subset of cars without touching the train (<code>slice</code>), or swap out cars right in the middle of the track (<code>splice</code>). Knowing whether a built-in array method mutates the existing array or returns a new one is critical for avoiding subtle bugs in your data management.</p>
+
+                <h3>Syntax</h3>
+                <pre><code>const list = ["Apple", "Banana", "Cherry"];
+
+// End of array operations (Mutating)
+list.push("Date");   // Appends item to end -> returns new length
+const last = list.pop(); // Removes and returns last item
+
+// Sub-array operations
+const copy = list.slice(0, 2); // Non-mutating: returns items from index 0 up to (not including) 2
+list.splice(1, 1, "Blueberry"); // Mutating: removes 1 item at index 1, inserts "Blueberry"</code></pre>
+
+                <h3>Working Example: Managing a Shopping Cart Array</h3>
+                <pre><code>// Initial shopping cart array
+const cart = ["MacBook Pro", "Wireless Mouse", "USB-C Cable", "Monitor"];
+console.log("Initial Cart:", cart);
+
+// 1. Adding an item to the end of the array using push()
+cart.push("Mechanical Keyboard");
+console.log("After push:", cart); 
+// Output: ["MacBook Pro", "Wireless Mouse", "USB-C Cable", "Monitor", "Mechanical Keyboard"]
+
+// 2. Removing the last item using pop()
+const removedItem = cart.pop();
+console.log(`Popped item: "${removedItem}". Cart now:`, cart);
+
+// 3. Inspecting items cleanly using slice() (DOES NOT mutate original cart)
+const firstTwoItems = cart.slice(0, 2);
+console.log("First two items (sliced):", firstTwoItems); 
+console.log("Cart remains intact after slice:", cart);
+
+// 4. Modifying items in place using splice() (MUTATES original cart)
+// Syntax: array.splice(startIndex, deleteCount, itemToInsert...)
+// Let's replace "USB-C Cable" (index 2) with "Thunderbolt Hub" and "Desk Mat"
+const splicedOut = cart.splice(2, 1, "Thunderbolt Hub", "Desk Mat");
+console.log("Removed via splice:", splicedOut); // Output: ["USB-C Cable"]
+console.log("Final Cart after splice mutation:", cart);
+// Output: ["MacBook Pro", "Wireless Mouse", "Thunderbolt Hub", "Desk Mat", "Monitor"]</code></pre>
+
+                <div class="mistake-callout" role="note" aria-label="Common Mistake on Arrays">
+                    <h4>⚠️ Common Mistake: Confusing <code>slice()</code> and <code>splice()</code></h4>
+                    <ul>
+                        <li><strong>The Mistake:</strong> Calling <code>array.splice(0, 2)</code> when you simply wanted to grab the first two elements for a preview without altering the main array.</li>
+                        <li><strong>Why it happens:</strong> Their names differ by only one letter ("p"), causing frequent mix-ups in fast coding sessions.</li>
+                        <li><strong>The Correct Way:</strong> Remember the "p" in <code>splice()</code> stands for <strong>Permanent modification</strong> (it mutates the array in place). Use <code>slice()</code> when you want a clean, safe sub-array copy.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Topic 10: Array Methods -->
+            <section id="array-methods" class="scroll-reveal">
+                <h2>10. Functional Array Methods: map, filter, and reduce</h2>
+                <p>Modern JavaScript emphasizes declarative, functional data transformations over imperative <code>for</code> loops. Three core higher-order array methods form the foundation of this approach: <code>map()</code>, <code>filter()</code>, and <code>reduce()</code>. All three process an array by executing a callback function on each element, and crucially, they <strong>do not mutate</strong> the original array.</p>
+                <p>Think of these methods as an automated assembly line in a factory. <code>filter()</code> acts as a quality control inspector, letting only items that pass a specific test move forward. <code>map()</code> acts as a transformer machine, converting every item that passes through into a modified version (e.g., packaging raw materials). Finally, <code>reduce()</code> acts as a collector, combining all individual packaged items into a single final shipment or summary invoice.</p>
+
+                <h3>Syntax</h3>
+                <pre><code>// 1. map: Transforms each item -> returns array of exact same length
+const mapped = arr.map((item, index) => transform(item));
+
+// 2. filter: Selects items matching condition -> returns subset array
+const filtered = arr.filter(item => condition(item));
+
+// 3. reduce: Accumulates array into a single value
+const total = arr.reduce((acc, curr) => acc + curr.val, initialValue);</code></pre>
+
+                <h3>Working Example: Chaining Methods on an E-Commerce Cart</h3>
+                <pre><code>// Inventory catalog list
+const inventory = [
+    { id: 1, name: "JavaScript Book", price: 30, quantity: 2, inStock: true },
+    { id: 2, name: "Stickers Pack", price: 5, quantity: 10, inStock: false },
+    { id: 3, name: "Ergonomic Chair", price: 250, quantity: 1, inStock: true },
+    { id: 4, name: "Coffee Mug", price: 15, quantity: 4, inStock: true }
+];
+
+// Goal: Filter in-stock items, calculate total cost per item (price * qty), and reduce to grand total
+const grandTotal = inventory
+    // Step 1: Filter only items where inStock is true
+    .filter(item => {
+        console.log(`Filtering: ${item.name} (${item.inStock ? "Keep" : "Drop"})`);
+        return item.inStock === true;
+    })
+    // Step 2: Map to a new structure containing item name and total line cost
+    .map(item => {
+        const lineCost = item.price * item.quantity;
+        return {
+            name: item.name,
+            lineCost: lineCost
+        };
+    })
+    // Step 3: Reduce the mapped array to a single numerical grand total cost
+    .reduce((accumulator, currentItem) => {
+        console.log(`Adding ${currentItem.name} ($${currentItem.lineCost}) to accumulator ($${accumulator})`);
+        return accumulator + currentItem.lineCost;
+    }, 0); // 0 is the essential initial value for our numerical accumulator
+
+console.log("Calculated Grand Total: $" + grandTotal); 
+// Output: Calculated Grand Total: $370  (Book: 60 + Chair: 250 + Mug: 60)</code></pre>
+
+                <div class="mistake-callout" role="note" aria-label="Common Mistake on Array Methods">
+                    <h4>⚠️ Common Mistake: Forgetting to return the accumulator inside <code>reduce()</code></h4>
+                    <ul>
+                        <li><strong>The Mistake:</strong> Writing <code>arr.reduce((acc, curr) => { acc + curr.price; }, 0)</code> and getting <code>undefined</code> as the final result.</li>
+                        <li><strong>Why it happens:</strong> When using curly braces <code>{}</code> in an arrow function callback, you open a block body which requires an explicit <code>return</code> keyword. If omitted, the callback returns <code>undefined</code> for that iteration, which becomes the new accumulator value for all subsequent steps!</li>
+                        <li><strong>The Correct Way:</strong> Either use explicit return statements: <code>return acc + curr.price;</code> or remove the curly braces for implicit return: <code>(acc, curr) => acc + curr.price</code>. Always pass an explicit initial value as the second argument!</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Topic 11: Strings -->
+            <section id="strings" class="scroll-reveal">
+                <h2>11. Strings & Text Manipulation</h2>
+                <p>In JavaScript, strings represent sequences of text characters. A fundamental rule of JavaScript strings is immutability: once a string value is created in memory, its individual characters cannot be modified in place. Any string method that appears to transform a string (such as conversion to uppercase or trimming whitespace) actually generates and returns a brand-new string in memory.</p>
+                <p>ES6 revolutionized text handling by introducing Template Literals enclosed by backticks (<code>`</code>). Template literals allow multi-line strings without newline escape characters (<code>\n</code>) and support clean variable and expression interpolation using `${expression}` syntax, eliminating clunky string concatenation operators.</p>
+
+                <h3>Syntax</h3>
+                <pre><code>// Template Literal Interpolation
+const greeting = `Welcome, ${user.name}! You have ${user.messages.length} notifications.`;
+
+// Common String Methods (all return new strings!)
+const clean = rawString.trim().toUpperCase();
+const sub = text.slice(0, 10);
+const exists = text.includes("keyword");</code></pre>
+
+                <h3>Working Example: Dynamic Greetings & String Methods</h3>
+                <pre><code>// Raw user profile input with messy whitespace and case formatting
+const rawUsername = "   aARav_pAtAhAk   ";
+const userRole = "Senior Engineer";
+const projectsCompleted = 14;
+
+// 1. Cleaning and transforming string using method chaining
+// trim() removes leading/trailing spaces; toLowerCase() standardizes case
+const normalizedUsername = rawUsername.trim().toLowerCase();
+console.log("Normalized Username:", normalizedUsername); // Output: "aarav_patahak" -> "aarav_patahak"
+
+// 2. Extracting substrings with slice(startIndex, endIndex)
+const displayTag = normalizedUsername.slice(0, 5).toUpperCase();
+console.log("Display Tag:", displayTag); // Output: "AARAV"
+
+// 3. Inspecting string contents with includes() and startsWith()
+const isEngineer = userRole.includes("Engineer");
+console.log("Is Engineering Role?", isEngineer); // Output: true
+
+// 4. Constructing multi-line formatting using Template Literals
+const userBioCard = `
+=================================
+USER PROFILE CARD
+=================================
+Handle: @${normalizedUsername}
+Tag:    [${displayTag}]
+Role:   ${userRole}
+Status: ${projectsCompleted > 10 ? "🌟 Veteran Contributor" : "🌱 Rising Star"}
+=================================
+`;
+
+console.log(userBioCard);</code></pre>
+
+                <div class="mistake-callout" role="note" aria-label="Common Mistake on Strings">
+                    <h4>⚠️ Common Mistake: Attempting to mutate string characters by index</h4>
+                    <ul>
+                        <li><strong>The Mistake:</strong> Writing <code>let str = "hello"; str[0] = "H";</code> and expecting <code>str</code> to become "Hello".</li>
+                        <li><strong>Why it happens:</strong> Because strings can be accessed via bracket notation like arrays (<code>str[0]</code> returns "h"), developers assume they can be modified like arrays. However, due to string immutability, assignment to a string index fails silently (or throws an error in strict mode).</li>
+                        <li><strong>The Correct Way:</strong> Construct a new string using slicing or concatenation: <code>str = "H" + str.slice(1);</code> or replace methods: <code>str = str.replace("h", "H");</code>.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Topic 12: ES6 -->
+            <section id="es6" class="scroll-reveal">
+                <h2>12. ES6+ Modern JavaScript Foundation</h2>
+                <p>ECMAScript 2015 (universally known as <strong>ES6</strong>) was the largest single update in JavaScript history, transforming it from a simple web scripting language into a robust, scalable architecture capable of powering massive enterprise applications. Nearly all modern JavaScript frameworks (React, Vue, Node.js, Next.js) rely entirely on syntax and patterns introduced in ES6.</p>
+                <p>Let's synthesize the core pillars introduced in ES6 that form modern daily development: block-scoped declarations (<code>let</code>/<code>const</code>), concise lexical functional expressions (<strong>Arrow Functions</strong>), readable string formatting (<strong>Template Literals</strong>), data unpacking (<strong>Destructuring</strong>), array/object merging (<strong>Spread Operator</strong> <code>...</code>), clean parameter defaults (<strong>Default Params</strong>), and standardized asynchronous wrappers (<strong>Promises</strong>).</p>
+
+                <h3>Syntax</h3>
+                <pre><code>// ES6 Clean Architectural Synthesis
+const processData = (config = {}) => {
+    const { endpoint = "/api", method = "GET", ...rest } = config;
+    return new Promise((resolve) => {
+        resolve(`Ready to ${method} from ${endpoint} with ${Object.keys(rest).length} extra flags`);
+    });
+};</code></pre>
+
+                <h3>Working Example: Combining ES6 Features in a Modern Service Wrapper</h3>
+                <pre><code>// Modern ES6+ Module Pattern demonstrating unified features
+const kaizenBlogService = () => {
+    // 1. const & let for block-scoped state
+    const baseUri = "https://api.kaizen-hub.dev";
+    let activeRequests = 0;
+
+    // 2. Arrow function with Default Parameters and Destructuring in signature
+    const fetchArticle = async ({ id = 1, includeAuthor = true, ...extraHeaders } = {}) => {
+        activeRequests++;
+        
+        // 3. Template Literals for dynamic URL construction
+        const requestUrl = `${baseUri}/articles/${id}?author=${includeAuthor}`;
+        
+        console.log(`[ES6 Service] Dispatching request #${activeRequests} to: ${requestUrl}`);
+        console.log(`[ES6 Service] Custom Headers Spun Up:`, extraHeaders);
+
+        // 4. Returning a Promise simulating async payload retrieval
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                activeRequests--;
+                // 5. Object shorthand syntax and Spread merging in return payload
+                resolve({
+                    id,
+                    status: "Success",
+                    timestamp: Date.now(),
+                    ...extraHeaders,
+                    data: `Complete JavaScript Reference Guide (Article #${id})`
+                });
+            }, 150);
+        });
+    };
+
+    return { fetchArticle };
+};
+
+// Instantiate service and execute with destructuring & spread arguments
+const service = kaizenBlogService();
+const customOptions = { id: 42, includeAuthor: false, theme: "dark", locale: "en-IN" };
+
+service.fetchArticle(customOptions).then(response => {
+    // Destructure response cleanly in callback
+    const { status, data, locale } = response;
+    console.log(`Result [${status}] (${locale}): ${data}`);
+});</code></pre>
+
+                <div class="mistake-callout" role="note" aria-label="Common Mistake on ES6">
+                    <h4>⚠️ Common Mistake: Mixing legacy <code>var</code> and ES6 syntax inconsistently</h4>
+                    <ul>
+                        <li><strong>The Mistake:</strong> Using modern arrow functions and destructuring while continuing to declare variables with <code>var</code> throughout the codebase.</li>
+                        <li><strong>Why it happens:</strong> Developers learn new ES6 syntax piecemeal without breaking old muscle memory from pre-2015 tutorials.</li>
+                        <li><strong>The Correct Way:</strong> Adopt a complete mental switch: banish <code>var</code> from your vocabulary entirely. Default to <code>const</code> for all bindings, and only downgrade to <code>let</code> when explicit reassignment is required by your logic.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Topic 13: Async -->
+            <section id="async" class="scroll-reveal">
+                <h2>13. Asynchronous JavaScript & The Event Loop</h2>
+                <p>JavaScript is a single-threaded programming language, meaning it has only one Call Stack and can execute only one operation at a time. If JavaScript executed slow tasks (like fetching a huge file from a database or waiting for a timer) synchronously on this single thread, the entire web page would freeze, rendering buttons unclickable and animations frozen.</p>
+                <p>To prevent blocking, JavaScript relies on asynchronous architecture powered by the browser's Event Loop. When a slow async task (like `setTimeout` or network request) is encountered, JavaScript offloads it to Web APIs outside the main thread and continues executing the next synchronous lines of code immediately. Once the background task finishes, its callback is placed into a waiting queue. The Event Loop continuously monitors the Call Stack; the instant the stack is completely empty, it pushes waiting callbacks back onto the stack for execution. Notice: Promise callbacks go into a high-priority Microtask Queue, which is emptied completely before standard timers in the Task Queue (Macrotasks) are touched!</p>
+
+                <!-- DIAGRAM 4: ASYNC EVENT LOOP ARCHITECTURE (Dynamic CSS Variables) -->
+                <div class="diagram-container" role="img" aria-label="Event Loop architecture diagram showing Call Stack, Web APIs, Microtask Queue, and Task Queue">
+                    <svg viewBox="0 0 600 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="15" y="20" width="130" height="130" fill="var(--bg-main)" stroke="var(--border-color)" stroke-width="1.5" rx="4"/>
+                        <text x="35" y="42" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="var(--text-heading)">1. CALL STACK</text>
+                        <text x="25" y="75" font-family="SFMono-Regular, monospace" font-size="11" fill="var(--text-main)">sync()</text>
+                        <text x="25" y="95" font-family="SFMono-Regular, monospace" font-size="11" fill="var(--text-muted)">console.log()</text>
+                        <path d="M 145 55 L 185 55" stroke="var(--text-muted)" stroke-width="1.5" marker-end="url(#arrow-async-gray)"/>
+                        <rect x="190" y="20" width="140" height="70" fill="var(--bg-main)" stroke="var(--border-color)" stroke-width="1.5" rx="4"/>
+                        <text x="205" y="42" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="var(--text-heading)">2. WEB APIs</text>
+                        <text x="200" y="65" font-family="SFMono-Regular, monospace" font-size="11" fill="var(--text-muted)">setTimeout/fetch</text>
+                        <path d="M 330 55 L 365 55" stroke="var(--text-muted)" stroke-width="1.5" marker-end="url(#arrow-async-gray)"/>
+                        <rect x="370" y="15" width="215" height="60" fill="var(--accent-bg)" stroke="var(--accent-color)" stroke-width="2" rx="4"/>
+                        <text x="380" y="36" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="var(--accent-color)">3. MICROTASK QUEUE ⭐</text>
+                        <text x="380" y="55" font-family="SFMono-Regular, monospace" font-size="10" fill="var(--text-main)">Promise.then() [Drains 1st!]</text>
+                        <rect x="370" y="90" width="215" height="60" fill="var(--bg-main)" stroke="var(--border-color)" stroke-width="1.5" rx="4"/>
+                        <text x="380" y="112" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="var(--text-muted)">4. TASK QUEUE (Macro)</text>
+                        <text x="380" y="132" font-family="SFMono-Regular, monospace" font-size="10" fill="var(--text-muted)">setTimeout() [Drains 2nd]</text>
+                        <path d="M 370 120 C 260 160, 200 160, 80 150" fill="none" stroke="var(--accent-color)" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrow-async-blue)"/>
+                        <text x="175" y="145" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="var(--accent-color)">EVENT LOOP (Pushes to empty stack)</text>
+                        <defs>
+                            <marker id="arrow-async-gray" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--text-muted)"/>
+                            </marker>
+                            <marker id="arrow-async-blue" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent-color)"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+
+                <h3>Syntax</h3>
+                <pre><code>// Synchronous vs Asynchronous Queueing
+console.log("1. Sync execution");
+
+setTimeout(() => console.log("3. Task Queue (Macrotask)"), 0);
+
+Promise.resolve().then(() => console.log("2. Microtask Queue (High Priority)"));</code></pre>
+
+                <h3>Working Example: Proving Event Loop Execution Order</h3>
+                <pre><code>console.log("=== Event Loop Execution Start ===");
+
+// 1. Synchronous operation -> Pushed directly to Call Stack and executed instantly
+console.log("Step 1: Synchronous Log A");
+
+// 2. Asynchronous Timer (Macrotask) -> Offloaded to Web API, callback sent to Task Queue
+setTimeout(() => {
+    console.log("Step 4: setTimeout Callback (Macrotask Queue)");
+}, 0); // Notice: Even with 0ms delay, it must wait for stack & microtasks to clear!
+
+// 3. Asynchronous Promise (Microtask) -> Callback sent to Microtask Queue (High Priority!)
+Promise.resolve().then(() => {
+    console.log("Step 3: Promise.then Callback (Microtask Queue)");
+});
+
+// 4. Another Synchronous operation -> Pushed to Call Stack instantly
+console.log("Step 2: Synchronous Log B");
+
+console.log("=== Event Loop Main Stack Emptying ===");
+
+/*
+ACTUAL CONSOLE OUTPUT ORDER:
+=========================================
+=== Event Loop Execution Start ===
+Step 1: Synchronous Log A
+Step 2: Synchronous Log B
+=== Event Loop Main Stack Emptying ===
+Step 3: Promise.then Callback (Microtask Queue)   <-- Microtasks run BEFORE standard tasks!
+Step 4: setTimeout Callback (Macrotask Queue)
+=========================================
+*/</code></pre>
+
+                <div class="mistake-callout" role="note" aria-label="Common Mistake on Async">
+                    <h4>⚠️ Common Mistake: Assuming <code>setTimeout(..., 0)</code> executes immediately</h4>
+                    <ul>
+                        <li><strong>The Mistake:</strong> Using a zero-millisecond timer to try and execute a function before subsequent synchronous code lines.</li>
+                        <li><strong>Why it happens:</strong> Interpreting the time parameter strictly as an absolute execution timestamp rather than a minimum delay before queuing.</li>
+                        <li><strong>The Correct Way:</strong> Remember that any asynchronous API (even with a 0ms timer) offloads execution to the task queues. It will *always* execute after all synchronous code currently in the call stack has finished running.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Topic 14: Promises -->
+            <section id="promises" class="scroll-reveal">
+                <h2>14. Promises: Managing Asynchronous Flow</h2>
+                <p>Before ES6, handling sequential asynchronous operations required nesting callback functions inside other callback functions—an unreadable architectural anti-pattern known as "Callback Hell" or the "Pyramid of Doom." A <strong>Promise</strong> is an object representing the eventual completion (or failure) of an asynchronous operation and its resulting value.</p>
+                <p>Think of a Promise like a receipt issued at a busy restaurant counter. When you order, you receive a receipt representing your future meal. The receipt is initially in a Pending state. While the kitchen cooks, you can step aside and perform other tasks. Eventually, the restaurant calls your number and the receipt transitions to either Fulfilled (your meal is served!) or Rejected (they ran out of ingredients!). In code, we handle fulfilled results chaining `.then()` and catch failures cleanly using `.catch()`. For running parallel operations simultaneously, `Promise.all()` waits for an entire array of promises to fulfill before proceeding.</p>
+
+                <h3>Syntax</h3>
+                <pre><code>// Creating a Promise
+const myPromise = new Promise((resolve, reject) => {
+    const success = true;
+    success ? resolve("Data retrieved") : reject(new Error("Failed"));
+});
+
+// Consuming a Promise
+myPromise
+    .then(data => console.log(data))
+    .catch(err => console.error(err));</code></pre>
+
+                <h3>Working Example: Inventory Stock Check Promise & Promise.all</h3>
+                <pre><code>// Helper simulating an asynchronous database stock check
+function checkStock(itemCode, requestedQty) {
+    return new Promise((resolve, reject) => {
+        console.log(`[Promise] Checking warehouse stock for item "${itemCode}"...`);
+        
+        setTimeout(() => {
+            const database = { "KB-01": 50, "MS-02": 0, "MN-03": 5 };
+            const available = database[itemCode];
+
+            if (available !== undefined && available >= requestedQty) {
+                // Fulfill the promise with success payload
+                resolve({ item: itemCode, qty: requestedQty, status: "In Stock", price: 120 });
+            } else {
+                // Reject the promise with failure reason
+                reject(new Error(`Stock deficit for ${itemCode}. Requested: ${requestedQty}, Available: ${available || 0}`));
+            }
+        }, 300);
+    });
+}
+
+// 1. Chaining a single Promise check
+checkStock("KB-01", 10)
+    .then(receipt => {
+        console.log("✅ Order Approved:", receipt);
+        return receipt.price * receipt.qty; // Pass value down the promise chain
+    })
+    .then(totalCost => {
+        console.log(`💳 Total Invoice Amount charged: $${totalCost}`);
+    })
+    .catch(error => {
+        console.error("❌ Order Rejected:", error.message);
+    });
+
+// 2. Executing Parallel Promises with Promise.all()
+// Waits for ALL promises in the array to fulfill, or rejects immediately if ANY single promise fails
+const parallelOrders = [
+    checkStock("KB-01", 2),
+    checkStock("MN-03", 1)
+];
+
+Promise.all(parallelOrders)
+    .then(resultsArray => {
+        console.log("📦 All parallel shipments ready for dispatch:", resultsArray);
+    })
+    .catch(err => {
+        console.error("🛑 Parallel order batch halted:", err.message);
+    });</code></pre>
+
+                <div class="mistake-callout" role="note" aria-label="Common Mistake on Promises">
+                    <h4>⚠️ Common Mistake: Creating "Promise Hell" by nesting <code>.then()</code> callbacks</h4>
+                    <ul>
+                        <li><strong>The Mistake:</strong> Writing code like: <code>fetchA().then(resA => { fetchB(resA).then(resB => { ... }) })</code>.</li>
+                        <li><strong>Why it happens:</strong> Developers accustomed to old callbacks simply replace callback syntax with promise syntax without understanding promise chaining.</li>
+                        <li><strong>The Correct Way:</strong> Always return the next promise in the chain to keep the structure flat and readable: <code>fetchA().then(resA => return fetchB(resA)).then(resB => { ... }).catch(handleErr)</code>. Better yet, use modern `async/await` syntax!</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Topic 15: Fetch -->
+            <section id="fetch" class="scroll-reveal">
+                <h2>15. The Fetch API & Network Requests</h2>
+                <p>The Fetch API provides a modern, native browser interface for making HTTP network requests (like retrieving remote JSON data from a server or submitting form payloads). Calling `fetch(url)` initiates a network request and immediately returns a Promise that resolves to a `Response` object once the remote server replies with headers.</p>
+                <p>A vital concept that traps many developers: `fetch()` only rejects its promise upon encountering a fatal network failure (like an offline connection or DNS lookup failure). If a server successfully replies with an error status like 404 Not Found or 500 Internal Server Error, the promise still resolves as Fulfilled! To handle HTTP errors properly, you must explicitly inspect the boolean `response.ok` property (which is `true` only for status codes in the 200–299 range) before attempting to parse the payload with `response.json()`.</p>
+
+                <h3>Syntax</h3>
+                <pre><code>// Modern async/await Fetch Pattern with Error Validation
+async function getRemoteData(url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP Error: Status ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Fetch failure:", error.message);
+        throw error;
+    }
+}</code></pre>
+
+                <h3>Working Example: Fetching Remote Data with Status Validation</h3>
+                <pre><code>// Function demonstrating complete Fetch workflow with error handling
+async function fetchKaizenArticle(articleId) {
+    // We use a reliable public test API endpoints for simulation
+    const targetUrl = `https://jsonplaceholder.typicode.com/posts/${articleId}`;
+    
+    console.log(`[Fetch API] Initiating request to: ${targetUrl}`);
+
+    try {
+        // Step 1: Await network response headers
+        const response = await fetch(targetUrl, {
+            method: "GET",
+            headers: { "Accept": "application/json" }
+        });
+
+        console.log(`[Fetch API] Response received. Status: ${response.status} (${response.statusText}), OK: ${response.ok}`);
+
+        // Step 2: Explicitly check res.ok to catch HTTP errors (404/500 etc.)
+        if (!response.ok) {
+            throw new Error(`Server returned error code: ${response.status} (${response.statusText})`);
+        }
+
+        // Step 3: Parse stream payload to JSON (response.json() also returns a Promise!)
+        const articleData = await response.json();
+        
+        console.log("✅ Successfully extracted Article JSON:", {
+            id: articleData.id,
+            title: articleData.title.slice(0, 30) + "..."
+        });
+
+        return articleData;
+
+    } catch (networkOrHttpError) {
+        // Step 4: Gracefully trap and log network failures or thrown HTTP errors
+        console.error("❌ Fetch Pipeline Failed:", networkOrHttpError.message);
+        return null;
+    }
+}
+
+// Execute working fetch against valid endpoint
+fetchKaizenArticle(1);
+
+// Execute test against non-existent ID to demonstrate clean 404 error trapping
+fetchKaizenArticle(9999999);</code></pre>
+
+                <div class="mistake-callout" role="note" aria-label="Common Mistake on Fetch">
+                    <h4>⚠️ Common Mistake: Assuming <code>fetch()</code> automatically throws on 404 or 500 errors</h4>
+                    <ul>
+                        <li><strong>The Mistake:</strong> Writing <code>fetch(url).then(res => res.json()).catch(...)</code> without checking `res.ok`, leading to syntax errors when trying to parse an HTML error page as JSON.</li>
+                        <li><strong>Why it happens:</strong> Developers assume libraries like Axios (which auto-reject on HTTP errors) behave identically to native `fetch()`.</li>
+                        <li><strong>The Correct Way:</strong> Always insert an explicit validation guard immediately after fetching: <code>if (!response.ok) throw new Error("HTTP " + response.status);</code>.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Topic 16: DOM -->
+            <section id="dom" class="scroll-reveal">
+                <h2>16. DOM Manipulation: Interacting with the Web Page</h2>
+                <p>When a web browser loads an HTML document, it parses the markup and constructs an in-memory object representation called the <strong>Document Object Model (DOM)</strong>. The DOM structures the page as an hierarchical tree of parent and child nodes, where every HTML tag, attribute, and text snippet becomes a programmable JavaScript object.</p>
+                <p>Using the global `document` interface, JavaScript can query nodes using modern CSS selectors (<code>document.querySelector</code>), dynamically generate brand-new elements from scratch (<code>document.createElement</code>), inject elements into the page tree (<code>append</code> / <code>appendChild</code>), and manipulate visual styles by modifying element classes cleanly via the <code>classList</code> API (<code>add</code>, <code>remove</code>, <code>toggle</code>).</p>
+
+                <!-- DIAGRAM 5: DOM TREE HIERARCHY (Dynamic CSS Variables) -->
+                <div class="diagram-container" role="img" aria-label="DOM Tree hierarchy diagram showing document, html, head, and body tags">
+                    <svg viewBox="0 0 600 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="240" y="10" width="120" height="30" fill="var(--text-heading)" rx="4"/>
+                        <text x="300" y="30" font-family="SFMono-Regular, monospace" font-size="11" font-weight="700" fill="var(--bg-main)" text-anchor="middle">document</text>
+                        <line x1="300" y1="40" x2="300" y2="60" stroke="var(--border-color)" stroke-width="1.5"/>
+                        <rect x="240" y="60" width="120" height="30" fill="var(--bg-main)" stroke="var(--border-color)" stroke-width="1.5" rx="4"/>
+                        <text x="300" y="80" font-family="SFMono-Regular, monospace" font-size="11" font-weight="600" fill="var(--text-main)" text-anchor="middle">&lt;html&gt;</text>
+                        <path d="M 300 90 L 300 100 L 150 100 L 150 115" fill="none" stroke="var(--border-color)" stroke-width="1.5"/>
+                        <path d="M 300 90 L 300 100 L 450 100 L 450 115" fill="none" stroke="var(--border-color)" stroke-width="1.5"/>
+                        <rect x="90" y="115" width="120" height="30" fill="var(--bg-main)" stroke="var(--border-color)" stroke-width="1.5" rx="4"/>
+                        <text x="150" y="135" font-family="SFMono-Regular, monospace" font-size="11" fill="var(--text-muted)" text-anchor="middle">&lt;head&gt;</text>
+                        <rect x="390" y="115" width="120" height="30" fill="var(--accent-bg)" stroke="var(--accent-color)" stroke-width="2" rx="4"/>
+                        <text x="450" y="135" font-family="SFMono-Regular, monospace" font-size="11" font-weight="700" fill="var(--accent-color)" text-anchor="middle">&lt;body&gt; ⭐</text>
+                    </svg>
+                </div>
+
+                <h3>Syntax</h3>
+                <pre><code>// 1. Select element using CSS selector
+const button = document.querySelector("#action-btn");
+
+// 2. Create new element and set content
+const badge = document.createElement("span");
+badge.textContent = "New!";
+badge.classList.add("badge-highlight");
+
+// 3. Append into existing DOM container
+const container = document.querySelector(".card-header");
+container.append(badge);</code></pre>
+
+                <h3>Working Example: Dynamic DOM Element Creation & Class Toggling</h3>
+                <pre><code>// This script demonstrates creating an interactive UI card dynamically in memory
+function buildInteractiveCard(titleText, initialStatus) {
+    // 1. Create container div and assign styling class
+    const card = document.createElement("article");
+    card.classList.add("demo-card");
+    card.style.border = "1px solid #ccc";
+    card.style.padding = "16px";
+    card.style.margin = "10px 0";
+
+    // 2. Create heading node
+    const heading = document.createElement("h3");
+    heading.textContent = titleText;
+
+    // 3. Create status indicator text
+    const statusText = document.createElement("p");
+    statusText.textContent = `Status: ${initialStatus}`;
+    statusText.classList.add("status-badge");
+    statusText.setAttribute("aria-live", "polite");
+
+    // 4. Create action button to toggle UI state
+    const toggleBtn = document.createElement("button");
+    toggleBtn.textContent = "Toggle Highlight Mode";
+    toggleBtn.style.cursor = "pointer";
+
+    // Attach interaction directly to button
+    toggleBtn.addEventListener("click", () => {
+        // Use classList.toggle to cleanly add/remove CSS class without manual checking
+        card.classList.toggle("highlighted-state");
+        
+        // Update styling dynamically based on class presence
+        if (card.classList.contains("highlighted-state")) {
+            card.style.backgroundColor = "#e8f5e9"; // Light green highlight
+            statusText.textContent = "Status: 🌟 Active Highlight";
+            console.log("[DOM] Card highlighted!");
+        } else {
+            card.style.backgroundColor = "transparent";
+            statusText.textContent = `Status: ${initialStatus}`;
+            console.log("[DOM] Highlight removed.");
+        }
+    });
+
+    // 5. Append all child elements into the parent card node in correct order
+    card.append(heading, statusText, toggleBtn);
+
+    // 6. Mount the fully built component into the live page DOM body
+    document.body.append(card);
+    console.log("[DOM] Interactive card successfully mounted to document.");
+}
+
+// Execute function to inject interactive demo card onto the page
+buildInteractiveCard("JavaScript Complete Guide Demo Card", "Ready");</code></pre>
+
+                <div class="mistake-callout" role="note" aria-label="Common Mistake on DOM">
+                    <h4>⚠️ Common Mistake: Querying DOM elements before the HTML document has finished loading</h4>
+                    <ul>
+                        <li><strong>The Mistake:</strong> Placing `<script src="app.js"></script>` in the `<head>` and trying to select `document.querySelector("#my-btn")`, which returns `null`.</li>
+                        <li><strong>Why it happens:</strong> Browsers parse HTML top-to-bottom. If the script executes before the browser reaches the `<body>` tags, the target DOM nodes do not exist in memory yet!</li>
+                        <li><strong>The Correct Way:</strong> Add the `defer` attribute to your script tag: `<script src="app.js" defer></script>` or wrap your initialization logic inside an event listener: `document.addEventListener("DOMContentLoaded", () => { ... })`.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Topic 17: Events -->
+            <section id="events" class="scroll-reveal">
+                <h2>17. Events & Interactive Handling (Event Delegation)</h2>
+                <p>Events are notifications fired by the browser whenever something interesting occurs on the page—such as a user clicking a button, typing in an input box, or scrolling the window. We register responsive behavior by attaching event listeners (<code>addEventListener</code>) to target DOM nodes.</p>
+                <p>When an event occurs on a child element (like clicking an `<li>` inside a `<ul>`), the event doesn't stop there. By default, it triggers on the target element and then <strong>bubbles up</strong> through every parent ancestor node all the way up to the document root. We can harness this bubbling mechanism to implement <strong>Event Delegation</strong>: instead of attaching individual event listeners to dozens of individual child elements (which consumes excessive memory and fails for dynamically added elements), we attach a single listener to their common parent container and inspect `event.target` to identify exactly which child was interacted with!</p>
+
+                <h3>Syntax</h3>
+                <pre><code>// Standard Listener vs Event Delegation Pattern
+const parentList = document.querySelector("#item-list");
+
+parentList.addEventListener("click", (event) => {
+    // Check if clicked node (or its ancestor) matches our target child tag/class
+    const clickedItem = event.target.closest("li");
+    
+    if (clickedItem && parentList.contains(clickedItem)) {
+        console.log("Delegated click on item:", clickedItem.dataset.id);
+    }
+});</code></pre>
+
+                <h3>Working Example: Parent List Delegation Handling Any Child Item</h3>
+                <pre><code>// Build demo list container dynamically for testing
+const listContainer = document.createElement("section");
+listContainer.innerHTML = `
+    <h3>Event Delegation Demo: Dynamic Todo List</h3>
+    <ul id="todo-list" aria-label="Interactive Todo Task List" style="padding: 10px; background: #f5f5f5; border-radius: 4px;">
+        <li data-task-id="101" style="margin: 5px 0; cursor: pointer;" tabindex="0">📖 Read MDN Documentation <button class="delete-btn" aria-label="Delete Task 101">❌</button></li>
+        <li data-task-id="102" style="margin: 5px 0; cursor: pointer;" tabindex="0">💻 Practice Array Methods <button class="delete-btn" aria-label="Delete Task 102">❌</button></li>
+        <li data-task-id="103" style="margin: 5px 0; cursor: pointer;" tabindex="0">🚀 Build Kaizen Blog Page <button class="delete-btn" aria-label="Delete Task 103">❌</button></li>
+    </ul>
+    <button id="add-task-btn" style="margin-top: 10px;">+ Add New Dynamic Task</button>
+`;
+document.body.append(listContainer);
+
+// 1. IMPLEMENTING EVENT DELEGATION ON THE PARENT <UL>
+const todoList = document.querySelector("#todo-list");
+
+todoList.addEventListener("click", (event) => {
+    // event.target is the EXACT DOM node the user clicked (could be text, <li>, or button)
+    const targetNode = event.target;
+
+    // Case A: User clicked a Delete Button
+    if (targetNode.classList.contains("delete-btn")) {
+        const parentLi = targetNode.closest("li");
+        console.log(`[Delegation] Deleting task ID: ${parentLi.dataset.taskId}`);
+        parentLi.remove(); // Remove node cleanly from DOM tree
+        return; // Stop further execution
+    }
+
+    // Case B: User clicked anywhere else inside an <li> item
+    const clickedLi = targetNode.closest("li");
+    if (clickedLi && todoList.contains(clickedLi)) {
+        // Toggle strike-through styling to mark task completed
+        const isDone = clickedLi.style.textDecoration === "line-through";
+        clickedLi.style.textDecoration = isDone ? "none" : "line-through";
+        clickedLi.style.opacity = isDone ? "1" : "0.6";
+        console.log(`[Delegation] Toggled completion for Task #${clickedLi.dataset.taskId}`);
+    }
+});
+
+// 2. Proving Delegation works on DYNAMICALLY added items without attaching new listeners!
+let nextId = 104;
+document.querySelector("#add-task-btn").addEventListener("click", () => {
+    const newLi = document.createElement("li");
+    newLi.dataset.taskId = nextId++;
+    newLi.style.margin = "5px 0";
+    newLi.style.cursor = "pointer";
+    newLi.setAttribute("tabindex", "0");
+    newLi.innerHTML = `🔥 New Dynamic Task #${newLi.dataset.taskId} <button class="delete-btn" aria-label="Delete Task ${newLi.dataset.taskId}">❌</button>`;
+    
+    todoList.append(newLi);
+    console.log(`[DOM] Added Task #${newLi.dataset.taskId}. Notice: No new listener was attached to this item!`);
+});</code></pre>
+
+                <div class="mistake-callout" role="note" aria-label="Common Mistake on Events">
+                    <h4>⚠️ Common Mistake: Creating memory leaks with unremoved anonymous event listeners</h4>
+                    <ul>
+                        <li><strong>The Mistake:</strong> Attaching listeners inside recurring functions: <code>window.addEventListener("resize", () => { ... })</code> without storing a reference to remove them when elements are destroyed.</li>
+                        <li><strong>Why it happens:</strong> Because anonymous arrow functions do not have an identifier, calling <code>removeEventListener("resize", () => { ... })</code> fails (it passes a brand-new function reference in memory!).</li>
+                        <li><strong>The Correct Way:</strong> Always define named callback handlers if you intend to remove them: <code>const onResize = () => { ... }; window.addEventListener("resize", onResize); window.removeEventListener("resize", onResize);</code>. Better yet, use modern `AbortController` signals!</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section: Interview Questions -->
+            <section id="interview-questions" class="scroll-reveal">
+                <h2>Comprehensive Interview Questions (17 Topics Covered)</h2>
+                <p>Below is a curated collection of 17 high-frequency technical interview questions, mapped one-to-one against each topic in this guide, complete with authoritative architectural answers.</p>
+
+                <article>
+                    <h3>Q1 (Variables): Explain the difference between <code>var</code>, <code>let</code>, and <code>const</code> regarding hoisting and scope.</h3>
+                    <p><strong>Answer:</strong> <code>var</code> is function-scoped and undergoes declaration hoisting with an initial value of <code>undefined</code>, which allows accessing it before its line of code without throwing a fatal error. Conversely, <code>let</code> and <code>const</code> are strictly block-scoped (confined to `{}`). While their declarations are technically hoisted to the top of their block, they remain uninitialized in the Temporal Dead Zone (TDZ). Accessing them before initialization throws a <code>ReferenceError</code>. Finally, <code>const</code> requires immediate initialization and forbids identifier reassignment.</p>
+                </article>
+
+                <article>
+                    <h3>Q2 (Data Types): How does JavaScript store primitive types versus object types in memory?</h3>
+                    <p><strong>Answer:</strong> Primitives (string, number, boolean, null, undefined, bigint, symbol) represent immutable single values of fixed size stored directly on the <strong>Stack</strong> memory. Assigning a primitive to another variable creates an independent value copy. Objects (including arrays and functions) are dynamic reference structures stored in the <strong>Heap</strong> memory. Variables assigned an object store only a pointer (memory address) on the stack pointing to the heap data. Copying an object variable copies only the reference address, meaning both variables point to and mutate the exact same underlying data.</p>
+                </article>
+
+                <article>
+                    <h3>Q3 (Operators): Why does <code>0 == false</code> evaluate to <code>true</code> while <code>0 === false</code> evaluates to <code>false</code>?</h3>
+                    <p><strong>Answer:</strong> The loose equality operator (<code>==</code>) invokes the abstract equality comparison algorithm, applying automatic type coercion when operands differ in type. When comparing a boolean to a number, JavaScript coerces boolean <code>false</code> into the number <code>0</code>, resulting in the evaluation <code>0 == 0</code>, which is true. The strict equality operator (<code>===</code>) skips coercion entirely; if the data types do not match (Number vs Boolean), it immediately returns <code>false</code>.</p>
+                </article>
+
+                <article>
+                    <h3>Q4 (Functions): What are the key differences between arrow functions and standard function declarations?</h3>
+                    <p><strong>Answer:</strong> First, standard function declarations are hoisted completely, whereas arrow functions (being expressions) follow variable hoisting rules. Second, arrow functions do not bind their own <code>this</code> context; they inherit <code>this</code> lexically from their enclosing scope, making them ideal for callbacks but unsuitable for object methods or class constructors. Third, arrow functions lack the legacy `arguments` array-like object (requiring modern rest parameters `...args` instead) and cannot be invoked with the `new` keyword.</p>
+                </article>
+
+                <article>
+                    <h3>Q5 (Scope): What is the lexical scope chain and how does variable lookup work during execution?</h3>
+                    <p><strong>Answer:</strong> Lexical scope means that inner scopes have read access to variables declared in their outer parent scopes based on where functions are physically written in the source code. When an identifier is referenced, the JavaScript engine attempts to resolve it in the immediate local scope. If not found, it traverses outward up the scope chain through parent lexical environments until it reaches the global scope. If unresolved in the global scope, it throws a <code>ReferenceError</code>.</p>
+                </article>
+
+                <article>
+                    <h3>Q6 (Hoisting): What is the Temporal Dead Zone (TDZ) and why was it introduced in ES6?</h3>
+                    <p><strong>Answer:</strong> The TDZ is the execution window between entering a block scope and reaching the physical declaration line of a <code>let</code> or <code>const</code> variable. During this zone, the variable binding exists in memory but is uninitialized. The TDZ was introduced in ES6 to catch silent logical errors caused by reading variables before they are defined (a common bug source with legacy <code>var</code>) and to enforce mandatory initialization for constant (<code>const</code>) references.</p>
+                </article>
+
+                <article>
+                    <h3>Q7 (Closures): What is a closure and how can it be used to achieve private data encapsulation?</h3>
+                    <p><strong>Answer:</strong> A closure is a function bundled together with its surrounding lexical environment, allowing it to retain access to outer scope variables even after the outer function has completed execution and left the call stack. Data privacy is achieved by defining internal variables inside a factory function and returning an inner object or function that references them. Since outer code cannot reach into the function's scope directly, the enclosed variables remain private and accessible solely via the exposed closure methods.</p>
+                </article>
+
+                <article>
+                    <h3>Q8 (Objects): What is the difference between a shallow copy and a deep clone when copying objects?</h3>
+                    <p><strong>Answer:</strong> A shallow copy (created via spread syntax `...` or `Object.assign()`) duplicates only top-level properties. If an object property references a nested object or array, only the pointer address is copied, meaning mutations to nested structures affect both original and copied objects. A deep clone (created via `structuredClone()` or serialization) recursively duplicates every layer of nested objects, producing a 100% independent memory structure.</p>
+                </article>
+
+                <article>
+                    <h3>Q9 (Arrays): When should you choose <code>slice()</code> over <code>splice()</code> for array manipulation?</h3>
+                    <p><strong>Answer:</strong> Choose <code>slice()</code> whenever you need to extract a sub-section of an array without modifying the original array (functional immutability). Choose <code>splice()</code> only when you explicitly intend to mutate an array in place by removing, replacing, or inserting elements at specific index coordinates.</p>
+                </article>
+
+                <article>
+                    <h3>Q10 (Array Methods): How does <code>map()</code> differ from <code>forEach()</code> when iterating over arrays?</h3>
+                    <p><strong>Answer:</strong> <code>map()</code> is a declarative transformation method that executes a callback on each item and allocates a brand-new array containing the transformed return values, leaving the original array untouched and allowing method chaining (e.g., `.map().filter()`). <code>forEach()</code> is an imperative iteration loop that always returns <code>undefined</code>; it is used solely for executing side effects (such as logging or DOM manipulation) and cannot be chained.</p>
+                </article>
+
+                <article>
+                    <h3>Q11 (Strings): How do template literals improve string formatting compared to legacy concatenation?</h3>
+                    <p><strong>Answer:</strong> Template literals (enclosed by backticks ```) eliminate verbose `+` string concatenation operators by enabling direct expression interpolation using `${expression}` syntax. Furthermore, they natively preserve multiline formatting and tabs without requiring explicit escape sequences like `\n` or `\t`, significantly enhancing code readability.</p>
+                </article>
+
+                <article>
+                    <h3>Q12 (ES6): How do rest parameters (<code>...args</code>) improve upon the legacy <code>arguments</code> object?</h3>
+                    <p><strong>Answer:</strong> Rest parameters explicitly gather an indefinite number of arguments into a genuine Array instance, allowing immediate use of standard array methods (`map`, `filter`, `reduce`, `slice`). The legacy `arguments` object is an array-like structure lacking built-in array methods (requiring manual conversion via `Array.from()`) and is unavailable inside arrow functions.</p>
+                </article>
+
+                <article>
+                    <h3>Q13 (Async): How does JavaScript handle asynchronous operations on a single thread without blocking?</h3>
+                    <p><strong>Answer:</strong> JavaScript utilizes a non-blocking architecture orchestrated by the browser's Event Loop. When an asynchronous operation (like timers or network fetches) occurs, execution is offloaded to background Web APIs. When complete, callbacks are queued in the Task Queue (for timers/events) or the Microtask Queue (for Promise resolutions). The Event Loop continuously checks the Call Stack; whenever the stack is empty, it drains the high-priority Microtask Queue first, then pushes Task Queue callbacks onto the stack for execution.</p>
+                </article>
+
+                <article>
+                    <h3>Q14 (Promises): Explain the differences between <code>Promise.all()</code>, <code>Promise.race()</code>, and <code>Promise.allSettled()</code>.</h3>
+                    <p><strong>Answer:</strong> <code>Promise.all()</code> waits for all promises in an iterable to fulfill and returns an array of results, but short-circuits (rejects immediately) if any single promise fails. <code>Promise.race()</code> returns a single promise that resolves or rejects as soon as the first promise in the iterable settles, regardless of success or failure. <code>Promise.allSettled()</code> waits until every promise has either fulfilled or rejected, returning an array of objects describing the outcome status (`fulfilled` or `rejected`) of each individual promise.</p>
+                </article>
+
+                <article>
+                    <h3>Q15 (Fetch): Why doesn't the Promise returned by <code>fetch()</code> reject on HTTP error statuses like 404 or 500?</h3>
+                    <p><strong>Answer:</strong> In the Fetch specification, a promise only rejects when a request encounters a fatal network-level failure that prevents communication (like DNS failure, offline network, or CORS violations). An HTTP 404 or 500 error represents a successful network transmission where the server received the request and returned valid HTTP headers. Developers must manually inspect the boolean `response.ok` property (status 200–299) to validate HTTP success.</p>
+                </article>
+
+                <article>
+                    <h3>Q16 (DOM): What is the difference between <code>textContent</code>, <code>innerText</code>, and <code>innerHTML</code> when updating DOM nodes?</h3>
+                    <p><strong>Answer:</strong> <code>textContent</code> retrieves or sets the raw, unstyled text content of a node and all descendants; it is fast and safe from XSS attacks. <code>innerText</code> reads rendered text as visually presented on screen, triggering a reflow calculation to check CSS visibility rules (`display: none`). <code>innerHTML</code> parses and injects raw HTML markup strings into the DOM tree; while powerful, using it with untrusted user input introduces severe Cross-Site Scripting (XSS) security vulnerabilities.</p>
+                </article>
+
+                <article>
+                    <h3>Q17 (Events): Why is Event Delegation superior to attaching individual event listeners to child elements?</h3>
+                    <p><strong>Answer:</strong> Attaching individual listeners to hundreds of list items consumes excessive memory and requires manual listener registration/cleanup whenever items are dynamically added or removed. Event Delegation exploits event bubbling by registering a single listener on a parent ancestor container. When any child is clicked, the event bubbles up to the parent listener, which evaluates `event.target` to handle interactions, reducing memory overhead and automatically handling dynamically generated DOM nodes.</p>
+                </article>
+            </section>
+
+            <!-- Section: Quick Revision Table (Rebuilt with Generous Padding & Horizontal Scroll) -->
+            <section id="quick-revision" class="scroll-reveal">
+                <h2>Quick Revision Reference Table</h2>
+                <p>A comprehensive 17-row summary mapping every core JavaScript topic to its authoritative definition, syntax shorthand, and typical production use case.</p>
+
+                <div class="table-container" role="region" aria-label="Quick Revision Reference Table" tabindex="0">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Topic</th>
+                                <th>Definition</th>
+                                <th>Syntax Shorthand</th>
+                                <th>Typical Use Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong>Variables</strong></td>
+                                <td>Named memory containers; use block-scoped <code>let</code>/<code>const</code> over legacy <code>var</code>.</td>
+                                <td><code>const id = 10; let count = 0;</code></td>
+                                <td>Storing immutable configuration flags or mutating iteration counters.</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong>Data Types</strong></td>
+                                <td>7 immutable stack primitives vs dynamic heap-stored reference objects.</td>
+                                <td><code>const str = "txt"; const obj = {};</code></td>
+                                <td>Differentiating raw value transfers from shared object pointer references.</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><strong>Operators</strong></td>
+                                <td>Symbols for arithmetic, logical evaluation, and type-checked equality.</td>
+                                <td><code>val === 42; res = a ?? "default";</code></td>
+                                <td>Evaluating strict conditional equality without unexpected type coercion.</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><strong>Functions</strong></td>
+                                <td>Reusable logic blocks with parameter defaults and rest argument gathering.</td>
+                                <td><code>const sum = (...arr) =&gt; arr.length;</code></td>
+                                <td>Encapsulating modular business logic and handling variable argument lengths.</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><strong>Scope</strong></td>
+                                <td>Lexical visibility boundaries controlling where identifiers can be accessed.</td>
+                                <td><code>function() { if(true) { let local; } }</code></td>
+                                <td>Isolating variables inside block statements to prevent global namespace pollution.</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><strong>Hoisting</strong></td>
+                                <td>Compilation phase elevation of declarations; <code>let</code>/<code>const</code> stay in TDZ.</td>
+                                <td><code>hoisted(); function hoisted(){}</code></td>
+                                <td>Organizing utility function declarations below main execution flows cleanly.</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td><strong>Closures</strong></td>
+                                <td>Functions retaining read/write access to outer scope lexical environments.</td>
+                                <td><code>const counter = () =&gt; { let c=0; return () =&gt; ++c; }</code></td>
+                                <td>Creating private variables and encapsulated state modules without classes.</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td><strong>Objects</strong></td>
+                                <td>Structured key-value collections supporting destructuring and spread merging.</td>
+                                <td><code>const { id } = obj; const clone = {...obj};</code></td>
+                                <td>Grouping related entity attributes and performing immutable state updates.</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td><strong>Arrays</strong></td>
+                                <td>Sequential indexed lists supporting dynamic push/pop/slice/splice operations.</td>
+                                <td><code>arr.push("item"); arr.slice(0, 2);</code></td>
+                                <td>Managing ordered collections like shopping carts, queues, or data feeds.</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td><strong>Array Methods</strong></td>
+                                <td>Declarative functional iteration tools (<code>map</code>, <code>filter</code>, <code>reduce</code>) that do not mutate.</td>
+                                <td><code>arr.filter(x=&gt;x&gt;0).map(x=&gt;x*2);</code></td>
+                                <td>Transforming, filtering, and summarizing raw API lists into UI data structures.</td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td><strong>Strings</strong></td>
+                                <td>Immutable character sequences formatted cleanly via Template Literals.</td>
+                                <td><code>const msg = `Hello ${user.name}`;</code></td>
+                                <td>Constructing dynamic HTML templates, logs, and user greetings cleanly.</td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td><strong>ES6+ Foundation</strong></td>
+                                <td>Modern syntax standards (2015+) powering contemporary JS architecture.</td>
+                                <td><code>const fetch = async ({ id = 1 } = {}) =&gt; {};</code></td>
+                                <td>Writing clean, modular code suitable for React, Node.js, and modern bundlers.</td>
+                            </tr>
+                            <tr>
+                                <td>13</td>
+                                <td><strong>Async / Event Loop</strong></td>
+                                <td>Non-blocking single-threaded execution offloading tasks to browser queues.</td>
+                                <td><code>setTimeout(cb, 0); Promise.resolve().then(cb);</code></td>
+                                <td>Executing non-blocking background operations without freezing UI interactivity.</td>
+                            </tr>
+                            <tr>
+                                <td>14</td>
+                                <td><strong>Promises</strong></td>
+                                <td>Objects representing future asynchronous completion states and results.</td>
+                                <td><code>new Promise((res, rej) =&gt; res(data));</code></td>
+                                <td>Orchestrating sequential asynchronous steps and handling parallel batch operations.</td>
+                            </tr>
+                            <tr>
+                                <td>15</td>
+                                <td><strong>Fetch API</strong></td>
+                                <td>Native promise-based HTTP client interface requiring manual status checking.</td>
+                                <td><code>const res = await fetch(url); if(!res.ok) ...</code></td>
+                                <td>Retrieving remote JSON payloads from REST APIs or GraphQL servers.</td>
+                            </tr>
+                            <tr>
+                                <td>16</td>
+                                <td><strong>DOM Manipulation</strong></td>
+                                <td>Programming interface for querying, creating, and styling HTML tree nodes.</td>
+                                <td><code>document.querySelector(".btn").classList.add("active");</code></td>
+                                <td>Dynamically generating interactive UI components and toggling visual classes.</td>
+                            </tr>
+                            <tr>
+                                <td>17</td>
+                                <td><strong>Events / Delegation</strong></td>
+                                <td>Browser notifications handled efficiently via parent ancestor bubbling.</td>
+                                <td><code>parent.addEventListener("click", e =&gt; e.target.closest("li"));</code></td>
+                                <td>Handling clicks across dynamic lists with a single parent event listener.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section: Practice Problems -->
+            <section id="practice-problems" class="scroll-reveal">
+                <h2>Practice Problems (Mixed Across Topics)</h2>
+                <p>Test your understanding by solving these 9 curated algorithmic and architectural challenges, divided into Easy, Medium, and Hard difficulty tiers.</p>
+
+                <h3>🟢 Easy Tier (Fundamentals & Syntax)</h3>
+                <ol>
+                    <li>
+                        <strong>The Immutable User Updater (Objects & Spread):</strong><br>
+                        Write a function `updateEmail(userObject, newEmail)` that takes a user profile object `{ id: 101, name: "Aarav", email: "old@mail.com" }` and returns a brand-new object with the updated email address using the spread operator without mutating the input object.
+                    </li>
+                    <li>
+                        <strong>ShoppingCart Item Counter (Array Methods):</strong><br>
+                        Given an array of cart items `[{ name: "Book", qty: 2 }, { name: "Pen", qty: 5 }, { name: "Bag", qty: 1 }]`, use the `.reduce()` method to calculate and return the total sum of all item quantities.
+                    </li>
+                    <li>
+                        <strong>Dynamic Welcome Badge (Strings & DOM):</strong><br>
+                        Write an HTML snippet with an empty `<div id="welcome-badge"></div>`. Use `document.querySelector` and Template Literals to inject an `<h3>` tag containing a greeting string formatted with a variable `const username = "DevAarav"`.
+                    </li>
+                </ol>
+
+                <h3>🟡 Medium Tier (Logic, Scope & Asynchronous Flow)</h3>
+                <ol start="4">
+                    <li>
+                        <strong>The Private Bank Account (Closures):</strong><br>
+                        Create a factory function `createAccount(initialBalance)` that returns an object with three methods: `deposit(amount)`, `withdraw(amount)`, and `getBalance()`. Ensure the internal balance variable is strictly private inside the closure and cannot be directly modified or read via `account.balance`.
+                    </li>
+                    <li>
+                        <strong>Parallel API Validator (Promises & Async):</strong><br>
+                        Write an async function `validateServers(urlArray)` that takes an array of 3 API endpoint strings. Use `Promise.all()` with `fetch()` to check if all servers return an HTTP `ok` status (200–299). If all servers are operational, return `true`; if any single server fails or returns 404/500, catch the error and return `false`.
+                    </li>
+                    <li>
+                        <strong>The Inventory Transformer (Chained Array Methods):</strong><br>
+                        Given an array of products `[{ id: 1, name: "Keyboard", price: 80, active: true }, { id: 2, name: "Old Mouse", price: 15, active: false }, { id: 3, name: "Monitor", price: 300, active: true }]`, write a single chained pipeline (`.filter().map()`) that returns an array of strings formatted as: `["KEYBOARD - $80", "MONITOR - $300"]` for active products only.
+                    </li>
+                </ol>
+
+                <h3>🔴 Hard Tier (Advanced Architecture & Event Loop)</h3>
+                <ol start="7">
+                    <li>
+                        <strong>The Event Delegation Accordion (DOM & Events):</strong><br>
+                        Create a dynamic FAQ section containing a parent `<div id="accordion">` with 5 child `<section class="faq-item">` elements, each containing an `<h4>` question and a `<p class="answer" style="display: none;">` answer. Implement Event Delegation on the parent container so that clicking any `<h4>` toggles the visibility of its sibling `<p>` answer while closing any other open answers automatically without attaching listeners to individual questions.
+                    </li>
+                    <li>
+                        <strong>The Retry Fetcher with Exponential Backoff (Fetch & Recursion):</strong><br>
+                        Write a robust network wrapper function `fetchWithRetry(url, retries = 3, delay = 500)` that attempts to fetch remote JSON data. If the request encounters a network failure or a non-200 HTTP response status, it should wait for `delay` milliseconds using a Promise-based timeout, then recursively retry up to `retries` times, doubling the delay on each attempt (exponential backoff). If all attempts fail, throw a custom Error.
+                    </li>
+                    <li>
+                        <strong>Event Loop Execution Order Analyzer (Async Engine):</strong><br>
+                        Without executing the code in a console, analyze the following snippet and write down the exact sequence of console logs. Once written, explain *why* each log appears in that specific order based on Call Stack, Microtask Queue (Promises), and Macrotask Queue (`setTimeout`) rules:
+                        <pre><code>console.log("Start");
+setTimeout(() => console.log("Timeout 1"), 0);
+Promise.resolve().then(() => {
+    console.log("Promise 1");
+    setTimeout(() => console.log("Timeout 2"), 0);
+}).then(() => console.log("Promise 2"));
+console.log("End");</code></pre>
+                    </li>
+                </ol>
+            </section>
+
+            <!-- Section: Recommended Resources -->
+            <section id="resources" class="scroll-reveal">
+                <h2>Recommended Resources for Continuous Learning</h2>
+                <p>To deepen your JavaScript architectural expertise beyond this reference manual, consult these industry-standard documentation hubs, foundational books, and technical video references.</p>
+
+                <ul>
+                    <li>
+                        <strong>Official Web Documentation:</strong><br>
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer">MDN Web Docs (Mozilla Developer Network)</a> — The undisputed, authoritative encyclopedia for all JavaScript syntax, DOM web APIs, and browser compatibility tables.
+                    </li>
+                    <li>
+                        <strong>Interactive In-Depth Tutorial:</strong><br>
+                        <a href="https://javascript.info/" target="_blank" rel="noopener noreferrer">The Modern JavaScript Tutorial (javascript.info)</a> — An exhaustive, community-driven masterclass covering the core engine from basic primitives to advanced closures and prototypes with interactive diagrams.
+                    </li>
+                    <li>
+                        <strong>Foundational Book Recommendation:</strong><br>
+                        <em>Eloquent JavaScript (4th Edition)</em> by Marijn Haverbeke (Available free online at <a href="https://eloquentjavascript.net/" target="_blank" rel="noopener noreferrer">eloquentjavascript.net</a>) — A masterwork on software elegance, functional data transformations, and asynchronous browser programming. (Alternative deep-dive: <em>You Don't Know JS Yet</em> series by Kyle Simpson).
+                    </li>
+                    <li>
+                        <strong>Video Reference for Architectural Deep-Dives:</strong><br>
+                        <em>"What the heck is the event loop anyway?"</em> by Philip Roberts (JSConf EU) — The single most famous architectural talk in JavaScript history, providing visual animations explaining the Call Stack, Web APIs, Task Queues, and non-blocking runtime execution.
+                    </li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+
+    <hr>
+
+    <footer style="text-align: center; padding: 40px 0; color: var(--text-muted); font-family: var(--font-body); font-size: 0.9rem; border-top: 1px solid var(--border-color); background-color: var(--bg-alt);" role="contentinfo">
+        <p>&copy; 2026 Kaizen Tech Knowledge Hub | Built by Aarav | JavaScript Complete Guide</p>
+        <p style="margin-top: 8px;"><a href="#top" style="color: var(--accent-color); text-decoration: none; font-weight: 500;">⬆️ Return to Top of Guide</a></p>
+    </footer>
+
+    <!-- ==========================================================================
+         VANILLA JAVASCRIPT: THEME TOGGLE, SCROLL SPY, COPY BUTTONS, SCROLL REVEAL & SYNTAX HIGHLIGHTER
+         ========================================================================== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            /* 0. THEME TOGGLE & RUNTIME SESSION STATE */
+            let isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const rootHtml = document.documentElement;
+            const themeToggleBtn = document.getElementById("theme-toggle");
+
+            function updateTheme() {
+                if (isDarkMode) {
+                    rootHtml.classList.add("dark-mode");
+                    if (themeToggleBtn) themeToggleBtn.setAttribute("aria-pressed", "true");
+                } else {
+                    rootHtml.classList.remove("dark-mode");
+                    if (themeToggleBtn) themeToggleBtn.setAttribute("aria-pressed", "false");
+                }
+            }
+
+            // Initialize theme on page load
+            updateTheme();
+
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener("click", () => {
+                    isDarkMode = !isDarkMode;
+                    updateTheme();
+                    console.log("[Theme] Switched to", isDarkMode ? "Dark Mode" : "Light Mode");
+                });
+            }
+
+            // Listen for OS preference changes during session
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener("change", (e) => {
+                    isDarkMode = e.matches;
+                    updateTheme();
+                });
+            }
+
+            /* 0b. CHECK PREFERS REDUCED MOTION */
+            const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            /* 1. DEPENDENCY-FREE SYNTAX HIGHLIGHTER (Vanilla JS Tokenizer) */
+            const escapeHtml = (str) => str
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+            // Separate capture group for booleans/null/undefined for funky neon fuchsia!
+            const tokenRegex = /(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|(`(?:\\.|[^`\\])*`|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|\b(let|const|var|function|return|if|else|try|catch|finally|async|await|new|class|throw|for|while|do|switch|case|default|break|continue|typeof|instanceof|in|of|export|import|from)\b|\b(true|false|null|undefined)\b|\b([a-zA-Z_$][a-zA-Z0-9_$]*)(?=\s*\()|\b(\d+(?:\.\d+)?(?:n|e[+-]?\d+)?)\b/g;
+
+            function highlightCode(rawText) {
+                let lastIndex = 0;
+                let highlightedHtml = "";
+                let match;
+
+                while ((match = tokenRegex.exec(rawText)) !== null) {
+                    if (match.index > lastIndex) {
+                        highlightedHtml += escapeHtml(rawText.slice(lastIndex, match.index));
+                    }
+
+                    const [fullMatch, cmt, str, kw, bool, fn, num] = match;
+
+                    if (cmt) {
+                        highlightedHtml += `<span class="cmt">${escapeHtml(cmt)}</span>`;
+                    } else if (str) {
+                        highlightedHtml += `<span class="str">${escapeHtml(str)}</span>`;
+                    } else if (kw) {
+                        highlightedHtml += `<span class="kw">${escapeHtml(kw)}</span>`;
+                    } else if (bool) {
+                        highlightedHtml += `<span class="bool">${escapeHtml(bool)}</span>`;
+                    } else if (fn) {
+                        highlightedHtml += `<span class="fn">${escapeHtml(fn)}</span>`;
+                    } else if (num) {
+                        highlightedHtml += `<span class="num">${escapeHtml(num)}</span>`;
+                    } else {
+                        highlightedHtml += escapeHtml(fullMatch);
+                    }
+
+                    lastIndex = tokenRegex.lastIndex;
+                }
+
+                if (lastIndex < rawText.length) {
+                    highlightedHtml += escapeHtml(rawText.slice(lastIndex));
+                }
+
+                return highlightedHtml;
+            }
+
+            // Apply syntax highlighting consistently to all code blocks and table code cells
+            document.querySelectorAll("pre code, .table-container td code").forEach((codeElem) => {
+                codeElem.innerHTML = highlightCode(codeElem.textContent);
+            });
+
+            /* 2. SCROLL REVEAL ANIMATION (Subtle once-per-section fade-in) */
+            const revealElements = document.querySelectorAll(".scroll-reveal");
+            if (!prefersReducedMotion && "IntersectionObserver" in window) {
+                const revealObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("revealed");
+                            observer.unobserve(entry.target); // Animate strictly once per section!
+                        }
+                    });
+                }, { threshold: 0.01, rootMargin: "0px 0px 50px 0px" });
+
+                revealElements.forEach((el) => {
+                    el.classList.add("js-ready");
+                    revealObserver.observe(el);
+                });
+            } else {
+                revealElements.forEach((el) => el.classList.add("revealed"));
+            }
+
+            /* 3. SCROLL SPY USING INTERSECTION OBSERVER */
+            const tocLinks = document.querySelectorAll(".sidebar nav a");
+            const sections = document.querySelectorAll("main.content section, main.content header#top");
+
+            if ("IntersectionObserver" in window && sections.length > 0) {
+                const scrollObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            const targetId = entry.target.getAttribute("id");
+                            
+                            // Remove active state from all links
+                            tocLinks.forEach((link) => link.classList.remove("active"));
+
+                            // Highlight matching sidebar link
+                            const activeLink = document.querySelector(`.sidebar nav a[href="#${targetId}"]`);
+                            if (activeLink) {
+                                activeLink.classList.add("active");
+                            }
+                        }
+                    });
+                }, { root: null, rootMargin: "-15% 0px -75% 0px", threshold: 0 });
+
+                sections.forEach((section) => scrollObserver.observe(section));
+            }
+
+            /* 4. COPY BUTTON ON CODE BLOCKS */
+            const allPreBlocks = document.querySelectorAll("pre");
+
+            allPreBlocks.forEach((preElem) => {
+                const copyButton = document.createElement("button");
+                copyButton.className = "copy-btn";
+                copyButton.textContent = "Copy";
+                copyButton.setAttribute("aria-label", "Copy code to clipboard");
+
+                copyButton.addEventListener("click", () => {
+                    const codeElement = preElem.querySelector("code");
+                    const textToCopy = codeElement ? codeElement.textContent : preElem.textContent;
+
+                    if (navigator.clipboard && window.isSecureContext) {
+                        navigator.clipboard.writeText(textToCopy).then(() => {
+                            showCopiedFeedback(copyButton);
+                        }).catch((err) => {
+                            console.error("Clipboard copy failed:", err);
+                        });
+                    } else {
+                        const textArea = document.createElement("textarea");
+                        textArea.value = textToCopy;
+                        textArea.style.position = "fixed";
+                        textArea.style.left = "-999999px";
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        try {
+                            document.execCommand("copy");
+                            showCopiedFeedback(copyButton);
+                        } catch (err) {
+                            console.error("Fallback copy failed:", err);
+                        }
+                        document.body.removeChild(textArea);
+                    }
+                });
+
+                preElem.appendChild(copyButton);
+            });
+
+            function showCopiedFeedback(button) {
+                button.textContent = "Copied!";
+                button.classList.add("copied");
+                setTimeout(() => {
+                    button.textContent = "Copy";
+                    button.classList.remove("copied");
+                }, 1200);
+            }
+
+            /* 5. TYPEWRITER EFFECT IN TERMINAL WINDOW */
+            const typewriterEl = document.getElementById("typewriter-text");
+            const textToType = "> System initialized. JavaScript is everywhere.";
+            let charIndex = 0;
+            let typeSpeed = 42;
+
+            function runTypewriter() {
+                if (!typewriterEl) return;
+                if (prefersReducedMotion) {
+                    typewriterEl.textContent = textToType;
+                    return;
+                }
+                if (charIndex < textToType.length) {
+                    typewriterEl.textContent += textToType.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(runTypewriter, typeSpeed);
+                }
+            }
+
+            const whatIsJsSection = document.getElementById("what-is-javascript");
+            let typewriterStarted = false;
+
+            if ("IntersectionObserver" in window && whatIsJsSection) {
+                const termObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting && !typewriterStarted) {
+                            typewriterStarted = true;
+                            setTimeout(runTypewriter, 350); // Clean delay after entrance
+                            termObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                termObserver.observe(whatIsJsSection);
+            } else if (whatIsJsSection) {
+                runTypewriter();
+            }
+
+            /* 6. STAGGERED ENTRANCE & FLOATING ANIMATION FOR USE-CASE CARDS */
+            const useCaseCards = document.querySelectorAll(".use-case-card");
+            if (!prefersReducedMotion && "IntersectionObserver" in window && useCaseCards.length > 0) {
+                useCaseCards.forEach((card, idx) => {
+                    card.classList.add("stagger-ready");
+                    card.style.transitionDelay = `${idx * 160}ms`; // 0ms, 160ms, 320ms stagger
+                });
+
+                const cardObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            const target = entry.target;
+                            target.classList.add("revealed");
+                            setTimeout(() => {
+                                target.style.transitionDelay = "0ms";
+                                target.classList.add("floating-active");
+                            }, 800);
+                            observer.unobserve(target);
+                        }
+                    });
+                }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+
+                useCaseCards.forEach((card) => cardObserver.observe(card));
+            }
+        });
+    </script>
+</body>
+</html>
