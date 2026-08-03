@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Master Queue in C++ | Kaizen Tech Blog</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f5f7fb;
+color:#222;
+line-height:1.8;
+}
+
+header{
+background:#0f172a;
+color:white;
+padding:70px 10%;
+}
+
+header h1{
+font-size:45px;
+margin-bottom:15px;
+}
+
+header p{
+font-size:18px;
+max-width:900px;
+}
+
+.hero{
+display:flex;
+gap:30px;
+margin-top:35px;
+flex-wrap:wrap;
+}
+
+.card{
+background:white;
+color:#111;
+padding:18px;
+border-radius:12px;
+width:220px;
+box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.container{
+width:85%;
+margin:auto;
+padding:60px 0;
+}
+
+section{
+margin-bottom:70px;
+}
+
+h2{
+margin-bottom:20px;
+font-size:32px;
+color:#0f172a;
+}
+
+h3{
+margin:25px 0 10px;
+}
+
+p{
+margin-bottom:15px;
+}
+
+ul{
+padding-left:20px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+table th,
+table td{
+border:1px solid #ddd;
+padding:12px;
+text-align:left;
+}
+
+table th{
+background:#0f172a;
+color:white;
+}
+
+pre{
+background:#1e293b;
+color:#f8fafc;
+padding:18px;
+border-radius:10px;
+overflow:auto;
+margin-top:15px;
+}
+
+.diagram{
+background:white;
+padding:20px;
+border-left:5px solid #2563eb;
+border-radius:10px;
+font-family:monospace;
+white-space:pre;
+margin-top:15px;
+}
+
+.toc{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.toc a{
+display:block;
+margin:8px 0;
+color:#2563eb;
+text-decoration:none;
+}
+
+footer{
+background:#0f172a;
+color:white;
+text-align:center;
+padding:30px;
+margin-top:50px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Master Queue in C++</h1>
+
+<p>
+Master the Queue data structure with beginner-friendly explanations,
+visual diagrams, C++ implementations, interview preparation,
+and real-world applications.
+</p>
+
+<div class="hero">
+
+<div class="card">
+<h3>Difficulty</h3>
+<p>Beginner → Intermediate</p>
+</div>
+
+<div class="card">
+<h3>Reading Time</h3>
+<p>20–25 Minutes</p>
+</div>
+
+<div class="card">
+<h3>Prerequisites</h3>
+<p>Arrays<br>Functions<br>Basic C++</p>
+</div>
+
+<div class="card">
+<h3>Tags</h3>
+<p>DSA<br>C++<br>Queue<br>FIFO</p>
+</div>
+
+</div>
+
+</header>
+
+<div class="container">
+
+<section id="toc">
+
+<h2>Table of Contents</h2>
+
+<div class="toc">
+
+<a href="#what">1. What is Queue?</a>
+
+<a href="#why">2. Why Queue Matters</a>
+
+<a href="#analogy">3. Real-Life Analogy</a>
+
+<a href="#fifo">4. FIFO Principle</a>
+
+<a href="#diagram">5. Visual Diagram</a>
+
+<a href="#operations">6. Operations</a>
+
+<a href="#array">7. Queue using Array</a>
+
+<a href="#linkedlist">8. Queue using Linked List</a>
+
+<a href="#circular">9. Circular Queue</a>
+
+<a href="#stl">10. STL Queue</a>
+
+<a href="#complexity">11. Time Complexity</a>
+
+<a href="#applications">12. Applications</a>
+
+<a href="#mistakes">13. Common Mistakes</a>
+
+<a href="#interview">14. Interview Questions</a>
+
+<a href="#revision">15. Quick Revision</a>
+
+<a href="#practice">16. Practice Problems</a>
+
+<a href="#resources">17. Resources</a>
+
+</div>
+
+</section>
+
+<section id="what">
+
+<h2>What is a Queue?</h2>
+
+<p>
+A Queue is a linear data structure that follows the
+<strong>FIFO (First In First Out)</strong> principle.
+The first element inserted into the queue is the first one removed.
+Insertion happens from the rear while deletion happens from the front.
+</p>
+
+</section>
+
+<section id="why">
+
+<h2>Why Queue Matters</h2>
+
+<ul>
+
+<li>CPU Scheduling</li>
+
+<li>Printer Queue</li>
+
+<li>Ticket Booking</li>
+
+<li>Call Centers</li>
+
+<li>Networking</li>
+
+<li>BFS Traversal</li>
+
+<li>Task Scheduling</li>
+
+</ul>
+
+</section>
+
+<section id="analogy">
+
+<h2>Real-Life Analogy</h2>
+
+<p>
+
+Imagine waiting in a line at a ticket counter.
+
+The first person entering the queue gets served first.
+
+New people always join at the back.
+
+</p>
+
+</section>
+
+<section id="fifo">
+
+<h2>FIFO Principle</h2>
+
+<div class="diagram">
+
+Enqueue 10
+
+Enqueue 20
+
+Enqueue 30
+
+Front → 10 20 30 ← Rear
+
+Dequeue
+
+10 removed first
+
+</div>
+
+</section>
+
+<section id="diagram">
+
+<h2>Visual Diagram</h2>
+
+<div class="diagram">
+
+ FRONT
+
+↓
+
++----+----+----+----+
+
+|10|20|30|40|
+
++----+----+----+----+
+
+↑
+
+REAR
+
+</div>
+
+</section>
+
+<section id="operations">
+
+<h2>Queue Operations</h2>
+
+<h3>Enqueue</h3>
+
+<p>Add an element at the rear.</p>
+
+<h3>Dequeue</h3>
+
+<p>Remove the front element.</p>
+
+<h3>Front</h3>
+
+<p>Returns the first element.</p>
+
+<h3>Rear</h3>
+
+<p>Returns the last element.</p>
+
+<h3>isEmpty()</h3>
+
+<p>Checks whether queue is empty.</p>
+
+<h3>Size()</h3>
+
+<p>Returns number of elements.</p>
+
+</section>
+
+<section id="array">
+
+<h2>Queue Implementation using Array</h2>
+
+<pre><code>
+// Paste your C++ array implementation here
+</code></pre>
+
+</section>
+
+<section id="linkedlist">
+
+<h2>Queue Implementation using Linked List</h2>
+
+<pre><code>
+// Paste your linked list implementation here
+</code></pre>
+
+</section>
+
+<section id="circular">
+
+<h2>Circular Queue</h2>
+
+<p>
+A Circular Queue reuses the empty spaces in an array by connecting
+the last position back to the first.
+</p>
+
+</section>
+
+<section id="stl">
+
+<h2>Queue using STL</h2>
+
+<pre><code>
+// Paste STL Queue code here
+</code></pre>
+
+</section>
+
+<section id="complexity">
+
+<h2>Time Complexity</h2>
+
+<table>
+
+<tr>
+
+<th>Operation</th>
+
+<th>Complexity</th>
+
+</tr>
+
+<tr>
+
+<td>Enqueue</td>
+
+<td>O(1)</td>
+
+</tr>
+
+<tr>
+
+<td>Dequeue</td>
+
+<td>O(1)</td>
+
+</tr>
+
+<tr>
+
+<td>Front</td>
+
+<td>O(1)</td>
+
+</tr>
+
+<tr>
+
+<td>Rear</td>
+
+<td>O(1)</td>
+
+</tr>
+
+<tr>
+
+<td>Size</td>
+
+<td>O(1)</td>
+
+</tr>
+
+</table>
+
+</section>
+
+<section id="applications">
+
+<h2>Applications</h2>
+
+<ul>
+
+<li>CPU Scheduling</li>
+
+<li>Task Scheduling</li>
+
+<li>Networking</li>
+
+<li>Call Center</li>
+
+<li>Ticket Booking</li>
+
+<li>Printer Queue</li>
+
+<li>Breadth First Search</li>
+
+</ul>
+
+</section>
+
+<section id="mistakes">
+
+<h2>Common Mistakes</h2>
+
+<ul>
+
+<li>Calling dequeue() on an empty queue.</li>
+
+<li>Accessing front() without checking empty().</li>
+
+<li>Ignoring rear updates after deletion.</li>
+
+<li>Using a normal queue instead of a circular queue when needed.</li>
+
+</ul>
+
+</section>
+
+<section id="interview">
+
+<h2>Interview Questions</h2>
+
+<ol>
+
+<li>What is Queue?</li>
+
+<li>Explain FIFO.</li>
+
+<li>Difference between Stack and Queue.</li>
+
+<li>What is Circular Queue?</li>
+
+<li>Implement Queue using Linked List.</li>
+
+<li>Implement Queue using Array.</li>
+
+<li>What is Queue Overflow?</li>
+
+<li>Explain BFS using Queue.</li>
+
+</ol>
+
+</section>
+
+<section id="revision">
+
+<h2>Quick Revision Sheet</h2>
+
+<table>
+
+<tr>
+
+<th>Topic</th>
+
+<th>Summary</th>
+
+</tr>
+
+<tr>
+
+<td>Principle</td>
+
+<td>FIFO</td>
+
+</tr>
+
+<tr>
+
+<td>Insert</td>
+
+<td>Enqueue</td>
+
+</tr>
+
+<tr>
+
+<td>Delete</td>
+
+<td>Dequeue</td>
+
+</tr>
+
+<tr>
+
+<td>Front</td>
+
+<td>First Element</td>
+
+</tr>
+
+<tr>
+
+<td>Rear</td>
+
+<td>Last Element</td>
+
+</tr>
+
+</table>
+
+</section>
+
+<section id="practice">
+
+<h2>Practice Problems</h2>
+
+<h3>Easy</h3>
+
+<ul>
+
+<li>Implement Queue</li>
+
+<li>Design Circular Queue</li>
+
+<li>Recent Calls</li>
+
+</ul>
+
+<h3>Medium</h3>
+
+<ul>
+
+<li>Rotting Oranges</li>
+
+<li>Open the Lock</li>
+
+<li>Binary Tree Level Order Traversal</li>
+
+</ul>
+
+<h3>Hard</h3>
+
+<ul>
+
+<li>Sliding Window Maximum</li>
+
+<li>Word Ladder</li>
+
+<li>Bus Routes</li>
+
+</ul>
+
+</section>
+
+<section id="resources">
+
+<h2>Resources</h2>
+
+<ul>
+
+<li>C++ STL Queue Documentation</li>
+
+<li>CLRS</li>
+
+<li>Abdul Bari</li>
+
+<li>Striver</li>
+
+<li>LeetCode</li>
+
+<li>GeeksforGeeks</li>
+
+</ul>
+
+</section>
+
+</div>
+
+<footer>
+
+<p>© 2026 Kaizen Tech Blog | Queue in C++ Guide</p>
+
+</footer>
+
+</body>
+</html>
