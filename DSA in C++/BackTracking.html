@@ -1,0 +1,2573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backtracking</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/backtracking.css">
+    <link rel="stylesheet" href="blog-components/components.css">
+    <link rel="shortcut icon" href="asset/favicon.png" type="image/x-icon">
+</head>
+<body>
+
+    <header id="nav">
+        <div class="header">
+            <div class="header-left">
+                <img src="asset/logo.png" class="header-logo" alt="">
+                <h2>Kaizen Tech</h2>
+            </div>
+            <div class="header-right"> <a href="index.html">← Back to Blog</a> </div>
+       </div>
+       <hr>
+     
+    </header>
+
+   <section class="hero">
+            
+            <!-- hero left -->
+            <div class="hero-left-top">
+                <h1>Master Backtracking in C++</h1>
+                <p>Learn Backtracking  with diagrams, code, interview questions and practice.</p>
+                <div class="hero-left-down">
+
+                    <div>
+                        <span>Difficulty</span>
+                        <h3>Beginner → Intermediate</h3>
+                    </div>
+
+                    <div>
+                        <span>Approx. Reading Time</span>
+                        <h3>120 Minutes</h3>
+                    </div>
+
+                    <div>
+                        <span>Prerequisites</span>
+                        <h3>Recursion</h3>
+                    </div>
+
+                    <div>
+                        <span>Language</span>
+                        <h3>C++</h3>
+                    </div>
+
+                </div>
+            </div>
+            
+                <!-- hero right -->
+            <div class="hero-right"><img src="asset/backtracking.png" alt=""></div>
+
+
+            
+        </section>
+
+
+       
+
+    <button class="toc-toggle" id="tocToggle">
+
+     ☰ Table of Content
+
+    </button>
+
+     <!-- main -->
+    <div class="toc-overlay" id="tocOverlay"></div>
+
+    <main class="blog-layout">
+
+    <!-- Left Sidebar -->
+    <aside class="toc-sidebar">
+
+        <button class="toc-close" id="tocClose">
+
+            ✕
+
+        </button>
+
+    <details class="toc-dropdown" open>
+
+        <summary>
+
+            <span> Table of Contents</span>
+
+            <span class="arrow">⌄</span>
+
+        </summary>
+
+        <nav class="toc-links">
+
+            <a href="#introduction">Introduction</a>
+            <a href="#need-of-backtracking">What is the need of backtracking </a>
+            <a href="#what-is-backtracking">What is Backtracking?</a>
+            <a href="#recursion-vs-backtracking">RECURSION VS BACKTRACKING</a>
+            <a href="#core-idea">CORE IDEA of Backtracking </a>
+            <a href="#imp-questions">Important Questions</a>
+            <a href="#time-complexity">TIME COMPLEXITY IN RECURSION</a>
+            <a href="#common-mistakes">Common Mistakes</a>
+            <a href="#interview-questions">Interview Questions</a>
+            <a href="#quick-revision">Quick Revision</a>
+            <a href="#practice-problems">Practice Problems</a>
+            <a href="#online-resources">Online Resources</a>
+
+        </nav>
+
+    </details>
+
+</aside>
+
+    <!-- Right Content -->
+    <section class="blog-content">
+
+        <section id="introduction">
+            <h1>Introduction</h1>
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-content">
+
+                    In this blog, we will learn backtracking from basic 
+                    to advanced level using simple examples such as Subsets,
+                     Permutations, Maze, N-Queens, and Sudoku. The main goal is to 
+                     develop the ability to identify the state, choices, base case, 
+                     and backtracking step for any problem before writing code.
+
+                </div>
+
+            </div>
+
+
+
+            
+        </section>
+
+        <section id="need-of-backtracking">
+            <h1>What is the need of backtracking </h1>
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-content">
+
+                      <!-- Answer Box. -->
+                    <div class="answer-box">
+
+                        <div class="answer-header">
+
+                            An Amazing Fact of Life
+
+                        </div>
+
+                        <div class="answer-content">
+                            "We have been applying the concept of backtracking
+                             since childhood without realizing <br>
+                              The reason is that no one ever explained
+                               to us that the way we try different possibilities,
+                                go back when something does not work, and try another
+                                 approach is actually called backtracking.”
+                        </div>
+
+                    </div>
+
+
+                     <!-- Tip Box -->
+
+                    <div class="tip-box">
+
+                    <div class="tip-header">
+
+                         Think...
+
+                    </div>
+
+                    <div class="tip-content">
+
+                        <br>You have 2 chocolates: [A, B] <br>
+
+                        You need to decide which chocolates you want to take. <br><br>
+                        <h3>What options do you have right now?</h3>
+
+                        For the first chocolate A: <br><br>
+                        <ul class="list">
+                            <li>Option 1: Take A</li>
+                            <li>Option 2: Don't take A</li>
+                        </ul> <br><br>
+
+                        That's the first level of the decision tree. <br><br>
+                        <!-- C++ Code Container -->
+
+                            <div class="code-block">
+
+                                <pre><code><img src="asset/TREE-1.png" style="width: 300px;" alt=""> <br><br></code></pre>
+
+                            </div>
+                        
+
+                        <h3>Now, ask the same question for B:</h3> 
+                        What options do you have for B? <br><br>
+                        <!-- C++ Code Container -->
+
+                            <div class="code-block">
+                                <pre><code><img src="asset/TREE-2.png" style="width: 300px;" alt=""> <br><br></code></pre>
+      
+                            </div>
+                        
+
+                        <h3>Now you've automatically built the backtracking tree.</h3> <br>
+                    </div>
+                    </div>
+
+                </div>
+
+
+                     <!-- Tip Box -->
+
+                    <div class="tip-box">
+
+                    <div class="tip-header">
+
+                         Think...
+
+                    </div>
+
+                    <div class="tip-content">
+
+                        <h3>Another example: Imagine you're in a jungle.</h3> <br><br>
+                        <h3>You have two path : </h3> <br>
+                        <!-- C++ Code Container -->
+
+                            <div class="code-block">
+
+                                <pre><code><img src="asset/TREE-4.png" style="width: 300px;" alt=""><br></code></pre>
+
+                            </div>
+                        
+                        <p>You have no idea where the left path will lead.</p> <br>
+                        <h3>You simply:</h3>
+
+                        <ol class="list">
+                            <li>Try the left path.</li>
+                            <li>Move forward.</li>
+                            <li>If you reach a dead end, come back.</li>
+                            <li>Then try the right path.</li>
+                        </ol><br><br>
+
+                        <h3>This is :</h3>
+
+                        Choose<br>
+                        ↓<br>
+                        Explore<br>
+                        ↓<br>
+                        Undo<br>
+                    </div>
+                    </div>
+
+            </div>
+        </section>
+
+        <section id="what-is-backtracking">
+            <h1>What is Backtracking?</h1>
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                    Definition
+
+                </div>
+
+                <div class="definition-content">
+
+                    <h3>Backtracking is a technique where we:</h3>
+
+                    1. Make a choice <br>
+                    2. Explore further <br>
+                    3. Undo the choice <br><br>
+
+                    This helps explore "all possible solutions". <br>
+
+                    <h3>General template:</h3>
+
+
+                     <!-- C++ Code Container -->
+
+                    <div class="code-block">
+
+                        <div class="code-header">
+
+                            <span class="language">C++</span>
+
+                            <button class="copy-btn">
+                                Copy
+                            </button>
+
+                        </div>
+
+                    <pre><code>
+                    void solve(parameters){
+     
+                        ```
+                        if(base condition){
+
+                            process solution
+
+                            return;
+
+                        }
+
+
+                        for(each possible choice) {
+
+                            choose
+
+                            solve(next state)
+
+                            undo choice
+
+                        }
+
+                        ```
+
+                    }
+                    </code></pre>
+
+                    </div>
+
+
+                    <!-- Note Box. -->
+                    <div class="note-box">
+
+                        <div class="note-header">
+
+                             Key to Solving Backtracking
+
+                        </div>
+
+                        <div class="note-content">
+
+                            Now, remember this magic trick: <br><br>
+                            Whenever you see a backtracking problem, ask yourself: <br>
+                            <h3>"What decision do I need to make at this step?"</h3> <br><br>
+
+
+                            <h3>Example 1 : Subsets</h3>
+                            Ask yourself: <br>
+                            <h3> "Should I include this element or not?"</h3> <br>
+                            <h3>Choices:</h3>
+                            <ul class="list"">
+                                <li>Yes</li>
+                                <li>NO</li>
+                            </ul> <br><br><br>
+
+
+                            <h3>Example 2 : Permutations</h3>
+                            Ask yourself: <br>
+                            <h3> "Which element should I place in the next position?"</h3> <br>
+                            <h3>Choices:</h3>
+                            <ul class="list">
+                                <li>1</li>
+                                <li>2</li>
+                                <li>3</li>
+                            </ul> <br><br><br>
+
+
+
+                            <h3>Example 3 : Maze</h3>
+                            Ask yourself: <br>
+                            <h3>"Which direction should I move?"</h3> <br>
+                            <h3>Choices:</h3>
+                            <ul class="list">                               
+                                <li>Up</li>
+                                <li>Down</li>
+                                <li>Left</li>
+                                <li>Right</li>
+                            </ul> <br><br><br>
+
+
+
+                            <h3>Example 4 : N-Queens</h3>
+                            Ask yourself: <br>
+                            <h3> "In which column should I place the queen?"</h3> <br>
+                            <h3>Choices:</h3>
+                            <ul sclass="list">                               
+                                <li>Column 0</li>
+                                <li>Column 1</li>
+                                <li>Column 2</li>
+                                <li>...</li>
+                            </ul> 
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Answer Box. -->
+                <div class="answer-box">
+
+                    <div class="answer-header">
+
+                         Key Concept
+
+                    </div>
+
+                    <div class="answer-content">
+
+                        In backtracking, building a decision tree simply means 
+                        thinking of the available choices at each recursive call 
+                        as different branches of the tree. <br><br>
+                        That's it. <br><br>
+
+                        For now, don't focus on "How do I write the code?"<br>
+                        Instead, for every problem, first identify: <br>
+                        <ul class="list">
+                            <li>What is the state?</li>
+                            <li>What are the choices?</li>
+                            <li>What is the base case?</li>
+                            <li>What needs to be undone (backtracked)?</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Recursion vs Backtracking -->
+
+        <section id="recursion-vs-backtracking">
+            <h1>RECURSION VS BACKTRACKING</h1>
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                    Click to See Differences
+
+                </summary>
+
+                <div class="accordion-content">
+
+                     <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Recursion</th>
+                                    <th>Backtracking</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><strong>Definition</strong></td>
+                                    <td>A programming technique where a function solves a problem by calling itself.</td>
+                                    <td>An algorithmic technique that explores all possible choices and undoes decisions whenever a path cannot lead to a valid solution.</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Purpose</strong></td>
+                                    <td>Breaks a problem into smaller subproblems.</td>
+                                    <td>Searches for one or all valid solutions by exploring different possibilities.</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Main Idea</strong></td>
+                                    <td>Solve a smaller version of the same problem.</td>
+                                    <td>Make a choice, explore it, then undo the choice and try another.</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Decision Making</strong></td>
+                                    <td>Usually follows a single recursive path.</td>
+                                    <td>Multiple choices are explored at every recursive step.</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Need to Undo?</strong></td>
+                                    <td>No.</td>
+                                    <td>Yes. Previous changes are reverted before exploring another branch.</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Decision Tree</strong></td>
+                                    <td>May or may not form a decision tree.</td>
+                                    <td>Always explores a decision tree.</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Goal</strong></td>
+                                    <td>Reach the base case and return the answer.</td>
+                                    <td>Explore every possible path until a valid solution is found.</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Typical Questions</strong></td>
+                                    <td>"How can I solve a smaller version of this problem?"</td>
+                                    <td>"What choices do I have at this step?"</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Examples</strong></td>
+                                    <td>Factorial, Fibonacci, Binary Search, Tree Traversal.</td>
+                                    <td>Subsets, Permutations, N-Queens, Sudoku Solver, Rat in a Maze.</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Relationship</strong></td>
+                                    <td>Can exist without backtracking.</td>
+                                    <td>Always uses recursion (or an equivalent stack-based approach) to explore choices.</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </details>
+        </section>
+
+        <section id="core-idea">
+            <h1>CORE IDEA of Backtracking</h1>
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-content">
+
+                    <h3>Let us take a glance on the core idea of the backtracking ,
+                         we will explore solution for these questions questions in detail.</h3>
+                    <p>Every backtracking problem follows this:</p>
+                    <ul class="list">
+                        <li>Choose</li>
+                        <li>Explore</li>
+                        <li>Unchoose</li>
+                    </ul>
+                    <h3>Example: Permutation using swap</h3>
+                    <!-- C++ Code Container -->
+
+                    <div class="code-block">
+
+                        <div class="code-header">
+
+                            <span class="language">C++</span>
+
+                            <button class="copy-btn">
+                                Copy
+                            </button>
+
+                        </div>
+
+                    <pre><code>
+
+                    void permute(string &s, int i){
+
+                            ```
+                            if(i == s.size()){
+
+                                cout&lt;&lt; s &lt;&lt; endl;
+
+                                return;
+
+                            }
+
+                            for(int j=i;j&gt;s.size();j++)
+
+                            {
+
+                                swap(s[i],s[j]);   // choose
+
+                                permute(s,i+1);    // explore
+
+                                swap(s[i],s[j]);   // undo
+
+                            }
+                            ```
+
+                            }
+                    </code></pre>
+
+                    </div>
+                </div>
+                <h3>Total permutations: </h3>
+                <br><br><br><br>
+
+                <h3>Example : SUBSET / COMBINATION PATTERN </h3> <br>
+                <p>Many recursion problems follow the pattern:</p> <br>
+                <ul class="list">
+                    <li>Pick element</li>
+                    <li>Do not pick element</li>
+                </ul> <br>
+
+
+
+                <!-- C++ Code Container -->
+
+                <div class="code-block">
+
+                    <div class="code-header">
+
+                        <span class="language">C++</span>
+
+                        <button class="copy-btn">
+                            Copy
+                        </button>
+
+                    </div>
+
+                <pre><code>
+
+                    void subset(vector&lt;int&gt; &arr, int i, vector&lt;int&gt; &ans){
+
+                    ```
+                    if(i == arr.size()){
+
+                        print(ans)
+
+                        return;
+
+                    }
+
+                    ans.push_back(arr[i]);
+
+                    subset(arr, i+1, ans);
+
+                    ans.pop_back();
+
+                    subset(arr, i+1, ans);
+                    ```
+
+                    }
+                </code></pre>
+
+                </div>
+
+                <h3>Total subsets: 2^n </h3> <br><br>
+
+
+                <h3>CONSTRAINT RECURSION</h3> <br>
+                CONCEPT : Some recursion problems have constraints.  <br><br>
+
+                <h3>Example:</h3><br>
+                <ul class="list">
+                    <li>N Queens</li>
+                    <li>Sudoku</li>
+                    <li>Graph coloring</li>
+                </ul> <br>
+
+                <p>Place a queen only if the position is safe.</p><br>
+                <h3>Simplified structure:</h3>
+
+                 <!-- C++ Code Container -->
+
+                <div class="code-block">
+
+                    <div class="code-header">
+
+                        <span class="language">C++</span>
+
+                        <button class="copy-btn">
+                            Copy
+                        </button>
+
+                    </div>
+
+                <pre><code>
+
+                for(each column){
+
+                    ```
+                    if(position is safe){
+
+                        place queen
+
+                        recurse for next row
+
+                        remove queen
+
+                    }
+                    ```
+
+                }
+                </code></pre>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- important Questions -->
+
+        <section id="imp-questions">
+            <h1>Important Questions</h1>
+
+            <!-- Warning Box -->
+
+            <div class="warning-box">
+
+                <div class="warning-header">
+
+                    Before You Start
+
+                </div>
+
+                <div class="warning-content">
+
+                   <strong>A small request:</strong> Please keep a notebook 
+                   and a pen with you while reading this section. 
+                   I highly recommend performing the dry run yourself, 
+                   step by step.
+                    This will help you build a much stronger understanding of recursion and backtracking. <br><br>
+
+                </div>
+
+            </div>
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-heading">
+
+                    Subsets
+
+                </div>
+
+                <div class="definition-content">
+
+                    Given an integer array nums containing N distinct elements, generate all possible subsets of the array. <br><br>
+                    A subset may contain zero or more elements. <br><br><br>
+                    <h3>Example : </h3>
+
+                    Input: nums = [1,2,3] <br>
+
+
+                    Output:
+                    [
+                    [],
+                    [1],
+                    [2],
+                    [3],
+                    [1,2],
+                    [1,3],
+                    [2,3],
+                    [1,2,3]
+                    ] <br><br><br>
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                           Explanation
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            <p>There are 2ⁿ subsets because every element has exactly two choices.</p>
+                            <ul class="list">
+                                <li>Include it</li>
+                                <li>Exclude it</li>
+                            </ul>
+
+                        </div>
+
+                    </details>
+
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                            code
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            <!-- C++ Code Container -->
+
+                            <div class="code-block">
+
+                                <div class="code-header">
+
+                                    <span class="language">C++</span>
+
+                                    <button class="copy-btn">
+                                        Copy
+                                    </button>
+
+                                </div>
+
+                                <pre><code>
+                                    #include&lt;iostream&gt;
+                                    #include&lt;vector&gt;
+                                    using namespace std;
+
+                                    void solve(vector&lt;int&gt;& nums,int index,vector&lt;int&gt;& subset) {
+     
+                                        // Base Case
+                                        if(index == nums.size()){
+                                            cout&lt;&lt;"{ ";
+
+                                            for(int x : subset)
+                                                cout&lt;&lt;x&lt;&lt;" ";
+
+                                            cout&lt;&lt;"}"&lt;&lt;endl;
+                                            return;
+                                        }
+
+                                        
+                                        // CHOOSE   
+                                        subset.push_back(nums[index]);
+
+                                       
+                                        // EXPLORE   
+                                        solve(nums, index + 1, subset);
+
+                                       
+                                        // UNCHOOSE (Backtrack)   
+                                        subset.pop_back();
+
+
+                                       
+                                        // EXPLORE (Without Choosing)   
+                                        solve(nums, index + 1, subset);
+                                    }
+
+                                    int main(){
+                                    
+                                        vector&lt;int&gt; nums = {1,2,3};
+
+                                        vector&lt;int&gt; subset;
+
+                                        solve(nums,0,subset);
+                                    }
+
+    
+                                 </code></pre>
+
+                            </div>
+
+                        </div>
+
+                    </details>
+
+
+                        <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                            Tree
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            
+                            <!-- Diagram Container -->
+                            <figure class="diagram-container">
+                                <img src="asset/subset.png" alt="Subset Decision Tree Diagram" class="diagram-img" loading="lazy">
+                                <figcaption class="diagram-caption">
+                                    <span>Subset Decision Tree</span>
+                                    <span class="diagram-hint">🔍 Tap to expand</span>
+                                </figcaption>
+                            </figure>
+
+                        </div>
+
+                    </details>
+
+                </div>
+
+            </div>
+
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-heading">
+
+                    Permutation
+
+                </div>
+
+                <div class="definition-content">
+
+                    Given an array of distinct integers nums, return all possible permutations. <br><br>
+                    <h3>Example : </h3>
+                    Input : nums = [1,2,3] <br>
+                    Output : <br>
+                    [
+                    [1,2,3],
+                    [1,3,2],
+                    [2,1,3],
+                    [2,3,1],
+                    [3,1,2],
+                    [3,2,1]
+                    ] <br><br>
+
+
+                                        <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                            code
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            <!-- C++ Code Container -->
+
+                            <div class="code-block">
+
+                                <div class="code-header">
+
+                                    <span class="language">C++</span>
+
+                                    <button class="copy-btn">
+                                        Copy
+                                    </button>
+
+                                </div>
+
+                                <pre><code>
+                                        #include &lt;&lt;iostream&gt;
+                                        #include &lt;vector&gt;
+
+                                        using namespace std;
+
+                                        // Stores all permutations
+                                        vector&lt;vector&lt;int&gt;&gt;ans;
+
+                                        // Recursive function
+                                        void solve(vector&lt;int&gt;& nums,  vector&lt;int&gt;& permutation, vector&lt;bool&gt;& used) {                                               
+                                       
+                                            
+                                            // Base Case
+                                            
+                                            if (permutation.size() == nums.size()) {
+                                                ans.push_back(permutation);
+                                                return;
+                                            }
+
+                                            // Try every number
+                                            for (int i = 0; i &lt; nums.size(); i++) {
+
+                                                // Skip if already used
+                                                if (used[i])
+                                                    continue;
+
+                                                
+                                                // Choose
+                                                
+                                                used[i] = true;
+                                                permutation.push_back(nums[i]);
+
+                                                
+                                                // Explore
+                                                
+                                                solve(nums, permutation, used);
+
+                                                
+                                                // Unchoose (Backtrack)
+                                                
+                                                permutation.pop_back();
+                                                used[i] = false;
+                                            }
+                                        }
+
+                                        int main()
+                                        {
+                                            vector&lt;int&gt; nums = {1, 2, 3};
+
+                                            vector&lt;int &gt;permutation;
+                                            vector&lt;bool &gt;used(nums.size(), false);
+
+                                            solve(nums, permutation, used);
+
+                                            for (const auto& permutation : ans) {
+
+                                                cout &lt;&lt; "[ ";
+
+                                                for (int num : permutation)
+                                                    cout &lt;&lt; num &lt;&lt; " ";
+
+                                                cout &lt;&lt; "]&lt;&lt;endl";
+                                            }
+
+                                            return 0;
+                                        }
+
+    
+                                 </code></pre>
+
+                            </div>
+
+                        </div>
+
+                    </details>
+
+
+                        <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                            Decision Tree
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            <!-- Diagram Container -->
+                            <figure class="diagram-container">
+                                <img src="asset/permutation.png" alt="Permutation Decision Tree Diagram" class="diagram-img" loading="lazy">
+                                <figcaption class="diagram-caption">
+                                    <span>Permutation Decision Tree</span>
+                                    <span class="diagram-hint">🔍 Tap to expand</span>
+                                </figcaption>
+                            </figure>
+
+                        </div>
+
+                    </details>
+
+                    
+
+                </div>
+
+            </div>
+
+
+
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-heading">
+
+                    N-Queen
+
+                </div>
+
+                <div class="definition-content">
+
+                    You are given an n × n chessboard.
+                    Your task is to place n queens on the 
+                    board such that no two queens attack each other. <br><br><br>
+
+                    In chess, a queen can attack another queen if they are placed: <br><br>
+                    <ul class="list">
+                        <li>In the same row</li>
+                        <li>In the same column</li>
+                        <li>On the same diagonal</li>
+                    </ul> <br><br>
+
+                    Your goal is to find all possible valid arrangements of the n queens. <br><br>
+                    Each valid arrangement should be represented as a chessboard where: <br>
+                    <ul class="list">
+                        <li>'Q' represents a queen.</li>
+                        <li>'.' represents an empty cell.</li>
+                    </ul> <br>
+
+                    If no valid arrangement exists, return an empty vector. <br><br>
+
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                            code
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            <!-- C++ Code Container -->
+
+                            <div class="code-block">
+
+                                <div class="code-header">
+
+                                    <span class="language">C++</span>
+
+                                    <button class="copy-btn">
+                                        Copy
+                                    </button>
+
+                                </div>
+
+                                <pre><code>
+
+                                    #include &lt;bits/stdc++.h&gt;
+
+                                    using namespace std;
+
+                                    bool check(int row, int col, vector&lt;string&gt;&b, int n) {
+                                        int r = row, c = col;
+                                        // check for col
+                                        while (r &gt;= 0) {
+                                            if (b[r][c] == 'Q')return false;
+                                            r--;
+                                        }
+                                        // check for upper left corner
+                                        r = row, c = col;
+                                        while (r &gt;= 0 && c &gt;= 0) {
+                                            if (b[r][c] == 'Q')return false;
+                                            r--, c--;
+                                        }
+                                        // check for upper right corner
+                                        r = row, c = col;
+                                        while (r &gt;= 0 && c &lt; n) {
+                                            if (b[r][c] == 'Q')return false;
+                                            r--, c++;
+                                        }
+                                        return true;
+                                    }
+
+                                    void solve(vector&lt;string&gt;&b, int n, vector&lt;vector&lt;string&gt;&gt;&ans, int row) {
+                                        if (row == n) {
+                                            ans.push_back(b);
+                                            return;
+                                        }
+
+                                        for (int col = 0; col &lt; n; col++) {
+                                            if (check(row, col, b, n) == true) {
+                                                b[row][col] = 'Q';   // place queen
+                                                solve(b, n, ans, row + 1);  // explore
+                                                b[row][col] = '.';   // unplace queen
+                                            }
+                                        }
+                                    }
+
+                                    int main() {
+                                        int n = 5;
+                                        vector&lt;string&gt; b(n, string(n, '.'));
+                                        vector&lt;vector&lt;string&gt;&gt; ans;
+                                        solve(b, n, ans, 0);
+
+                                        for (int i = 0; i &lt; ans.size(); i++) {
+                                            //print each ans
+                                            for (int j = 0; j &lt; n; j++) {
+                                                for (int k = 0; k &lt; n; k++) {
+                                                    cout &lt;&lt; ans[i][j][k];
+                                                }
+                                                cout &lt;&lt; endl;
+                                            }
+                                            cout &lt;&lt; endl;
+                                        }
+
+                                        return 0;
+                                    }
+
+    
+                                 </code></pre>
+
+                            </div>
+
+                        </div>
+
+                    </details>
+  
+                        <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                          Decision Tree
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            <!-- Diagram Container -->
+                            <figure class="diagram-container">
+                                <img src="asset/N-queen.png" alt="N-Queen Decision Tree Diagram" class="diagram-img" loading="lazy">
+                                <figcaption class="diagram-caption">
+                                    <span>Subset Decision Tree</span>
+                                    <span class="diagram-hint">🔍 Tap to expand</span>
+                                </figcaption>
+                            </figure>
+    
+                        </div>
+
+                    </details>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-heading">
+
+                    Sudoku
+
+                </div>
+
+                <div class="definition-content">
+
+                   You are given a 9 × 9 Sudoku board partially filled with digits '1' to '9' and empty cells represented by '.'. <br><br>
+
+                    Fill the empty cells so that the completed board satisfies all the following rules:<br>
+                    <ul class="list">
+                        <li>Each row contains the digits 1–9 exactly once.</li>
+                        <li>Each column contains the digits 1–9 exactly once.</li>
+                        <li>Each of the nine 3 × 3 sub-grids contains the digits 1–9 exactly once.</li>
+
+                    </ul>
+
+                    It is guaranteed that the input board has exactly one valid solution.<br><br>
+
+                    Input<br>
+
+                    A 9 × 9 matrix board where:<br>
+                    <ul class="list">
+                        <li>board[i][j] is a digit '1' to '9', or</li>
+                         <li>board[i][j] = '.' representing an empty cell.</li>
+                    </ul>
+
+                    Output <br>
+
+                    Modify the board in-place so that it becomes a valid completed Sudoku. <br>
+
+                    <h3>Example</h3>
+
+                    <strong>Input</strong> <br>
+
+                    5 3 . . 7 . . . . <br>
+                    6 . . 1 9 5 . . . <br>
+                    . 9 8 . . . . 6 .<br>
+                    8 . . . 6 . . . 3<br>
+                    4 . . 8 . 3 . . 1<br>
+                    7 . . . 2 . . . 6<br>
+                    . 6 . . . . 2 8 .<br>
+                    . . . 4 1 9 . . 5<br>
+                    . . . . 8 . . 7 9<br><br>
+
+                    <strong>Output</strong><br>
+
+                    5 3 4 6 7 8 9 1 2<br>
+                    6 7 2 1 9 5 3 4 8<br>
+                    1 9 8 3 4 2 5 6 7<br>
+                    8 5 9 7 6 1 4 2 3<br>
+                    4 2 6 8 5 3 7 9 1<br>
+                    7 1 3 9 2 4 8 5 6<br>
+                    9 6 1 5 3 7 2 8 4<br>
+                    2 8 7 4 1 9 6 3 5<br>
+                    3 4 5 2 8 6 1 7 9<br><br>
+                    <strong>Constraints</strong><br>
+                    <ul>
+                        <li>board.length == 9</li>
+                        <li>board[i].length == 9</li>
+                        <li>Each cell is either '.' or a digit '1' to '9'.</li>
+                    </ul>
+
+                    
+
+                   
+
+                    
+
+                    <strong>Expected Approach</strong> <br>
+
+                    Use Backtracking to try placing digits in empty cells and recursively solve the remaining board. If a placement violates Sudoku rules, undo the choice (backtrack) and try the next digit.
+
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                            code
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            <!-- C++ Code Container -->
+
+                            <div class="code-block">
+
+                                <div class="code-header">
+
+                                    <span class="language">C++</span>
+
+                                    <button class="copy-btn">
+                                        Copy
+                                    </button>
+
+                                </div>
+
+                                <pre><code>
+
+                                    #include &lt;&lt;bits/stdc++.h&gt;
+
+                                    using namespace std;
+
+                                    bool solved = false;
+
+                                    // sudoku solver
+                                    bool isValid(vector&lt;vector&lt;int&gt;&gt;&v, int r, int c, int num) {
+                                        // row
+                                        for (int i = 0; i &lt;9; i++) {
+                                            if (v[r][i] == num)return false;
+                                        }
+                                        // col
+                                        for (int i = 0; i &lt; 9; i++) {
+                                            if (v[i][c] == num)return false;
+                                        }
+                                        // 3*3 grid
+                                        int sr = (r / 3) * 3;
+                                        int sc = (c / 3) * 3;
+                                        for (int i = sr; i &lt; sr + 3; i++) {
+                                            for (int j = sc; j &lt; sc + 3; j++) {
+                                                if (v[i][j] == num)return false;
+                                            }
+                                        }
+                                        return true;
+                                    }
+
+                                    bool solve(vector&lt;vector&lt;int&gt;&gt;&v) {
+                                        for (int i = 0; i &lt; 9; i++) {
+                                            for (int j = 0; j &lt; 9; j++) {
+                                                if (v[i][j] == 0) {
+                                                    for (int num = 1; num &lt;= 9; num++) {
+                                                        if (isValid(v, i, j, num)) {
+                                                            v[i][j] = num;
+                                                            if (solve(v))return true;
+                                                            v[i][j] = 0; // backtrack
+                                                        }
+                                                    }
+                                                    return false;
+                                                }
+                                            }
+                                        }
+                                        return true;
+                                    }
+
+                                    int main() {
+
+                                        vector&lt;vector&lt;int&gt;&gt; v(9, vector<int> (9));
+                                        for (int i = 0; i &lt; 9; i++) {
+                                            for (int j = 0; j &lt; 9; j++) {
+                                                cin >> v[i][j];
+                                            }
+                                        }
+
+                                        //cout &lt;&lt; isValid(v, 4, 4, 5);
+                                        bool ans = solve(v);
+
+                                        for (int i = 0; i &lt; 9; i++) {
+                                            for (int j = 0; j &lt; 9; j++) {
+                                                cout &lt;&lt; v[i][j] &lt;&lt; " ";
+                                            }
+                                            cout &lt;&lt; endl;
+                                        }
+
+                                        return 0;
+                                    }
+
+    
+                                 </code></pre>
+
+                            </div>
+
+                        </div>
+
+                    </details>
+
+
+                        <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                           Decision Tree
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            <!-- Diagram Container -->
+                            <figure class="diagram-container">
+                                <img src="asset/sudoku.png" alt="Sudoku Decision Tree Diagram" class="diagram-img" loading="lazy">
+                                <figcaption class="diagram-caption">
+                                    <span>Subset Decision Tree</span>
+                                    <span class="diagram-hint">🔍 Tap to expand</span>
+                                </figcaption>
+                            </figure>
+
+                        </div>
+
+                    </details>
+
+
+
+
+
+                </div>
+
+            </div>
+
+
+            
+        </section>
+
+        <section id="time-complexity">
+            <h1>Time Complexity</h1>
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                    Common Complexities
+
+                </div>
+
+                <div class="definition-content">
+
+                    <div class="table-container">
+                        <table class="complexity-table">
+                            <thead>
+                                <tr>
+                                    <th>Pattern</th>
+                                    <th>Complexity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Linear recursion</td>
+                                    <td>O(n)</td>
+                                </tr>
+                                <tr>
+                                    <td>Binary recursion</td>
+                                    <td>O(2^n)</td>
+                                </tr>
+                                <tr>
+                                    <td>Subset generation</td>
+                                    <td>O(2^n)</td>
+                                </tr>
+                                <tr>
+                                    <td>Permutation</td>
+                                    <td>O(n!)</td>
+                                </tr>
+                                <tr>
+                                    <td>N Queens</td>
+                                    <td>O(n!)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+            
+        </section>
+
+
+        <!-- common mistakes -->
+
+        <section id="common-mistakes">
+            <h1>Common Mistakes</h1>
+
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                    Click to See Common Mistakes
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    <!-- Warning Box -->
+
+                    <div class="warning-box">
+
+                        <div class="warning-header">
+
+                            Jumping Directly to Code
+
+                        </div>
+
+                        <div class="warning-content">
+
+                           <strong> Mistake:</strong> Starting to write code without understanding the problem. <br><br>
+                           <h3>First identify:</h3>
+                           <ul class="list">
+                             <li>State</li>
+                             <li>Choices</li>
+                             <li>Base Case</li>
+                             <li>Undo Operation</li>
+                           </ul>
+                        </div>
+
+                    </div>
+
+
+
+                        <!-- Warning Box -->
+
+                    <div class="warning-box">
+
+                        <div class="warning-header">
+
+                            Not Thinking in Terms of Decisions
+
+                        </div>
+
+                        <div class="warning-content">
+
+                            <strong>Mistake:</strong> Focusing on loops or recursion instead of the decision being made. <br><br>
+                            <h3>Always ask:</h3>
+                            "What decision am I making at this recursive call?"
+                        </div>
+
+                    </div>
+
+
+
+
+                        <!-- Warning Box -->
+
+                    <div class="warning-box">
+
+                        <div class="warning-header">
+
+                            Missing the Base Case
+
+                        </div>
+
+                        <div class="warning-content">
+
+                           <strong>Mistake:</strong> Forgetting when recursion should stop.
+                           Every backtracking solution must have a clear base case to process a complete solution and return.
+
+                        </div>
+
+                    </div>
+
+
+
+                        <!-- Warning Box -->
+
+                    <div class="warning-box">
+
+                        <div class="warning-header">
+
+                           Forgetting to Undo the Choice
+
+                        </div>
+
+                        <div class="warning-content">
+
+                           <strong> Mistake:</strong> Making a choice but never removing it after returning.  <br>
+                           Without the undo step, future recursive calls will use incorrect data.
+
+                        </div>
+
+                    </div>
+
+
+
+                                       <!-- Warning Box -->
+
+                    <div class="warning-box">
+
+                        <div class="warning-header">
+
+                           Processing the Answer Too Early
+
+                        </div>
+
+                        <div class="warning-content">
+
+                            <strong>Mistake:</strong> Printing or storing the answer before reaching the base case. <br>
+                             Process the solution only when all required decisions have been made.
+
+                        </div>
+
+                    </div>
+
+                   
+                </div>
+
+            </details>
+        </section>
+
+        <!-- Interview Questions -->
+
+        <section id="interview-questions">
+            <h1>Interview Questions</h1>
+
+
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                    See Questions 
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    <h3>1.Why do we need backtracking?</h3>
+                    <h3>2.What is the difference between recursion and backtracking?</h3>
+                    <h3>3.Explain the Choose → Explore → Undo process.</h3>
+                    <h3>4.What are the four things you should identify before solving a backtracking problem?</h3>
+                    <h3>5.What is a decision tree and how do you convert a problem into a decision tree?</h3>
+                    <h3>6.Why are there exactly 2ⁿ subsets of an array with n elements?</h3>
+                    <h3>7.Why do we use push_back() before recursion and pop_back() after recursion?</h3>
+                    <h3>8.Why do we swap twice in the permutation algorithm?</h3>
+                    <h3>9.What happens if you forget to undo a choice?</h3>
+                    <h3>10.What is the state in the subset problem?</h3>
+                    <h3>11.What choices are available at each recursive call in the N-Queens problem?</h3>
+                    <h3>12.Why do we check whether a move is safe before making a recursive call?</h3>
+                    <h3>13.How is backtracking different from brute force?</h3>
+                    <h3>14.How do you identify whether a problem should be solved using backtracking?</h3>
+                    <h3>15.What is the time complexity of generating all subsets?</h3>
+                    <h3>16.What is the time complexity of generating all permutations?</h3>
+                    <h3>17.What is the space complexity of a typical backtracking solution?</h3>
+                    <h3>18.Why does backtracking naturally use depth-first search (DFS)?</h3>
+                    <h3>19.How can pruning improve the performance of a backtracking algorithm?</h3>
+                    <h3>20.Generate all combinations of k elements from n numbers.</h3>
+                    <h3>21.Find all possible paths in a maze.</h3>
+                    <h3>22.Solve the N-Queens problem.</h3>
+                    <h3>23.Generate all subsets of an array.</h3>
+                    <h3>24.Solve a Sudoku puzzle.</h3>
+                    <h3>25.Solve the Palindrome Partitioning problem.</h3>
+                    <h3>26.Solve the Combination Sum problem.</h3>
+                    <h3>27.Why is pruning important in backtracking?</h3>
+                    <h3>28.What is the state in the permutation problem?</h3>
+                    <h3>29.What is backtracking?</h3>
+    
+                </div>
+
+            </details>
+
+
+            <!-- Tip Box -->
+
+            <div class="tip-box">
+
+                <div class="tip-header">
+
+                     Interview Tip
+
+                </div>
+
+                <div class="tip-content">
+
+                    Whenever you're asked a backtracking question, explain your solution in this order: <br><br>
+                    <ol class="list">
+                        <li><strong>State -</strong> What information does each recursive call represent?</li>
+                        <li><strong>Choices -</strong>What decisions can be made at this step?</li>
+                        <li><strong>Base Case -</strong> When should recursion stop?</li>
+                        <li><strong>Choose -</strong> Make one decision.</li>
+                        <li><strong>Explore -</strong> Recurse to the next state.</li>
+                        <li><strong>Undo -</strong> Restore the previous state before trying another choice.</li>
+                    </ol>
+
+                    This structured explanation demonstrates a 
+                    clear understanding of backtracking and is
+                     exactly what interviewers look for. <br>
+
+                </div>
+            </div>
+
+
+
+        </section>
+
+        <!-- Quick Revision -->
+
+        <section id="quick-revision">
+            <h1>Quick Revision</h1>
+
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                    1. Why Do We Need Backtracking?
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    Backtracking is used when multiple choices are
+                     available and we need to explore all possible valid solutions. <br><br>
+                     
+                     <h3>Examples:</h3>
+                     <ul class="list">
+                        <li>Subsets</li>
+                        <li>Permutations</li>
+                        <li>N-Queens</li>
+                        <li>Sudoku</li>
+                     </ul>
+
+                </div>
+
+            </details>
+
+
+
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                    2.Definition
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    Backtracking is a problem-solving technique where we: <br>
+                    <ol class="list">
+                        <li>Choose</li>
+                        <li>Explore</li>
+                        <li>Undo (Backtrack)</li>
+                    </ol> <br>
+                    <h3>Purpose : </h3>
+                    <ul class="list">
+                        <li>Explore all possible solutions.</li>
+                        <li>Discard invalid paths.</li>
+                    </ul>
+                </div>
+
+            </details>
+
+
+
+
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                   3.General Backtracking Template
+
+                </summary>
+
+                <div class="accordion-content">
+
+                     solve(state){ <br><br>
+
+                        if(base_case){<br>
+                            process_solution();<br>
+                            return;<br>
+                        }<br><br>
+
+                        for(each possible choice){<br><br>
+
+                            choose();<br><br>
+
+                            solve(next_state);<br><br>
+
+                            undo();   // Backtrack<br><br>
+                        }<br>
+                    }
+                </div>
+
+            </details>
+
+
+
+
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                    4.Common Backtracking Patterns
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    <h3>Pattern 1 — Pick / Don't Pick</h3>
+                    Used in: <br>
+                    <ul class="list">
+                        <li>Subsets</li>
+                        <li>Combinations</li>
+                    </ul>
+
+                    <h3>Pattern 2 — Place Every Choice</h3>
+                    Used in: <br>
+                    <ul class="list">
+                        <li>Permutations</li>
+                        
+                    </ul>
+
+                    At every position, <br>
+                    try every available element. <br>
+                    Total permutations: n! <br><br>
+
+                    <h3>Pattern 3 — Constraint Backtracking</h3>
+                    Used in: <br>
+                    <ul class="list">
+                        <li>N Queens</li>
+                        <li>Sudoku</li>
+                        <li>Graph Coloring</li>
+                    </ul>
+                    
+                </div>
+
+            </details>
+
+
+
+
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                    5.Constraint Problems
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    Is this move valid? <br><br>
+
+                    If YES<br><br>
+
+                    Choose<br>
+                    Explore<br>
+                    Undo<br><br>
+
+                    If NO<br><br>
+
+                    Skip<br>
+                </div>
+
+            </details>
+
+
+
+
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                    6.Golden Formula 
+                </summary>
+
+                <div class="accordion-content">
+
+                    State <br>
+                     + <br>
+                    Choices  <br>
+                     +  <br>
+                    Base Case <br>
+                     +  <br>
+                    Undo  <br>
+                     =  <br>
+                    Backtracking <br>
+
+                </div>
+
+            </details>
+
+
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                    7.Decision Examples
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    Problem	-> Decision
+                    <hr>
+                    Subsets	-> Include the element or not? <br>
+                    Permutations -> Which element should be placed next?<br>
+                    Maze -> Which direction should I move?<br>
+                    N-Queens -> In which column should I place the queen?<br>
+
+            </details>
+
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                    8.Four Things to Identify
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    Before writing code, identify:
+                    <ul class="list">
+                        <li>State</li>
+                        <li>Choices</li>
+                        <li>Base Case</li>
+                        <li>Undo Operation</li>
+                    </ul>
+
+            </details>
+
+
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                    9.Recursion vs Backtracking
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    <h3>Recursion</h3>
+
+                    Breaks a problem into smaller problems. <br><br>
+
+                    <h3>Backtracking</h3>
+
+                    Uses recursion to explore choices and undo them. <br>
+
+                    <strong>Backtracking = Recursion + Choices + Undo</strong>
+
+            </details>
+
+        </section>
+
+
+
+        <!-- Practice problem -->
+
+        <section id="practice-problems">
+            <h1>Practice Problems</h1>
+
+            <!-- Tip Box -->
+
+            <div class="tip-box">
+
+            <div class="tip-header">
+
+                 MASTER BACKTRACK TEMPLATE 
+
+            </div>
+
+            <div class="tip-content">
+
+               <pre>
+                void solve(...) { br
+
+                    if(base case) { 
+
+                        store answer 
+
+                        return; 
+
+                    } 
+
+                    for(all choices) { 
+
+                        if(valid) { 
+
+                            make choice 
+
+                            solve(...) 
+
+                            undo choice (backtrack) 
+
+                        } 
+
+                    } 
+
+                } 
+
+               </pre>
+            </div>
+            </div>
+
+
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                     Rat in a maze
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    A rat is placed at the top-left corner of a 
+                    maze represented by a grid of size N × N. 
+                    The rat can move in all four directions: 
+                    Up (U), Down (D), Left (L), and Right (R) at each step. 
+                    The goal is to find all possible paths for the rat to reach 
+                    the bottom-right corner of the maze. The rat cannot move through walls,
+                     represented by the value 0. The open paths are represented by 1. <br><br>
+                    
+                     If there are multiple paths, they should be printed in 
+                     sorted order (lexicographical order of directions). 
+                     If no path exists, print an empty string. <br><br>
+
+                     <h3>Input Format : </h3>
+                     An integer N representing the size of the maze (N × N). <br>
+                     N lines, each containing N space-separated integers (0 or 1) representing the maze:<br>
+                     1 indicates an open cell.<br>
+                     0 indicates a blocked cell (wall).<br><br>
+
+                     <h3>Output Format : </h3>
+                     If at least one path exists, print each valid path directions separated by spaces, 
+                      in sorted order (lexicographical order of the directions). 
+                     If no path exists, return an empty string or print an empty string. <br><br>
+
+                     <h3>Example : </h3>
+                     <strong>Sample Input : </strong>
+                        <pre>
+                            4
+                        1 0 0 0 
+                        1 1 0 1
+                        1 1 0 0
+                        0 1 1 1
+                        </pre>
+                    <h3>Sample Output : </h3>
+                    DDRDRR DRDDRR <br>
+                    <h3>Explanation : </h3>
+                    The rat can reach the destination at (3, 3) from (0, 0) by two paths,
+                     i.e. DRDDRR and DDRDRR when printed in sorted order, we get DDRDRR DRDDRR. <br><br>
+
+                </div>
+
+            </details>
+
+
+                <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                      PALINDROME PARTITIONING 
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    <h3>PROBLEM:</h3>
+                    <p>Given a string s, partition it such that: Every substring is a palindrome. </p><br>
+
+                    <h3>Example: </h3>
+                    <p>Input:  "aab" </p><br>
+                    Output: <br>
+                    <p>[a, a, b] <br> [aa, b] </p><br>
+
+                    TIME COMPLEXITY: O(2^n * n) <br><br>
+                    Reason: <br>
+
+                        - 2^n partitions <br>
+
+                        - Each palindrome check = O(n) <br>
+
+ 
+
+
+
+
+
+                </div>
+
+            </details>
+
+
+
+                        <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                      QUEEN COMBINATION (1D) 
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    <strong>PROBLEM:</strong> Place q queens in n boxes (1D array) <br>
+                    <strong>Condition:</strong> <br>
+                    Each box can have at most 1 queen <br>
+                    Order DOES NOT matter <br>
+
+
+                     <strong>Example:</strong> n = 4, q = 2 <br>
+                     qq-- <br>
+
+                     q-q- <br>
+
+                     q--q <br>
+
+                     -qq- <br>
+
+                     -q-q <br>
+
+                     --qq <br>
+
+                    <h3>TIME Complexity: O(2^n) </h3>
+
+                </div>
+
+            </details>
+
+
+
+                        <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                       QUEEN PERMUTATION (1D) 
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    <strong>PROBLEM:</strong> Place q queens in n boxes 
+                    <strong>Condition:</strong><br>
+                     Order MATTERS <br>
+                     Each queen chooses a box <br><br><br>
+                     <h3>TIME Complexity: O(n^q) </h3>
+
+                </div>
+
+            </details>
+
+
+
+                        <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                     Maze_path( Count, Print)
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    Take as input N1 and N2, both numbers. N1 and N2 is the
+                    number of rows and columns on a rectangular board. 
+                    Our player starts in top-left corner of the board and
+                     must reach bottom-right corner. In one move the player 
+                     can move 1 step horizontally (right) or 1 step vertically (down). <br><br>
+                     a. Write a recursive function which returns the count of different ways the player can travel across the board. Print the value returned. <br>
+                     b. Write a recursive function which returns an ArrayList of moves for all valid paths across the board. Print the value returned. <br>
+
+                     e.g. for a board of size 3,3; a few valid paths will be “HHVV”, “VVHH”, “VHHV” etc.
+                      c. Write a recursive function which prints moves for all valid paths 
+                      across the board (void is the return type for function). <br><br>
+
+                      <h3>Input Format : Enter the number of rows N and columns M</h3>
+
+                      <h3>Output Format : Display the total number of paths and display all the possible paths in a space separated manner</h3>
+                      <strong>Sample Input : </strong><br>
+                      3 <br>
+                      3 <br><br>
+                      <strong>Sample Output : </strong>
+                      VVHH VHVH VHHV HVVH HVHV HHVV <br>
+                      6 <br><br>
+
+
+
+
+
+                </div>
+
+            </details>
+
+
+
+                        <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                     Mazepath_D(Count, Print)
+
+
+
+                </summary>
+
+                <div class="accordion-content">
+
+                   Take as input N1 and N2, both numbers.
+                    N1 and N2 is the number of rows and columns on a
+                     rectangular board. Our player starts in top-left corner 
+                     of the board and must reach bottom-right corner. 
+                     In one move the player can move 1 step horizontally (right) or 
+                     1 step vertically (down) or 1 step diagonally (south-east). <br><br>
+
+                     <strong>Write a recursive function which:</strong>
+                     <p>a. Returns the count of different ways the player can travel across the board. Print the value returned.</p>
+                     <p>b. Prints moves for all valid paths across the board.</p>
+
+
+                     <h3>Input Format : </h3>
+                     <p>Enter the number of rows N1 and number of columns N2</p>
+
+                     <strong>Constraints : </strong> None <br><br>
+                     <h3>Output Format : </h3>
+                     <p>Display the total number of paths and print all the possible paths in a space separated manner</p>
+
+                     <h3>Sample Input : </h3>
+                     3 <br> 3 <br>
+                     <h3>Sample Output : </h3>
+                     VVHH VHVH VHHV VHD VDH HVVH HVHV HVD HHVV HDV DVH DHV DD <br> 13
+
+
+                </div>
+
+            </details>
+
+
+
+                        <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                     Recursion-Dictionary Order(Larger)
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    Take as input str, a string. Write a recursive function which prints all the words possible by rearranging the characters of this string which are in dictionary order larger than the given string. <br>
+                    The output strings must be lexicographically sorted. <br>
+
+                    <h3> Input Format : </h3>
+                    Single line input containing a string <br> <br>
+
+                    <h3>Constraints :</h3>
+                      Length of string &lt;= 10 <br>
+                      All characters are unique <br><br>
+
+
+                    <h3>Output Format : </h3>
+                    Display all the words which are in dictionary 
+                    order larger than the string entered in a new line each. 
+                    The output strings must be sorted. <br><br>
+
+
+                    <strong>Sample Input : </strong> cab <br>
+                    <strong>Sample Output : </strong>cba <br>
+
+                    <h3>Explanation : </h3>
+                    The possible permutations of string "cab" are "abc" ,
+                     "acb" ,"bac" , "bca" , "cab" and "cba" . 
+                     Only one of them is lexicographically greater than "cab". We only print "cba". <br><br>
+
+
+                </div>
+
+            </details>
+
+
+
+                        <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                     Recursion-Dictionary Order(smaller)
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    Take as input str, a string. Write a recursive
+                     function which returns all the words possible by 
+                     rearranging the characters of this string which are 
+                     in dictionary order smaller than the given string.
+                      The output strings must be lexicographically sorted. <br><br>
+                      <h3>Input Format : </h3>
+                      Single line input containing a string <br>
+                      <h3>Constraints : </h3>
+                      Length of string &lt;= 10 <br> All characters are unique <br><br>
+
+                      <h3>Output Format : </h3>
+                      Display all the words which are in dictionary order smaller than the string entered in a new line each. The output strings must be sorted. <br>
+                      <strong>Sample Input : </strong> cab <br>
+                      <strong>Sample Output : </strong> <br> abc <br> acb  <br>bac <br> bca <br><br>
+
+                      <h3>Explanation : </h3>
+                      The possible permutations of string "cab" are "abc" ,
+                       "acb" ,"bac" , "bca" , "cab" and "cba" . Only four of them 
+                       are lexicographically less than "cab". We print them in lexicographical order. <br><br>
+
+
+
+
+
+
+
+
+                     
+
+                </div>
+
+            </details>
+
+
+                        <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                     Tricky Permutations
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    Given a string containing duplicates, print all its 
+                    distinct permutations such that there are no duplicate 
+                    permutations and all permutations are printed in a lexicographic order. <br><br>
+
+                    <strong>Input Format : </strong> The first and only line of the test case contains the input string. <br>
+                    <strong> Constraints : </strong> Length of the string &lt;= 8  <br><br>
+
+                    <strong>Output Format : </strong> Print all the distinct permutations in a lexicographic order such that each permutation is in a new line. Note that there should not be any duplicate permutations. <br><br>
+                    <strong> Sample Input : ABA</strong> <br> <br>
+                    <strong> Sample Output : </strong> <br> AAB <br> ABA  <br> BAA
+
+                    <h3> Explanation : </h3>
+                    The possible permutations for the given string are 
+                    { "AAB" , "AAB" , "ABA" , "BAA" } . We skip the repeating 
+                    "AAB" permutation and only print it in once. Also we print the 
+                    final output in lexicographical order. <br><br>
+
+
+                </div>
+
+            </details>
+
+
+                        <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                     Rat Chases its cheese
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    You are given an N*M grid. Each cell (i,j) in the grid is either blocked, or empty. The rat can move from a position towards left, right, up or down on the grid. <br>
+                    Initially rat is on the position (1,1). It wants to reach position (N,M) where it's cheese is waiting for. If a path exists-it is always unique. Find that path and help the rat reach its cheese. <br>
+                    <strong>Input Format : </strong> <br>
+                    <p>First line contains 2 integers N and M denoting the rows and columns in the grid.</p>
+                    <p>Next N line contains M characters each. An 'X' in position (i,j) denotes that the cell is blocked and ans 'O' denotes that the cell is empty.</p>
+                    <strong>Constraints : </strong> 1 &lt;= N , M &lt;= 10 <br><br>
+
+                    <h3>Output Format : </h3>
+                    Print N lines, containing M integers each. A 1 at a position 
+                    (i,j) denotes that the (i,j)th cell is covered in the path and a 
+                    0 denotes that the cell is not covered in the path. <br>
+                    If a path does not exits then print "NO PATH FOUND" <br>
+
+                    <strong>Sample Input : </strong> <br>
+                        5 4 <br>
+                        OXOO <br>
+                        OOOX <br>
+                        XOXO <br>
+                        XOOX <br>
+                        XXOO <br>
+
+                    <strong> Sample Output : </strong> <br>
+                    1 0 0 0  <br>
+                    1 1 0 0  <br>
+                    0 1 0 0  <br>
+                    0 1 1 0  <br>
+                    0 0 1 1  <br>
+
+
+                </div>
+
+            </details>
+
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                     Recursion-Subsequences
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    Take as input str, a string. We are concerned with all the possible subsequences of str. E.g. <br>
+                    a. Write a recursive function which returns the count of subsequences for a given string. Print the value returned. <br>
+                    b. Write a recursive function which prints all possible subsequences for a “abcd” has following subsequences “”, “d”, “c”, “cd”, “b”, “bd”, “bc”, “bcd”, “a”, “ad”, “ac”, “acd”, “ab”, “abd”, “abc”, “abcd”.given string (void is the return type for function). <br><br>
+                    Note: Use cin for input for C++ <br><br>
+
+                    <strong>Input Format : Enter a string</strong> <br>
+                    <strong>Constraints : </strong> None <br><br>
+                    <strong>Output Format : </strong> Print all the subsequences in a space separated manner and isplay the total no. of subsequences. <br>
+                    <h3>Sample Input : </h3>
+                     abcd <br>
+                     <h3>Sample Output : </h3>
+                     d c cd b bd bc bcd a ad ac acd ab abd abc abcd <br> 16 <br><br>
+
+                     <h3>Explanation : </h3>
+                      Print all possible subsequences of the given string. <br><br>
+
+                </div>
+
+            </details>
+
+
+                         <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                     Mapped Strings
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    We are given a hashmap which maps all the letters with number.
+                     Given 1 is mapped with A, 2 is mapped with B…..26 is mapped with Z.
+                      Given a number, you have to print all the possible strings. <br><br>
+                      <strong>Input Format : </strong> A single line contains a number. <br>
+                      <strong>Constraints : </strong> Number is less than 10^6 <br>
+                      <strong>Output Format : </strong> Print all the possible strings in sorted order in different lines. <br><br>
+
+                      <h3>Sample Input : 123</h3>
+                      <h3>Sample Output : <br> ABC  <br> AW <br> LC</h3>
+
+                      <h3>Explanation : </h3> <br>
+                      '1' '2' '3' = ABC <br>
+                      '1' '23' = AW <br>
+                      '12' '3' = LC <br>
+
+
+
+
+                </div>
+
+            </details>
+
+
+
+
+        </section>
+
+
+
+
+        <!-- Other Resouces -->
+
+        <section id="online-resources">
+            <h1>Online Resources</h1>
+
+
+
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                   Here link of some official documentations are given, Click to see.
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    <ul class="list">
+                        <li><a href="https://isocpp.org/">ISO C++ Foundation</a></li>
+                        <li><a href="https://en.cppreference.com/">cppreference.com</a></li>
+                        <li><a href="https://learn.microsoft.com/en-us/cpp">Microsoft Learn (Excellent for Beginners)</a></li>
+                        
+                    </ul>
+
+                </div>
+
+            </details>
+
+
+
+        </section>
+
+    </section>
+
+    </section>
+
+</main>
+
+
+
+    <section class="info">
+        <ul class="list">
+            <li> Written By <strong>Samar Kumar</strong></li>
+             <li>Designed & Developed By <strong>Samar Kumar</strong></li>
+        </ul>
+    </section>
+
+    
+     <hr>
+    <footer>
+        <div class="footer">
+            <img src="asset/logo.png" alt="logo">
+            <p>KAIZEN TECH</p>
+        </div>
+        <div class="footer">
+            <img src="asset/mirai.png" alt="">
+            <p>Mirai School of Technology</p>
+        </div>
+      
+    </footer>
+    
+    <script src="js/main.js"></script>
+    <!-- <script src="js/recursion.js"></script> -->
+    <script src="js/backtracking.js"></script>
+</body>
+</html>
