@@ -1,0 +1,2967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursion</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/recursion.css">
+    <link rel="stylesheet" href="blog-components/components.css">
+    <link rel="shortcut icon" href="asset/favicon.png" type="image/x-icon">
+</head>
+<body>
+
+    <header id="nav">
+        <div class="header">
+            <div class="header-left">
+                <img src="asset/logo.png" class="header-logo" alt="">
+                <h2>Kaizen Tech</h2>
+            </div>
+            <div class="header-right"> <a href="index.html">← Back to Blog</a> </div>
+       </div>
+       <hr>
+     
+    </header>
+
+   <section class="hero">
+            
+            <!-- hero left -->
+            <div class="hero-left-top">
+                <h1>Master Recursion in C++</h1>
+                <p>Learn recursion  with diagrams, code, interview questions and practice.</p>
+                <div class="hero-left-down">
+
+                    <div>
+                        <span>Difficulty</span>
+                        <h3>Beginner → Intermediate</h3>
+                    </div>
+
+                    <div>
+                        <span>Approx. Reading Time</span>
+                        <h3>45-60 Minutes</h3>
+                    </div>
+
+                    <div>
+                        <span>Prerequisites</span>
+                        <h3>Functions & Loops</h3>
+                    </div>
+
+                    <div>
+                        <span>Language</span>
+                        <h3>C++</h3>
+                    </div>
+
+                </div>
+            </div>
+            
+                <!-- hero right -->
+            <div class="hero-right"><img src="asset/recursion.png" alt=""></div>
+
+
+            
+        </section>
+
+
+       
+
+    <button class="toc-toggle" id="tocToggle">
+
+     ☰ Table of Content
+
+    </button>
+
+     <!-- main -->
+
+    <main class="blog-layout">
+
+    <!-- Left Sidebar -->
+    <aside class="toc-sidebar">
+
+        <button class="toc-close" id="tocClose">
+
+            ✕
+
+        </button>
+
+    <details class="toc-dropdown" open>
+
+        <summary>
+
+            <span>Table of Contents</span>
+
+            <span class="arrow">⌄</span>
+
+        </summary>
+
+        <nav class="toc-links">
+
+            <a href="#introduction">Introduction</a>
+            <a href="#why-recursion">Why Recursion?</a>
+            <a href="#what-is-recursion">What is Recursion?</a>
+            <a href="#how-recursion-works">How does Recursion Work?</a>
+            <a href="#base-case">Base Case</a>
+            <a href="#recursive-case">Recursive Case</a>
+            <a href="#recurrence-relation">Recurrence Relation</a>
+            <a href="#tyes-of-recursion">Types of Recursion</a>
+            <a href="#call-stack">Call Stack</a>
+             <a href="#recursion-tree">Recursion Tree</a>
+            <a href="#common-mistakes">Common Mistakes</a>
+            <a href="#interview-questions">Interview Questions</a>
+            <a href="#quick-revision">Quick Revision</a>
+            <a href="#practice-problems">Practice Problems</a>
+            <a href="#online-resources">Online Resources</a>
+
+        </nav>
+
+    </details>
+
+</aside>
+
+    <!-- Right Content -->
+    <section class="blog-content">
+
+        <!-- Introduction -->
+
+        <section id="introduction">
+            <h1>Introduction</h1>
+            
+            <!-- Text File Container -->
+
+            <div class="text-file">
+
+                <div class="text-file-header">
+
+                   Important Discussion
+
+                </div>
+
+                <div class="text-file-content">
+
+                 <p>⦿ Every programmer reaches a point where simple loops are no longer enough.</p>
+                 <p>⦿ At first, recursion may seem confusing because a function appears to call itself repeatedly.</p>
+                 <p>⦿ Questions like "How does the function know when to stop?", "What happens to previous function calls?", and "How does the program return back?" are common for every beginner. Once you understand the call stack, recursion becomes one of the most elegant problem-solving techniques in programming.</p>
+                 <p>⦿ In this guide, we will build these concepts from the ground up. We will begin with the fundamentals of recursion, understand how the call stack works internally, learn to design recursive solutions, and then naturally transition into backtracking with intuitive explanations and real coding examples in C++.</p>
+                </div>
+            </div>
+
+
+            <!-- Warning Box -->
+
+                <div class="warning-box">
+
+                    <div class="warning-header">
+
+                         Recursion is not difficult because a function calls itself.
+                         It becomes difficult when you don't understand the call stack.
+                          Once you understand how function calls are stored, paused, and resumed,
+                           recursion becomes much easier to learn.
+
+                    </div>
+                </div>
+
+
+        </section>
+
+        <!-- Why Recursion? -->
+        <section id="why-recursion">
+            <h1>Why Recursion?</h1>
+            <!-- Text File Container -->
+
+            <div class="text-file">
+
+                <div class="text-file-content">
+
+                 <p>⦿ You might wonder why programmers use recursion when loops already exist.</p>
+                 <p>⦿ The answer is that some problems become much simpler and easier to understand with recursion.</p>
+                 <p>⦿ Recursion is important because it allows a function to solve a problem by breaking it into smaller instances of the same problem.</p>
+                 <p>⦿ Problems like generating all possible paths, solving mazes, exploring decision trees, or traversing complex data structures require a completely different way of thinking. This is where Recursion and Backtracking become essential.</p>
+
+                </div>
+                 
+            </div>
+
+        </section>
+
+
+          <!-- What is Recursion? -->
+
+        <section id="what-is-recursion">
+            <h1>Let's See Recursion</h1>
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                    Definition
+
+                </div>
+
+                <div class="definition-heading">
+
+                    What is Recursion?
+
+                </div>
+
+                <div class="definition-content">
+
+                    ◦ Recursion is a programming technique in which a function calls
+                     itself to solve a smaller version of the same problem until a
+                     base case is reached.
+
+                </div>
+                <br>
+                <div class="definition-content">
+
+                     ◦ Suppose You are given a problem X for which you want to design a recursive algorithm then recursion says:
+
+                </div>
+
+                <div class="definition-content">
+
+                     - If the current problem can be solved without making another recursive call, solve it directly [Base case]
+                </div>
+                <div class="definition-content">
+
+                     - Otherwise keep breaking the problem into smaller and smaller problems until you solve direcly [ Recursive Case]
+                </div>
+
+            </div>
+
+
+            <!-- Answer Box. -->
+            <div class="answer-box">
+
+                <div class="answer-header">
+
+                    Imagine...
+
+                </div>
+
+                <div class="answer-content">
+
+                    Suppose you have 100 books. Instead of counting all books at once, you count one book, then ask your friend to count the remaining books. Your friend again counts one book, then asks another friend to count the rest. This process continues until no books remain.
+
+                </div>
+
+            </div>
+
+            
+
+            <!-- Tip Box -->
+
+            <div class="tip-box">
+
+                <div class="tip-header">
+
+                    💡When to use recursion 
+
+                </div>
+
+                <div class="tip-content">
+
+                    When problem can be divided into smaller instance of itself.
+
+                </div>
+               
+            </div>
+
+
+             <!-- Warning Box -->
+
+            <div class="warning-box">
+
+                <div class="warning-header">
+
+                    When to Avoid Recursion
+
+                </div>
+
+                <div class="warning-content">
+
+                    - When an iterative solution is simple & more memory efficient.
+                   
+                </div>
+                <div class="warning-content">
+                    - When the recursion depth becomes very large, there is a risk of a stack overflow.
+                </div>
+
+            </div>
+
+
+
+            <!-- Warning Box -->
+
+            <div class="warning-box">
+
+                <div class="warning-header">
+
+                    ⚠ Warning
+
+                </div>
+
+                <div class="warning-content">
+
+                    Recursion is not a data type or a programming language feature. It is a problem-solving technique in which a function solves a problem by calling itself.
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+       <!-- How does Recursion work? -->
+        <section id="how-recursion-works">
+            <h1>How does Recursion work?</h1>
+
+             <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                    Let's Understand With An Example
+
+                </div>
+
+                <div class="definition-heading">
+
+                  Suppose you have to find the sum of a array, arr = [2,5,7,4]
+
+                </div>
+
+                <div class="definition-content">
+
+                    Instead of adding everything together at once, the function thinks like this:
+
+                </div>
+                <div class="definition-content">
+
+                    <p>Step 1 : 2 + sum([5,7,4])</p> 
+                    <p>Step 2 : 2 + (5 + sum([7,4]))</p>
+                    <p>Step 3 : 2 + (5 + (7 + sum([4])))</p>
+                    <p>Step 4 : 2 + (5 + (7 + (4 + sum([]))))</p>
+                    <br>
+
+                    <h3>When base case hits, function starts returning</h3>
+                    <br>
+
+                    <p>Step 1 : 2 + (5 + (7 + (4 + 0)))</p>
+                    <p>Step 2 : 2 + (5 + (7 + 4))</p>
+                    <p>Step 3 : 2 + (5 + 11 )</p>
+                    <p>Step 4 : 2 + 16</p> 
+
+                    <p> So, finally function will return 18 as total sum of array</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Base case and recursive case -->
+
+        <section class="base-recursive">
+            <h1>Base case and Recursive case</h1>
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-content">
+
+                   As we discussed above, every recursive function has two parts: <br>
+                   (i)  Base case <br>
+                   (ii) Recursive case
+                </div>
+
+            </div>
+
+            <!-- Answer Box. -->
+            <div class="answer-box">
+
+                <div class="answer-header">
+
+                    Understanding the Base Case & Recursive case  with a Mango Tree
+
+                </div>
+
+                <div class="answer-content">
+
+                    Imagine...  you are climbing a mango tree to pick mangoes.
+                    You keep climbing from one branch to the next until you reach the highest branch you can 
+                    safely climb. At this point, you cannot climb any higher, so you have to stop and come back down.
+
+                </div>
+
+            </div>
+
+
+            <!-- Note Box. -->
+            <div class="note-box">
+
+                <div class="note-header">
+
+                    Relating Recursion to the mango tree
+
+                </div>
+
+                <div class="note-content">
+
+                    <p>Suppose your goal is to reach the top of the tree. You don't jump directly to the highest branch.</p>
+                    <p>Instead, you climb:</p>
+                    <div class="tree">
+                        <h3>Ground</h3>
+                        <h3> ↓</h3>
+                        <h3>Branch 1</h3>
+                        <h3>↓</h3>
+                        <h3>Branch 2</h3>
+                        <h3>↓</h3>
+                        <h3>Branch 3</h3>
+                        <h3>↓</h3>
+                        <h3>Highest Branch (Base Case)</h3>
+                    </div>
+                    <br>
+                    <p>Every movement from one branch to the next is like making a recursive call.</p>
+                    <p>When you finally reach the highest branch, you stop climbing (Base Case) and begin returning.</p>
+
+                
+                    
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Base case -->
+
+        
+        
+        <section id="base-case">
+            <h1>Base Case</h1>
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                    Definition
+
+                </div>
+
+
+                <div class="definition-content">
+
+                   <h3>The base case is the condition where a recursive function stops calling itself and starts returning.</h3>
+
+                   <br><br>
+
+                   We will understand the concept of the base case again through different questions.
+
+                </div>
+
+            </div>
+
+            
+
+        </section>
+
+        <!-- Recursive case -->
+
+        <section id="recursive-case">
+            <h1>Recursive Case</h1>
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                    Definition
+
+                </div>
+
+
+                <div class="definition-content">
+
+                    A recursive case is the condition or logic in a recursive function where the function calls itself to solve a smaller subproblem until it eventually reaches the base case.
+
+                </div>
+
+            </div>
+
+            <!-- Note Box. -->
+            <div class="note-box">
+
+                <div class="note-header">
+                 In the prevoius example of Mango Tree
+                   
+
+                </div>
+
+                <div class="note-content">
+
+                    <p>When you are standing on a branch, ask yourself: "Can I climb higher?"</p>
+                    <p>- If the answer is YES, then you climb to the next branch.</p>
+                    <p>- If the answer is NO, then you have reached the base case and start coming back down.</p>
+                    <h3>Every time you decide to climb to the next branch, you are doing the "recursive case".</h3>
+                    <br><br>
+
+                    <p>Now, there are two possibilities:</p>
+                    <h3>1. You return with a mango</h3>
+                    <p>This is similar to a recursive function whose return type is int (or any non-void type).</p>
+                    <p>Just as you come back carrying a mango, the function returns with a value.</p><br>
+                    <h3>For example:</h3> <br>
+                    int factorial(int n) {     // Return type of function is int<br><br>  
+                        if (n==1)   // Base Case <br>
+                        return1; <br><br>
+                        return n ＊ factorial(n-1);   // recursive case<br><br>
+                    }
+
+                    <h3>Here, when the base case is reached, the function returns the integer value 1. That value is then passed back through all the previous recursive calls.</h3><br><br>
+
+                    <h3>2. You return without a mango</h3>
+                    <p>This is similar to a recursive function whose return type is void.</p><br>
+                    <p>You still climb up and come back down, but you don't bring anything with you. In the same way, a `void` function returns control to the previous function call "without returning any value".</p>
+                    <br>
+                     <h3>For example:</h3>
+
+                     void printNumbers(int n) { <br><br>
+                        if (n==0)// Base Case <br>
+                        return; <br><br>
+
+                        printNumbers(n-1);   <br>
+                     } <br><br>
+
+                     <h3>Here, the function simply stops at the base case and returns. Since its return type is `void`, no value is sent back.</h3>
+                      <br><br>
+                    We will understand the complete concept behind this problem later. For now, just focus on identifying the base case and the recursive case.
+                </div>
+
+            </div>
+
+
+            <!-- Tip Box -->
+
+            <div class="tip-box">
+
+                <div class="tip-header">
+
+                    Key Idea
+
+                </div>
+
+                <div class="tip-content">
+
+                    <ul class="list">
+                        <li>Climbing up the tree → Making recursive calls.</li>
+                        <li>Reaching the highest branch you can climb → Reaching the base case.</li>
+                        <li>Coming back down → Returning from the recursive calls. </li>
+                        <li>Coming back with a mango → Returning a value (int, string, etc.)</li>
+                        <li>Coming back without a mango → Returning without a value (void). </li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- Recurrence Relation -->
+
+        <section id="recurrence-relation">
+            <h1>Recurrence Relation</h1>
+
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                    Definition
+
+                </div>
+
+                <div class="definition-content">
+
+                    <p>A recurrence relation is a mathematical equation that expresses a problem in terms of one or more smaller instances of the same problem.</p>
+                    <br>
+                    <h3>Example : </h3>
+                    <p>If we have to calculate factorial of 5</p>
+                    <p>Then, We can write </p>
+                        5 ! = 5 x 4 ! <br>
+                        4 ! = 4 x 3 !  <br>
+                        3 ! = 3 x 2 !   <br>
+                        2 ! = 2 x 1 !   <br>
+                        1 ! = 1 x 0 !   <br>
+
+                    <p>Since 0! = 1,</p>
+                    <p>1! = 1 × 1 = 1</p>
+                    <h3>Therefore, the recurrence relation for this problem is:</h3>
+
+                    <h3> factorial(i) = i × factorial(i - 1)</h3>
+                    <p> Where : </p>
+                    <ul class="list">
+                        <li>1 ≤ i ≤ n</li>
+                        <li>factorial(i - 1): Represents the smaller subproblem that helps solve the larger problem.</li>
+                        <li>factorial(i): Represents the current problem, which is solved by multiplying i with the result of the smaller subproblem, factorial(i - 1).</li>
+
+                    </ul>
+                    
+                </div>
+
+            </div>
+
+
+            
+
+            <!-- C++ Code Container -->
+
+            <div class="code-block">
+
+                <div class="code-header">
+
+                    <span class="language">C++ Code for Calculating Factorial</span>
+
+                    <button class="copy-btn">
+                        Copy
+                    </button>
+
+                </div>
+
+            <pre><code>
+
+            int factorial(int n) {
+
+             if (n == 0)  // base case 
+              return 1;
+
+             return n * factorial(n - 1);  // recursive case
+            }
+            </code></pre>
+
+            </div>
+
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                   Explanation of above code
+
+                </div>
+                <div class="definition-content">
+                    <p>For the above code, the base case is n == 0 
+                        because the recurrence relation keeps reducing the 
+                        value of n by 1 until it reaches 0. By definition, 0! = 1, 
+                        so recursion stops at this point and returns 1. If we did not 
+                        stop at 0, the recursion would continue indefinitely and eventually
+                         attempt to compute the factorial of negative numbers, which is not defined.</p>
+                </div>
+
+            </div>
+
+
+
+
+            <!-- Warning Box -->
+
+            <div class="warning-box">
+
+                <div class="warning-header">
+
+                    ⚠ Warning
+
+                </div>
+
+                <div class="warning-content">
+
+                A recurrence relation only tells us how to reduce 
+                the problem into smaller subproblems. It does not tell us when to stop.
+                    The stopping condition is provided by the base case.
+
+                </div>
+
+            </div>
+
+
+
+
+        </section>
+        <!-- types of recursion -->
+        <section id="tyes-of-recursion">
+            <h1>Types of Recursion</h1>
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                    Types of recursion
+
+                </div>
+
+                <div class="definition-content">
+
+                    <p>We know that recursion is nothing but function calling itself</p><br>
+                     <h3>1.Head Recursion : </h3>
+                     In head recursion, the function first calls itself, and the remaining code executes while returning back from the stack. <br>
+                     <!-- C++ Code Container -->
+
+                    <div class="code-block">
+
+                        <div class="code-header">
+
+                            <span class="language">C++</span>
+
+                            <button class="copy-btn">
+                                Copy
+                            </button>
+
+                        </div>
+
+                    <pre><code>
+                        #include &lt;iostream&gt;
+                        using namespace std;
+
+                        void printHead(int n){
+                            if(n == 0) return;
+
+                            printHead(n - 1);   // recursive call first
+                            cout &lt;&lt; n &lt;&lt; " ";   // executes after returning
+                        }
+
+                        int main(){
+                            printHead(5);
+                        }
+
+                    </code></pre>
+
+                    </div>
+
+                </div> <br><br>
+
+
+                <h3>2.Tail Recursion : </h3> <br>
+                    In tail recursion, the recursive call is the last operation. <br>
+                     <!-- C++ Code Container -->
+
+                    <div class="code-block">
+
+                        <div class="code-header">
+
+                            <span class="language">C++</span>
+
+                            <button class="copy-btn">
+                                Copy
+                            </button>
+
+                        </div>
+
+                    <pre><code>
+                        #include &lt;iostream&gt;
+                        using namespace std;
+
+                        void printTail(int n){
+                            if(n == 0) return;
+
+                            cout &lt;&lt; n &lt;&lt; " ";   // work first
+                            printTail(n - 1);   // recursive call last
+                        }
+
+                        int main(){
+                            printTail(5);
+                        }
+
+                    </code></pre>
+
+                    </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- Call Stack -->
+
+        <section id="call-stack">
+            <h1>Call Stack</h1>
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                    Definition
+
+                </div>
+
+                <div class="definition-heading">
+
+                    What is a Stack?
+
+                </div>
+
+                <div class="definition-content">
+
+                    <p>A stack is a data structure that follows: LIFO → Last In First Out</p>
+
+                    <p>Meaning: The thing which enters last comes out first.</p>
+
+                    <h3>Example:</h3>
+                    <h3>Imagine a stack of plates.</h3>
+                    <br>
+                    Plate 3  ← Last placed <br>
+                    Plate 2 <br>
+                    Plate 1  ← First placed <br><br>
+
+                    <h3>When you remove plates: </h3>
+
+                    Plate 3 comes out first <br>
+                    then Plate 2 <br>
+                    then Plate 1 <br><br>
+
+                    This is exactly how memory handles function calls. <br><br>
+
+                </div>
+
+            </div>
+
+
+                        <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                   Example 
+
+                </div>
+
+                <div class="definition-content">
+
+                    <h3>What happens in Stack when we call a normal function?</h3>
+                </div>
+
+
+                <!-- C++ Code Container -->
+
+                <div class="code-block">
+
+                    <div class="code-header">
+
+                        <span class="language">C++</span>
+
+                        <button class="copy-btn">
+                            Copy
+                        </button>
+
+                    </div>
+
+                    <pre><code>
+
+                    
+
+                    void fun(){ 
+                    cout&lt;&lt;"Hello"; 
+                    }
+
+                    int main(){
+
+                    ```
+                    fun();
+                    
+                    ````
+                    return 0;
+                    
+
+                    }
+
+                    </code></pre>
+
+                </div>
+
+
+                <h3>Execution: </h3>
+
+                <pre>
+                    main() 
+                     |  
+                     | 
+                    calls 
+                     | 
+                     v 
+                    fun() 
+                </pre>
+                <br><br>
+                <h3>When main() starts:</h3> 
+
+                <p> A stack frame is created:</p> <br>
+                <pre>
+                        Stack
+
+                    ----------------
+                         main()
+                    ----------------
+                </pre>
+                <br>
+                <h3>When main() calls fun():</h3>
+                <p> A new frame is pushed</p>
+
+                <pre>
+                    
+
+                          Stack
+
+                    ---------------------
+                          fun()
+                    ---------------------
+                          main()
+                    ---------------------
+
+                </pre><br>
+
+                <h3>Now CPU executes fun().</h3> <br>
+                <p>After finishing the execution : fun() removed from the Stack</p>
+                <p>And, Stack becomes :</p> <pre>
+
+                        Stack
+
+                    ----------------
+                         main()
+                    ----------------
+                </pre><br>
+
+                <p>Now, main() will resume execution from where it was paused when it called fun().</p> <br>
+
+                <p>Then, main() also finishes and removed from Stack</p> <br>
+                <p>Now, Stack becomes empty</p>
+
+            </div>
+
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                    Definition
+
+                </div>
+
+                <div class="definition-heading">
+
+                   What is a Stack Frame?
+
+                </div>
+
+                <div class="definition-content">
+
+                    <h3>Whenever a function is called, memory creates a small box called Stack Frame</h3>
+                    <p>It stores:</p>
+                    <ul class="list" >
+                        <li>Function parameters</li>
+                        <li>Local variables</li>
+                        <li>Return address </li>
+                        <li>Current execution state</li>
+                    </ul>
+
+                    <p>These all store in stack frame</p> <br>
+
+                    <p>Example:</p>
+
+                    <pre>
+                        void fun(int x){ <br>
+                            int y = 10;  <br>
+                        }
+                    </pre>
+
+                    <p> For this function Stack may Store : </p><br><br><br>
+
+
+                   
+                         Stack : <br>
+                    ------------------------------------<br>
+                            fun()<br><br>
+
+                            x = value<br><br>
+
+                            y = 10<br><br>
+
+                            where to return <br><br>
+                        
+                    -------------------------------------<br><br><br>
+                    
+
+                    <h3>  Every recursive call gets its own separate stack frame.</h3>
+                </div>
+
+            </div>
+
+
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                    Explanation
+
+                </div>
+
+                <div class="definition-heading">
+
+                    How does recursive function work in call Stack?
+
+                </div>
+
+                <div class="definition-content">
+
+                    <h3>we know recursion means a function calling itself</h3> <br>
+
+                    <h3>Example:</h3>
+
+                    <!-- C++ Code Container -->
+
+                    <div class="code-block">
+
+                        <div class="code-header">
+
+                            <span class="language">C++</span>
+
+                            <button class="copy-btn">
+                                Copy
+                            </button>
+
+                        </div>
+
+                    <pre><code>
+
+                    void print(int n){
+                        if(n == 0){
+                            return ;
+                        }
+
+                        cout&lt;&lt;n;
+
+                        print(n-1);
+                    }
+
+                    </code></pre>
+
+                    </div>
+
+                    <p>Let's assume n = 3</p>
+
+                    <h3>CALL : Print(3)</h3>
+                    <h3>EXECUTION :</h3>
+                    <pre>
+                        print(3)
+                           |
+                        cout&lt;&lt;3
+                           |
+                        print(2)
+                           |
+                        cout&lt;&lt;2
+                           |
+                        print(1)
+                           |
+                        cout&lt;&lt;1
+                           |
+                        print(0)   ----&gt; Base case<br>
+
+                    <h3> Output : 3 2 1</h3>
+                   
+                    </pre>
+                    <h3> Note: Here, 0 is not printed after 1 because the function execution stops at the base case (n == 0).</h3> <br>
+
+                    <h3>LET US SEE : Stack during Recursion Call</h3>
+
+                    <p>Initial:</p> 
+                         Step 1:        main() calls print(3) <br><br><br>
+
+                                            stack :<br><br>
+
+                                            -----------------------<br>
+                                            print(3)<br>
+                                            -----------------------<br><br><br><br>
+                    
+
+                    
+                     Step 2:    Now print(3) calls print(2) : <br><br>
+
+                                            Stack :<br><br>
+
+                                            -----------------------<br>
+                                            print(2)<br>
+                                            -----------------------<br>
+                                            print(3)<br>
+                                            -----------------------<br><br><br><br><br>
+
+                    
+
+                    
+                     Step 3:      Now print(2) calls print(1):<br><br>
+
+
+                                            Stack :<br><br>
+
+                                            -----------------------<br>
+                                            print(1)<br>
+                                            -----------------------<br>
+                                            print(2)<br>
+                                            -----------------------<br>
+                                            print(3)<br>
+                                            -----------------------<br><br><br><br><br><br>
+
+                  
+
+                    
+                     Step 4:    Now print(1) calls print(0):<br><br>
+
+                                            Stack :<br><br>
+
+                                            -----------------------<br>
+                                            print(0)<br>
+                                            -----------------------<br>
+                                            print(1)<br>
+                                            -----------------------<br>
+                                            print(2)<br>
+                                            -----------------------<br>
+                                            print(3)<br>
+                                            -----------------------<br><br><br><br><br><br><br>
+
+
+                  
+
+                    
+                        Base case : if( n == 0) <br>
+                                         return; <br><br>
+
+                        So, the base case has been reached. Now, the function will start returning from top of stack. <br><br>
+
+                        And rest all functions will removed/returned form every stack step by step <br><br>
+                    
+
+                    
+                        <h3>Step by Step returning of the function in Call Stack</h3><br><br><br>
+
+                        
+                            Step 1:      When print(0) returns:<br><br><br>
+
+
+                                            Stack :<br><br>
+
+                                            -----------------------<br>
+                                            print(1)<br>
+                                            -----------------------<br>
+                                            print(2)<br>
+                                            -----------------------<br>
+                                            print(3)<br>
+                                            -----------------------<br><br><br><br><br><br>
+
+                        
+
+                        
+                            Step 2:        Now, print(1) returns: <br><br>
+
+                                            Stack :<br><br>
+
+                                            -----------------------<br>
+                                            print(2)<br>
+                                            -----------------------<br>
+                                            print(3)<br>
+                                            -----------------------<br><br><br><br>
+                        
+
+                        
+                            Step 3:        Now, print(2) returns: <br><br>
+
+                                            Stack :<br><br><br><br>
+
+                                            
+                                            -----------------------<br>
+                                            print(3)<br>
+                                            -----------------------<br><br><br><br>
+                        
+                        
+                            Step 2:        Now, print(3) returns: <br><br>
+
+                                            Stack :<br><br><br><br><br>
+
+                                            
+                                            
+                                           
+                                            -----------------------<br><br><br><br>
+
+                            
+                        
+                        <h3> Here, execution completes, and the call stack becomes empty as each function returns.</h3>
+
+                    
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                   Confusion While Reading Stack Documentation...  [Not Important]
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    <h3>Why is the Function Call Flow shown from Top to Bottom, but the Stack shown from Bottom to Top?</h3><br><br>
+
+                    <p>Many beginners get confused because the function call flow and the call stack are drawn in different directions. The reason is that they represent two different things.</p><br>
+
+                    <h3>1. Function Call Flow (Top → Bottom)</h3>
+                    <p>This diagram only represents the execution order of the program. It does not show how memory is organized..</p><br>
+                    <h3>Example:</h3>
+                    <pre>
+                        fun(3)
+                          |
+                          v
+                        fun(2)
+                          |
+                          v
+                        fun(1)
+                          |
+                          v
+                        fun(0)
+                    </pre>
+
+                    <h3>2. Call Stack (Bottom → Top)</h3> <br>
+                    <p>The call stack shows how function calls are stored in memory.</p>
+                    <p>Whenever a function is called, a new stack frame is created and pushed onto the top of the stack.</p>
+                    <h3>Example:</h3><br><br>
+                   
+                        Top<br>
+                        -------------<br>
+                        fun(0)<br>
+                        -------------<br>
+                        fun(1)<br>
+                        -------------<br>
+                        fun(2)<br>
+                        -------------<br>
+                        fun(3)<br>
+                        -------------<br>
+                        Bottom<br><br><br><br>
+                    
+
+                    <h3>Key Difference : </h3>
+                    <ul class="list">
+                        <li>Function Call Flow shows how the program executes.</li>
+                        <li>Call Stack shows how function calls are stored in memory.</li>
+                    </ul>
+
+
+
+                </div>
+
+            </details>
+
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                    Most Important Concept  
+
+                </div>
+
+                <div class="definition-heading">
+
+                    PAUSE and RESUME (Imp.)
+
+                </div>
+
+                <div class="definition-content">
+
+                    <h3>A recursive call does NOT destroy the previous function. It pauses it.</h3>
+                    <br><br>
+                    <h3>Example:</h3>
+
+
+                    <!-- C++ Code Container -->
+
+                    <div class="code-block">
+
+                        <div class="code-header">
+
+                            <span class="language">C++</span>
+
+                            <button class="copy-btn">
+                                Copy
+                            </button>
+
+                        </div>
+
+                        <pre><code>
+                            void fun(int n){
+                                if (n == 0)
+                                return;
+                            
+                                cout&lt;&lt;"Going Up "&lt;&lt;n&lt;&lt;endl;
+
+                                fun(n-1);
+                                cout&lt;&lt;"Comming Back "&lt;&lt;n&lt;&lt;endl;
+                            }
+
+                        </code></pre>
+                        
+
+
+                    </div>
+
+                    <h3> Assume, n = 3</h3>
+                        <p> Call : fun(3)</p>
+                        <h3>Output : </h3>
+
+                        <pre>
+                                    Going Up 3
+                                    Going Up 2
+                                    Going Up 1
+                                    Comming Back 1
+                                    Comming Back 2
+                                    Comming Back 3
+                        </pre>
+
+                    <h3>Why?</h3> <br>
+                    <h3>Let's See the Explanation Step By Step : </h3><br>
+                    <h3>Phase 1 : Function Calling</h3> <br><br><br>
+
+                    
+                    Step 1 :    When fun(3) runs<br><br>
+                                 
+                    Stack : <br><br>
+
+                           -----------------------------------------------------<br>
+                                    fun(3), n = 3    <br>
+                                    Executed: cout&lt;&lt;"Going Up 3" <br><br>
+
+                                    Waiting...      <br>
+                                    Next Line To Execute→  cout&lt;&lt;"Coming Back 3" <br>
+                                    Return Address → main() <br>
+                           ------------------------------------------------------<br><br><br><br><br>
+
+                   
+                    <ul class="list">
+                        <li>When fun(3), it prints "Going Up 3", and calls fun(2)</li>
+                        <li>fun(3) Pauses here and calls fun(2)</li>
+                        <li>The CPU says : Okay, I will remember where i stopped. Let me execute fun(2)</li>
+                    </ul>
+                    <br><br>
+                   
+                     Step 2 : <br><br>
+                                 
+                     Stack : <br>
+                           -----------------------------------------------------<br>
+                                    fun(2), n = 2   <br>
+                                    Executed: cout&lt;&lt;"Going Up 2" <br><br>
+
+                                    Waiting...      <br>
+                                    Next Line To Execute→  cout&lt;&lt;"Coming Back 2" <br>
+                                    Return Address → fun(3)        <br>
+                           -----------------------------------------------------<br>
+                                    fun(3), n = 3  <br>
+                                    Executed: cout&lt;&lt;"Going Up 3" <br><br>
+
+                                    Waiting...      <br>
+                                    Next Line To Execute→  cout&lt;&lt;"Coming Back 3" <br>
+                                    Return Address → main() <br>
+                           ------------------------------------------------------ <br><br><br><br>
+
+
+                    
+                    <ul class="list">
+                        <li>When fun(2), it prints "Going Up 2", and calls fun(1)</li>
+                        <li>fun(2) Pauses here and calls fun(1)</li>
+                        <li>The CPU says : Okay, I will remember where i stopped. Let me execute fun(1)</li>
+                    </ul> <br><br><br>
+                
+                    
+                    Step 3 :  <br><br>
+                                 
+                     Stack : <br><br>
+
+                           ----------------------------------------------------- <br>
+                                    fun(1), n = 1  <br>
+                                    Executed: cout&lt;&lt;"Going Up 1" <br><br>
+
+                                    Waiting...      <br>
+                                    Next Line To Execute→ cout&lt;&lt;"Coming Back 1" <br>
+                                    Return Address → fun(2)        <br>
+                           -----------------------------------------------------<br>
+                                    fun(2), n = 2  <br>
+                                    Executed: cout&lt;&lt;"Going Up 2"<br><br>
+
+                                    Waiting...      <br>
+                                    Next Line To Execute→  cout&lt;&lt;"Coming Back 2" <br>
+                                    Return Address → fun(3)        <br>
+                           -----------------------------------------------------<br>
+                                    fun(3), n = 3 <br>
+                                    Executed: cout&lt;&lt;"Going Up 3"<br><br>
+
+                                    Waiting...      <br>
+                                    Next Line To Execute→  cout&lt;&lt;"Coming Back 3" <br>
+                                    Return Address → main() <br>
+                           ------------------------------------------------------<br><br><br><br><br>
+
+                    
+                    <ul class="list">
+                        <li>When fun(1), it prints "Going Up 1", and calls fun(0)</li>
+                        <li>fun(1) Pauses here and calls fun(0)</li>
+                        <li>The CPU says : Okay, I will remember where i stopped. Let me execute fun(0)</li>
+                    </ul><br><br><br>
+                         
+                   
+                     Step 4 : <br><br>
+                                 
+                     Stack : <br><br>
+                           -----------------------------------------------------<br>
+                                fun(0), n = 0   // base case <br>
+                           -----------------------------------------------------<br>
+                                fun(1), n = 1 <br>
+                                Executed: cout&lt;&lt;"Going Up 1"<br><br>
+                                   
+                                Waiting...      <br>
+                                Next Line To Execute→ cout&lt;&lt;"Coming Back 1 " <br>
+                                Return Address → fun(2)        <br>
+                           -----------------------------------------------------<br>
+                                fun(2), n = 2  <br>
+                                Executed: cout&lt;&lt;"Going Up 2"<br><br>
+
+                                Waiting...      <br>
+                                Next Line To Execute→  cout&lt;&lt;"Coming Back 2" <br>
+                                Return Address → fun(3)        <br>
+                           -----------------------------------------------------<br>
+                                fun(3), n = 3 <br>
+                                Executed: cout&lt;&lt;"Going Up 3"<br><br>
+
+                                Waiting...      <br>
+                                Next Line To Execute→  cout&lt;&lt;"Coming Back 3" <br>
+                                Return Address → main() <br>
+                           ------------------------------------------------------<br><br><br><br><br>
+
+                 
+                    <ul class="list">
+                       <li>n == 0  is the base, so fun(0) dies at base case and does not go for recursive case</li>
+                       <li>Now stack starts popping</li>
+                       <li>The function below regains control and resumes execution from the point where it was paused before calling another function.</li>
+                    </ul><br><br>
+
+                    <h3>Output till phase 1 : </h3> <br><br>
+
+                                    Going Up 3 <br>
+                                    Going Up 2 <br>
+                                    Going Up 1 <br><br><br><br>
+                       
+
+                       
+                    <h3>Phase 2 : Function Returning (Coming Back)</h3><br> <br><br>
+
+                   
+                     Step 1 : <br><br>
+                                 
+                     Stack : <br><br>
+                           
+                           -----------------------------------------------------<br>
+                                fun(1), n = 1 <br><br>
+                               
+                                Resumed After:fun(0)<br><br>
+                                     
+                                Now Executing:<br>
+                                cout&lt;&lt;"Coming Back 1 " <br><br>
+
+                                Return Address → fun(2)     <br>   
+                           -----------------------------------------------------<br>
+                                fun(2), n = 2  <br>
+                                Executed: cout&lt;&lt;"Going Up 2"<br><br>
+
+                                Waiting...      <br>
+                                Next Line To Execute→  cout&lt;&lt;"Coming Back 2" <br>
+                                Return Address → fun(3)        <br>
+                           -----------------------------------------------------<br>
+                                fun(3), n = 3 <br>
+                                Executed: cout&lt;&lt;"Going Up 3"<br><br>
+
+                                Waiting...      <br>
+                                Next Line To Execute→  cout&lt;&lt;"Coming Back 3" <br>
+                                Return Address → main() <br>
+                           ------------------------------------------------------<br><br><br><br><br>
+
+                    
+
+                    <h3>Output :Coming Back 1</h3> <br><br><br>
+
+                   
+                     Step 2 : <br><br>
+                                 
+                     Stack : <br><br>
+                            
+                           -----------------------------------------------------<br>
+                                fun(2), n = 2  <br>
+                                Resumed After:fun(1)<br><br>
+
+                                Now Executing:      <br>
+                                cout&lt;&lt;"Coming Back 2" <br><br>
+                                
+                                Return Address → fun(3)      <br>  
+                           -----------------------------------------------------<br>
+                                fun(3), n = 3 <br>
+                                Executed: cout&lt;&lt;"Going Up 3"<br><br>
+
+                                Waiting...      <br>
+                                Next Line To Execute→  cout&lt;&lt;"Coming Back 3" <br>
+                                Return Address → main() <br>
+                           ------------------------------------------------------<br><br><br><br><br>
+
+                    
+
+                    <h3>Output :Coming Back 2</h3><br><br><br>
+
+
+                    
+                     Step 3 : <br><br>
+                                 
+                     Stack : <br><br>
+                            
+                           -----------------------------------------------------<br>
+                                fun(3), n = 3 <br>
+                                Resumed After:fun(2)<br><br><br>
+
+
+                                Now Executing:    <br>
+                                cout&lt;&lt;"Coming Back 3" <br><br>
+
+                                Return Address → main() <br>
+                           ------------------------------------------------------<br><br><br><br><br>
+
+                    
+
+                    <h3>Output :Coming Back 3</h3><br><br>
+
+                    <h3>Final Stack</h3><br><br>
+                            
+                                -------------------<br>
+                                     main()<br>
+                                -------------------<br><br>
+                            <br><br>
+                    <p>After main() finishes, the call stack also becomes empty and the program terminates.</p><br><br><br>
+
+                    
+                    <h3>Output from phase 2 : </h3><br><br>
+                        
+                                    Comming Back 1<br>
+                                    Comming Back 2<br>
+                                    Comming Back 3<br><br><br>
+                       
+
+                    <h3>Overall Output :</h3> <br><br>
+                        
+                                    Going Up 3<br>
+                                    Going Up 2<br>
+                                    Going Up 1<br>
+                                    Comming Back 1<br>
+                                    Comming Back 2<br>
+                                    Comming Back 3<br>
+        
+                </div>
+
+
+                <!-- Expand Box -->
+                <details class="accordion-box">
+
+                    <summary>
+
+                        Complete Timeline
+
+                    </summary>
+
+                    <div class="accordion-content">
+
+                   
+                        
+
+                                     FUNCTION CALLING <br><br>
+
+                            main()<br>
+                            │<br>
+                            ▼<br>
+                            fun(3)<br>
+                            │<br>
+                            ├── Going Up 3<br>
+                            ▼<br>
+                            fun(2)<br>
+                            │<br>
+                            ├── Going Up 2<br>
+                            ▼<br>
+                            fun(1)<br>
+                            │<br>
+                            ├── Going Up 1<br>
+                            ▼<br>
+                            fun(0)<br>
+                            │<br>
+                            └── Base Case<br><br><br><br><br>
+                    
+
+                    
+
+                                    FUNCTION RETURNING<br><br>
+
+                            fun(0)<br>
+                            │<br>
+                            ▼<br>
+                            fun(1)<br>
+                            │<br>
+                            ├── Coming Back 1<br>
+                            ▼<br>
+                            fun(2)<br>
+                            │<br>
+                            ├── Coming Back 2<br>
+                            ▼<br>
+                            fun(3)<br>
+                            │<br>
+                            ├── Coming Back 3<br>
+                            ▼<br>
+                            main()<br>
+                    
+                    </div>
+
+                </details>
+
+            </div>
+
+
+            <!-- Tip Box -->
+
+            <div class="tip-box">
+
+                <div class="tip-header">
+
+                     Where Exactly Does a Function Pause?
+
+                </div>
+
+                <div class="tip-content">
+
+                   
+                     When a function calls another function, 
+                     everything written after the function call is paused.
+                      Execution stops at that point, and the remaining 
+                      statements below the function call do not execute immediately. <br><br>
+
+                      Once the recursive call reaches the base case and starts returning,
+                       the paused function regains control and resumes execution 
+                       from the exact point where it was paused—that is, 
+                       from the statement immediately after the recursive function call.
+
+                </div>
+            </div>
+
+        </section>
+
+
+
+
+
+          
+        <!-- Recursion Trees -->
+        <section id="recursion-tree">
+            <h1>Recursion Trees</h1>
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                    Definition
+
+                </div>
+
+                <div class="definition-content">
+
+                   <h3> A recursion tree is simply a visual representation of how recursive function calls are created.</h3>
+
+                   <ul class="list">
+                        <li>Every circle (node) represents one function call.</li>
+                        <li>Every arrow (edge) represents a function calling another function.</li>
+                        <li>The root is the very first function call.</li>
+                        <li>The leaves are the function calls that hit the base case.</li>
+                   </ul> <br><br>
+
+
+
+                        <h3>1. Linear Tree</h3><br>
+                        <p>Each node creates exactly one child.</p><br>
+                        <h3>Example of Tree : </h3>
+
+                        <!-- C++ Code Container -->
+
+                    <div class="code-block">
+
+                        <div class="code-header">
+
+                            <span class="language">C++</span>
+
+                            <button class="copy-btn">
+                                Copy
+                            </button>
+
+                        </div>
+
+                    <pre><code>
+
+                    void fun(int n)
+                    {
+                        if(n == 0)
+                            return;
+
+                        fun(n - 1);
+                    }
+
+                    </code></pre>
+                    
+
+                    </div>
+
+                    <p>If n = 3, then</p>
+
+                    <p>The recursion tree becomes</p>
+                    <pre>
+                                  fun(3)
+                                    |
+                                    |
+                                fun(2)
+                                    |
+                                    |
+                                fun(1)
+                                    |
+                                    |
+                                fun(0)   ← Base Case
+                    </pre>
+
+                    <p>Every function creates only one child.</p>
+                    <h3>This is called a linear recursion tree.</h3>
+
+                    <br><br><br>
+                    <h3>2. Binary Tree</h3>
+                    <p>Each function creates two recursive calls.</p>
+                    <h3>Example : </h3>
+
+                    <!-- C++ Code Container -->
+
+                    <div class="code-block">
+
+                        <div class="code-header">
+
+                            <span class="language">C++</span>
+
+                            <button class="copy-btn">
+                                Copy
+                            </button>
+
+                        </div>
+
+                    <pre><code>
+                        #include &lt;iostream>;
+                        using namespace std;
+
+                        int fibonacci(int n)
+                        {
+                            // Base Case
+                            if (n == 0 || n == 1)
+                                return n;
+
+                            // Recursive Case
+                            return fibonacci(n - 1) + fibonacci(n - 2);
+                        }
+
+                        int main()
+                        {
+                            cout&lt;&lt;fibonacci(5);
+                        }
+
+                    </code></pre>
+
+                    </div>
+
+                    <h3>Recurrence Relation : F(n) = F(n−1) + F(n−2)</h3>
+                    <h3>Base case : F(0) = 0 and  F(1) = 1</h3>
+                    <h3>Recursion Tree for fibonacci(5) : </h3> <br><br>
+
+
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                           See Binary Tree
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                           <!-- C++ Code Container -->
+
+                            <div class="code-block" >
+                            <pre><code ><img src="asset/tree.png" class="tree-img" alt=""> </code></pre>
+                            </div>
+
+                        </div>
+
+                    </details>
+
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                           See Dry Run
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+
+                            <!-- Definition Box. -->
+
+                            <div class="definition-box">
+  
+                                <div class="definition-content">
+
+                                    <h3>The calculation starts from the leaf nodes (base cases) and moves upward.</h3>
+                                    <p>When base case hits</p><br><br>
+                                     
+                                        fib(1) = 1<br>
+                                        fib(0) = 0<br><br>
+
+                                        fib(2) = fib(1) + fib(0)<br>
+                                               =  1    +    0<br>
+                                               = 1<br><br><br><br>
+   
+                                     
+
+                                     
+                                        Now,<br>
+                                        fib(3) = fib(2) + fib(1)<br>
+                                               =    1   +   1<br>
+                                               =    2<br><br><br><br>
+                                         
+
+                                     
+                                   
+                                        Next,<br>
+                                        fib(4) = fib(3) + fib(2)<br>
+                                               =   2   +    1<br>
+                                               =   3<br><br><br><br>
+                                     
+
+                                     
+                                        Finally,<br>
+                                        fib(5) = fib(4) + fib(3)<br>
+                                               =   3    +   2<br>
+                                               =  5<br><br><br><br>
+                                </div>
+
+                            </div> 
+
+                        </div>   
+
+                    </details>    
+
+                </div>
+
+                <p>We'll explore this concept thoroughly when we move on to Binary Trees in the Backtracking section.</p>
+
+            </div>
+        </section>
+
+
+
+
+
+        <!-- common mistakes -->
+
+        <section id="common-mistakes">
+            <h1>Common Mistakes</h1>
+
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                    See Common Mistakes
+                </summary>
+
+                <div class="accordion-content">
+
+                    <!-- Warning Box 1-->
+
+                    <div class="c-warning-box">
+
+                        <div class="c-warning-header">
+
+                             Warning 1 : Never Forget the Base Case
+
+                        </div>
+
+                        <div class="c-warning-content">
+
+                            Every recursive function must have a valid base case.
+                            Without it, the function will continue calling itself 
+                            indefinitely until the program runs out of stack memory,
+                            resulting in a Stack Overflow.
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Warning Box 2-->
+
+                    <div class="c-warning-box">
+
+                        <div class="c-warning-header">
+
+                             Warning 2: Every Recursive Call Must Make Progress
+
+                        </div>
+
+                        <div class="c-warning-content">
+
+                            Each recursive call should move closer to the base case.
+                                If the input never changes (or changes incorrectly), 
+                                the recursion will never terminate.
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Warning Box 3 -->
+
+                    <div class="c-warning-box">
+
+                        <div class="c-warning-header">
+
+                            ⚠Warning 3: Don't Assume Functions Run Simultaneously
+
+                        </div>
+
+                        <div class="c-warning-content">
+
+                            Only one function call executes at a time. 
+                            Every recursive call pauses the current function 
+                            and creates a new stack frame. The paused function 
+                            resumes only after the deeper call finishes.
+
+                        </div>
+
+                    </div>
+
+                    <!-- Warning Box 4-->
+
+                    <div class="c-warning-box">
+
+                        <div class="c-warning-header">
+
+                            ⚠Warning 4: Recursive Calls Return in Reverse Order
+
+                        </div>
+
+                        <div class="c-warning-content">
+
+                            Function calls are made from top to bottom,
+                                but they always return from bottom to top (Last In, First Out).
+                                Understanding this behavior is essential for mastering recursion.
+                        </div>
+
+                    </div>
+
+
+                    <!-- Warning Box5 -->
+
+                    <div class="c-warning-box">
+
+                        <div class="c-warning-header">
+
+                            ⚠Warning 5: Base Case Doesn't End All Functions
+
+                        </div>
+
+                        <div class="c-warning-content">
+
+                            Reaching the base case only ends the current function call.
+                                The previously paused function calls still need to
+                                resume and complete their remaining work.
+                        </div>
+
+                    </div>
+
+                    <!-- Warning Box6 -->
+
+                    <div class="c-warning-box">
+
+                        <div class="c-warning-header">
+
+                            ⚠Warning 6: Think Before You Code
+
+                        </div>
+
+                        <div class="c-warning-content">
+
+                            Never start writing a recursive function without first identifying:
+                            <ul class="list">
+                            <li>the base case,</li>
+                            <li>the recursive case, and</li>
+                            <li>how each call moves closer to the base case.</li>
+                            </ul>
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+
+            </details>
+
+            
+        </section>
+
+        <!-- interview questions -->
+
+        <section id="interview-questions">
+            <h1>Interview Questions</h1>
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-heading">
+
+                    Most Important Questions
+
+                </div>
+
+                <div class="definition-content">
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                           Click here to see questions.
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            <h3>Q1. Explain recursion using a real-life example.</h3> <br><br>
+                            <h3>Q2. What is the biggest disadvantage of recursion?</h3><br><br>
+                            <h3>Q3. Why should every recursive call move closer to the base case?</h3><br><br>
+                            <h3>Q4. How do you know whether a problem can be solved using recursion?</h3><br><br>
+                            <h3>Q5. What is the biggest advantage of recursion?</h3><br><br>
+                            <h3>Q6. Why is recursion generally slower than iteration?</h3><br><br>
+                            <h3>Q7. When should recursion be avoided?</h3><br><br>
+                            <h3>Q8. Is every recursive problem solvable using loops?</h3><br><br>
+                            <h3>Q9. Can every loop be converted into recursion?</h3><br><br>
+                            <h3>Q10. Which approach uses more memory: recursion or iteration? Why?</h3><br><br>
+                            <h3>Q11. Can a recursive function have multiple base cases?</h3><br><br>
+                            <h3>Q12. What happens if the recursive case does not reduce the problem size?</h3><br><br>
+                            <h3>Q13. What happens if the base case is never reached?</h3><br><br>
+                            <h3>Q14. How do you decide what the base case should return?</h3><br><br>
+                            <h3>Q15. What exactly happens when a recursive function calls itself?</h3><br><br>
+                            <h3>Q16. Where does a function pause?</h3><br><br>
+                            <h3>Q17. How does a function know where to resume execution?</h3><br><br>
+                            <h3>Q18. Which statement executes immediately after a recursive call returns?</h3><br><br>
+                            <h3>Q19. Which recursion tree is formed by Fibonacci?</h3><br><br>
+                            <h3>Q20. Explain the "Going Up" and "Coming Back" example.</h3><br><br>
+                            <h3>Q21. Can execution continue below the recursive call before the recursive call finishes?</h3><br><br>
+                            <h3>Q22. What is stored in memory that helps the CPU resume execution?</h3><br><br>
+                            <h3>Q23. Why does recursion first go deep and then come back?</h3><br><br>
+                            <h3>Q24. Can recursion exist without a call stack?</h3><br><br>
+                            <h3>Q25. Why is recursion heavily used in trees and backtracking?</h3><br><br>
+                            <h3>Q26. How would you debug an infinite recursive function?</h3><br><br>
+                            <h3>Q27. What is the first thing you check when a recursive function is not working?</h3><br><br>
+                            <h3>Q28. If a recursive function gives a stack overflow error, what could be the possible reasons?</h3><br><br>
+                            <h3>Q29. Which is easier for the compiler to optimize: recursion or iteration?</h3><br><br>
+                            <h3>Q30. Why is recursion often called Divide and Solve?</h3><br><br>
+                            <h3>Q31. What information is stored inside a stack frame?</h3><br><br>
+                            <h3>Q32. Why does recursion use the call stack?</h3><br><br>
+                            <h3>Q33. Why doesn't recursion overwrite the previous function call?</h3><br><br>
+                            <h3>Q34. Does a recurrence relation tell us when recursion should stop?</h3><br><br>
+                            <h3>Q35. Write the recurrence relation for factorial.</h3><br><br>
+
+
+                        </div>
+
+                    </details>
+
+                    
+
+                </div>
+
+            </div>
+
+
+
+        </section>
+
+        <section id="quick-revision">
+            <h1>Quick Revision</h1>
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                    Quick Revision
+
+                </div>
+
+                <div class="definition-content">
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                            What is Recursion?
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            <ul class="list">
+                                <li>Recursion is a problem-solving technique where a function calls itself to solve a smaller version of the same problem.</li>
+                                 <li>Every recursive function must eventually stop by reaching a base case.</li>
+                            </ul>
+                        </div>
+
+                    </details>
+
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                            Two Parts of Every Recursive Function
+
+                        </summary>
+
+                        <div class="accordion-content">
+                            <h3>Base Case : </h3>
+
+                            <ul class="list">
+                                <li>The stopping condition.</li>
+                                <li>Prevents infinite recursion.</li>
+                                <li>Returns a value (or simply returns in a void function).</li>
+                            </ul>
+
+
+
+                            <h3>Recursive  Case : </h3>
+
+                            <ul class="list">
+                                <li>The part where the function calls itself.</li>
+                                <li>Reduces the problem into a smaller subproblem.</li>
+                               
+                            </ul>
+                        </div>
+
+                    </details>
+
+
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                            Golden Rule of Recursion
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            Reduce the problem → Reach the base case → Return back.
+
+                        </div>
+
+                    </details>
+
+
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                            Recursion Flow
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            <pre>
+                                Current Problem
+                                    │ 
+                                    ▼
+                                Smaller Problem
+                                    │
+                                    ▼ 
+                                Even Smaller Problem
+                                    │
+                                    ▼ 
+                                Base Case
+                                    │ 
+                                    ▼
+                                Return 
+                                    │
+                                    ▼ 
+                                Return
+                                    │
+                                    ▼
+                                Final Answer
+                            </pre>
+
+                        </div>
+
+                    </details>
+
+
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                           Recurrence Relation
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            A recurrence relation tells how to reduce a problem into a smaller one. <br>
+
+                            Example: <br>
+
+                            factorial(n) = n × factorial(n - 1) <br>
+
+                            Remember: <br>
+                            <ul class="list">
+                                <li>Recurrence Relation → How to reduce</li>
+                                <li>Base Case → When to stop</li>
+                            </ul>
+
+                            These are two different concepts. <br>
+
+                        </div>
+
+                    </details>
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                           What Happens in the Call Stack?
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            Whenever a function is called: <br>
+
+                            <ul>
+                                <li>A new stack frame is created.</li>
+                                <li>The current function pauses after making a recursive call.</li>
+                                <li>The new recursive call starts executing.</li>
+                                <li>After reaching the base case, functions return one by one in reverse order (LIFO).</li>
+                            </ul>
+
+                            
+
+                        </div>
+
+                    </details>
+
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                           Pause & Resume (Most Important Concept)
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            When a recursive function calls itself: <br><br>
+
+                            Statement 1 :<br>
+
+                            Recursive Call <br><br>
+
+                            Statement 2 : <br>
+
+                            The execution works like this: <br>
+
+                            Execute Statement 1 <br>
+                                    ↓ <br>
+                            Pause Here <br>
+                                    ↓ <br>
+                            Execute Recursive Call <br>
+                                    ↓
+                            Base Case <br>
+                                    ↓ <br>
+                            Resume from Statement 2 <br><br>
+
+                            Everything written after the recursive call waits until that recursive call finishes. <br>
+
+                        </div>
+
+                    </details>
+
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                           Function Calling vs Function Returning
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            Function Calling <br>
+                            (Current → Smaller Problem)<br><br>
+
+                            fun(3) <br>
+                            ↓ <br>
+                            fun(2) <br>
+                            ↓ <br>
+                            fun(1) <br>
+                            ↓ <br>
+                            fun(0) <br><br>
+
+                            ------------------------<br><br>
+
+                            Function Returning<br><br>
+
+                            fun(0)<br>
+                            ↑<br>
+                            fun(1)<br>
+                            ↑<br>
+                            fun(2)<br>
+                            ↑<br>
+                            fun(3)<br><br>
+
+                            Going Down → Function Calls<br><br>
+
+                            Coming Up → Function Returns<br><br>
+                        </div>
+
+                    </details>
+
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                           Recursion Tree
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            A recursion tree is simply a visual representation of recursive function calls. <br>
+
+                           <ul>
+                            <li>Each node = one function call.</li>
+                            <li>Each edge = one function calling another.</li>
+                            <li>Root = first function call.</li>
+                            <li>Leaf = base case.</li>
+                           </ul>
+
+                        </div>
+
+                    </details>
+
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                            When Should You Use Recursion?
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            Use recursion when: <br>
+
+                            <ul class="list">
+                                <li>The problem can naturally be divided into smaller versions of itself.</li>
+                                <li>The solution follows a repeated pattern.</li>
+                                <li>You need to explore all possibilities (Backtracking).</li>
+                                <li>You're working with recursive data structures like Trees.</li>
+                                
+
+                            </ul>
+
+                        </div>
+
+                    </details>
+
+
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                            When Should You Avoid Recursion?
+
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            
+                            Avoid recursion when: <br>
+
+                            <ul class="list">
+                                <li>A simple iterative solution is easier.</li>
+                                <li>The recursion depth can become very large.</li>
+                                <li>Memory usage is a concern.</li>
+ 
+                            </ul>
+
+                        </div>
+
+                    </details>
+
+
+
+                    <!-- Expand Box -->
+                    <details class="accordion-box">
+
+                        <summary>
+
+                           Recursion Checklist
+                        </summary>
+
+                        <div class="accordion-content">
+
+                            Before writing any recursive function, ask yourself: <br>
+
+                            <ul class="list">
+                                <li>What is my base case?</li>
+                                <li>How will I reduce the problem?</li>
+                                <li>Am I moving closer to the base case?.</li>
+                                <li>What should the recursive call return?</li>
+                                <li>What should happen before the recursive call?</li>
+                                <li>What should happen after the recursive call?</li>
+ 
+                            </ul>
+
+                            If you can answer these six questions, you're ready to write most beginner-level recursive programs.
+
+
+                        </div>
+
+                    </details>
+
+
+
+                    
+
+                </div>
+
+            </div>
+        </section>
+
+        <section id="practice-problems">
+            <h1>Practice Problems</h1>
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                    Recursion on Arrays
+
+                </div>
+
+                <div class="definition-content">
+
+                             <!-- Expand Box -->
+                        <details class="accordion-box">
+
+                            <summary>
+                               <h3>Q1. PRINT ARRAY USING RECURSION   [Time Complexity: O(n) ]</h3>
+                            </summary>
+
+                            <div class="accordion-content">
+
+                             Hint: Print current element and recurse to next index. <br><br>
+
+                             <h3>Solution : </h3>
+
+                             void printArray(int arr[], int n, int i) { <br>
+                                // Base case <br>
+                                 if(i == n) <br>
+                                  return; <br><br>
+
+                                    cout&lt;&lt;arr[i] &lt;&lt; " "; <br>
+                                    // recursive case <br>
+
+                                    printArray(arr, n, i+1);    <br>
+
+                                } 
+
+                            </div>
+
+                        </details>
+
+
+                
+
+                             <!-- Expand Box -->
+                        <details class="accordion-box">
+
+                            <summary>
+                               <h3>Q2. PRINT ARRAY IN REVERSE </h3>
+                            </summary>
+
+                            <div class="accordion-content">
+
+                             Hint: Go to end first, print during returning. 
+
+                              <h3>Solution : </h3>
+                             void printReverse(int arr[], int n, int i) { <br>
+                                // Base case <br>
+                                if(i == n)  <br>
+                                 return; <br><br>
+
+ 
+                                     // recursive case <br>
+                                    printReverse(arr, n, i+1); <br>
+
+                                    cout &lt;&lt;arr[i] &lt;&lt; " "; <br>
+
+                                
+
+                                } 
+
+
+                            </div>
+
+                        </details>
+
+
+
+                             <!-- Expand Box -->
+                        <details class="accordion-box">
+
+                            <summary>
+                               <h3>Q3. SUM OF ARRAY </h3>
+                            </summary>
+
+                            <div class="accordion-content">
+
+                             Hint: sum(n) = arr[n-1] + sum(n-1) 
+
+                             <h3>Solution : </h3>
+                             int arraySum(int arr[], int n) {<br>
+                                // Base case <br>
+                                 if(n == 0) <br>
+                                 return 0; <br><br>
+
+ 
+                                  // recursive case <br>
+                                return arr[n-1] + arraySum(arr, n-1); <br>
+
+                            
+
+                            } 
+
+                            </div>
+
+                        </details>
+
+
+
+                             <!-- Expand Box -->
+                        <details class="accordion-box">
+
+                            <summary>
+                               <h3>Q4. FIND MAXIMUM ELEMENT  </h3>
+                            </summary>
+
+                            <div class="accordion-content">
+
+                             Hint: Compare last element with max of remaining array. <br><br>
+                             <h3>Solution : </h3>
+                             int findMax(int arr[], int n) { <br>
+                                // Base case <br>
+                                if(n == 1) <br>
+                                return arr[0]; <br><br>
+
+ 
+                                // Recursive Case <br>
+                                return max(arr[n-1], findMax(arr, n-1)); <br>
+
+                            
+
+                            } 
+
+ 
+
+                            </div>
+
+                        </details>
+
+
+                             <!-- Expand Box -->
+                        <details class="accordion-box">
+
+                            <summary>
+                               <h3>Q5. CHECK IF ARRAY IS SORTED </h3>
+                            </summary>
+
+                            <div class="accordion-content">
+
+                             Hint: Compare adjacent elements and recurse. <br><br>
+                             <h3>Solution : </h3>
+
+                            bool isSorted(int arr[], int n) { <br>
+                                  // Base Case <br>
+                                if(n == 1) <br>
+                                 return true; <br><br>
+
+                            
+                                   // Base Case <br>
+                                if(arr[n-1] &lt; arr[n-2]) <br>
+
+                                    return false; <br><br>
+
+                            
+                                    // Recursive Case <br>
+                                return isSorted(arr, n-1); <br>
+
+                            
+
+                            } 
+
+ 
+
+                             
+
+ 
+
+                            </div>
+
+                        </details>
+
+
+                             <!-- Expand Box -->
+                        <details class="accordion-box">
+
+                            <summary>
+                               <h3>Q6. LINEAR SEARCH USING RECURSION  </h3>
+                            </summary>
+
+                            <div class="accordion-content">
+
+                             Hint: Print current element and recurse to next index. 
+                             <h3>Solution : </h3>
+                             bool search(int arr[], int n, int key) { <br>
+                                // Base case <br>
+                                if(n == 0) <br>
+                                 return false; <br><br>
+
+ 
+                                 // Base case <br>
+                                if(arr[n-1] == key) <br>
+
+                                    return true; <br><br>
+
+                                  // Recursive Case <br>
+                                return search(arr, n-1, key); <br>
+
+                            
+
+                            } 
+
+                            </div>
+
+                        </details>
+
+
+                        
+                </div>
+
+            </div>
+
+
+            <!-- recursion on Strings -->
+
+            <!-- Definition Box. -->
+
+            <div class="definition-box">
+
+                <div class="definition-title">
+
+                    Recursion on Strings
+
+                </div>
+
+                <div class="definition-content">
+
+                             <!-- Expand Box -->
+                        <details class="accordion-box">
+
+                            <summary>
+                               <h3>Q1. PRINT CHARACTERS OF STRING</h3>
+                            </summary>
+
+                            <div class="accordion-content">
+
+                             
+
+                             <h3>Solution : </h3>
+
+                             void printString(string s, int i) { <br>
+                                // Base case <br>
+                                if(i == s.length()) <br>
+                                return; <br><br>
+
+ 
+
+                                cout &lt;&lt; s[i] &lt;&lt; " "; <br>
+                                // Recursive Case <br>
+
+                                printString(s, i+1); <br>
+
+                            
+
+                            } 
+
+                            </div>
+
+                        </details>
+
+
+                
+
+                             <!-- Expand Box -->
+                        <details class="accordion-box">
+
+                            <summary>
+                               <h3>Q2. PRINT STRING IN REVERSE  </h3>
+                            </summary>
+
+                            <div class="accordion-content">
+
+                             
+
+                              <h3>Solution : </h3>
+                             void reversePrint(string s, int i) { <br>
+                                // Base case <br>
+                                if(i == s.length()) <br>
+                                return; <br><br>
+
+ 
+                                // Recursive Case <br>
+                                reversePrint(s, i+1); <br>
+
+                                cout &lt;&lt; s[i]; <br>
+
+                            } 
+
+                            </div>
+
+                        </details>
+
+
+
+                             <!-- Expand Box -->
+                        <details class="accordion-box">
+
+                            <summary>
+                               <h3>Q3. PALINDROME CHECK USING RECURSION  </h3>
+                            </summary>
+
+                            <div class="accordion-content">
+
+                             Hint: Compare first and last characters. 
+
+                             <h3>Solution : </h3>
+                             bool palindrome(string s, int l, int r) { <br>
+                                // Base case <br>
+                                if(l >= r) <br>
+                                return true; <br><br>
+
+ 
+
+                                if(s[l] != s[r]) <br>
+
+                                    return false; <br><br>
+
+                            
+                                  // Recursive Case <br>
+                                return palindrome(s, l+1, r-1); <br>
+
+                            
+
+                            } <br>
+
+                            <h3>Example : MADAM,  M == M A == A   </h3>
+
+
+                            </div>
+
+                        </details>
+
+
+
+                             <!-- Expand Box -->
+                        <details class="accordion-box">
+
+                            <summary>
+                               <h3>Q4. COUNT OCCURRENCES OF A CHARACTER  </h3>
+                            </summary>
+
+                            <div class="accordion-content">
+
+                            
+                             <h3>Solution : </h3>
+                             int countChar(string s, int i, char key) { <br>
+                                // Base Case <br>
+                                 if(i == s.length()) <br>
+                                 return 0; <br><br>
+
+ 
+                                 // Recursive Case <br>
+                                if(s[i] == key) <br>
+
+                                    return 1 + countChar(s, i+1, key); <br><br>
+
+                            
+                                // Recursive Case <br>
+                                return countChar(s, i+1, key); <br>
+
+                            
+
+                            } 
+
+                            </div>
+
+                        </details>
+     
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- Other Resouces -->
+
+        <section id="online-resources">
+            <h1>Online Resources</h1>
+
+
+
+            <!-- Expand Box -->
+            <details class="accordion-box">
+
+                <summary>
+
+                   Here link of some official documentations are given, Click to see.
+
+                </summary>
+
+                <div class="accordion-content">
+
+                    <ul class="list">
+                        <li><a href="https://isocpp.org/">ISO C++ Foundation</a></li>
+                        <li><a href="https://en.cppreference.com/">cppreference.com</a></li>
+                        <li><a href="https://learn.microsoft.com/en-us/cpp">Microsoft Learn (Excellent for Beginners)</a></li>
+                        
+                    </ul>
+
+                </div>
+
+            </details>
+
+
+
+        </section>
+
+    </section>
+
+</main>
+
+
+
+    <section class="info">
+        <ul class="list">
+            <li> Written By <strong>Samar Kumar</strong></li>
+             <li>Designed & Developed By <strong>Samar Kumar</strong></li>
+        </ul>
+    </section>
+
+    
+     <hr>
+    <footer>
+        <div class="footer">
+            <img src="asset/logo.png" alt="logo">
+            <p>KAIZEN TECH</p>
+        </div>
+        <div class="footer">
+            <img src="asset/mirai.png" alt="">
+            <p>Mirai School of Technology</p>
+        </div>
+      
+    </footer>
+    
+    <script src="js/main.js"></script>
+    <script src="js/recursion.js"></script>
+</body>
+</html>
