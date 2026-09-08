@@ -4,131 +4,151 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSS Position - Kaizen Tech Blog</title>
-    
     <link rel="stylesheet" href="../css/blog.css">
 </head>
 <body>
-    <header class="blog-header">
-        <nav class="blog-nav">
-            <a href="../../index.html" class="logo">Kaizen Tech Blog</a>
-            <div class="nav-links">
-                <a href="../index.html">Web Development</a>
-                <a href="index.html" class="active">CSS</a>
-            </div>
-        </nav>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../CSS.html" class="brand-link">
+                <img src="../kaizen-logo.png" alt="Kaizen Tech Logo" class="brand-logo">
+                <span>Kaizen Tech</span>
+            </a>
+            <a href="../CSS.html" class="back-link">&larr; Back to CSS</a>
+        </div>
     </header>
 
-    <main class="article-container">
-        <!-- 1. HERO SECTION -->
-        <section class="hero-section">
-            <h1 class="article-title">CSS Positioning &amp; Stacking Contexts</h1>
-            <p class="article-description">Understand document flow, offsets, and coordinate contexts across static, relative, absolute, fixed, and sticky positioning.</p>
-            <div class="article-meta">
-                <span class="meta-item"><strong>Difficulty:</strong> Beginner to Intermediate</span>
-                <span class="meta-item"><strong>Reading Time:</strong> 12 mins</span>
-                <span class="meta-item"><strong>Prerequisites:</strong> CSS Box Model</span>
-            </div>
-            <div class="tags-container">
-                <span class="tag">CSS</span>
-                <span class="tag">Position</span>
-                <span class="tag">z-index</span>
-                <span class="tag">Document Flow</span>
-            </div>
-            <div class="hero-banner">
-                <svg viewBox="0 0 800 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="800" height="200" fill="#0f172a" rx="10"/>
-                    <rect x="50" y="30" width="120" height="140" fill="#334155" rx="4"/>
-                    <text x="110" y="105" fill="#94a3b8" font-family="sans-serif" font-size="12" text-anchor="middle">static</text>
-                    <rect x="190" y="45" width="120" height="140" fill="#0284c7" rx="4"/>
-                    <text x="250" y="105" fill="#ffffff" font-family="sans-serif" font-size="12" text-anchor="middle">relative</text>
-                    <rect x="330" y="20" width="120" height="140" fill="#ea580c" rx="4"/>
-                    <text x="390" y="105" fill="#ffffff" font-family="sans-serif" font-size="12" text-anchor="middle">absolute</text>
-                    <rect x="470" y="60" width="120" height="80" fill="#16a34a" rx="4"/>
-                    <text x="530" y="105" fill="#ffffff" font-family="sans-serif" font-size="12" text-anchor="middle">fixed</text>
-                    <rect x="610" y="30" width="120" height="140" fill="#9333ea" rx="4"/>
-                    <text x="670" y="105" fill="#ffffff" font-family="sans-serif" font-size="12" text-anchor="middle">sticky</text>
-                </svg>
-            </div>
-        </section>
-
-        <!-- 2. TABLE OF CONTENTS -->
-        <nav class="toc-container">
-            <h2>Table of Contents</h2>
-            <ul class="toc-list">
-                <li><a href="#why-this-matters">Understanding Normal Flow</a></li>
-                <li><a href="#core-concept">The 5 Positioning Values</a></li>
-                <li><a href="#visual-diagram">Relative vs. Absolute Stacking Coordinates</a></li>
-                <li><a href="#syntax">Syntax &amp; Sticky Constraints</a></li>
-            </ul>
-        </nav>
-
-        <!-- 3. WHY THIS MATTERS -->
-        <section id="why-this-matters" class="article-section">
-            <h2>Why This Matters</h2>
-            <p>Every element in HTML lives within the "normal document flow" by default, sitting on the page based on its order in the source code. Modals, badges, sticky headers, and floating notifications require breaking out of that flow.</p>
-            <p>Without a clear grasp of containing blocks and stacking contexts, setting <code>top: 0; left: 0</code> on an element can cause it to fly to the top of the entire viewport instead of its parent container.</p>
-        </section>
-
-        <!-- 4. CONCEPT -->
-        <section id="core-concept" class="article-section">
-            <h2>Concept</h2>
-            <p>The <code>position</code> property takes five core values:</p>
+    <div class="page-layout">
+        <aside class="toc-sidebar">
+            <h3>Table of Contents</h3>
             <ul>
-                <li><strong><code>static</code>:</strong> The default. Remains strictly within the normal document flow. Offset properties (<code>top</code>, <code>left</code>, etc.) have no effect.</li>
-                <li><strong><code>relative</code>:</strong> Remains in the flow, preserving its original space, but can be shifted relative to its starting position using offsets. Critically, it acts as an anchor for <code>absolute</code> children.</li>
-                <li><strong><code>absolute</code>:</strong> Pulled entirely out of document flow. Positioned relative to its nearest ancestor with a position other than <code>static</code>.</li>
-                <li><strong><code>fixed</code>:</strong> Pulled out of the flow and pinned directly to the browser viewport coordinates. It stays fixed in place during scrolling.</li>
-                <li><strong><code>sticky</code>:</strong> Acts as <code>relative</code> until a scroll threshold is met (e.g., <code>top: 0</code>), at which point it pins itself like a <code>fixed</code> element within its parent container.</li>
+                <li><a href="#what-is-position">What Is CSS Position</a></li>
+                <li><a href="#why-this-matters">Why Position Matters</a></li>
+                <li><a href="#the-5-values">The 5 Position Values</a></li>
+                <li><a href="#visual-flow">Positioning Coordinates Flow</a></li>
+                <li><a href="#syntax">Syntax &amp; Offsets</a></li>
+                <li><a href="#stacking-context">z-index &amp; Stacking Context</a></li>
+                <li><a href="#common-mistakes">Common Mistakes</a></li>
+                <li><a href="#interview-questions">Interview Questions</a></li>
+                <li><a href="#quick-revision">Quick Revision</a></li>
+                <li><a href="#practice-problems">Practice Problems</a></li>
+                <li><a href="#resources">Resources</a></li>
             </ul>
-        </section>
+        </aside>
 
-        <!-- 5. VISUAL DIAGRAM -->
-        <section id="visual-diagram" class="article-section">
-            <h2>Visual Diagram</h2>
-            <div class="diagram-wrapper">
-                <pre class="ascii-diagram">
-+-------------------------------------------------------------+
-|  Parent Container (position: relative)                      |
-|                                                             |
-|   Normal Flow Element 1                                     |
-|                                                             |
-|   +--------------------------+                              |
-|   | Child (position: absolute;                              |
-|   |        top: 0; right: 0;) |  &lt;-- Pinned to Parent Edge  |
-|   +--------------------------+                              |
-|                                                             |
-|   Normal Flow Element 2                                     |
-+-------------------------------------------------------------+
-                </pre>
-            </div>
-        </section>
-
-        <!-- 6. SYNTAX -->
-        <section id="syntax" class="article-section">
-            <h2>Syntax</h2>
-            <pre><code class="language-css">/* Relative parent anchoring absolute badge */
-.product-card {
-    position: relative;
-    width: 300px;
-    padding: 1.5rem;
-}
-
-.discount-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #ef4444;
-    color: white;
-}
-
-/* Sticky site header */
-.primary-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background-color: #0f172a;
+        <main class="content-column">
+            <section id="what-is-position" class="content-card">
+                <h2>Concept</h2>
+                <p>The <code>position</code> property determines how an element is placed within the document flow and whether coordinate offsets (<code>top</code>, <code>right</code>, <code>bottom</code>, <code>left</code>) apply to it.</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }</code></pre>
-        </section>
-    </main>
+                </div>
+            </section>
+
+            <section id="why-this-matters" class="content-card">
+                <h2>Why This Matters</h2>
+                <p>Elements sit in normal document flow by default, ordered as they appear in the HTML. UI components like notification badges, sticky headers, tooltips, and modal overlays require breaking out of that flow and positioning elements relative to specific containers or the viewport.</p>
+            </section>
+
+            <section id="the-5-values" class="content-card">
+                <h2>The 5 Position Values</h2>
+                <ul>
+                    <li><code>static</code>: The default value. Elements follow normal document flow; offset properties have no effect.</li>
+                    <li><code>relative</code>: Elements stay in normal flow, but can be shifted using offsets without affecting neighboring elements. It also acts as an anchor for <code>absolute</code> children.</li>
+                    <li><code>absolute</code>: Removed from the document flow and positioned relative to the nearest positioned ancestor.</li>
+                    <li><code>fixed</code>: Removed from the document flow and pinned directly to the browser viewport coordinates, staying in place on scroll.</li>
+                    <li><code>sticky</code>: Behaves like <code>relative</code> until a scroll threshold is met, at which point it sticks like a <code>fixed</code> element within its parent container.</li>
+                </ul>
+            </section>
+
+            <section id="visual-flow" class="content-card">
+                <h2>Positioning Coordinates Flow</h2>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">DIAGRAM</span>
+                    <pre><code>Normal Flow &rarr; Relative &rarr; Absolute &rarr; Fixed &rarr; Sticky
+
++-------------------------------------------------------------+
+| Parent: position: relative;                                 |
+|                                                             |
+|  Normal Flow Element                                        |
+|                                                             |
+|  +---------------------------+                              |
+|  | Child: position: absolute | &lt;-- Positioned relative to    |
+|  |        top: 0; right: 0;  |     parent boundary          |
+|  +---------------------------+                              |
++-------------------------------------------------------------+</code></pre>
+                </div>
+            </section>
+
+            <section id="syntax" class="content-card">
+                <h2>Syntax &amp; Offsets</h2>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>.card {
+  position: relative; /* Anchors the absolute badge */
+  padding: 1.5rem;
+}
+
+.card-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="stacking-context" class="content-card">
+                <h2>z-index &amp; Stacking Context</h2>
+                <p>The <code>z-index</code> property controls layer ordering along the z-axis (depth). It only works on positioned elements (those with a position other than <code>static</code>) or direct flex/grid children.</p>
+            </section>
+
+            <section id="common-mistakes" class="content-card">
+                <h2>Common Mistakes</h2>
+                <ul>
+                    <li>Using <code>position: absolute</code> without setting <code>position: relative</code> on the parent, causing the child to position itself relative to the <code>&lt;body&gt;</code> element instead.</li>
+                    <li>Applying <code>position: sticky</code> inside a parent container that has <code>overflow: hidden</code> set, which prevents the sticky behavior from working.</li>
+                    <li>Using unnecessarily high <code>z-index</code> values (like <code>z-index: 999999</code>) instead of managing stacking contexts cleanly.</li>
+                </ul>
+            </section>
+
+            <section id="interview-questions" class="content-card">
+                <h2>Interview Questions</h2>
+                <p><strong>Q: What triggers a new Stacking Context in CSS?</strong></p>
+                <p>A stacking context is formed by setting <code>position: relative/absolute</code> with a <code>z-index</code> other than <code>auto</code>, setting <code>opacity</code> to less than 1, or using properties like <code>transform</code>, <code>filter</code>, or <code>contain</code>.</p>
+            </section>
+
+            <section id="quick-revision" class="content-card">
+                <h2>Quick Revision</h2>
+                <p>Anchor absolute children by adding <code>position: relative</code> to their parent container. Pin elements to the viewport using <code>fixed</code>, and create sticky headers with <code>position: sticky</code> paired with <code>top: 0</code>.</p>
+            </section>
+
+            <section id="practice-problems" class="content-card">
+                <h2>Practice Problems</h2>
+                <ol>
+                    <li>Build a notification badge pinned to the top-right corner of an avatar icon.</li>
+                    <li>Implement a sticky table of contents sidebar that sticks while scrolling through an article.</li>
+                </ol>
+            </section>
+
+            <section id="resources" class="content-card">
+                <h2>Resources</h2>
+                <ul>
+                    <li>MDN: CSS Position Reference</li>
+                    <li>web.dev: Stacking Contexts Explained</li>
+                </ul>
+            </section>
+        </main>
+    </div>
 </body>
 </html>

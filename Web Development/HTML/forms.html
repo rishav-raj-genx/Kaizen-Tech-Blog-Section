@@ -4,132 +4,164 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML Forms &amp; Inputs - Kaizen Tech Blog</title>
-    
     <link rel="stylesheet" href="../css/blog.css">
 </head>
 <body>
-    <header class="blog-header">
-        <nav class="blog-nav">
-            <a href="../../index.html" class="logo">Kaizen Tech Blog</a>
-            <div class="nav-links">
-                <a href="../index.html">Web Development</a>
-                <a href="index.html" class="active">HTML</a>
-            </div>
-        </nav>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../HTML.html" class="brand-link">
+                <img src="../kaizen-logo.png" alt="Kaizen Tech Logo" class="brand-logo">
+                <span>Kaizen Tech</span>
+            </a>
+            <a href="../HTML.html" class="back-link">&larr; Back to HTML</a>
+        </div>
     </header>
 
-    <main class="article-container">
-        <!-- 1. HERO SECTION -->
-        <section class="hero-section">
-            <h1 class="article-title">HTML Forms &amp; Validation</h1>
-            <p class="article-description">Learn to construct robust data-collection interfaces using native HTML form controls and validation constraints.</p>
-            <div class="article-meta">
-                <span class="meta-item"><strong>Difficulty:</strong> Beginner</span>
-                <span class="meta-item"><strong>Reading Time:</strong> 15 mins</span>
-                <span class="meta-item"><strong>Prerequisites:</strong> Semantic HTML Basics</span>
-            </div>
-            <div class="tags-container">
-                <span class="tag">HTML</span>
-                <span class="tag">Forms</span>
-                <span class="tag">Inputs</span>
-                <span class="tag">Validation</span>
-            </div>
-            <div class="hero-banner">
-                <svg viewBox="0 0 800 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="800" height="200" fill="#0f172a" rx="10"/>
-                    <rect x="80" y="50" width="280" height="40" fill="#1e293b" stroke="#38bdf8" stroke-width="2" rx="5"/>
-                    <text x="95" y="75" fill="#94a3b8" font-family="sans-serif" font-size="14">name@domain.com</text>
-                    <rect x="80" y="110" width="140" height="40" fill="#38bdf8" rx="5"/>
-                    <text x="150" y="135" fill="#0f172a" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Submit</text>
-                    <path d="M 400 100 L 480 100" stroke="#38bdf8" stroke-width="3" stroke-dasharray="6"/>
-                    <circle cx="560" cy="100" r="45" fill="#0369a1"/>
-                    <text x="560" y="105" fill="#ffffff" font-family="monospace" font-size="14" text-anchor="middle">POST API</text>
-                </svg>
-            </div>
-        </section>
-
-        <!-- 2. TABLE OF CONTENTS -->
-        <nav class="toc-container">
-            <h2>Table of Contents</h2>
-            <ul class="toc-list">
-                <li><a href="#why-this-matters">Why Native Forms Matter</a></li>
-                <li><a href="#core-concept">Core Concepts &amp; Accessible Controls</a></li>
-                <li><a href="#visual-diagram">The Lifecycle of a Form Submission</a></li>
-                <li><a href="#syntax">Syntax &amp; Validation Attributes</a></li>
-            </ul>
-        </nav>
-
-        <!-- 3. WHY THIS MATTERS -->
-        <section id="why-this-matters" class="article-section">
-            <h2>Why This Matters</h2>
-            <p>Every checkout flow, search bar, login screen, and comment box relies on HTML forms. Poorly written forms break browser password managers, destroy accessibility for keyboard-only users, and lead to high abandonment rates on checkout flows.</p>
-            <p>Using native HTML attributes like <code>required</code>, <code>type="email"</code>, and explicit <code>&lt;label for="..."&gt;</code> tags provides out-of-the-box mobile keyboards (showing numeric or email keys automatically) and prevents unnecessary JavaScript bloat.</p>
-        </section>
-
-        <!-- 4. CONCEPT -->
-        <section id="core-concept" class="article-section">
-            <h2>Concept</h2>
-            <p>An HTML form coordinates user inputs and packages them into HTTP requests:</p>
+    <div class="page-layout">
+        <aside class="toc-sidebar">
+            <h3>Table of Contents</h3>
             <ul>
-                <li><strong>The <code>&lt;form&gt;</code> Container:</strong> Configured using <code>action</code> (target URL) and <code>method</code> (usually <code>GET</code> for searches or <code>POST</code> for sensitive/state-altering payloads).</li>
-                <li><strong>Accessible Labels (<code>&lt;label&gt;</code>):</strong> Directly tied to input elements via the <code>for</code> attribute matching the input's <code>id</code>.</li>
-                <li><strong>Native Input Types:</strong> Types like <code>email</code>, <code>password</code>, <code>number</code>, <code>date</code>, and <code>tel</code> ensure native OS keyboards adapt automatically.</li>
-                <li><strong>Constraint Validation:</strong> Attributes like <code>required</code>, <code>pattern</code>, <code>minlength</code>, and <code>maxlength</code> intercept bad data before it reaches your backend server.</li>
+                <li><a href="#what-are-forms">What Are HTML Forms</a></li>
+                <li><a href="#why-this-matters">Why This Matters</a></li>
+                <li><a href="#core-controls">Core Controls</a></li>
+                <li><a href="#visual-flow">Visual Submission Flow</a></li>
+                <li><a href="#syntax">Syntax</a></li>
+                <li><a href="#examples">Validation Examples</a></li>
+                <li><a href="#common-mistakes">Common Mistakes</a></li>
+                <li><a href="#interview-questions">Interview Questions</a></li>
+                <li><a href="#quick-revision">Quick Revision</a></li>
+                <li><a href="#practice-problems">Practice Problems</a></li>
+                <li><a href="#resources">Resources</a></li>
             </ul>
-        </section>
+        </aside>
 
-        <!-- 5. VISUAL DIAGRAM -->
-        <section id="visual-diagram" class="article-section">
-            <h2>Visual Diagram</h2>
-            <div class="diagram-wrapper">
-                <pre class="ascii-diagram">
-+------------------+
-|    User Input    |  (Keyboard, auto-fill, mobile interface)
-+--------+---------+
-         |
-         v
-+--------+---------+
-|   &lt;form&gt; Check   |  (Evaluates 'required', 'pattern', 'min/max')
-+--------+---------+
-         |
-   +-----+-----+
-   |           |
-[Invalid]   [Valid]
-   |           |
-   v           v
-Native      Payload Packaged (FormData: name=value)
-Error UI       |
-               v
-            Dispatched via GET / POST to &lt;form action="..."&gt;
-                </pre>
-            </div>
-        </section>
-
-        <!-- 6. SYNTAX -->
-        <section id="syntax" class="article-section">
-            <h2>Syntax</h2>
-            <pre><code class="language-html">&lt;form action="/api/register" method="POST" class="auth-form"&gt;
-    &lt;!-- Name Field --&gt;
-    &lt;div class="form-group"&gt;
-        &lt;label for="username"&gt;Full Name&lt;/label&gt;
-        &lt;input type="text" id="username" name="username" required minlength="3" autocomplete="name"&gt;
-    &lt;/div&gt;
-
-    &lt;!-- Email Field --&gt;
-    &lt;div class="form-group"&gt;
-        &lt;label for="user-email"&gt;Email Address&lt;/label&gt;
-        &lt;input type="email" id="user-email" name="email" required autocomplete="email"&gt;
-    &lt;/div&gt;
-
-    &lt;!-- Password Field with Pattern --&gt;
-    &lt;div class="form-group"&gt;
-        &lt;label for="password"&gt;Password (min 8 characters)&lt;/label&gt;
-        &lt;input type="password" id="password" name="password" minlength="8" required&gt;
-    &lt;/div&gt;
-
-    &lt;button type="submit"&gt;Create Account&lt;/button&gt;
+        <main class="content-column">
+            <section id="what-are-forms" class="content-card">
+                <h2>Concept</h2>
+                <p>HTML Forms are interactive components that collect user input and package it for transmission to a web server via HTTP requests like <code>GET</code> or <code>POST</code>.</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">HTML</span>
+                    <pre><code>&lt;form action="/submit" method="POST"&gt;
+  &lt;label for="email"&gt;Email Address&lt;/label&gt;
+  &lt;input type="email" id="email" name="email" required&gt;
+  &lt;button type="submit"&gt;Continue&lt;/button&gt;
 &lt;/form&gt;</code></pre>
-        </section>
-    </main>
+                </div>
+            </section>
+
+            <section id="why-this-matters" class="content-card">
+                <h2>Why This Matters</h2>
+                <p>Forms power authentication, payments, data capture, and search. Implementing native controls instead of custom <code>div</code> hacks ensures assistive screen readers announce input fields, autofill tools populate credentials correctly, and mobile devices bring up specialized keyboards automatically.</p>
+            </section>
+
+            <section id="core-controls" class="content-card">
+                <h2>Core Controls</h2>
+                <p>HTML offers diverse native input elements tailored for specific data formats:</p>
+                <ul>
+                    <li><code>&lt;input type="text"&gt;</code>: Standard single-line text input.</li>
+                    <li><code>&lt;input type="email"&gt;</code>: Validates email syntax and triggers email keyboards on mobile.</li>
+                    <li><code>&lt;input type="password"&gt;</code>: Masks typed characters for security.</li>
+                    <li><code>&lt;textarea&gt;</code>: Multi-line freeform text entry.</li>
+                    <li><code>&lt;select&gt;</code> &amp; <code>&lt;option&gt;</code>: Native dropdown selector menus.</li>
+                    <li><code>&lt;input type="checkbox"&gt;</code> &amp; <code>&lt;input type="radio"&gt;</code>: Toggleable binary and exclusive options.</li>
+                </ul>
+            </section>
+
+            <section id="visual-flow" class="content-card">
+                <h2>Visual Submission Flow</h2>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">DIAGRAM</span>
+                    <pre><code>User Input  &rarr;  Form Validation  &rarr;  Data Packaging  &rarr;  HTTP Dispatch
+
++--------------------+
+|  User Types Data   |  (Enters email, name, password)
++---------+----------+
+          |
+          v
++---------+----------+
+|  Constraint Check  |  (Evaluates required, pattern, minlength)
++---------+----------+
+          |
+    +-----+-----+
+    |           |
+ [Invalid]   [Valid]
+    |           |
+    v           v
+  Native     Serialized to Payload (name=value)
+  Error UI      |
+                v
+             Sent to &lt;form action="..." method="POST"&gt;</code></pre>
+                </div>
+            </section>
+
+            <section id="syntax" class="content-card">
+                <h2>Syntax</h2>
+                <p>Constructing a complete form with labels and accessible groups:</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">HTML</span>
+                    <pre><code>&lt;form action="/api/login" method="POST"&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Account Credentials&lt;/legend&gt;
+    &lt;div class="field"&gt;
+      &lt;label for="user"&gt;Username&lt;/label&gt;
+      &lt;input type="text" id="user" name="user" required minlength="4"&gt;
+    &lt;/div&gt;
+    &lt;div class="field"&gt;
+      &lt;label for="pwd"&gt;Password&lt;/label&gt;
+      &lt;input type="password" id="pwd" name="pwd" required&gt;
+    &lt;/div&gt;
+    &lt;button type="submit"&gt;Sign In&lt;/button&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;</code></pre>
+                </div>
+            </section>
+
+            <section id="examples" class="content-card">
+                <h2>Validation Examples</h2>
+                <p>HTML5 provides client-side validation rules without requiring JavaScript:</p>
+                <ul>
+                    <li><code>required</code>: Rejects submission if the input is empty.</li>
+                    <li><code>pattern="[0-9]{5}"</code>: Enforces specific regular expression formats (e.g., 5-digit ZIP codes).</li>
+                    <li><code>min="1" max="100"</code>: Constrains numeric boundary thresholds.</li>
+                </ul>
+            </section>
+
+            <section id="common-mistakes" class="content-card">
+                <h2>Common Mistakes</h2>
+                <ul>
+                    <li>Omitting the <code>for</code> attribute on <code>&lt;label&gt;</code> elements, which breaks screen reader accessibility and prevents clicking labels to focus inputs.</li>
+                    <li>Forgetting the <code>name</code> attribute on inputs, resulting in their values being excluded from the submitted form data.</li>
+                    <li>Relying exclusively on frontend HTML validation without mirroring those validation checks on the backend server.</li>
+                </ul>
+            </section>
+
+            <section id="interview-questions" class="content-card">
+                <h2>Interview Questions</h2>
+                <p><strong>Q: What is the difference between GET and POST in form submissions?</strong></p>
+                <p><code>GET</code> appends form data directly to the URL string as query parameters (ideal for shareable searches), while <code>POST</code> sends data inside the HTTP request body (required for sensitive credentials and file uploads).</p>
+            </section>
+
+            <section id="quick-revision" class="content-card">
+                <h2>Quick Revision</h2>
+                <p>Always pair inputs with explicit <code>&lt;label for="id"&gt;</code> elements. Leverage native input types (<code>email</code>, <code>tel</code>, <code>number</code>) to provide mobile keyboard support, and validate data with <code>required</code> and <code>pattern</code>.</p>
+            </section>
+
+            <section id="practice-problems" class="content-card">
+                <h2>Practice Problems</h2>
+                <ol>
+                    <li>Build an accessible credit card checkout form with expiration date dropdowns and CVV patterns.</li>
+                    <li>Implement a dynamic search filter form that submits queries using the <code>GET</code> method.</li>
+                </ol>
+            </section>
+
+            <section id="resources" class="content-card">
+                <h2>Resources</h2>
+                <ul>
+                    <li>MDN Web Docs: HTML Forms Guide</li>
+                    <li>W3C Web Accessibility Initiative: Form Validation Tutorials</li>
+                </ul>
+            </section>
+        </main>
+    </div>
 </body>
 </html>

@@ -4,124 +4,155 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSS Selectors &amp; Specificity - Kaizen Tech Blog</title>
-    
     <link rel="stylesheet" href="../css/blog.css">
 </head>
 <body>
-    <header class="blog-header">
-        <nav class="blog-nav">
-            <a href="../../index.html" class="logo">Kaizen Tech Blog</a>
-            <div class="nav-links">
-                <a href="../index.html">Web Development</a>
-                <a href="index.html" class="active">CSS</a>
-            </div>
-        </nav>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../CSS.html" class="brand-link">
+                <img src="../kaizen-logo.png" alt="Kaizen Tech Logo" class="brand-logo">
+                <span>Kaizen Tech</span>
+            </a>
+            <a href="../CSS.html" class="back-link">&larr; Back to CSS</a>
+        </div>
     </header>
 
-    <main class="article-container">
-        <!-- 1. HERO SECTION -->
-        <section class="hero-section">
-            <h1 class="article-title">CSS Selectors &amp; Specificity</h1>
-            <p class="article-description">Master selector patterns, combinators, pseudo-classes, and specificity calculations to write predictable CSS.</p>
-            <div class="article-meta">
-                <span class="meta-item"><strong>Difficulty:</strong> Beginner</span>
-                <span class="meta-item"><strong>Reading Time:</strong> 14 mins</span>
-                <span class="meta-item"><strong>Prerequisites:</strong> Basic CSS Syntax</span>
-            </div>
-            <div class="tags-container">
-                <span class="tag">CSS</span>
-                <span class="tag">Selectors</span>
-                <span class="tag">Specificity</span>
-                <span class="tag">Architecture</span>
-            </div>
-            <div class="hero-banner">
-                <svg viewBox="0 0 800 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="800" height="200" fill="#0f172a" rx="10"/>
-                    <rect x="80" y="60" width="140" height="80" fill="#dc2626" rx="8"/>
-                    <text x="150" y="105" fill="#ffffff" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">Inline (1,0,0,0)</text>
-                    <rect x="240" y="60" width="140" height="80" fill="#ea580c" rx="8"/>
-                    <text x="310" y="105" fill="#ffffff" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">#ID (0,1,0,0)</text>
-                    <rect x="400" y="60" width="150" height="80" fill="#2563eb" rx="8"/>
-                    <text x="475" y="105" fill="#ffffff" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">.Class (0,0,1,0)</text>
-                    <rect x="570" y="60" width="150" height="80" fill="#059669" rx="8"/>
-                    <text x="645" y="105" fill="#ffffff" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">Element (0,0,0,1)</text>
-                </svg>
-            </div>
-        </section>
-
-        <!-- 2. TABLE OF CONTENTS -->
-        <nav class="toc-container">
-            <h2>Table of Contents</h2>
-            <ul class="toc-list">
-                <li><a href="#why-this-matters">Why Selector Mastery Matters</a></li>
-                <li><a href="#core-concept">Selector Types &amp; The Specificity Hierarchy</a></li>
-                <li><a href="#visual-diagram">The Specificity Weight Scale</a></li>
-                <li><a href="#syntax">Syntax &amp; Combinator Reference</a></li>
-            </ul>
-        </nav>
-
-        <!-- 3. WHY THIS MATTERS -->
-        <section id="why-this-matters" class="article-section">
-            <h2>Why This Matters</h2>
-            <p>Every developer has experienced writing a CSS rule, refreshing the browser, and seeing nothing change—only to end up tacking on <code>!important</code> to force the style to apply. This habit triggers a specificity arms race that makes the codebase brittle and difficult to maintain.</p>
-            <p>Understanding selector priority and combinators allows you to target elements precisely without adding redundant classes or breaking the cascade.</p>
-        </section>
-
-        <!-- 4. CONCEPT -->
-        <section id="core-concept" class="article-section">
-            <h2>Concept</h2>
-            <p>CSS determines which style rule takes precedence through an algorithm called <strong>Specificity</strong>, calculated using a 4-part score <code>(a, b, c, d)</code>:</p>
+    <div class="page-layout">
+        <aside class="toc-sidebar">
+            <h3>Table of Contents</h3>
             <ul>
-                <li><strong>Inline Styles (1, 0, 0, 0):</strong> Directly applied via the <code>style=""</code> attribute.</li>
-                <li><strong>IDs (0, 1, 0, 0):</strong> E.g., <code>#nav-header</code>. High weight; best avoided for styling purposes.</li>
-                <li><strong>Classes, Attributes &amp; Pseudo-classes (0, 0, 1, 0):</strong> E.g., <code>.btn</code>, <code>[type="checkbox"]</code>, <code>:hover</code>.</li>
-                <li><strong>Elements &amp; Pseudo-elements (0, 0, 0, 1):</strong> E.g., <code>div</code>, <code>p</code>, <code>::before</code>.</li>
+                <li><a href="#what-are-selectors">What Are CSS Selectors</a></li>
+                <li><a href="#why-this-matters">Why This Matters</a></li>
+                <li><a href="#selector-types">Selector Types</a></li>
+                <li><a href="#specificity-scale">The Specificity Scale</a></li>
+                <li><a href="#syntax">Syntax &amp; Combinators</a></li>
+                <li><a href="#pseudo-classes">Pseudo-Classes &amp; Elements</a></li>
+                <li><a href="#common-mistakes">Common Mistakes</a></li>
+                <li><a href="#interview-questions">Interview Questions</a></li>
+                <li><a href="#quick-revision">Quick Revision</a></li>
+                <li><a href="#practice-problems">Practice Problems</a></li>
+                <li><a href="#resources">Resources</a></li>
             </ul>
-        </section>
+        </aside>
 
-        <!-- 5. VISUAL DIAGRAM -->
-        <section id="visual-diagram" class="article-section">
-            <h2>Visual Diagram</h2>
-            <div class="diagram-wrapper">
-                <pre class="ascii-diagram">
-SPECIFICITY COMPARISON MATRIX:
-Selector                                | (Inline, ID, Class, Element) | Calculated Score
-----------------------------------------+------------------------------+-----------------
-style="color: red;"                     |          1,  0,     0,       0 | Highest priority
-#header-title                           |          0,  1,     0,       0 | 100 points
-header .nav-list li.active a            |          0,  0,     2,       3 |  23 points
-.btn:hover                              |          0,  0,     2,       0 |  20 points
-button                                  |          0,  0,     0,       1 |   1 point
-
-* Note: 10 classes (0,0,10,0) will NEVER overpower 1 ID (0,1,0,0)!
-                </pre>
-            </div>
-        </section>
-
-        <!-- 6. SYNTAX -->
-        <section id="syntax" class="article-section">
-            <h2>Syntax</h2>
-            <pre><code class="language-css">/* Combinators */
-article p { /* Descendant: any p inside article */ }
-article &gt; p { /* Child: direct child p only */ }
-h2 + p { /* Adjacent sibling: first p immediately following h2 */ }
-h2 ~ p { /* General sibling: any p following h2 under same parent */ }
-
-/* Modern Pseudo-classes */
-button:not(.disabled) {
-    cursor: pointer;
-}
-
-ul &gt; li:is(:hover, :focus-within) {
-    color: #38bdf8;
-}
-
-/* Pseudo-elements */
-.quote::before {
-    content: "“";
-    font-size: 2rem;
+        <main class="content-column">
+            <section id="what-are-selectors" class="content-card">
+                <h2>Concept</h2>
+                <p>CSS Selectors match HTML elements on the page and apply visual styles to them, using specificity scores to resolve conflicts when multiple rules target the same element.</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>/* Element, Class, and State Pseudo-Class */
+button.primary-btn:hover {
+  background-color: #0284c7;
+  transform: translateY(-2px);
 }</code></pre>
-        </section>
-    </main>
+                </div>
+            </section>
+
+            <section id="why-this-matters" class="content-card">
+                <h2>Why This Matters</h2>
+                <p>Without understanding specificity, styling issues often lead to overuse of <code>!important</code> tags, creating hard-to-debug overrides across the codebase. Mastering selectors lets you target elements precisely without adding redundant classes or breaking the cascade.</p>
+            </section>
+
+            <section id="selector-types" class="content-card">
+                <h2>Selector Types</h2>
+                <ul>
+                    <li><strong>Universal:</strong> <code>*</code> targets all elements across the DOM.</li>
+                    <li><strong>Type:</strong> Targets elements by their HTML tag name (e.g., <code>h1</code>, <code>p</code>).</li>
+                    <li><strong>Class:</strong> Targets elements by class name (e.g., <code>.card</code>).</li>
+                    <li><strong>ID:</strong> Targets an element by its unique identifier (e.g., <code>#navbar</code>).</li>
+                    <li><strong>Attribute:</strong> Matches attributes and their values (e.g., <code>[type="checkbox"]</code>).</li>
+                </ul>
+            </section>
+
+            <section id="specificity-scale" class="content-card">
+                <h2>The Specificity Scale</h2>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">DIAGRAM</span>
+                    <pre><code>Specificity Hierarchy: (Inline, ID, Class, Type)
+
+Selector                        | ( a , b , c , d ) | Points
+--------------------------------+-------------------+-------
+style="color: red;"             | ( 1 , 0 , 0 , 0 ) | 1000
+#primary-header                 | ( 0 , 1 , 0 , 0 ) |  100
+.nav-bar .item.active           | ( 0 , 0 , 2 , 0 ) |   20
+header nav a:hover              | ( 0 , 0 , 1 , 2 ) |   12
+div p                           | ( 0 , 0 , 0 , 2 ) |    2
+
+* 1 ID will always override 100 stacked classes!</code></pre>
+                </div>
+            </section>
+
+            <section id="syntax" class="content-card">
+                <h2>Syntax &amp; Combinators</h2>
+                <p>Combinators define relationships between target selectors:</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>/* Descendant selector: any p inside article */
+article p { color: #334155; }
+
+/* Child selector: direct children only */
+ul &gt; li { list-style: square; }
+
+/* Adjacent sibling: immediate next sibling */
+h2 + p { font-weight: 600; }
+
+/* General sibling: any following sibling */
+h2 ~ p { font-size: 0.95rem; }</code></pre>
+                </div>
+            </section>
+
+            <section id="pseudo-classes" class="content-card">
+                <h2>Pseudo-Classes &amp; Elements</h2>
+                <p>Pseudo-classes select state, while pseudo-elements target sub-parts of an element:</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>/* Pseudo-classes (State) */
+input:focus { border-color: #0284c7; }
+li:nth-child(even) { background: #f8fafc; }
+
+/* Pseudo-elements (Virtual DOM hooks) */
+p::first-line { font-weight: bold; }
+.card::before { content: ""; display: block; }</code></pre>
+                </div>
+            </section>
+
+            <section id="common-mistakes" class="content-card">
+                <h2>Common Mistakes</h2>
+                <ul>
+                    <li>Using IDs as styling selectors in CSS, which creates unnecessarily high specificity scores.</li>
+                    <li>Over-qualifying selectors (e.g., <code>div.container ul.nav li.item a.link</code>) instead of using a single clean class name (<code>.nav-link</code>).</li>
+                    <li>Relying on <code>!important</code> to fix conflicts caused by selector specificity issues.</li>
+                </ul>
+            </section>
+
+            <section id="interview-questions" class="content-card">
+                <h2>Interview Questions</h2>
+                <p><strong>Q: What does the :is() and :where() pseudo-class do, and how do they differ?</strong></p>
+                <p>Both allow grouping multiple selectors together. <code>:is()</code> takes the specificity of its highest-ranked argument, whereas <code>:where()</code> always has a specificity score of zero.</p>
+            </section>
+
+            <section id="quick-revision" class="content-card">
+                <h2>Quick Revision</h2>
+                <p>Favor flat, single-class selectors (like BEM) to keep specificity low and predictable. Avoid styling by ID, and use combinators (<code>&gt;</code>, <code>+</code>) only when defining parent-child relationships.</p>
+            </section>
+
+            <section id="practice-problems" class="content-card">
+                <h2>Practice Problems</h2>
+                <ol>
+                    <li>Calculate the specificity score of: <code>body.dark #main-nav ul &gt; li a:hover</code>.</li>
+                    <li>Refactor a stylesheet with high specificity down to single reusable class selectors.</li>
+                </ol>
+            </section>
+
+            <section id="resources" class="content-card">
+                <h2>Resources</h2>
+                <ul>
+                    <li>MDN: CSS Selectors Reference</li>
+                    <li>CSS-Tricks: Specificity Calculator Guide</li>
+                </ul>
+            </section>
+        </main>
+    </div>
 </body>
 </html>

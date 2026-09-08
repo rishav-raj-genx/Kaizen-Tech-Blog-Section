@@ -4,121 +4,157 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSS Flexbox - Kaizen Tech Blog</title>
-    
     <link rel="stylesheet" href="../css/blog.css">
 </head>
 <body>
-    <header class="blog-header">
-        <nav class="blog-nav">
-            <a href="../../index.html" class="logo">Kaizen Tech Blog</a>
-            <div class="nav-links">
-                <a href="../index.html">Web Development</a>
-                <a href="index.html" class="active">CSS</a>
-            </div>
-        </nav>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../CSS.html" class="brand-link">
+                <img src="../kaizen-logo.png" alt="Kaizen Tech Logo" class="brand-logo">
+                <span>Kaizen Tech</span>
+            </a>
+            <a href="../CSS.html" class="back-link">&larr; Back to CSS</a>
+        </div>
     </header>
 
-    <main class="article-container">
-        <!-- 1. HERO SECTION -->
-        <section class="hero-section">
-            <h1 class="article-title">CSS Flexbox</h1>
-            <p class="article-description">Learn to build flexible, perfectly aligned, one-dimensional layouts using the Flexible Box Module.</p>
-            <div class="article-meta">
-                <span class="meta-item"><strong>Difficulty:</strong> Beginner</span>
-                <span class="meta-item"><strong>Reading Time:</strong> 15 mins</span>
-                <span class="meta-item"><strong>Prerequisites:</strong> CSS Box Model</span>
-            </div>
-            <div class="tags-container">
-                <span class="tag">CSS</span>
-                <span class="tag">Flexbox</span>
-                <span class="tag">Layout</span>
-                <span class="tag">Responsive Design</span>
-            </div>
-            <div class="hero-banner">
-                <svg viewBox="0 0 800 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="800" height="200" fill="#0f172a" rx="10"/>
-                    <rect x="50" y="40" width="700" height="120" fill="#1e293b" stroke="#38bdf8" stroke-dasharray="4" rx="8"/>
-                    <rect x="80" y="65" width="180" height="70" fill="#0284c7" rx="5"/>
-                    <text x="170" y="105" fill="#ffffff" font-family="sans-serif" font-size="14" text-anchor="middle">Flex Item 1</text>
-                    <rect x="310" y="65" width="180" height="70" fill="#0284c7" rx="5"/>
-                    <text x="400" y="105" fill="#ffffff" font-family="sans-serif" font-size="14" text-anchor="middle">Flex Item 2</text>
-                    <rect x="540" y="65" width="180" height="70" fill="#0284c7" rx="5"/>
-                    <text x="630" y="105" fill="#ffffff" font-family="sans-serif" font-size="14" text-anchor="middle">Flex Item 3</text>
-                </svg>
-            </div>
-        </section>
-
-        <!-- 2. TABLE OF CONTENTS -->
-        <nav class="toc-container">
-            <h2>Table of Contents</h2>
-            <ul class="toc-list">
-                <li><a href="#why-this-matters">Why Flexbox Matters</a></li>
-                <li><a href="#core-concept">Flexbox Terminology &amp; Dual Axes</a></li>
-                <li><a href="#visual-diagram">Main Axis vs. Cross Axis Layout</a></li>
-                <li><a href="#syntax">Syntax &amp; Practical Properties</a></li>
-            </ul>
-        </nav>
-
-        <!-- 3. WHY THIS MATTERS -->
-        <section id="why-this-matters" class="article-section">
-            <h2>Why This Matters</h2>
-            <p>Prior to Flexbox, centering an element both vertically and horizontally required hacks involving <code>display: table-cell</code>, negative margins, or absolute positioning with transforms. Even a simple navigation bar with a logo on the left and menu items on the right required fragile float and clearfix rules.</p>
-            <p>Flexbox solved this by making containers dynamically stretch, shrink, and redistribute leftover space among child items as the browser viewport resizes.</p>
-        </section>
-
-        <!-- 4. CONCEPT -->
-        <section id="core-concept" class="article-section">
-            <h2>Concept</h2>
-            <p>Flexbox works on a parent-child relationship across two distinct axes:</p>
+    <div class="page-layout">
+        <aside class="toc-sidebar">
+            <h3>Table of Contents</h3>
             <ul>
-                <li><strong>Flex Container:</strong> The parent element on which you declare <code>display: flex</code> or <code>display: inline-flex</code>.</li>
-                <li><strong>Main Axis:</strong> The primary axis along which children are ordered, defined by <code>flex-direction</code> (defaults to <code>row</code>, left-to-right).</li>
-                <li><strong>Cross Axis:</strong> Perpendicular to the main axis. If the main axis is horizontal, the cross axis is vertical.</li>
-                <li><strong>Justify vs. Align:</strong> <code>justify-content</code> controls alignment on the Main Axis; <code>align-items</code> controls alignment on the Cross Axis.</li>
+                <li><a href="#what-is-flexbox">What Is Flexbox</a></li>
+                <li><a href="#why-this-matters">Why Flexbox Matters</a></li>
+                <li><a href="#flexbox-terminology">Flexbox Terminology</a></li>
+                <li><a href="#main-properties">Main Properties</a></li>
+                <li><a href="#visual-diagram">Main vs. Cross Axis</a></li>
+                <li><a href="#syntax">Syntax</a></li>
+                <li><a href="#real-world">Real-World Applications</a></li>
+                <li><a href="#common-mistakes">Common Mistakes</a></li>
+                <li><a href="#interview-questions">Interview Questions</a></li>
+                <li><a href="#quick-revision">Quick Revision</a></li>
+                <li><a href="#practice-problems">Practice Problems</a></li>
+                <li><a href="#resources">Resources</a></li>
             </ul>
-        </section>
+        </aside>
 
-        <!-- 5. VISUAL DIAGRAM -->
-        <section id="visual-diagram" class="article-section">
-            <h2>Visual Diagram</h2>
-            <div class="diagram-wrapper">
-                <pre class="ascii-diagram">
-   Main Axis ---&gt; (flex-direction: row)
-   +-------------------------------------------------------------------+
- C |  [Item 1]               [Item 2]               [Item 3]           |
- r |                                                                   |
- o |  justify-content: space-between (distributes along main axis)     |
- s |  align-items: center            (aligns along cross axis)         |
- s |                                                                   |
-   +-------------------------------------------------------------------+
-   v Cross Axis (perpendicular to Main Axis)
-                </pre>
-            </div>
-        </section>
-
-        <!-- 6. SYNTAX -->
-        <section id="syntax" class="article-section">
-            <h2>Syntax</h2>
-            <pre><code class="language-css">/* Container properties */
-.navbar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1.5rem;
-}
-
-/* Child item properties */
-.nav-item-expand {
-    /* flex-grow | flex-shrink | flex-basis */
-    flex: 1 1 200px;
-}
-
-.nav-cta {
-    /* Override parent alignment locally */
-    align-self: flex-end;
+        <main class="content-column">
+            <section id="what-is-flexbox" class="content-card">
+                <h2>Concept</h2>
+                <p>The Flexible Box Module (Flexbox) is a one-dimensional layout system designed to distribute space along a single row or column while handling element alignment and dynamic sizing.</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }</code></pre>
-        </section>
-    </main>
+                </div>
+            </section>
+
+            <section id="why-this-matters" class="content-card">
+                <h2>Why This Matters</h2>
+                <p>Before Flexbox, vertical centering and variable-width columns required fragile hacks with floats, tables, and clearing elements. Flexbox makes child elements expand to fill unused space or shrink to avoid overflowing, keeping navigation headers and cards aligned as screens resize.</p>
+            </section>
+
+            <section id="flexbox-terminology" class="content-card">
+                <h2>Flexbox Terminology</h2>
+                <ul>
+                    <li><strong>Flex Container:</strong> The parent element on which <code>display: flex</code> is declared.</li>
+                    <li><strong>Flex Items:</strong> Direct children of the flex container.</li>
+                    <li><strong>Main Axis:</strong> The primary layout direction (defaults to horizontal with <code>flex-direction: row</code>).</li>
+                    <li><strong>Cross Axis:</strong> The perpendicular axis (defaults to vertical when layout is row-based).</li>
+                </ul>
+            </section>
+
+            <section id="main-properties" class="content-card">
+                <h2>Main Properties</h2>
+                <p>Key properties categorized by parent container and child items:</p>
+                <ul>
+                    <li><code>justify-content</code>: Aligns items along the Main Axis (e.g., <code>center</code>, <code>space-between</code>).</li>
+                    <li><code>align-items</code>: Aligns items across the Cross Axis (e.g., <code>center</code>, <code>stretch</code>).</li>
+                    <li><code>flex-wrap</code>: Allows items to wrap onto multiple lines (<code>nowrap</code>, <code>wrap</code>).</li>
+                    <li><code>flex-grow</code>, <code>flex-shrink</code>, <code>flex-basis</code>: Controls item scaling and starting widths.</li>
+                </ul>
+            </section>
+
+            <section id="visual-diagram" class="content-card">
+                <h2>Visual Diagram</h2>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">DIAGRAM</span>
+                    <pre><code>Main Axis Direction &rarr; (flex-direction: row)
++-------------------------------------------------------------+
+|  [Item 1]              [Item 2]              [Item 3]       | ^
+|                                                             | | Cross
+|  justify-content: space-between (distributes along main)    | | Axis
+|  align-items: center            (aligns along cross axis)   | v
++-------------------------------------------------------------+</code></pre>
+                </div>
+            </section>
+
+            <section id="syntax" class="content-card">
+                <h2>Syntax</h2>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.search-input {
+  /* grow | shrink | basis */
+  flex: 1 1 250px;
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="real-world" class="content-card">
+                <h2>Real-World Applications</h2>
+                <p>Flexbox is ideal for one-dimensional UI components:</p>
+                <ul>
+                    <li>Navigation bars with logos on the left and links pushed to the right.</li>
+                    <li>Centering content modals vertically and horizontally.</li>
+                    <li>Form input groups where a text input expands to fill space next to a fixed-width button.</li>
+                </ul>
+            </section>
+
+            <section id="common-mistakes" class="content-card">
+                <h2>Common Mistakes</h2>
+                <ul>
+                    <li>Using <code>justify-content</code> when trying to align items along the cross axis (which requires <code>align-items</code>).</li>
+                    <li>Forgetting that switching <code>flex-direction</code> to <code>column</code> swaps the behavior of the main and cross axes.</li>
+                    <li>Using Flexbox to build two-dimensional layouts with complex row and column alignments (which are better suited for CSS Grid).</li>
+                </ul>
+            </section>
+
+            <section id="interview-questions" class="content-card">
+                <h2>Interview Questions</h2>
+                <p><strong>Q: What does the shorthand flex: 1 mean?</strong></p>
+                <p>It expands to <code>flex-grow: 1; flex-shrink: 1; flex-basis: 0%;</code>, allowing the flex item to grow and shrink dynamically relative to other items in the container.</p>
+            </section>
+
+            <section id="quick-revision" class="content-card">
+                <h2>Quick Revision</h2>
+                <p>Set <code>display: flex</code> on the parent element. Use <code>justify-content</code> to align items along the main axis, <code>align-items</code> for the cross axis, and the <code>gap</code> property to add space between items without using margins.</p>
+            </section>
+
+            <section id="practice-problems" class="content-card">
+                <h2>Practice Problems</h2>
+                <ol>
+                    <li>Build a navigation bar with a logo, menu links, and an action button using <code>justify-content: space-between</code>.</li>
+                    <li>Center a modal dialog card horizontally and vertically inside a full-screen wrapper.</li>
+                </ol>
+            </section>
+
+            <section id="resources" class="content-card">
+                <h2>Resources</h2>
+                <ul>
+                    <li>MDN: Basic Concepts of Flexbox</li>
+                    <li>CSS-Tricks: A Complete Guide to Flexbox</li>
+                </ul>
+            </section>
+        </main>
+    </div>
 </body>
 </html>
