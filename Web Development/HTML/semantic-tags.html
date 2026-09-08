@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Semantic Tags - Kaizen Tech Blog</title>
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../HTML.html" class="brand-link">
+                <img src="../kaizen-logo.png" alt="Kaizen Tech Logo" class="brand-logo">
+                <span>Kaizen Tech</span>
+            </a>
+            <a href="../HTML.html" class="back-link">&larr; Back to HTML</a>
+        </div>
+    </header>
+
+    <!-- Two-Column Layout -->
+    <div class="page-layout">
+        <!-- Left Column: Sticky Table of Contents -->
+        <aside class="toc-sidebar">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#what-are-semantic-tags">What Are Semantic Tags</a></li>
+                <li><a href="#why-this-matters">Why This Matters</a></li>
+                <li><a href="#core-tags">Core Tags</a></li>
+                <li><a href="#visual-structure">Visual Structure</a></li>
+                <li><a href="#syntax">Syntax</a></li>
+                <li><a href="#examples">Examples</a></li>
+                <li><a href="#common-mistakes">Common Mistakes</a></li>
+                <li><a href="#interview-questions">Interview Questions</a></li>
+                <li><a href="#quick-revision">Quick Revision</a></li>
+                <li><a href="#practice-problems">Practice Problems</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </aside>
+
+        <!-- Right Column: Content Cards -->
+        <main class="content-column">
+            <!-- 1. What Are Semantic Tags -->
+            <section id="what-are-semantic-tags" class="content-card">
+                <h2>Concept</h2>
+                <p>Semantic elements describe the job of a region. A browser, search engine, screen reader, and teammate can understand more from <code>&lt;nav&gt;</code> than from an unnamed <code>&lt;div&gt;</code>.</p>
+                
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">HTML</span>
+                    <pre><code>&lt;header&gt;
+  &lt;nav&gt;
+    &lt;a href="/"&gt;Home&lt;/a&gt;
+    &lt;a href="/docs"&gt;Docs&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+&lt;main&gt;
+  &lt;article&gt;
+    &lt;section&gt;...&lt;/section&gt;
+  &lt;/article&gt;
+  &lt;aside&gt;...&lt;/aside&gt;
+&lt;/main&gt;
+&lt;footer&gt;...&lt;/footer&gt;</code></pre>
+                </div>
+            </section>
+
+            <!-- 2. Why This Matters -->
+            <section id="why-this-matters" class="content-card">
+                <h2>Why This Matters</h2>
+                <p>Imagine a documentation page with ten anonymous containers. A screen reader user has to guess where navigation ends and the article begins. Semantic landmarks make that structure explicit and make maintenance easier.</p>
+            </section>
+
+            <!-- 3. Core Tags -->
+            <section id="core-tags" class="content-card">
+                <h2>Core Tags</h2>
+                <p>HTML5 provides targeted containers for every major landmark:</p>
+                <ul>
+                    <li><code>&lt;header&gt;</code>: Top branding, intro, or navigational bar.</li>
+                    <li><code>&lt;nav&gt;</code>: Primary navigation links.</li>
+                    <li><code>&lt;main&gt;</code>: Central topic of the document (only one per page).</li>
+                    <li><code>&lt;article&gt;</code>: Self-contained, syndicatable content.</li>
+                    <li><code>&lt;section&gt;</code>: Thematic group with its own heading.</li>
+                    <li><code>&lt;aside&gt;</code>: Tangential content or sidebar notes.</li>
+                    <li><code>&lt;footer&gt;</code>: Copyright, author information, and site links.</li>
+                </ul>
+            </section>
+
+            <!-- 4. Visual Structure -->
+            <section id="visual-structure" class="content-card">
+                <h2>Visual Structure</h2>
+                <p>A standard semantic page layout arranges landmarks cleanly:</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">DIAGRAM</span>
+                    <pre><code>header  &rarr;  nav  &rarr;  main [article &rarr; section]  &rarr;  aside  &rarr;  footer
+
++-------------------------------------------------------------+
+|                           &lt;header&gt;                          |
+|  +-------------------------------------------------------+  |
+|  |                         &lt;nav&gt;                         |  |
+|  +-------------------------------------------------------+  |
++-------------------------------------------------------------+
+|  &lt;main&gt;                                      |  &lt;aside&gt;     |
+|  +----------------------------------------+  |              |
+|  |               &lt;article&gt;                |  | Related      |
+|  |  +----------------------------------+  |  | Links        |
+|  |  |            &lt;section&gt;             |  |  |              |
+|  |  +----------------------------------+  |  |              |
+|  +----------------------------------------+  |              |
++-------------------------------------------------------------+
+|                           &lt;footer&gt;                          |
++-------------------------------------------------------------+</code></pre>
+                </div>
+            </section>
+
+            <!-- 5. Syntax -->
+            <section id="syntax" class="content-card">
+                <h2>Syntax</h2>
+                <p>Implement proper nesting of semantic elements:</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">HTML</span>
+                    <pre><code>&lt;article class="blog-post"&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Understanding Semantic Tags&lt;/h1&gt;
+    &lt;p&gt;Published on September 8, 2026&lt;/p&gt;
+  &lt;/header&gt;
+  &lt;section&gt;
+    &lt;h2&gt;Introduction&lt;/h2&gt;
+    &lt;p&gt;Semantic markup forms the backbone of web accessibility.&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/article&gt;</code></pre>
+                </div>
+            </section>
+
+            <!-- 6. Examples -->
+            <section id="examples" class="content-card">
+                <h2>Examples</h2>
+                <p>Comparing non-semantic vs. semantic implementations:</p>
+                <p><strong>Non-semantic (Anti-pattern):</strong></p>
+                <p><code>&lt;div class="header"&gt;&lt;div class="nav"&gt;...&lt;/div&gt;&lt;/div&gt;</code></p>
+                <p><strong>Semantic (Standard):</strong></p>
+                <p><code>&lt;header&gt;&lt;nav&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="..."&gt;...&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/nav&gt;&lt;/header&gt;</code></p>
+            </section>
+
+            <!-- 7. Common Mistakes -->
+            <section id="common-mistakes" class="content-card">
+                <h2>Common Mistakes</h2>
+                <ul>
+                    <li>Using multiple <code>&lt;main&gt;</code> tags on a single page without the <code>hidden</code> attribute.</li>
+                    <li>Wrapping every single element in <code>&lt;section&gt;</code> instead of using generic <code>&lt;div&gt;</code> for purely visual styling wrappers.</li>
+                    <li>Using <code>&lt;aside&gt;</code> inside an article for content that is not relevant to that article.</li>
+                </ul>
+            </section>
+
+            <!-- 8. Interview Questions -->
+            <section id="interview-questions" class="content-card">
+                <h2>Interview Questions</h2>
+                <p><strong>Q: What is the difference between &lt;article&gt; and &lt;section&gt;?</strong></p>
+                <p>An <code>&lt;article&gt;</code> represents self-contained content that could be distributed independently (e.g., in an RSS feed). A <code>&lt;section&gt;</code> represents a thematic grouping of content, typically with a heading.</p>
+            </section>
+
+            <!-- 9. Quick Revision -->
+            <section id="quick-revision" class="content-card">
+                <h2>Quick Revision</h2>
+                <p>Always build from content meaning outward. Use <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;aside&gt;</code>, and <code>&lt;footer&gt;</code> to create accessible landmarks before styling with CSS.</p>
+            </section>
+
+            <!-- 10. Practice Problems -->
+            <section id="practice-problems" class="content-card">
+                <h2>Practice Problems</h2>
+                <ol>
+                    <li>Refactor a classic "div soup" dashboard template into a semantic structure.</li>
+                    <li>Audit a news article page with a screen reader to verify navigation jumps work across landmarks.</li>
+                </ol>
+            </section>
+
+            <!-- 11. Resources -->
+            <section id="resources" class="content-card">
+                <h2>Resources</h2>
+                <ul>
+                    <li>MDN Web Docs: HTML Elements Reference</li>
+                    <li>W3C Web Accessibility Initiative (WAI): Page Regions and Landmarks</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

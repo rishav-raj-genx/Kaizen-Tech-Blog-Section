@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Tables - Kaizen Tech Blog</title>
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../HTML.html" class="brand-link">
+                <img src="../kaizen-logo.png" alt="Kaizen Tech Logo" class="brand-logo">
+                <span>Kaizen Tech</span>
+            </a>
+            <a href="../HTML.html" class="back-link">&larr; Back to HTML</a>
+        </div>
+    </header>
+
+    <div class="page-layout">
+        <aside class="toc-sidebar">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#what-are-tables">What Are Tables</a></li>
+                <li><a href="#why-this-matters">Why This Matters</a></li>
+                <li><a href="#table-elements">Table Elements</a></li>
+                <li><a href="#visual-structure">Visual Matrix Structure</a></li>
+                <li><a href="#syntax">Syntax</a></li>
+                <li><a href="#spanning">Rowspan &amp; Colspan</a></li>
+                <li><a href="#common-mistakes">Common Mistakes</a></li>
+                <li><a href="#interview-questions">Interview Questions</a></li>
+                <li><a href="#quick-revision">Quick Revision</a></li>
+                <li><a href="#practice-problems">Practice Problems</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </aside>
+
+        <main class="content-column">
+            <section id="what-are-tables" class="content-card">
+                <h2>Concept</h2>
+                <p>HTML tables organize structured, multi-dimensional information into rows and columns, establishing relational links between header categories and corresponding data points.</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">HTML</span>
+                    <pre><code>&lt;table&gt;
+  &lt;caption&gt;Server Status&lt;/caption&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Cluster&lt;/th&gt;
+    &lt;th&gt;Health&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;US-East&lt;/td&gt;
+    &lt;td&gt;Operational&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+                </div>
+            </section>
+
+            <section id="why-this-matters" class="article-section content-card">
+                <h2>Why This Matters</h2>
+                <p>Tables should never be used to build web page layouts—that role belongs to CSS Grid and Flexbox. However, when displaying financial balance sheets, comparison matrices, or timetables, semantic tables communicate relationships between headers and values to screen readers.</p>
+            </section>
+
+            <section id="table-elements" class="content-card">
+                <h2>Table Elements</h2>
+                <ul>
+                    <li><code>&lt;table&gt;</code>: Root container wrapper.</li>
+                    <li><code>&lt;caption&gt;</code>: Title describing the table's purpose.</li>
+                    <li><code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code>: Define structural sections for headers, data, and summary rows.</li>
+                    <li><code>&lt;th&gt;</code> &amp; <code>&lt;td&gt;</code>: Header cells and standard data cells.</li>
+                    <li><code>scope</code> attribute: Specifies whether a header applies to a <code>col</code> or a <code>row</code>.</li>
+                </ul>
+            </section>
+
+            <section id="visual-structure" class="content-card">
+                <h2>Visual Matrix Structure</h2>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">DIAGRAM</span>
+                    <pre><code>+-------------------------------------------------------------+
+|              &lt;caption&gt; Quarterly Performance &lt;/caption&gt;     |
++-------------------------------------------------------------+
+|  &lt;thead&gt;                                                    |
+|  +-----------------------+------------------+------------+  |
+|  | &lt;th scope="col"&gt; Region| &lt;th scope="col"&gt; | &lt;th ...&gt;   |  |
+|  +-----------------------+------------------+------------+  |
++-------------------------------------------------------------+
+|  &lt;tbody&gt;                                                    |
+|  +-----------------------+------------------+------------+  |
+|  | &lt;th scope="row"&gt; North| &lt;td&gt; $45,000    | &lt;td&gt; 92%   |  |
+|  +-----------------------+------------------+------------+  |
+|  | &lt;th scope="row"&gt; South| &lt;td&gt; $52,000    | &lt;td&gt; 98%   |  |
+|  +-----------------------+------------------+------------+  |
++-------------------------------------------------------------+
+|  &lt;tfoot&gt;                                                    |
+|  +-----------------------+------------------+------------+  |
+|  | &lt;td&gt; Total            | &lt;td&gt; $97,000    | &lt;td&gt; 95%   |  |
+|  +-----------------------+------------------+------------+  |
++-------------------------------------------------------------+</code></pre>
+                </div>
+            </section>
+
+            <section id="syntax" class="content-card">
+                <h2>Syntax</h2>
+                <p>Standard structured table implementation with explicit scope definitions:</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">HTML</span>
+                    <pre><code>&lt;table&gt;
+  &lt;caption&gt;Active System Users&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;ID&lt;/th&gt;
+      &lt;th scope="col"&gt;Name&lt;/th&gt;
+      &lt;th scope="col"&gt;Role&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th scope="row"&gt;#01&lt;/th&gt;
+      &lt;td&gt;Jane Doe&lt;/td&gt;
+      &lt;td&gt;Admin&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+                </div>
+            </section>
+
+            <section id="spanning" class="content-card">
+                <h2>Rowspan &amp; Colspan</h2>
+                <p>Cells can merge across dimensions using <code>colspan</code> (horizontal spanning) and <code>rowspan</code> (vertical spanning):</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">HTML</span>
+                    <pre><code>&lt;tr&gt;
+  &lt;!-- Spans across 2 columns --&gt;
+  &lt;th colspan="2"&gt;Consolidated Metric&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;!-- Spans vertically across 2 rows --&gt;
+  &lt;td rowspan="2"&gt;Group A&lt;/td&gt;
+  &lt;td&gt;Score 1&lt;/td&gt;
+&lt;/tr&gt;</code></pre>
+                </div>
+            </section>
+
+            <section id="common-mistakes" class="content-card">
+                <h2>Common Mistakes</h2>
+                <ul>
+                    <li>Using <code>&lt;table&gt;</code> elements to create general UI layouts like navigation headers or multi-column grids.</li>
+                    <li>Omitting the <code>scope="col|row"</code> attribute on <code>&lt;th&gt;</code> elements, leaving screen readers unable to correlate header contexts with data cells.</li>
+                    <li>Miscalculating <code>rowspan</code> or <code>colspan</code> indices, causing table borders and cell alignments to break across rows.</li>
+                </ul>
+            </section>
+
+            <section id="interview-questions" class="content-card">
+                <h2>Interview Questions</h2>
+                <p><strong>Q: Why is &lt;caption&gt; preferred over placing a heading tag above the table?</strong></p>
+                <p>The <code>&lt;caption&gt;</code> tag is programmatically bound to the table by assistive technologies, ensuring screen reader users hear the table title when navigating to the element.</p>
+            </section>
+
+            <section id="quick-revision" class="content-card">
+                <h2>Quick Revision</h2>
+                <p>Use tables only for tabular data. Structure them with <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, and <code>&lt;tfoot&gt;</code>, always include a <code>&lt;caption&gt;</code>, and declare <code>scope="col"</code> or <code>scope="row"</code> on every header cell.</p>
+            </section>
+
+            <section id="practice-problems" class="content-card">
+                <h2>Practice Problems</h2>
+                <ol>
+                    <li>Create an accessible pricing tier comparison table comparing three SaaS subscription plans.</li>
+                    <li>Style an employee schedule table with alternating row colors and merged shift cells using <code>colspan</code>.</li>
+                </ol>
+            </section>
+
+            <section id="resources" class="content-card">
+                <h2>Resources</h2>
+                <ul>
+                    <li>MDN: HTML Table Basics</li>
+                    <li>W3C WAI: Accessible Tables Tutorial</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

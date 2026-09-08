@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Media Queries - Kaizen Tech Blog</title>
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../CSS.html" class="brand-link">
+                <img src="../kaizen-logo.png" alt="Kaizen Tech Logo" class="brand-logo">
+                <span>Kaizen Tech</span>
+            </a>
+            <a href="../CSS.html" class="back-link">&larr; Back to CSS</a>
+        </div>
+    </header>
+
+    <div class="page-layout">
+        <aside class="toc-sidebar">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#what-are-media-queries">What Are Media Queries</a></li>
+                <li><a href="#why-this-matters">Why This Matters</a></li>
+                <li><a href="#media-types-features">Types &amp; Features</a></li>
+                <li><a href="#visual-range">Breakpoint Architecture</a></li>
+                <li><a href="#syntax">Modern Range Syntax</a></li>
+                <li><a href="#user-preferences">User Preference Queries</a></li>
+                <li><a href="#common-mistakes">Common Mistakes</a></li>
+                <li><a href="#interview-questions">Interview Questions</a></li>
+                <li><a href="#quick-revision">Quick Revision</a></li>
+                <li><a href="#practice-problems">Practice Problems</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </aside>
+
+        <main class="content-column">
+            <section id="what-are-media-queries" class="content-card">
+                <h2>Concept</h2>
+                <p>Media Queries are CSS conditional directives that apply specific style rules only when the device matches specified criteria, such as viewport width, display orientation, or system accessibility settings.</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>/* Modern Range Syntax */
+@media (width &gt;= 768px) {
+  .grid-layout {
+    grid-template-columns: 1fr 1fr;
+  }
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="why-this-matters" class="content-card">
+                <h2>Why This Matters</h2>
+                <p>Fluid units can handle gradual resizing, but major layout shifts—like hiding a sidebar, switching a navigation bar to a slide-out drawer, or updating theme colors for dark mode—require media query breakpoints to control presentation across device types.</p>
+            </section>
+
+            <section id="media-types-features" class="content-card">
+                <h2>Types &amp; Features</h2>
+                <p>Key components that make up a media query:</p>
+                <ul>
+                    <li><strong>Media Types:</strong> <code>all</code>, <code>screen</code> (standard monitors/phones), and <code>print</code> (print layout overrides).</li>
+                    <li><strong>Viewport Features:</strong> <code>width</code>, <code>height</code>, and <code>orientation</code> (portrait vs. landscape).</li>
+                    <li><strong>Hardware Features:</strong> <code>hover: hover</code> and <code>pointer: fine</code> (differentiates touchscreens from mouse inputs).</li>
+                </ul>
+            </section>
+
+            <section id="visual-range" class="content-card">
+                <h2>Breakpoint Architecture</h2>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">DIAGRAM</span>
+                    <pre><code>0px                 640px               768px              1024px
++-------------------+-------------------+-------------------+-------------------&gt;
+Base Mobile Styles  @media (w &gt;= 640px) @media (w &gt;= 768px) @media (w &gt;= 1024px)
+(Phones)            (Small Tablets)     (Tablets/iPads)     (Desktop Laptops)</code></pre>
+                </div>
+            </section>
+
+            <section id="syntax" class="content-card">
+                <h2>Modern Range Syntax</h2>
+                <p>Modern CSS supports range comparison operators (<code>&gt;=</code>, <code>&lt;=</code>) in place of older <code>min-width</code>/<code>max-width</code> declarations:</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>/* Target viewport widths between 600px and 1000px */
+@media (600px &lt;= width &lt;= 1000px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+/* Equivalent legacy syntax */
+@media (min-width: 600px) and (max-width: 1000px) {
+  .sidebar {
+    display: none;
+  }
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="user-preferences" class="content-card">
+                <h2>User Preference Queries</h2>
+                <p>Respect system settings using accessibility and theme media features:</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>/* Dark Mode Theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-page: #0b1329;
+    --text-body: #f1f5f9;
+  }
+}
+
+/* Reduced Motion Safety */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="common-mistakes" class="content-card">
+                <h2>Common Mistakes</h2>
+                <ul>
+                    <li>Tying breakpoints to specific device dimensions (e.g., exactly 375px for iPhone) instead of adjusting based on when the content itself naturally breaks.</li>
+                    <li>Overwriting mobile styles with <code>max-width</code> queries instead of using mobile-first <code>min-width</code> rules.</li>
+                    <li>Forgetting to test print stylesheets using <code>@media print</code>, which can leave background graphics unoptimized for printing.</li>
+                </ul>
+            </section>
+
+            <section id="interview-questions" class="content-card">
+                <h2>Interview Questions</h2>
+                <p><strong>Q: What is the purpose of the prefers-reduced-motion media feature?</strong></p>
+                <p>It checks whether the user has enabled a system setting to minimize non-essential motion, helping prevent vestibular motion sickness caused by large animations.</p>
+            </section>
+
+            <section id="quick-revision" class="content-card">
+                <h2>Quick Revision</h2>
+                <p>Write base styles for mobile first, then layer on enhancements with <code>@media (width &gt;= 768px)</code>. Use modern range syntax for cleaner conditionals, and support dark mode and reduced motion using user preference features.</p>
+            </section>
+
+            <section id="practice-problems" class="content-card">
+                <h2>Practice Problems</h2>
+                <ol>
+                    <li>Create an automatic dark mode color theme that responds to system settings with <code>prefers-color-scheme</code>.</li>
+                    <li>Build a multi-step card layout that shifts from 1 column on mobile, to 2 columns on tablets, to 4 columns on widescreen desktops.</li>
+                </ol>
+            </section>
+
+            <section id="resources" class="content-card">
+                <h2>Resources</h2>
+                <ul>
+                    <li>MDN: Beginners Guide to Media Queries</li>
+                    <li>W3C: Media Queries Level 4 Specifications</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

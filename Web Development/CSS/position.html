@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Position - Kaizen Tech Blog</title>
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../CSS.html" class="brand-link">
+                <img src="../kaizen-logo.png" alt="Kaizen Tech Logo" class="brand-logo">
+                <span>Kaizen Tech</span>
+            </a>
+            <a href="../CSS.html" class="back-link">&larr; Back to CSS</a>
+        </div>
+    </header>
+
+    <div class="page-layout">
+        <aside class="toc-sidebar">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#what-is-position">What Is CSS Position</a></li>
+                <li><a href="#why-this-matters">Why Position Matters</a></li>
+                <li><a href="#the-5-values">The 5 Position Values</a></li>
+                <li><a href="#visual-flow">Positioning Coordinates Flow</a></li>
+                <li><a href="#syntax">Syntax &amp; Offsets</a></li>
+                <li><a href="#stacking-context">z-index &amp; Stacking Context</a></li>
+                <li><a href="#common-mistakes">Common Mistakes</a></li>
+                <li><a href="#interview-questions">Interview Questions</a></li>
+                <li><a href="#quick-revision">Quick Revision</a></li>
+                <li><a href="#practice-problems">Practice Problems</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </aside>
+
+        <main class="content-column">
+            <section id="what-is-position" class="content-card">
+                <h2>Concept</h2>
+                <p>The <code>position</code> property determines how an element is placed within the document flow and whether coordinate offsets (<code>top</code>, <code>right</code>, <code>bottom</code>, <code>left</code>) apply to it.</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="why-this-matters" class="content-card">
+                <h2>Why This Matters</h2>
+                <p>Elements sit in normal document flow by default, ordered as they appear in the HTML. UI components like notification badges, sticky headers, tooltips, and modal overlays require breaking out of that flow and positioning elements relative to specific containers or the viewport.</p>
+            </section>
+
+            <section id="the-5-values" class="content-card">
+                <h2>The 5 Position Values</h2>
+                <ul>
+                    <li><code>static</code>: The default value. Elements follow normal document flow; offset properties have no effect.</li>
+                    <li><code>relative</code>: Elements stay in normal flow, but can be shifted using offsets without affecting neighboring elements. It also acts as an anchor for <code>absolute</code> children.</li>
+                    <li><code>absolute</code>: Removed from the document flow and positioned relative to the nearest positioned ancestor.</li>
+                    <li><code>fixed</code>: Removed from the document flow and pinned directly to the browser viewport coordinates, staying in place on scroll.</li>
+                    <li><code>sticky</code>: Behaves like <code>relative</code> until a scroll threshold is met, at which point it sticks like a <code>fixed</code> element within its parent container.</li>
+                </ul>
+            </section>
+
+            <section id="visual-flow" class="content-card">
+                <h2>Positioning Coordinates Flow</h2>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">DIAGRAM</span>
+                    <pre><code>Normal Flow &rarr; Relative &rarr; Absolute &rarr; Fixed &rarr; Sticky
+
++-------------------------------------------------------------+
+| Parent: position: relative;                                 |
+|                                                             |
+|  Normal Flow Element                                        |
+|                                                             |
+|  +---------------------------+                              |
+|  | Child: position: absolute | &lt;-- Positioned relative to    |
+|  |        top: 0; right: 0;  |     parent boundary          |
+|  +---------------------------+                              |
++-------------------------------------------------------------+</code></pre>
+                </div>
+            </section>
+
+            <section id="syntax" class="content-card">
+                <h2>Syntax &amp; Offsets</h2>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>.card {
+  position: relative; /* Anchors the absolute badge */
+  padding: 1.5rem;
+}
+
+.card-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="stacking-context" class="content-card">
+                <h2>z-index &amp; Stacking Context</h2>
+                <p>The <code>z-index</code> property controls layer ordering along the z-axis (depth). It only works on positioned elements (those with a position other than <code>static</code>) or direct flex/grid children.</p>
+            </section>
+
+            <section id="common-mistakes" class="content-card">
+                <h2>Common Mistakes</h2>
+                <ul>
+                    <li>Using <code>position: absolute</code> without setting <code>position: relative</code> on the parent, causing the child to position itself relative to the <code>&lt;body&gt;</code> element instead.</li>
+                    <li>Applying <code>position: sticky</code> inside a parent container that has <code>overflow: hidden</code> set, which prevents the sticky behavior from working.</li>
+                    <li>Using unnecessarily high <code>z-index</code> values (like <code>z-index: 999999</code>) instead of managing stacking contexts cleanly.</li>
+                </ul>
+            </section>
+
+            <section id="interview-questions" class="content-card">
+                <h2>Interview Questions</h2>
+                <p><strong>Q: What triggers a new Stacking Context in CSS?</strong></p>
+                <p>A stacking context is formed by setting <code>position: relative/absolute</code> with a <code>z-index</code> other than <code>auto</code>, setting <code>opacity</code> to less than 1, or using properties like <code>transform</code>, <code>filter</code>, or <code>contain</code>.</p>
+            </section>
+
+            <section id="quick-revision" class="content-card">
+                <h2>Quick Revision</h2>
+                <p>Anchor absolute children by adding <code>position: relative</code> to their parent container. Pin elements to the viewport using <code>fixed</code>, and create sticky headers with <code>position: sticky</code> paired with <code>top: 0</code>.</p>
+            </section>
+
+            <section id="practice-problems" class="content-card">
+                <h2>Practice Problems</h2>
+                <ol>
+                    <li>Build a notification badge pinned to the top-right corner of an avatar icon.</li>
+                    <li>Implement a sticky table of contents sidebar that sticks while scrolling through an article.</li>
+                </ol>
+            </section>
+
+            <section id="resources" class="content-card">
+                <h2>Resources</h2>
+                <ul>
+                    <li>MDN: CSS Position Reference</li>
+                    <li>web.dev: Stacking Contexts Explained</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Web Design - Kaizen Tech Blog</title>
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../CSS.html" class="brand-link">
+                <img src="../kaizen-logo.png" alt="Kaizen Tech Logo" class="brand-logo">
+                <span>Kaizen Tech</span>
+            </a>
+            <a href="../CSS.html" class="back-link">&larr; Back to CSS</a>
+        </div>
+    </header>
+
+    <div class="page-layout">
+        <aside class="toc-sidebar">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#what-is-rwd">What Is Responsive Design</a></li>
+                <li><a href="#why-this-matters">Why This Matters</a></li>
+                <li><a href="#the-three-pillars">The 3 Pillars of RWD</a></li>
+                <li><a href="#visual-flow">Viewport Adaptation Scaling</a></li>
+                <li><a href="#syntax">Syntax &amp; Fluid Math</a></li>
+                <li><a href="#fluid-units">Fluid Units &amp; Sizing</a></li>
+                <li><a href="#common-mistakes">Common Mistakes</a></li>
+                <li><a href="#interview-questions">Interview Questions</a></li>
+                <li><a href="#quick-revision">Quick Revision</a></li>
+                <li><a href="#practice-problems">Practice Problems</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </aside>
+
+        <main class="content-column">
+            <section id="what-is-rwd" class="content-card">
+                <h2>Concept</h2>
+                <p>Responsive Web Design (RWD) is an approach where a single codebase dynamically reflows and scales its layouts, typography, and images to fit screens of any size—from smartphones to widescreen monitors.</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">HTML</span>
+                    <pre><code>&lt;!-- Essential meta viewport tag in &lt;head&gt; --&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></pre>
+                </div>
+            </section>
+
+            <section id="why-this-matters" class="content-card">
+                <h2>Why This Matters</h2>
+                <p>Mobile devices account for more than half of all web traffic worldwide. Fixed-width designs (like <code>width: 1100px</code>) cause awkward horizontal scrolling and require mobile users to pinch-to-zoom, leading to poor user experiences and lower search engine rankings.</p>
+            </section>
+
+            <section id="the-three-pillars" class="content-card">
+                <h2>The 3 Pillars of RWD</h2>
+                <ul>
+                    <li><strong>The Viewport Meta Tag:</strong> Tells mobile browsers to render the page at the device's actual screen width rather than zooming out on an assumed 980px desktop canvas.</li>
+                    <li><strong>Fluid Layouts:</strong> Using relative units (<code>%</code>, <code>fr</code>, <code>vw</code>, <code>rem</code>) alongside Flexbox and Grid instead of fixed pixel widths.</li>
+                    <li><strong>Media Queries &amp; Adaptive Sizing:</strong> Applying targeted styling adjustments when screen space or input methods change.</li>
+                </ul>
+            </section>
+
+            <section id="visual-flow" class="content-card">
+                <h2>Viewport Adaptation Scaling</h2>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">DIAGRAM</span>
+                    <pre><code>Mobile View (&lt; 640px)        Tablet View (640px+)         Desktop View (1024px+)
++----------------------+     +----------------------+     +----------------------+
+| [Header]             |     | [Header]             |     | [Header]             |
+| [Hero Card]          | --&gt; | [Hero Card]          | --&gt; | [Main View] [Sidebar]|
+| [Sidebar Content]    |     | [Main]   [Sidebar]   |     | [Footer]             |
+| [Footer]             |     | [Footer]             |     +----------------------+
++----------------------+     +----------------------+
+Single-Column Stack          Two-Column Flow              Expanded Multi-Column Grid</code></pre>
+                </div>
+            </section>
+
+            <section id="syntax" class="content-card">
+                <h2>Syntax &amp; Fluid Math</h2>
+                <p>Using <code>clamp()</code> for fluid typography that scales smoothly without media queries:</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>h1 {
+  /* clamp(minimum, fluid-rate, maximum) */
+  font-size: clamp(1.8rem, 4vw + 1rem, 3.5rem);
+}
+
+.container {
+  width: min(100% - 2rem, 1200px);
+  margin-inline: auto;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="fluid-units" class="content-card">
+                <h2>Fluid Units &amp; Sizing</h2>
+                <p>Recommended units for building responsive interfaces:</p>
+                <ul>
+                    <li><code>rem</code>: Sizes elements relative to the root font size, respecting user accessibility settings.</li>
+                    <li><code>%</code>: Sets width relative to the parent container's size.</li>
+                    <li><code>vw</code> / <code>vh</code>: Sets dimensions relative to 1% of the viewport's width or height.</li>
+                    <li><code>min()</code> and <code>max()</code>: Enforces upper and lower boundary limits on element dimensions.</li>
+                </ul>
+            </section>
+
+            <section id="common-mistakes" class="content-card">
+                <h2>Common Mistakes</h2>
+                <ul>
+                    <li>Forgetting to include the <code>&lt;meta name="viewport"&gt;</code> tag in the document <code>&lt;head&gt;</code>.</li>
+                    <li>Setting fixed pixel widths on layout containers (e.g., <code>width: 1024px</code>) instead of using <code>max-width: 100%</code>.</li>
+                    <li>Using pixel sizes for font sizing instead of <code>rem</code>, which ignores custom font-size preferences set in user browsers.</li>
+                </ul>
+            </section>
+
+            <section id="interview-questions" class="content-card">
+                <h2>Interview Questions</h2>
+                <p><strong>Q: What is the difference between Mobile-First and Desktop-First design?</strong></p>
+                <p>Mobile-First design writes base styles for smaller screens first and enhances them using <code>min-width</code> queries as space increases. Desktop-First writes desktop styles first and overrides them with <code>max-width</code> queries for smaller screens.</p>
+            </section>
+
+            <section id="quick-revision" class="content-card">
+                <h2>Quick Revision</h2>
+                <p>Always include the viewport meta tag, use <code>max-width: 100%</code> on media assets, size typography with <code>rem</code> and <code>clamp()</code>, and build layouts with mobile-first media queries.</p>
+            </section>
+
+            <section id="practice-problems" class="content-card">
+                <h2>Practice Problems</h2>
+                <ol>
+                    <li>Build a responsive navigation header that collapses into a mobile hamburger menu on narrow viewports.</li>
+                    <li>Create a hero banner with fluid typography that scales smoothly between 320px and 1440px displays.</li>
+                </ol>
+            </section>
+
+            <section id="resources" class="content-card">
+                <h2>Resources</h2>
+                <ul>
+                    <li>web.dev: Responsive Web Design Basics</li>
+                    <li>MDN: Responsive Design Principles</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

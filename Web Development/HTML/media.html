@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Media Elements - Kaizen Tech Blog</title>
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../HTML.html" class="brand-link">
+                <img src="../kaizen-logo.png" alt="Kaizen Tech Logo" class="brand-logo">
+                <span>Kaizen Tech</span>
+            </a>
+            <a href="../HTML.html" class="back-link">&larr; Back to HTML</a>
+        </div>
+    </header>
+
+    <div class="page-layout">
+        <aside class="toc-sidebar">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#what-is-media">What Are HTML5 Media Elements</a></li>
+                <li><a href="#why-this-matters">Why This Matters</a></li>
+                <li><a href="#media-tags">Core Media Elements</a></li>
+                <li><a href="#visual-resolution">Responsive Picture Resolution</a></li>
+                <li><a href="#syntax">Syntax</a></li>
+                <li><a href="#subtitles">Subtitles &amp; Captions</a></li>
+                <li><a href="#common-mistakes">Common Mistakes</a></li>
+                <li><a href="#interview-questions">Interview Questions</a></li>
+                <li><a href="#quick-revision">Quick Revision</a></li>
+                <li><a href="#practice-problems">Practice Problems</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </aside>
+
+        <main class="content-column">
+            <section id="what-is-media" class="content-card">
+                <h2>Concept</h2>
+                <p>HTML5 native media elements allow browsers to stream audio, video, and adaptive responsive pictures directly without requiring external plugins or proprietary runtimes.</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">HTML</span>
+                    <pre><code>&lt;video controls width="640"&gt;
+  &lt;source src="film.webm" type="video/webm"&gt;
+  &lt;source src="film.mp4" type="video/mp4"&gt;
+  Your browser does not support HTML video.
+&lt;/video&gt;</code></pre>
+                </div>
+            </section>
+
+            <section id="why-this-matters" class="content-card">
+                <h2>Why This Matters</h2>
+                <p>Media files account for most of the bytes transferred across the web. Sending heavy desktop images to mobile devices drains bandwidth and slows page loads. Using modern elements like <code>&lt;picture&gt;</code> allows browsers to request the right format (AVIF, WebP) and size for the user's screen.</p>
+            </section>
+
+            <section id="media-tags" class="content-card">
+                <h2>Core Media Elements</h2>
+                <ul>
+                    <li><code>&lt;video&gt;</code>: Renders video with support for playback controls, loop states, and posters.</li>
+                    <li><code>&lt;audio&gt;</code>: Embeds sound clips and audio streams natively.</li>
+                    <li><code>&lt;picture&gt;</code>: Wrapper that serves different images based on media queries or format support.</li>
+                    <li><code>&lt;track&gt;</code>: Supplies timed text tracks (subtitles, captions, chapter marks) for accessible media.</li>
+                </ul>
+            </section>
+
+            <section id="visual-resolution" class="content-card">
+                <h2>Responsive Picture Resolution</h2>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">DIAGRAM</span>
+                    <pre><code>Browser parses &lt;picture&gt;
+         |
+         v
+Does media query match? (e.g., min-width: 1024px)
+       /          \
+    [Yes]         [No]
+     /              \
+Check format       Evaluate next &lt;source&gt;
+(AVIF supported?)     /           \
+   /       \        [Yes]         [No]
+ [Yes]     [No]      /              \
+  /          \   Load asset      Fall back to
+Load AVIF   Check next           standard &lt;img&gt;</code></pre>
+                </div>
+            </section>
+
+            <section id="syntax" class="content-card">
+                <h2>Syntax</h2>
+                <p>Using the <code>&lt;picture&gt;</code> element to serve modern image formats with a fallback:</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">HTML</span>
+                    <pre><code>&lt;picture&gt;
+  &lt;source srcset="banner.avif" type="image/avif"&gt;
+  &lt;source srcset="banner.webp" type="image/webp"&gt;
+  &lt;img src="banner.jpg" alt="Conference keynote" loading="lazy" width="800" height="450"&gt;
+&lt;/picture&gt;</code></pre>
+                </div>
+            </section>
+
+            <section id="subtitles" class="content-card">
+                <h2>Subtitles &amp; Captions</h2>
+                <p>Embed WebVTT subtitle files directly within a video container:</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">HTML</span>
+                    <pre><code>&lt;video controls poster="preview.jpg"&gt;
+  &lt;source src="tutorial.mp4" type="video/mp4"&gt;
+  &lt;track src="captions-en.vtt" kind="captions" srclang="en" label="English" default&gt;
+&lt;/video&gt;</code></pre>
+                </div>
+            </section>
+
+            <section id="common-mistakes" class="content-card">
+                <h2>Common Mistakes</h2>
+                <ul>
+                    <li>Omitting explicit <code>width</code> and <code>height</code> attributes on <code>&lt;img&gt;</code> and <code>&lt;video&gt;</code> tags, which causes layout shifts (CLS) while assets load.</li>
+                    <li>Forgetting to add descriptive <code>alt</code> text on the fallback <code>&lt;img&gt;</code> inside a <code>&lt;picture&gt;</code> tag.</li>
+                    <li>Enabling <code>autoplay</code> on video elements without also setting <code>muted</code>, which causes modern browsers to block playback.</li>
+                </ul>
+            </section>
+
+            <section id="interview-questions" class="content-card">
+                <h2>Interview Questions</h2>
+                <p><strong>Q: How does the &lt;picture&gt; element differ from the srcset attribute on an &lt;img&gt; element?</strong></p>
+                <p><code>srcset</code> lets the browser decide which image resolution fits best based on screen density, whereas <code>&lt;picture&gt;</code> allows the developer to enforce specific image crops or file formats (art direction).</p>
+            </section>
+
+            <section id="quick-revision" class="content-card">
+                <h2>Quick Revision</h2>
+                <p>Wrap videos with multiple <code>&lt;source&gt;</code> formats (WebM, MP4) and subtitles. Use <code>&lt;picture&gt;</code> for responsive images, and include <code>loading="lazy"</code> along with dimensions on <code>&lt;img&gt;</code> tags to keep pages fast.</p>
+            </section>
+
+            <section id="practice-problems" class="content-card">
+                <h2>Practice Problems</h2>
+                <ol>
+                    <li>Build an image hero banner that serves square images on mobile screens and wide landscape images on desktops.</li>
+                    <li>Create a custom podcast player using the native <code>&lt;audio&gt;</code> tag with chapter markers.</li>
+                </ol>
+            </section>
+
+            <section id="resources" class="content-card">
+                <h2>Resources</h2>
+                <ul>
+                    <li>MDN Web Docs: Audio and Video Delivery</li>
+                    <li>web.dev: Responsive Images Guide</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

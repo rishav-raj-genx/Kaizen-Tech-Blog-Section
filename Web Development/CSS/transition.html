@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Transitions - Kaizen Tech Blog</title>
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../CSS.html" class="brand-link">
+                <img src="../kaizen-logo.png" alt="Kaizen Tech Logo" class="brand-logo">
+                <span>Kaizen Tech</span>
+            </a>
+            <a href="../CSS.html" class="back-link">&larr; Back to CSS</a>
+        </div>
+    </header>
+
+    <div class="page-layout">
+        <aside class="toc-sidebar">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#what-are-transitions">What Are CSS Transitions</a></li>
+                <li><a href="#why-this-matters">Why Transitions Matter</a></li>
+                <li><a href="#transition-properties">Core Properties</a></li>
+                <li><a href="#visual-state-flow">State Interpolation Flow</a></li>
+                <li><a href="#syntax">Syntax</a></li>
+                <li><a href="#timing-curves">Timing Functions &amp; Curves</a></li>
+                <li><a href="#common-mistakes">Common Mistakes</a></li>
+                <li><a href="#interview-questions">Interview Questions</a></li>
+                <li><a href="#quick-revision">Quick Revision</a></li>
+                <li><a href="#practice-problems">Practice Problems</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </aside>
+
+        <main class="content-column">
+            <section id="what-are-transitions" class="content-card">
+                <h2>Concept</h2>
+                <p>CSS Transitions smooth the change when an element switches between two states (such as on <code>:hover</code>, <code>:focus</code>, or an active class), interpolating property values over a set duration.</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>.button {
+  background-color: #0284c7;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.button:hover {
+  background-color: #0369a1;
+  transform: translateY(-2px);
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="why-this-matters" class="content-card">
+                <h2>Why This Matters</h2>
+                <p>Instant property changes can feel abrupt and unpolished. Adding subtle, smooth transitions to hover effects, focus rings, modal backdrops, and active states gives the user interface a more responsive, refined feel.</p>
+            </section>
+
+            <section id="transition-properties" class="content-card">
+                <h2>Core Properties</h2>
+                <ul>
+                    <li><code>transition-property</code>: The specific CSS property to animate (e.g., <code>transform</code>, <code>opacity</code>).</li>
+                    <li><code>transition-duration</code>: How long the transition takes to complete (e.g., <code>250ms</code>).</li>
+                    <li><code>transition-timing-function</code>: The acceleration curve (e.g., <code>ease-in-out</code>, <code>cubic-bezier</code>).</li>
+                    <li><code>transition-delay</code>: A pause before the transition begins.</li>
+                </ul>
+            </section>
+
+            <section id="visual-state-flow" class="content-card">
+                <h2>State Interpolation Flow</h2>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">DIAGRAM</span>
+                    <pre><code>Initial Idle State                 User Triggers State (:hover)
++-----------------------+          -----------------------------------&gt;
+|  background: #0f172a  |
+|  transform: scale(1)  |          &lt;-----------------------------------
++-----------------------+          User Removes Trigger (Reverses Smoothly)
+                                                |
+                                                v
+                                   +-----------------------+
+                                   |  background: #0284c7  |
+                                   |  transform: scale(1.05)
+                                   +-----------------------+</code></pre>
+                </div>
+            </section>
+
+            <section id="syntax" class="content-card">
+                <h2>Syntax</h2>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>.card {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transform: translateY(0);
+
+  /* property | duration | timing | delay */
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="timing-curves" class="content-card">
+                <h2>Timing Functions &amp; Curves</h2>
+                <p>Timing functions determine an animation's rate of acceleration:</p>
+                <ul>
+                    <li><code>ease</code>: Starts slowly, speeds up, then slows down at the end.</li>
+                    <li><code>linear</code>: Moves at a constant, uniform speed throughout.</li>
+                    <li><code>ease-out</code>: Starts quickly and slows to a gentle stop (ideal for incoming UI elements).</li>
+                    <li><code>cubic-bezier(x1, y1, x2, y2)</code>: Custom mathematical acceleration curves.</li>
+                </ul>
+            </section>
+
+            <section id="common-mistakes" class="content-card">
+                <h2>Common Mistakes</h2>
+                <ul>
+                    <li>Declaring <code>transition: all 0.3s</code>, which hurts performance by animating every changing property (including expensive layout properties).</li>
+                    <li>Declaring the <code>transition</code> rule inside the <code>:hover</code> block instead of on the base class, which causes the element to snap back instantly when the cursor leaves.</li>
+                    <li>Setting durations longer than <code>400ms</code> for small UI interactions, which can make the interface feel sluggish.</li>
+                </ul>
+            </section>
+
+            <section id="interview-questions" class="content-card">
+                <h2>Interview Questions</h2>
+                <p><strong>Q: What is the main difference between CSS transitions and CSS animations?</strong></p>
+                <p>Transitions require an explicit trigger (like <code>:hover</code> or a class toggle) to interpolate between two states. Animations run automatically on page load, support multiple intermediate keyframes, and can loop indefinitely.</p>
+            </section>
+
+            <section id="quick-revision" class="content-card">
+                <h2>Quick Revision</h2>
+                <p>Always declare the <code>transition</code> property on the base selector rather than on state pseudo-classes. Stick to animating <code>transform</code> and <code>opacity</code>, and aim for durations between 150ms and 300ms for snappy interactions.</p>
+            </section>
+
+            <section id="practice-problems" class="content-card">
+                <h2>Practice Problems</h2>
+                <ol>
+                    <li>Build a smooth accordion FAQ item that animates open and closed on click.</li>
+                    <li>Create an interactive button with layered transitions for background color, scale, and box-shadow.</li>
+                </ol>
+            </section>
+
+            <section id="resources" class="content-card">
+                <h2>Resources</h2>
+                <ul>
+                    <li>MDN: Using CSS Transitions</li>
+                    <li>Cubic-Bezier: Interactive Timing Tool</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

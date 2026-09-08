@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Animations - Kaizen Tech Blog</title>
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../CSS.html" class="brand-link">
+                <img src="../kaizen-logo.png" alt="Kaizen Tech Logo" class="brand-logo">
+                <span>Kaizen Tech</span>
+            </a>
+            <a href="../CSS.html" class="back-link">&larr; Back to CSS</a>
+        </div>
+    </header>
+
+    <div class="page-layout">
+        <aside class="toc-sidebar">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#what-are-animations">What Are CSS Animations</a></li>
+                <li><a href="#why-this-matters">Why Animations Matter</a></li>
+                <li><a href="#keyframe-mechanics">Keyframe Mechanics</a></li>
+                <li><a href="#visual-timeline">Visual Timeline</a></li>
+                <li><a href="#syntax">Syntax &amp; Properties</a></li>
+                <li><a href="#performance">Performance Optimization</a></li>
+                <li><a href="#common-mistakes">Common Mistakes</a></li>
+                <li><a href="#interview-questions">Interview Questions</a></li>
+                <li><a href="#quick-revision">Quick Revision</a></li>
+                <li><a href="#practice-problems">Practice Problems</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </aside>
+
+        <main class="content-column">
+            <section id="what-are-animations" class="content-card">
+                <h2>Concept</h2>
+                <p>CSS Animations let you animate changes in CSS property values over time using <code>@keyframes</code>, creating complex multi-step motion sequences without requiring JavaScript.</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+.sidebar {
+  animation: slideIn 0.3s ease-out forwards;
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="why-this-matters" class="content-card">
+                <h2>Why This Matters</h2>
+                <p>Motion provides helpful visual feedback—such as skeleton loaders indicating network progress, pulse effects highlighting notifications, and slide-in notifications. Animating the right properties helps you deliver smooth 60fps animations without causing UI lag.</p>
+            </section>
+
+            <section id="keyframe-mechanics" class="content-card">
+                <h2>Keyframe Mechanics</h2>
+                <p>Animations rely on two core components:</p>
+                <ul>
+                    <li><code>@keyframes</code>: Outlines styles at designated timeline points using percentages (<code>0%</code> to <code>100%</code>).</li>
+                    <li><code>animation-duration</code>: Total time required to complete one animation cycle.</li>
+                    <li><code>animation-timing-function</code>: Speed curve of the animation (e.g., <code>ease</code>, <code>linear</code>, <code>cubic-bezier</code>).</li>
+                    <li><code>animation-iteration-count</code>: How many times the animation runs (e.g., <code>infinite</code> or a specific number).</li>
+                    <li><code>animation-fill-mode</code>: Controls whether styles apply before the animation starts or remain after it ends (e.g., <code>forwards</code>).</li>
+                </ul>
+            </section>
+
+            <section id="visual-timeline" class="content-card">
+                <h2>Visual Timeline</h2>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">DIAGRAM</span>
+                    <pre><code>0% (from)                   50%                        100% (to)
++---------------+           +---------------+          +---------------+
+| opacity: 0;   |  ------&gt;  | opacity: 0.5; | ------&gt;  | opacity: 1;   |
+| scale(0.8);   |           | scale(1.1);   |          | scale(1.0);   |
++---------------+           +---------------+          +---------------+
+Start Animation             Midpoint Transition        Final State</code></pre>
+                </div>
+            </section>
+
+            <section id="syntax" class="content-card">
+                <h2>Syntax &amp; Properties</h2>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>@keyframes spinnerRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner {
+  /* name | duration | timing | count */
+  animation: spinnerRotate 1s linear infinite;
+  will-change: transform;
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="performance" class="content-card">
+                <h2>Performance Optimization</h2>
+                <p>For smooth 60fps performance, only animate properties that bypass browser layout recalculations:</p>
+                <ul>
+                    <li><strong>Performant:</strong> <code>transform</code> (translate, rotate, scale) and <code>opacity</code>.</li>
+                    <li><strong>Expensive:</strong> <code>width</code>, <code>height</code>, <code>top</code>, <code>left</code>, and <code>margin</code> (these force full layout recalculations).</li>
+                </ul>
+            </section>
+
+            <section id="common-mistakes" class="content-card">
+                <h2>Common Mistakes</h2>
+                <ul>
+                    <li>Animating layout properties like <code>margin-top</code> or <code>height</code>, which causes choppy animations on mobile devices.</li>
+                    <li>Forgetting to set <code>animation-fill-mode: forwards</code>, causing the element to snap back to its initial state when the animation completes.</li>
+                    <li>Ignoring the <code>prefers-reduced-motion</code> media query for users who are sensitive to motion.</li>
+                </ul>
+            </section>
+
+            <section id="interview-questions" class="content-card">
+                <h2>Interview Questions</h2>
+                <p><strong>Q: Why are transforms better to animate than top and left offsets?</strong></p>
+                <p><code>transform</code> animations are handled by the GPU compositor layer, meaning they don't trigger browser layout reflows or repaints.</p>
+            </section>
+
+            <section id="quick-revision" class="content-card">
+                <h2>Quick Revision</h2>
+                <p>Define keyframe steps using <code>@keyframes name { 0% {} 100% {} }</code>. Stick to animating <code>transform</code> and <code>opacity</code> for smooth performance, and respect motion preferences using <code>prefers-reduced-motion</code>.</p>
+            </section>
+
+            <section id="practice-problems" class="content-card">
+                <h2>Practice Problems</h2>
+                <ol>
+                    <li>Build an infinite skeleton shimmer loading animation for a placeholder profile card.</li>
+                    <li>Create an alert toast notification that slides in, pauses for 3 seconds, and fades out automatically.</li>
+                </ol>
+            </section>
+
+            <section id="resources" class="content-card">
+                <h2>Resources</h2>
+                <ul>
+                    <li>MDN: Using CSS Animations</li>
+                    <li>web.dev: High Performance Animations</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

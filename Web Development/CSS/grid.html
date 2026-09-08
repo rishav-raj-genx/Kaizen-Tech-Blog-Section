@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Grid Layout - Kaizen Tech Blog</title>
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../CSS.html" class="brand-link">
+                <img src="../kaizen-logo.png" alt="Kaizen Tech Logo" class="brand-logo">
+                <span>Kaizen Tech</span>
+            </a>
+            <a href="../CSS.html" class="back-link">&larr; Back to CSS</a>
+        </div>
+    </header>
+
+    <div class="page-layout">
+        <aside class="toc-sidebar">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#what-is-grid">What Is CSS Grid</a></li>
+                <li><a href="#why-this-matters">Why Grid Matters</a></li>
+                <li><a href="#grid-terminology">Grid Terminology</a></li>
+                <li><a href="#visual-structure">Two-Dimensional Grid Lines</a></li>
+                <li><a href="#syntax">Syntax &amp; Template Areas</a></li>
+                <li><a href="#responsive-grid">Responsive Grid Without Media Queries</a></li>
+                <li><a href="#common-mistakes">Common Mistakes</a></li>
+                <li><a href="#interview-questions">Interview Questions</a></li>
+                <li><a href="#quick-revision">Quick Revision</a></li>
+                <li><a href="#practice-problems">Practice Problems</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </aside>
+
+        <main class="content-column">
+            <section id="what-is-grid" class="content-card">
+                <h2>Concept</h2>
+                <p>CSS Grid is a two-dimensional layout system that lets you place child items across both rows and columns at the same time using a coordinate system defined on the parent element.</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="why-this-matters" class="content-card">
+                <h2>Why This Matters</h2>
+                <p>Flexbox works along one dimension (a row or a column). Creating full dashboard layouts, magazine article grids, or photo galleries with Flexbox requires nesting multiple rows and managing widths manually. CSS Grid lets you configure the entire page structure on a single parent element.</p>
+            </section>
+
+            <section id="grid-terminology" class="content-card">
+                <h2>Grid Terminology</h2>
+                <ul>
+                    <li><strong>Grid Lines:</strong> The numbered horizontal and vertical lines that form the grid structure (indexed starting at 1).</li>
+                    <li><strong>Grid Track:</strong> The space between two adjacent grid lines (a row or a column).</li>
+                    <li><strong>The <code>fr</code> Unit:</strong> A fraction unit representing a share of the available free space in the container.</li>
+                    <li><strong>Grid Cell:</strong> A single unit of the grid, formed by the intersection of one row and one column.</li>
+                </ul>
+            </section>
+
+            <section id="visual-structure" class="content-card">
+                <h2>Two-Dimensional Grid Lines</h2>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">DIAGRAM</span>
+                    <pre><code>Line 1           Line 2           Line 3           Line 4
+  |                |                |                |
+  v                v                v                v
+--+----------------+----------------+----------------+-- Line 1
+  |  Cell 1 (1fr)  |  Cell 2 (1fr)  |  Cell 3 (1fr)  |
+--+----------------+----------------+----------------+-- Line 2
+  |  Cell 4 (1fr)  |  Cell 5 (spans 2 columns)       |
+--+----------------+----------------+----------------+-- Line 3</code></pre>
+                </div>
+            </section>
+
+            <section id="syntax" class="content-card">
+                <h2>Syntax &amp; Template Areas</h2>
+                <p>Defining layouts with named grid template areas:</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>.app-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: 60px 1fr 40px;
+  grid-template-areas:
+    "header  header"
+    "sidebar main"
+    "footer  footer";
+  height: 100vh;
+}
+
+header { grid-area: header; }
+aside  { grid-area: sidebar; }
+main   { grid-area: main; }
+footer { grid-area: footer; }</code></pre>
+                </div>
+            </section>
+
+            <section id="responsive-grid" class="content-card">
+                <h2>Responsive Grid Without Media Queries</h2>
+                <p>Combine <code>auto-fit</code> and <code>minmax()</code> to create responsive galleries that adapt automatically:</p>
+                <div class="dark-terminal-box">
+                    <span class="terminal-badge">CSS</span>
+                    <pre><code>.card-deck {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="common-mistakes" class="content-card">
+                <h2>Common Mistakes</h2>
+                <ul>
+                    <li>Confusing <code>auto-fill</code> and <code>auto-fit</code>: <code>auto-fill</code> reserves empty tracks, while <code>auto-fit</code> stretches visible items to fill leftover space.</li>
+                    <li>Relying on media queries to wrap card galleries instead of using <code>repeat(auto-fit, minmax(...))</code>.</li>
+                    <li>Forgetting that grid lines are indexed starting at 1, not 0.</li>
+                </ul>
+            </section>
+
+            <section id="interview-questions" class="content-card">
+                <h2>Interview Questions</h2>
+                <p><strong>Q: When should you use CSS Grid versus Flexbox?</strong></p>
+                <p>Use Flexbox for one-dimensional layouts where content should dictate spacing (like navbars or buttons). Use CSS Grid for two-dimensional layouts where alignment across both rows and columns matters (like page templates or card collections).</p>
+            </section>
+
+            <section id="quick-revision" class="content-card">
+                <h2>Quick Revision</h2>
+                <p>Use <code>display: grid</code> on the parent element. Define column sizing with <code>grid-template-columns</code> and <code>fr</code> units, use <code>grid-template-areas</code> for page layouts, and manage spacing between items with <code>gap</code>.</p>
+            </section>
+
+            <section id="practice-problems" class="content-card">
+                <h2>Practice Problems</h2>
+                <ol>
+                    <li>Build a responsive photo gallery where featured photos span 2 rows and 2 columns.</li>
+                    <li>Create an application layout using named grid template areas for the header, sidebar, main view, and footer.</li>
+                </ol>
+            </section>
+
+            <section id="resources" class="content-card">
+                <h2>Resources</h2>
+                <ul>
+                    <li>MDN: CSS Grid Layout Guide</li>
+                    <li>CSS-Tricks: Complete Guide to CSS Grid</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
