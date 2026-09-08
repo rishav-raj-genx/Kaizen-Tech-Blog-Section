@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Media Elements - Kaizen Tech Blog</title>
+    
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <header class="blog-header">
+        <nav class="blog-nav">
+            <a href="../../index.html" class="logo">Kaizen Tech Blog</a>
+            <div class="nav-links">
+                <a href="../index.html">Web Development</a>
+                <a href="index.html" class="active">HTML</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-container">
+        <!-- 1. HERO SECTION -->
+        <section class="hero-section">
+            <h1 class="article-title">HTML5 Media: Audio, Video &amp; Responsive Images</h1>
+            <p class="article-description">Explore modern techniques for embedding rich video, audio, and high-performance responsive graphics natively.</p>
+            <div class="article-meta">
+                <span class="meta-item"><strong>Difficulty:</strong> Beginner to Intermediate</span>
+                <span class="meta-item"><strong>Reading Time:</strong> 11 mins</span>
+                <span class="meta-item"><strong>Prerequisites:</strong> Basic HTML</span>
+            </div>
+            <div class="tags-container">
+                <span class="tag">HTML</span>
+                <span class="tag">Media</span>
+                <span class="tag">Video</span>
+                <span class="tag">Responsive Images</span>
+            </div>
+            <div class="hero-banner">
+                <svg viewBox="0 0 800 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="200" fill="#0f172a" rx="10"/>
+                    <rect x="250" y="30" width="300" height="140" fill="#1e293b" stroke="#38bdf8" stroke-width="2" rx="8"/>
+                    <polygon points="380,75 440,100 380,125" fill="#38bdf8"/>
+                    <circle cx="150" cy="100" r="35" fill="#0284c7"/>
+                    <circle cx="650" cy="100" r="35" fill="#0284c7"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 2. TABLE OF CONTENTS -->
+        <nav class="toc-container">
+            <h2>Table of Contents</h2>
+            <ul class="toc-list">
+                <li><a href="#why-this-matters">Modern Media Delivery</a></li>
+                <li><a href="#core-concept">Core Media Tags: Video, Audio, and Picture</a></li>
+                <li><a href="#visual-diagram">Fallback and Source Selection Flow</a></li>
+                <li><a href="#syntax">Implementation &amp; Code Examples</a></li>
+            </ul>
+        </nav>
+
+        <!-- 3. WHY THIS MATTERS -->
+        <section id="why-this-matters" class="article-section">
+            <h2>Why This Matters</h2>
+            <p>Media makes up over 60% of the byte weight of modern websites. Shipping desktop-sized 4K images to a smartphone on a flaky 3G connection causes poor performance, lowers Core Web Vitals, and hurts search rankings.</p>
+            <p>HTML5 native media elements eliminated the need for heavy, insecure third-party plugins (like Flash) and introduced native controls, hardware acceleration, responsive asset negotiation via <code>&lt;picture&gt;</code>, and accessibility tracks via <code>&lt;track&gt;</code>.</p>
+        </section>
+
+        <!-- 4. CONCEPT -->
+        <section id="core-concept" class="article-section">
+            <h2>Concept</h2>
+            <p>HTML offers several purposeful media elements:</p>
+            <ul>
+                <li><strong><code>&lt;video&gt;</code>:</strong> Embeds video streams natively with configurable controls, autoplaying, looping, and preloading properties.</li>
+                <li><strong><code>&lt;audio&gt;</code>:</strong> Streamlines sound files and podcasts using the same multi-source fallback pattern as video.</li>
+                <li><strong><code>&lt;source&gt;</code>:</strong> Allows you to supply multiple video/audio formats (e.g., AV1, WebM, MP4) so the browser downloads the first format it supports.</li>
+                <li><strong><code>&lt;picture&gt;</code> &amp; <code>srcset</code>:</strong> Lets you serve next-gen image formats (AVIF, WebP) with a fallback to JPEG/PNG, or serve different image crops based on viewport width.</li>
+            </ul>
+        </section>
+
+        <!-- 5. VISUAL DIAGRAM -->
+        <section id="visual-diagram" class="article-section">
+            <h2>Visual Diagram</h2>
+            <div class="diagram-wrapper">
+                <pre class="ascii-diagram">
+           Browser encounters &lt;picture&gt; or &lt;video&gt;
+                           |
+                           v
+        Does browser support first &lt;source&gt;?
+        (Matches media query? Supports AVIF/WebM?)
+                     /           \
+                 [YES]          [NO]
+                  /               \
+         Load this asset       Try next &lt;source&gt;
+         Stop searching!          /          \
+                               [YES]         [NO]
+                                /              \
+                        Load this asset     Fall back to default
+                                            &lt;img&gt; or &lt;video&gt; src
+                </pre>
+            </div>
+        </section>
+
+        <!-- 6. SYNTAX -->
+        <section id="syntax" class="article-section">
+            <h2>Syntax</h2>
+            <pre><code class="language-html">&lt;!-- Responsive Image Selection --&gt;
+&lt;picture&gt;
+    &lt;source srcset="hero-large.avif" type="image/avif" media="(min-width: 1024px)"&gt;
+    &lt;source srcset="hero-large.webp" type="image/webp" media="(min-width: 1024px)"&gt;
+    &lt;source srcset="hero-small.webp" type="image/webp"&gt;
+    &lt;img src="hero-fallback.jpg" alt="Developer working on modern web components" loading="lazy" width="800" height="450"&gt;
+&lt;/picture&gt;
+
+&lt;!-- Native Accessible Video --&gt;
+&lt;video controls preload="metadata" poster="poster.jpg" width="640" height="360"&gt;
+    &lt;source src="demo.webm" type="video/webm"&gt;
+    &lt;source src="demo.mp4" type="video/mp4"&gt;
+    &lt;track src="subtitles-en.vtt" kind="subtitles" srclang="en" label="English" default&gt;
+    Your browser does not support native video playback.
+&lt;/video&gt;</code></pre>
+        </section>
+    </main>
+</body>
+</html>

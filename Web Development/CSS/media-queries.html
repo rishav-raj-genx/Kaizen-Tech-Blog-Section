@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Media Queries - Kaizen Tech Blog</title>
+    
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <header class="blog-header">
+        <nav class="blog-nav">
+            <a href="../../index.html" class="logo">Kaizen Tech Blog</a>
+            <div class="nav-links">
+                <a href="../index.html">Web Development</a>
+                <a href="index.html" class="active">CSS</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-container">
+        <!-- 1. HERO SECTION -->
+        <section class="hero-section">
+            <h1 class="article-title">CSS Media Queries &amp; Modern Range Syntax</h1>
+            <p class="article-description">Adapt layouts, typography, and user preferences using media queries and contemporary Range Syntax.</p>
+            <div class="article-meta">
+                <span class="meta-item"><strong>Difficulty:</strong> Beginner</span>
+                <span class="meta-item"><strong>Reading Time:</strong> 12 mins</span>
+                <span class="meta-item"><strong>Prerequisites:</strong> Responsive Web Design Basics</span>
+            </div>
+            <div class="tags-container">
+                <span class="tag">CSS</span>
+                <span class="tag">Media Queries</span>
+                <span class="tag">Dark Mode</span>
+                <span class="tag">Accessibility</span>
+            </div>
+            <div class="hero-banner">
+                <svg viewBox="0 0 800 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="200" fill="#0f172a" rx="10"/>
+                    <text x="400" y="80" fill="#38bdf8" font-family="monospace" font-size="20" font-weight="bold" text-anchor="middle">@media (width &gt;= 768px)</text>
+                    <line x1="150" y1="120" x2="650" y2="120" stroke="#38bdf8" stroke-width="2"/>
+                    <circle cx="150" cy="120" r="8" fill="#38bdf8"/>
+                    <circle cx="400" cy="120" r="8" fill="#38bdf8"/>
+                    <circle cx="650" cy="120" r="8" fill="#38bdf8"/>
+                    <text x="150" y="150" fill="#94a3b8" font-family="monospace" font-size="12" text-anchor="middle">0px</text>
+                    <text x="400" y="150" fill="#94a3b8" font-family="monospace" font-size="12" text-anchor="middle">768px</text>
+                    <text x="650" y="150" fill="#94a3b8" font-family="monospace" font-size="12" text-anchor="middle">1200px</text>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 2. TABLE OF CONTENTS -->
+        <nav class="toc-container">
+            <h2>Table of Contents</h2>
+            <ul class="toc-list">
+                <li><a href="#why-this-matters">Why Media Queries Matter</a></li>
+                <li><a href="#core-concept">Breakpoints &amp; User Preference Queries</a></li>
+                <li><a href="#visual-diagram">Mobile-First Breakpoint Scaling</a></li>
+                <li><a href="#syntax">Modern Range Syntax &amp; Preference Queries</a></li>
+            </ul>
+        </nav>
+
+        <!-- 3. WHY THIS MATTERS -->
+        <section id="why-this-matters" class="article-section">
+            <h2>Why This Matters</h2>
+            <p>Even with fluid units and auto-wrapping grids, interfaces still need targeted adjustments at key screen widths. For instance, a desktop site might display a horizontal list of links, while a mobile phone benefits from a tucked-away slide-out menu.</p>
+            <p>Media queries also allow websites to adapt to user operating system settings, such as <code>prefers-color-scheme</code> for automatic dark mode and <code>prefers-reduced-motion</code> for users with vestibular disorders.</p>
+        </section>
+
+        <!-- 4. CONCEPT -->
+        <section id="core-concept" class="article-section">
+            <h2>Concept</h2>
+            <p>Media queries consist of a media type (<code>screen</code>, <code>print</code>) and one or more conditional feature expressions:</p>
+            <ul>
+                <li><strong>Mobile-First Pattern:</strong> Write base styles outside media queries for mobile devices first, then use <code>min-width</code> conditions to progressively enhance the layout as more screen real estate becomes available.</li>
+                <li><strong>Modern Range Syntax:</strong> Replaces older, clunkier rules like <code>(min-width: 768px)</code> with intuitive mathematical comparisons: <code>(width &gt;= 768px)</code>.</li>
+                <li><strong>User Preference Media Features:</strong> Detect hardware capabilities and system settings:
+                    <ul>
+                        <li><code>prefers-color-scheme: dark | light</code></li>
+                        <li><code>prefers-reduced-motion: reduce</code></li>
+                        <li><code>hover: hover</code> (differentiates touchscreens from mouse pointers)</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 5. VISUAL DIAGRAM -->
+        <section id="visual-diagram" class="article-section">
+            <h2>Visual Diagram</h2>
+            <div class="diagram-wrapper">
+                <pre class="ascii-diagram">
+CSS Rules Applied As Viewport Expands (Mobile-First):
+
+Base CSS (Global)      -&gt; Phones (320px+)
+[Stack cards, simple padding]
+        |
+        v
+@media (width &gt;= 640px)  -&gt; Tablets (640px+)
+[2-column grid, larger font scale]
+        |
+        v
+@media (width &gt;= 1024px) -&gt; Desktops (1024px+)
+[Expand sidebars, show desktop navigation]
+                </pre>
+            </div>
+        </section>
+
+        <!-- 6. SYNTAX -->
+        <section id="syntax" class="article-section">
+            <h2>Syntax</h2>
+            <pre><code class="language-css">/* 1. Base styles (Mobile First) */
+.content-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* 2. Modern Range Syntax for Tablet / Desktop */
+@media (width &gt;= 768px) {
+    .content-layout {
+        flex-direction: row;
+    }
+}
+
+/* 3. Handling Dark Mode Preferences */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #0f172a;
+        --text-color: #f8fafc;
+    }
+}
+
+/* 4. Respecting Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}</code></pre>
+        </section>
+    </main>
+</body>
+</html>

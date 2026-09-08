@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Web Design - Kaizen Tech Blog</title>
+    
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <header class="blog-header">
+        <nav class="blog-nav">
+            <a href="../../index.html" class="logo">Kaizen Tech Blog</a>
+            <div class="nav-links">
+                <a href="../index.html">Web Development</a>
+                <a href="index.html" class="active">CSS</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-container">
+        <!-- 1. HERO SECTION -->
+        <section class="hero-section">
+            <h1 class="article-title">Responsive Web Design</h1>
+            <p class="article-description">Build adaptable websites that look great across mobile devices, tablets, laptops, and ultra-wide desktop monitors.</p>
+            <div class="article-meta">
+                <span class="meta-item"><strong>Difficulty:</strong> Beginner to Intermediate</span>
+                <span class="meta-item"><strong>Reading Time:</strong> 16 mins</span>
+                <span class="meta-item"><strong>Prerequisites:</strong> CSS Box Model, Flexbox &amp; Grid</span>
+            </div>
+            <div class="tags-container">
+                <span class="tag">CSS</span>
+                <span class="tag">Responsive Design</span>
+                <span class="tag">Fluid Layouts</span>
+                <span class="tag">Mobile-First</span>
+            </div>
+            <div class="hero-banner">
+                <svg viewBox="0 0 800 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="200" fill="#0f172a" rx="10"/>
+                    <rect x="100" y="30" width="240" height="140" fill="#1e293b" stroke="#38bdf8" stroke-width="2" rx="8"/>
+                    <rect x="380" y="50" width="160" height="120" fill="#1e293b" stroke="#38bdf8" stroke-width="2" rx="6"/>
+                    <rect x="580" y="70" width="90" height="100" fill="#1e293b" stroke="#38bdf8" stroke-width="2" rx="4"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 2. TABLE OF CONTENTS -->
+        <nav class="toc-container">
+            <h2>Table of Contents</h2>
+            <ul class="toc-list">
+                <li><a href="#why-this-matters">The Multi-Device Web</a></li>
+                <li><a href="#core-concept">The 3 Pillars of Responsive Design</a></li>
+                <li><a href="#visual-diagram">Mobile-First Progressive Enhancement</a></li>
+                <li><a href="#syntax">Fluid Units, Clamp, and Viewport Meta</a></li>
+            </ul>
+        </nav>
+
+        <!-- 3. WHY THIS MATTERS -->
+        <section id="why-this-matters" class="article-section">
+            <h2>Why This Matters</h2>
+            <p>Mobile web traffic consistently accounts for more than 50% of global internet usage. If your web application relies on fixed pixel widths (like <code>width: 1200px</code>), mobile users will be forced to pinch and zoom just to read your content.</p>
+            <p>Responsive design isn't just about resizing windows; it ensures touch targets are finger-friendly, typography remains readable without zooming, and content reflows naturally without horizontal scrollbars.</p>
+        </section>
+
+        <!-- 4. CONCEPT -->
+        <section id="core-concept" class="article-section">
+            <h2>Concept</h2>
+            <p>Modern Responsive Web Design rests on three foundational pillars:</p>
+            <ul>
+                <li><strong>The Viewport Meta Tag:</strong> Informs mobile browsers to render the document at the device's true screen width rather than zooming out on a simulated 980px desktop view.</li>
+                <li><strong>Fluid Grids &amp; Relative Units:</strong> Swapping fixed pixels (<code>px</code>) for flexible units like <code>%</code>, <code>rem</code>, <code>ch</code>, <code>vw</code>, and <code>vh</code>.</li>
+                <li><strong>Modern CSS Functions:</strong> Using <code>clamp(min, preferred, max)</code> for fluid typography, eliminating the need to write separate media queries for every screen size.</li>
+            </ul>
+        </section>
+
+        <!-- 5. VISUAL DIAGRAM -->
+        <section id="visual-diagram" class="article-section">
+            <h2>Visual Diagram</h2>
+            <div class="diagram-wrapper">
+                <pre class="ascii-diagram">
++------------------+      +-----------------------+      +---------------------------+
+|  Mobile Viewport |      |    Tablet Viewport    |      |      Desktop Viewport     |
+|   (&lt; 640px)      |      |   (640px - 1024px)    |      |        (&gt; 1024px)         |
++------------------+      +-----------------------+      +---------------------------+
+| [Header]         |      | [Header]              |      | [Header]                  |
+| [Main Block]     | ---&gt; | [Main]      [Sidebar] | ---&gt; | [Nav]  [Main]   [Sidebar] |
+| [Sidebar]        |      | [Footer]              |      | [Footer]                  |
+| [Footer]         |      +-----------------------+      +---------------------------+
++------------------+
+  Single Column                 2-Column Flow                    3-Column Grid
+  (Base Styles)             (min-width: 640px)                (min-width: 1024px)
+                </pre>
+            </div>
+        </section>
+
+        <!-- 6. SYNTAX -->
+        <section id="syntax" class="article-section">
+            <h2>Syntax</h2>
+            <pre><code class="language-html">&lt;!-- Mandatory meta tag in &lt;head&gt; --&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></pre>
+
+            <pre><code class="language-css">/* Modern Fluid Typography without breakpoints */
+h1 {
+    /* clamp(minimum, preferred-fluid, maximum) */
+    font-size: clamp(1.75rem, 4vw + 1rem, 3.5rem);
+}
+
+/* Fluid, bounded container */
+.container {
+    width: min(100% - 2rem, 1200px);
+    margin-inline: auto;
+}
+
+/* Flexible images that never overflow */
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}</code></pre>
+        </section>
+    </main>
+</body>
+</html>

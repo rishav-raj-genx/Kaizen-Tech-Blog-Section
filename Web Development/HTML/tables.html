@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Tables - Kaizen Tech Blog</title>
+    
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <header class="blog-header">
+        <nav class="blog-nav">
+            <a href="../../index.html" class="logo">Kaizen Tech Blog</a>
+            <div class="nav-links">
+                <a href="../index.html">Web Development</a>
+                <a href="index.html" class="active">HTML</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-container">
+        <!-- 1. HERO SECTION -->
+        <section class="hero-section">
+            <h1 class="article-title">HTML Tables &amp; Tabular Data</h1>
+            <p class="article-description">Learn to structure complex relational and numeric information clearly using semantic tabular structures.</p>
+            <div class="article-meta">
+                <span class="meta-item"><strong>Difficulty:</strong> Beginner</span>
+                <span class="meta-item"><strong>Reading Time:</strong> 10 mins</span>
+                <span class="meta-item"><strong>Prerequisites:</strong> Basic HTML</span>
+            </div>
+            <div class="tags-container">
+                <span class="tag">HTML</span>
+                <span class="tag">Tables</span>
+                <span class="tag">Data Display</span>
+                <span class="tag">Accessibility</span>
+            </div>
+            <div class="hero-banner">
+                <svg viewBox="0 0 800 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="200" fill="#0f172a" rx="10"/>
+                    <rect x="100" y="40" width="600" height="35" fill="#0284c7" rx="4"/>
+                    <rect x="100" y="80" width="600" height="30" fill="#1e293b" rx="4"/>
+                    <rect x="100" y="115" width="600" height="30" fill="#334155" rx="4"/>
+                    <rect x="100" y="150" width="600" height="30" fill="#1e293b" rx="4"/>
+                    <line x1="300" y1="40" x2="300" y2="180" stroke="#475569" stroke-width="2"/>
+                    <line x1="500" y1="40" x2="500" y2="180" stroke="#475569" stroke-width="2"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 2. TABLE OF CONTENTS -->
+        <nav class="toc-container">
+            <h2>Table of Contents</h2>
+            <ul class="toc-list">
+                <li><a href="#why-this-matters">Tabular Data vs. Layout Hacks</a></li>
+                <li><a href="#core-concept">Table Elements &amp; Semantic Scope</a></li>
+                <li><a href="#visual-diagram">Anatomy of an Accessible Table</a></li>
+                <li><a href="#syntax">Syntax &amp; Spanning Rows/Columns</a></li>
+            </ul>
+        </nav>
+
+        <!-- 3. WHY THIS MATTERS -->
+        <section id="why-this-matters" class="article-section">
+            <h2>Why This Matters</h2>
+            <p>During the early days of web design, tables were used to lay out entire web pages. Today, that technique is completely obsolete and strongly discouraged because it breaks responsive design and ruins screen-reader navigation. CSS Grid and Flexbox handle layouts; HTML tables exist strictly for <em>tabular data</em>.</p>
+            <p>When presenting data like stock market feeds, analytics dashboards, pricing tiers, or comparison matrices, a semantic table is the only element that communicates column-to-row relationships clearly to assistive tools.</p>
+        </section>
+
+        <!-- 4. CONCEPT -->
+        <section id="core-concept" class="article-section">
+            <h2>Concept</h2>
+            <p>A well-structured table requires distinct functional blocks:</p>
+            <ul>
+                <li><strong><code>&lt;caption&gt;</code>:</strong> The heading or summary of the table for context.</li>
+                <li><strong><code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code>:</strong> Segment table sections logically, enabling browsers to repeat headers on printed pages.</li>
+                <li><strong><code>&lt;tr&gt;</code>, <code>&lt;th&gt;</code>, <code>&lt;td&gt;</code>:</strong> Table rows, header cells, and data cells respectively.</li>
+                <li><strong><code>scope</code> Attribute:</strong> Set on <code>&lt;th&gt;</code> (e.g., <code>scope="col"</code> or <code>scope="row"</code>) to explicitly identify which data a header describes.</li>
+            </ul>
+        </section>
+
+        <!-- 5. VISUAL DIAGRAM -->
+        <section id="visual-diagram" class="article-section">
+            <h2>Visual Diagram</h2>
+            <div class="diagram-wrapper">
+                <pre class="ascii-diagram">
++-------------------------------------------------------------+
+|               &lt;caption&gt; Monthly Team Metrics &lt;/caption&gt;      |
++-------------------------------------------------------------+
+|  &lt;thead&gt;                                                    |
+|  +-----------------------+------------------+------------+  |
+|  | &lt;th scope="col"&gt; Name | &lt;th scope="col"&gt; | &lt;th ...&gt;   |  |
+|  +-----------------------+------------------+------------+  |
++-------------------------------------------------------------+
+|  &lt;tbody&gt;                                                    |
+|  +-----------------------+------------------+------------+  |
+|  | &lt;td&gt; Engineering      | &lt;td&gt; 98.4%       | &lt;td&gt; Done  |  |
+|  +-----------------------+------------------+------------+  |
+|  | &lt;td&gt; Design Ops       | &lt;td&gt; 92.1%       | &lt;td&gt; Done  |  |
+|  +-----------------------+------------------+------------+  |
++-------------------------------------------------------------+
+|  &lt;tfoot&gt;                                                    |
+|  +-----------------------+------------------+------------+  |
+|  | &lt;td&gt; Overall Average  | &lt;td&gt; 95.2%       | &lt;td&gt; Final |  |
+|  +-----------------------+------------------+------------+  |
++-------------------------------------------------------------+
+                </pre>
+            </div>
+        </section>
+
+        <!-- 6. SYNTAX -->
+        <section id="syntax" class="article-section">
+            <h2>Syntax</h2>
+            <pre><code class="language-html">&lt;table&gt;
+    &lt;caption&gt;Quarterly Revenue Comparison (in Millions USD)&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope="col"&gt;Quarter&lt;/th&gt;
+            &lt;th scope="col"&gt;Projected&lt;/th&gt;
+            &lt;th scope="col"&gt;Actual&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;Q1&lt;/th&gt;
+            &lt;td&gt;$12.5M&lt;/td&gt;
+            &lt;td&gt;$14.2M&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;Q2&lt;/th&gt;
+            &lt;td&gt;$15.0M&lt;/td&gt;
+            &lt;td&gt;$16.8M&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tfoot&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;Total&lt;/th&gt;
+            &lt;td&gt;$27.5M&lt;/td&gt;
+            &lt;td&gt;$31.0M&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+        </section>
+    </main>
+</body>
+</html>

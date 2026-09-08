@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Grid Layout - Kaizen Tech Blog</title>
+    
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <header class="blog-header">
+        <nav class="blog-nav">
+            <a href="../../index.html" class="logo">Kaizen Tech Blog</a>
+            <div class="nav-links">
+                <a href="../index.html">Web Development</a>
+                <a href="index.html" class="active">CSS</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-container">
+        <!-- 1. HERO SECTION -->
+        <section class="hero-section">
+            <h1 class="article-title">CSS Grid Layout</h1>
+            <p class="article-description">Build complex, two-dimensional responsive layouts across rows and columns simultaneously with CSS Grid.</p>
+            <div class="article-meta">
+                <span class="meta-item"><strong>Difficulty:</strong> Intermediate</span>
+                <span class="meta-item"><strong>Reading Time:</strong> 18 mins</span>
+                <span class="meta-item"><strong>Prerequisites:</strong> CSS Box Model &amp; Flexbox</span>
+            </div>
+            <div class="tags-container">
+                <span class="tag">CSS</span>
+                <span class="tag">CSS Grid</span>
+                <span class="tag">2D Layout</span>
+                <span class="tag">Responsive</span>
+            </div>
+            <div class="hero-banner">
+                <svg viewBox="0 0 800 220" width="100%" height="220" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="220" fill="#0f172a" rx="10"/>
+                    <rect x="50" y="30" width="700" height="40" fill="#0284c7" rx="4"/>
+                    <rect x="50" y="80" width="220" height="80" fill="#0369a1" rx="4"/>
+                    <rect x="280" y="80" width="470" height="80" fill="#38bdf8" rx="4"/>
+                    <rect x="50" y="170" width="700" height="30" fill="#0284c7" rx="4"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 2. TABLE OF CONTENTS -->
+        <nav class="toc-container">
+            <h2>Table of Contents</h2>
+            <ul class="toc-list">
+                <li><a href="#why-this-matters">Why CSS Grid Matters</a></li>
+                <li><a href="#core-concept">Two-Dimensional Control &amp; The Fraction Unit</a></li>
+                <li><a href="#visual-diagram">Grid Tracks, Lines, and Areas</a></li>
+                <li><a href="#syntax">Syntax &amp; Template Areas</a></li>
+            </ul>
+        </nav>
+
+        <!-- 3. WHY THIS MATTERS -->
+        <section id="why-this-matters" class="article-section">
+            <h2>Why This Matters</h2>
+            <p>While Flexbox is designed for <em>one-dimensional</em> rows or columns, real-world application layouts (such as SaaS dashboards, photo galleries, and magazine feeds) require simultaneous alignment across <em>two dimensions</em>: columns and rows.</p>
+            <p>Without CSS Grid, building these interfaces requires nesting multiple rows of flex containers, which leads to layout drift and fragile responsive breakpoints. Grid lets you define the entire layout structure directly on the parent container.</p>
+        </section>
+
+        <!-- 4. CONCEPT -->
+        <section id="core-concept" class="article-section">
+            <h2>Concept</h2>
+            <p>CSS Grid introduces a dedicated set of coordinate terms:</p>
+            <ul>
+                <li><strong>Grid Lines:</strong> The numbered horizontal and vertical dividing lines defining the grid edges (indexed starting at 1).</li>
+                <li><strong>Grid Tracks:</strong> The space between any two adjacent grid lines (a column or a row).</li>
+                <li><strong>The <code>fr</code> Unit:</strong> Represents a fraction of the leftover free space in the grid container.</li>
+                <li><strong><code>minmax()</code> &amp; <code>auto-fit</code>:</strong> Generates fully responsive galleries that adapt automatically without requiring a single media query.</li>
+            </ul>
+        </section>
+
+        <!-- 5. VISUAL DIAGRAM -->
+        <section id="visual-diagram" class="article-section">
+            <h2>Visual Diagram</h2>
+            <div class="diagram-wrapper">
+                <pre class="ascii-diagram">
+Line 1           Line 2           Line 3           Line 4
+  |                |                |                |
+  v                v                v                v
+--+----------------+----------------+----------------+-- Line 1
+  |  Item 1        |  Item 2        |  Item 3        |
+  |  (1fr)         |  (1fr)         |  (1fr)         |
+--+----------------+----------------+----------------+-- Line 2
+  |  Item 4        |  Item 5 (spans 2 cols)          |
+  |  (1fr)         |  grid-column: span 2            |
+--+----------------+----------------+----------------+-- Line 3
+                </pre>
+            </div>
+        </section>
+
+        <!-- 6. SYNTAX -->
+        <section id="syntax" class="article-section">
+            <h2>Syntax</h2>
+            <pre><code class="language-css">/* Dashboard layout with template areas */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: 60px 1fr 40px;
+    grid-template-areas:
+        "header header"
+        "sidebar main"
+        "footer footer";
+    gap: 1rem;
+    height: 100vh;
+}
+
+.header  { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main    { grid-area: main; }
+.footer  { grid-area: footer; }
+
+/* Responsive card layout without media queries */
+.card-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}</code></pre>
+        </section>
+    </main>
+</body>
+</html>

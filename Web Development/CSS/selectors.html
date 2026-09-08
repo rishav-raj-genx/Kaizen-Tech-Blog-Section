@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Selectors &amp; Specificity - Kaizen Tech Blog</title>
+    
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <header class="blog-header">
+        <nav class="blog-nav">
+            <a href="../../index.html" class="logo">Kaizen Tech Blog</a>
+            <div class="nav-links">
+                <a href="../index.html">Web Development</a>
+                <a href="index.html" class="active">CSS</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-container">
+        <!-- 1. HERO SECTION -->
+        <section class="hero-section">
+            <h1 class="article-title">CSS Selectors &amp; Specificity</h1>
+            <p class="article-description">Master selector patterns, combinators, pseudo-classes, and specificity calculations to write predictable CSS.</p>
+            <div class="article-meta">
+                <span class="meta-item"><strong>Difficulty:</strong> Beginner</span>
+                <span class="meta-item"><strong>Reading Time:</strong> 14 mins</span>
+                <span class="meta-item"><strong>Prerequisites:</strong> Basic CSS Syntax</span>
+            </div>
+            <div class="tags-container">
+                <span class="tag">CSS</span>
+                <span class="tag">Selectors</span>
+                <span class="tag">Specificity</span>
+                <span class="tag">Architecture</span>
+            </div>
+            <div class="hero-banner">
+                <svg viewBox="0 0 800 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="200" fill="#0f172a" rx="10"/>
+                    <rect x="80" y="60" width="140" height="80" fill="#dc2626" rx="8"/>
+                    <text x="150" y="105" fill="#ffffff" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">Inline (1,0,0,0)</text>
+                    <rect x="240" y="60" width="140" height="80" fill="#ea580c" rx="8"/>
+                    <text x="310" y="105" fill="#ffffff" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">#ID (0,1,0,0)</text>
+                    <rect x="400" y="60" width="150" height="80" fill="#2563eb" rx="8"/>
+                    <text x="475" y="105" fill="#ffffff" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">.Class (0,0,1,0)</text>
+                    <rect x="570" y="60" width="150" height="80" fill="#059669" rx="8"/>
+                    <text x="645" y="105" fill="#ffffff" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">Element (0,0,0,1)</text>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 2. TABLE OF CONTENTS -->
+        <nav class="toc-container">
+            <h2>Table of Contents</h2>
+            <ul class="toc-list">
+                <li><a href="#why-this-matters">Why Selector Mastery Matters</a></li>
+                <li><a href="#core-concept">Selector Types &amp; The Specificity Hierarchy</a></li>
+                <li><a href="#visual-diagram">The Specificity Weight Scale</a></li>
+                <li><a href="#syntax">Syntax &amp; Combinator Reference</a></li>
+            </ul>
+        </nav>
+
+        <!-- 3. WHY THIS MATTERS -->
+        <section id="why-this-matters" class="article-section">
+            <h2>Why This Matters</h2>
+            <p>Every developer has experienced writing a CSS rule, refreshing the browser, and seeing nothing change—only to end up tacking on <code>!important</code> to force the style to apply. This habit triggers a specificity arms race that makes the codebase brittle and difficult to maintain.</p>
+            <p>Understanding selector priority and combinators allows you to target elements precisely without adding redundant classes or breaking the cascade.</p>
+        </section>
+
+        <!-- 4. CONCEPT -->
+        <section id="core-concept" class="article-section">
+            <h2>Concept</h2>
+            <p>CSS determines which style rule takes precedence through an algorithm called <strong>Specificity</strong>, calculated using a 4-part score <code>(a, b, c, d)</code>:</p>
+            <ul>
+                <li><strong>Inline Styles (1, 0, 0, 0):</strong> Directly applied via the <code>style=""</code> attribute.</li>
+                <li><strong>IDs (0, 1, 0, 0):</strong> E.g., <code>#nav-header</code>. High weight; best avoided for styling purposes.</li>
+                <li><strong>Classes, Attributes &amp; Pseudo-classes (0, 0, 1, 0):</strong> E.g., <code>.btn</code>, <code>[type="checkbox"]</code>, <code>:hover</code>.</li>
+                <li><strong>Elements &amp; Pseudo-elements (0, 0, 0, 1):</strong> E.g., <code>div</code>, <code>p</code>, <code>::before</code>.</li>
+            </ul>
+        </section>
+
+        <!-- 5. VISUAL DIAGRAM -->
+        <section id="visual-diagram" class="article-section">
+            <h2>Visual Diagram</h2>
+            <div class="diagram-wrapper">
+                <pre class="ascii-diagram">
+SPECIFICITY COMPARISON MATRIX:
+Selector                                | (Inline, ID, Class, Element) | Calculated Score
+----------------------------------------+------------------------------+-----------------
+style="color: red;"                     |          1,  0,     0,       0 | Highest priority
+#header-title                           |          0,  1,     0,       0 | 100 points
+header .nav-list li.active a            |          0,  0,     2,       3 |  23 points
+.btn:hover                              |          0,  0,     2,       0 |  20 points
+button                                  |          0,  0,     0,       1 |   1 point
+
+* Note: 10 classes (0,0,10,0) will NEVER overpower 1 ID (0,1,0,0)!
+                </pre>
+            </div>
+        </section>
+
+        <!-- 6. SYNTAX -->
+        <section id="syntax" class="article-section">
+            <h2>Syntax</h2>
+            <pre><code class="language-css">/* Combinators */
+article p { /* Descendant: any p inside article */ }
+article &gt; p { /* Child: direct child p only */ }
+h2 + p { /* Adjacent sibling: first p immediately following h2 */ }
+h2 ~ p { /* General sibling: any p following h2 under same parent */ }
+
+/* Modern Pseudo-classes */
+button:not(.disabled) {
+    cursor: pointer;
+}
+
+ul &gt; li:is(:hover, :focus-within) {
+    color: #38bdf8;
+}
+
+/* Pseudo-elements */
+.quote::before {
+    content: "“";
+    font-size: 2rem;
+}</code></pre>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Semantic Tags - Kaizen Tech Blog</title>
+    
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <header class="blog-header">
+        <nav class="blog-nav">
+            <a href="../../index.html" class="logo">Kaizen Tech Blog</a>
+            <div class="nav-links">
+                <a href="../index.html">Web Development</a>
+                <a href="index.html" class="active">HTML</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-container">
+        <!-- 1. HERO SECTION -->
+        <section class="hero-section">
+            <h1 class="article-title">HTML Semantic Tags</h1>
+            <p class="article-description">Master structure, accessibility, and SEO by replacing generic container tags with standard semantic markup.</p>
+            <div class="article-meta">
+                <span class="meta-item"><strong>Difficulty:</strong> Beginner</span>
+                <span class="meta-item"><strong>Reading Time:</strong> 12 mins</span>
+                <span class="meta-item"><strong>Prerequisites:</strong> Basic HTML Syntax</span>
+            </div>
+            <div class="tags-container">
+                <span class="tag">HTML</span>
+                <span class="tag">Semantic HTML</span>
+                <span class="tag">Accessibility</span>
+                <span class="tag">SEO</span>
+            </div>
+            <div class="hero-banner">
+                <svg viewBox="0 0 800 240" width="100%" height="240" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="240" fill="#1e293b" rx="10"/>
+                    <rect x="50" y="30" width="700" height="40" fill="#38bdf8" rx="5"/>
+                    <text x="400" y="55" fill="#0f172a" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">&lt;header&gt; &amp; &lt;nav&gt;</text>
+                    <rect x="50" y="80" width="460" height="90" fill="#0284c7" rx="5"/>
+                    <text x="280" y="130" fill="#ffffff" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">&lt;main&gt; &amp; &lt;article&gt;</text>
+                    <rect x="530" y="80" width="220" height="90" fill="#0369a1" rx="5"/>
+                    <text x="640" y="130" fill="#ffffff" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">&lt;aside&gt;</text>
+                    <rect x="50" y="180" width="700" height="35" fill="#38bdf8" rx="5"/>
+                    <text x="400" y="203" fill="#0f172a" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">&lt;footer&gt;</text>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 2. TABLE OF CONTENTS -->
+        <nav class="toc-container">
+            <h2>Table of Contents</h2>
+            <ul class="toc-list">
+                <li><a href="#why-this-matters">Why Semantic Tags Matter</a></li>
+                <li><a href="#core-concept">Core Concept: Meaning Over Appearance</a></li>
+                <li><a href="#visual-diagram">Structural Layout Diagram</a></li>
+                <li><a href="#syntax">Syntax &amp; Structural Implementation</a></li>
+            </ul>
+        </nav>
+
+        <!-- 3. WHY THIS MATTERS -->
+        <section id="why-this-matters" class="article-section">
+            <h2>Why This Matters</h2>
+            <p>Imagine reading a newspaper where every headline, paragraph, quote, and caption was printed in the exact same font size and style. It would be nearly impossible to scan. That is what a website looks like to search engines and screen readers when it is composed entirely of unsemantic <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> tags (often called "div soup").</p>
+            <p>Semantic tags describe their meaning to both the browser and developer. A visually impaired user relying on assistive technology uses these landmarks to jump straight to the primary content instead of listening to repetitive navigation bars on every single page load.</p>
+        </section>
+
+        <!-- 4. CONCEPT -->
+        <section id="core-concept" class="article-section">
+            <h2>Concept</h2>
+            <p>HTML5 introduced structural semantic tags to standardize page architecture:</p>
+            <ul>
+                <li><strong><code>&lt;header&gt;</code>:</strong> Introductory content, navigational links, or brand logos.</li>
+                <li><strong><code>&lt;nav&gt;</code>:</strong> Major navigational blocks intended for page-to-page links.</li>
+                <li><strong><code>&lt;main&gt;</code>:</strong> The central, dominant content unique to the document (only one per page).</li>
+                <li><strong><code>&lt;section&gt;</code>:</strong> A thematic grouping of content, typically with a heading.</li>
+                <li><strong><code>&lt;article&gt;</code>:</strong> Self-contained, syndicatable content (e.g., blog posts, product reviews).</li>
+                <li><strong><code>&lt;aside&gt;</code>:</strong> Content tangentially related to the main content, like sidebars.</li>
+                <li><strong><code>&lt;footer&gt;</code>:</strong> Authorship, copyright, legal links, or sitemap content.</li>
+            </ul>
+        </section>
+
+        <!-- 5. VISUAL DIAGRAM -->
+        <section id="visual-diagram" class="article-section">
+            <h2>Visual Diagram</h2>
+            <div class="diagram-wrapper">
+                <pre class="ascii-diagram">
++-------------------------------------------------------------+
+|                           &lt;header&gt;                          |
+|  +-------------------------------------------------------+  |
+|  |                         &lt;nav&gt;                         |  |
+|  +-------------------------------------------------------+  |
++-------------------------------------------------------------+
+|                                                             |
+|  +---------------------------------------+  +------------+  |
+|  |                 &lt;main&gt;                |  |  &lt;aside&gt;   |  |
+|  |  +---------------------------------+  |  |            |  |
+|  |  |            &lt;article&gt;            |  |  |  Related   |  |
+|  |  |  +---------------------------+  |  |  |  Links /   |  |
+|  |  |  |         &lt;section&gt;         |  |  |  |  Author    |  |
+|  |  |  +---------------------------+  |  |  |  Bio       |  |
+|  |  +---------------------------------+  |  |            |  |
+|  +---------------------------------------+  +------------+  |
+|                                                             |
++-------------------------------------------------------------+
+|                           &lt;footer&gt;                          |
++-------------------------------------------------------------+
+                </pre>
+            </div>
+        </section>
+
+        <!-- 6. SYNTAX -->
+        <section id="syntax" class="article-section">
+            <h2>Syntax</h2>
+            <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Page Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Engineering Portal&lt;/h1&gt;
+        &lt;nav&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#articles"&gt;Articles&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;article&gt;
+            &lt;h2&gt;Modern Web Standards&lt;/h2&gt;
+            &lt;section&gt;
+                &lt;h3&gt;Accessibility Focus&lt;/h3&gt;
+                &lt;p&gt;Accessible applications start with proper markup structure.&lt;/p&gt;
+            &lt;/section&gt;
+        &lt;/article&gt;
+        &lt;aside&gt;
+            &lt;h3&gt;Quick Links&lt;/h3&gt;
+            &lt;p&gt;Documentation notes and reference guides.&lt;/p&gt;
+        &lt;/aside&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;&amp;copy; 2026 Kaizen Tech Blog. All rights reserved.&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </section>
+    </main>
+</body>
+</html>
