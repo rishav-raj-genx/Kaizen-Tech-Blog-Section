@@ -1,1 +1,1282 @@
-!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Arrays, Two Pointers & Sliding Window in C++ | Kaizen Tech Blog</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/arrays.css">
+    <link rel="stylesheet" href="blog-components/components.css">
+    <link rel="shortcut icon" href="asset/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <header id="nav">
+        <div class="header">
+            <div class="header-left">
+                <img src="asset/logo.png" class="header-logo" alt="Kaizen Tech Logo">
+                <h2>Kaizen Tech</h2>
+            </div>
+            <div class="header-right">
+                <a href="index.html">← Back to Blog</a>
+            </div>
+        </div>
+        <hr>
+    </header>
+
+    <!-- ================= HERO SECTION ================= -->
+    <section class="hero">
+        <div class="hero-left-top">
+            <h1>Master Arrays, Two Pointers & Sliding Window in C++</h1>
+            <p>The definitive guide to Array memory mechanics, Prefix Sums, Two-Pointer patterns, Sliding Window optimizations, and 2D Matrix Traversals with full C++ implementations and Big-O analysis.</p>
+            
+            <div class="hero-badges">
+                <div class="hero-badge-card">
+                    <span>Difficulty</span>
+                    <h4>Beginner → Advanced</h4>
+                </div>
+                <div class="hero-badge-card">
+                    <span>Reading Time</span>
+                    <h4>65-75 Minutes</h4>
+                </div>
+                <div class="hero-badge-card">
+                    <span>Prerequisites</span>
+                    <h4>Basic C++ & Loops</h4>
+                </div>
+                <div class="hero-badge-card">
+                    <span>Language</span>
+                    <h4>C++ 17 / 20</h4>
+                </div>
+                <div class="hero-badge-card">
+                    <span>Author</span>
+                    <h4>Shubham Rai</h4>
+                </div>
+            </div>
+        </div>
+        <div class="hero-right">
+            <img src="asset/image.png" alt="Data Structures & Algorithms" onerror="this.style.display='none'">
+        </div>
+    </section>
+
+    <!-- Mobile Floating TOC Toggle Button -->
+    <button class="toc-toggle" id="tocToggle">
+        <span>☰</span> Table of Contents
+    </button>
+    <div class="toc-overlay" id="tocOverlay"></div>
+
+    <!-- ================= MAIN BLOG LAYOUT ================= -->
+    <main class="blog-layout">
+
+        <!-- Left Sticky Sidebar (TOC) -->
+        <aside class="toc-sidebar">
+            <div class="toc-header">
+                <h2><span class="toc-header-icon">📑</span> Table of Contents</h2>
+                <button class="toc-close" id="tocClose" aria-label="Close Table of Contents">✕</button>
+            </div>
+            <nav class="toc-links">
+                <a href="#introduction">1. Introduction & Core Concept</a>
+                <a href="#memory-model">2. Contiguous Memory Architecture</a>
+                <a href="#core-operations">3. Fundamental Array Operations</a>
+                <a href="#prefix-sum">4. Prefix Sum Technique</a>
+                <a href="#difference-array">5. Difference Array (Range Updates)</a>
+                <a href="#two-pointer">6. Two Pointer Technique</a>
+                <a href="#sliding-window">7. Sliding Window Technique</a>
+                <a href="#matrix-traversal">8. 2D Arrays & Matrix Traversals</a>
+                <a href="#spiral-matrix">9. Spiral Order Matrix Traversal</a>
+                <a href="#matrix-search">10. Efficient 2D Matrix Search</a>
+                <a href="#time-complexity-table">11. Master Time Complexity Table</a>
+                <a href="#common-pitfalls">12. Common Pitfalls & Traps</a>
+                <a href="#interview-questions">13. Top Interview Questions</a>
+            </nav>
+        </aside>
+
+        <!-- Right Blog Content -->
+        <section class="blog-content">
+
+            <!-- 1. Introduction -->
+            <section id="introduction">
+                <h1>1. Introduction & Core Concept</h1>
+                
+                <div class="text-file">
+                    <div class="text-file-header">
+                        Why Arrays are the Foundation of DSA
+                    </div>
+                    <div class="text-file-content">
+                        <p>⦿ The <strong>Array</strong> is the most ubiquitous, fundamental data structure in computer science. Almost every complex data structure—including strings, heaps, hash tables, dynamic lists, and matrix representations—relies directly on arrays under the hood.</p>
+                        <p>⦿ At its simplest, an array is a collection of elements of the same data type placed in <strong>contiguous (adjacent) memory locations</strong>.</p>
+                        <p>⦿ Because elements sit side-by-side in RAM, computing the memory address of any element takes pure mathematical addition, granting arrays their signature superpower: <strong>instant \(O(1)\) random access</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="definition-box">
+                    <div class="definition-title">Formal Definition</div>
+                    <div class="definition-heading">What is an Array?</div>
+                    <div class="definition-content">
+                        An Array is a static, linear data structure storing fixed-size sequential elements of identical type in contiguous memory blocks. Each element is uniquely referenced by a numerical 0-based index.
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-header">💡 Real-World Analogy: The Hotel Corridor</div>
+                    <div class="tip-content">
+                        Imagine a luxury hotel corridor where rooms are numbered sequentially from 100 to 109. If you know that room 100 starts at the entrance and each room is exactly 12 feet wide, you do not need to walk through and knock on rooms 100, 101, and 102 to locate room 103. You simply calculate: <code>100 + (3 × 12) = 136 feet</code> and walk directly there. That is exactly how computers access array elements!
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Memory Model -->
+            <section id="memory-model">
+                <h1>2. Contiguous Memory Architecture</h1>
+                
+                <p>To truly master arrays in C++, you must understand how your operating system and hardware CPU interact with RAM. When you declare an array in C++ like <code>int arr[5] = {10, 20, 30, 40, 50};</code>, the compiler requests a continuous block of <code>5 × sizeof(int) = 20 bytes</code> from the stack.</p>
+
+                <div class="diagram-card">
+                    <div class="diagram-title">🖥️ Hardware Memory Map: Contiguous 4-Byte Integer Cells in RAM</div>
+                    <div class="diagram-subtitle">Notice how each consecutive index increases by exactly 4 bytes (the size of a 32-bit int)</div>
+                    
+                    <div class="memory-strip">
+                        <div class="memory-cell">
+                            <span class="cell-index">Index [0]</span>
+                            <span class="cell-value">10</span>
+                            <span class="cell-addr">0x7ffe00</span>
+                        </div>
+                        <div class="memory-cell">
+                            <span class="cell-index">Index [1]</span>
+                            <span class="cell-value">20</span>
+                            <span class="cell-addr">0x7ffe04</span>
+                        </div>
+                        <div class="memory-cell">
+                            <span class="cell-index">Index [2]</span>
+                            <span class="cell-value">30</span>
+                            <span class="cell-addr">0x7ffe08</span>
+                        </div>
+                        <div class="memory-cell">
+                            <span class="cell-index">Index [3]</span>
+                            <span class="cell-value">40</span>
+                            <span class="cell-addr">0x7ffe0c</span>
+                        </div>
+                        <div class="memory-cell">
+                            <span class="cell-index">Index [4]</span>
+                            <span class="cell-value">50</span>
+                            <span class="cell-addr">0x7ffe10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note-box">
+                    <div class="note-header">The Direct Address Formula</div>
+                    <div class="note-content">
+                        The memory address of index <code>i</code> is determined in hardware via the formula:
+                        <br><br>
+                        <code>Address(arr[i]) = Base_Address + (i × sizeof(Element_Type))</code>
+                        <br><br>
+                        For <code>arr[3]</code> with Base Address <code>0x7ffe00</code> and <code>sizeof(int) = 4</code>:
+                        <br>
+                        <code>0x7ffe00 + (3 × 4) = 0x7ffe00 + 12 (0x0C in hex) = 0x7ffe0c</code>.
+                        <br>
+                        Because this formula is a single multiplication and addition, it executes in a single CPU cycle—yielding true \(O(1)\) lookup time regardless of whether the array has 10 elements or 10,000,000 elements!
+                    </div>
+                </div>
+
+                <div class="answer-box">
+                    <div class="answer-header">⚡ Why are Arrays Faster than Linked Lists? Cache Locality!</div>
+                    <div class="answer-content">
+                        Modern CPUs use high-speed L1/L2/L3 hardware caches. When you read <code>arr[0]</code>, the CPU doesn't just fetch 4 bytes from RAM; it fetches an entire <strong>64-byte Cache Line</strong> containing <code>arr[0]</code> through <code>arr[15]</code>. When your loop proceeds to <code>arr[1]</code>, it is already waiting in L1 cache (a <strong>Cache Hit</strong>, ~1 nanosecond), unlike a Linked List whose nodes are scattered across random heap addresses (causing expensive <strong>Cache Misses</strong>, ~100 nanoseconds).
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Core Operations -->
+            <section id="core-operations">
+                <h1>3. Fundamental Array Operations</h1>
+                
+                <p>Before moving to advanced algorithmic techniques, let us review the elementary operations, their C++ implementation, and their performance characteristics.</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="language">C++ Core Array Operations (Traversal, Insertion, Deletion, Search)</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+// 1. Traversal: O(N) Time | O(1) Space
+void traverseArray(int arr[], int n) {
+    cout &lt;&lt; "Array Elements: ";
+    for (int i = 0; i &lt; n; i++) {
+        cout &lt;&lt; arr[i] &lt;&lt; " ";
+    }
+    cout &lt;&lt; "\n";
+}
+
+// 2. Insertion at arbitrary index: O(N) Time (due to shifting)
+bool insertElement(int arr[], int &n, int capacity, int element, int index) {
+    if (n &gt;= capacity || index &lt; 0 || index &gt; n) return false;
+    
+    // Shift elements to the right to make room
+    for (int i = n - 1; i &gt;= index; i--) {
+        arr[i + 1] = arr[i];
+    }
+    arr[index] = element;
+    n++;
+    return true;
+}
+
+// 3. Deletion at arbitrary index: O(N) Time (due to shifting)
+bool deleteElement(int arr[], int &n, int index) {
+    if (index &lt; 0 || index &gt;= n) return false;
+    
+    // Shift elements to the left to fill the gap
+    for (int i = index; i &lt; n - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+    n--;
+    return true;
+}
+
+// 4. Linear Search: O(N) Time | O(1) Space
+int linearSearch(int arr[], int n, int target) {
+    for (int i = 0; i &lt; n; i++) {
+        if (arr[i] == target) return i; // Found at index i
+    }
+    return -1; // Not found
+}
+
+// 5. Binary Search (Requires sorted array): O(log N) Time | O(1) Space
+int binarySearch(int arr[], int n, int target) {
+    int left = 0, right = n - 1;
+    while (left &lt;= right) {
+        int mid = left + (right - left) / 2; // Avoid potential overflow
+        if (arr[mid] == target) return mid;
+        else if (arr[mid] &lt; target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+}
+
+int main() {
+    int capacity = 10;
+    int n = 5;
+    int arr[10] = {10, 20, 30, 40, 50};
+
+    traverseArray(arr, n);
+    insertElement(arr, n, capacity, 25, 2); // Insert 25 at index 2
+    traverseArray(arr, n);
+    deleteElement(arr, n, 4);               // Delete element at index 4
+    traverseArray(arr, n);
+
+    cout &lt;&lt; "Index of 25: " &lt;&lt; linearSearch(arr, n, 25) &lt;&lt; "\n";
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- 4. Prefix Sum -->
+            <section id="prefix-sum">
+                <h1>4. Prefix Sum Technique</h1>
+
+                <div class="definition-box">
+                    <div class="definition-title">Algorithmic Optimization</div>
+                    <div class="definition-heading">What is a Prefix Sum?</div>
+                    <div class="definition-content">
+                        The <strong>Prefix Sum</strong> technique is a precomputation strategy where an auxiliary array stores the cumulative sum of elements from index 0 up to index <code>i</code>. It converts repeated range sum queries from <strong>\(O(N)\) down to instantaneous \(O(1)\) time</strong>.
+                    </div>
+                </div>
+
+                <h3>The Mathematical Formulation</h3>
+                <p>Given an array <code>arr</code> of size <code>N</code>:</p>
+                <ul>
+                    <li><code>prefix[0] = arr[0]</code></li>
+                    <li><code>prefix[i] = prefix[i - 1] + arr[i]</code> for all <code>i &ge; 1</code></li>
+                </ul>
+                <p>To find the sum of elements from index <code>L</code> to <code>R</code> inclusive:</p>
+                <ul>
+                    <li>If <code>L == 0</code>: <code>RangeSum(0, R) = prefix[R]</code></li>
+                    <li>If <code>L &gt; 0</code>: <code>RangeSum(L, R) = prefix[R] - prefix[L - 1]</code></li>
+                </ul>
+
+                <div class="diagram-card">
+                    <div class="diagram-title">📊 Step-by-Step Cumulative Addition Visualization</div>
+                    <div class="diagram-subtitle">Original Array vs Precomputed Prefix Sum Array</div>
+                    <div class="memory-strip">
+                        <div class="memory-cell">
+                            <span class="cell-index">Index 0</span>
+                            <span class="cell-value">3</span>
+                            <span class="cell-addr">Pref: 3</span>
+                        </div>
+                        <div class="memory-cell">
+                            <span class="cell-index">Index 1</span>
+                            <span class="cell-value">7</span>
+                            <span class="cell-addr">Pref: 10</span>
+                        </div>
+                        <div class="memory-cell">
+                            <span class="cell-index">Index 2</span>
+                            <span class="cell-value">2</span>
+                            <span class="cell-addr">Pref: 12</span>
+                        </div>
+                        <div class="memory-cell">
+                            <span class="cell-index">Index 3</span>
+                            <span class="cell-value">8</span>
+                            <span class="cell-addr">Pref: 20</span>
+                        </div>
+                        <div class="memory-cell">
+                            <span class="cell-index">Index 4</span>
+                            <span class="cell-value">5</span>
+                            <span class="cell-addr">Pref: 25</span>
+                        </div>
+                    </div>
+                    <p style="margin-top:15px; text-align:center; color:#1E40AF; font-weight:600;">
+                        Query: RangeSum(1, 3) = prefix[3] - prefix[0] = 20 - 3 = 17 (7 + 2 + 8 = 17) in O(1) time!
+                    </p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="language">C++ Implementation: 1D Prefix Sum for Fast Range Queries</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+class PrefixSum1D {
+private:
+    vector&lt;long long&gt; prefix;
+
+public:
+    PrefixSum1D(const vector&lt;int&gt;& arr) {
+        int n = arr.size();
+        prefix.resize(n);
+        if (n == 0) return;
+
+        prefix[0] = arr[0];
+        for (int i = 1; i &lt; n; i++) {
+            prefix[i] = prefix[i - 1] + arr[i];
+        }
+    }
+
+    // Returns sum of arr[L...R] in O(1) time
+    long long query(int L, int R) {
+        if (L &lt; 0 || R &gt;= (int)prefix.size() || L &gt; R) return 0;
+        if (L == 0) return prefix[R];
+        return prefix[R] - prefix[L - 1];
+    }
+};
+
+int main() {
+    vector&lt;int&gt; nums = {3, 7, 2, 8, 5};
+    PrefixSum1D solver(nums);
+
+    cout &lt;&lt; "Sum(1, 3): " &lt;&lt; solver.query(1, 3) &lt;&lt; "\n"; // Expected: 7+2+8 = 17
+    cout &lt;&lt; "Sum(0, 4): " &lt;&lt; solver.query(0, 4) &lt;&lt; "\n"; // Expected: 25
+    cout &lt;&lt; "Sum(2, 2): " &lt;&lt; solver.query(2, 2) &lt;&lt; "\n"; // Expected: 2
+    return 0;
+}</code></pre>
+                </div>
+
+                <h2>2D Prefix Sum (Submatrix Sum Queries in \(O(1)\))</h2>
+                <p>Prefix sums extend naturally to two-dimensional matrices. Suppose we need to answer hundreds of queries calculating the sum of submatrices bounded by top-left <code>(r1, c1)</code> and bottom-right <code>(r2, c2)</code>.</p>
+                
+                <div class="note-box">
+                    <div class="note-header">Inclusion-Exclusion Principle for 2D Prefix Sum</div>
+                    <div class="note-content">
+                        <strong>Precomputation:</strong>
+                        <br>
+                        <code>pref[r][c] = mat[r][c] + pref[r-1][c] + pref[r][c-1] - pref[r-1][c-1]</code>
+                        <br><br>
+                        <strong>Submatrix Query (r1, c1) to (r2, c2):</strong>
+                        <br>
+                        <code>Sum = pref[r2][c2] - pref[r1-1][c2] - pref[r2][c1-1] + pref[r1-1][c1-1]</code>
+                        <br><br>
+                        We subtract the two overlapping rectangles above and to the left, and add back the doubly subtracted corner rectangle!
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="language">C++ Implementation: 2D Matrix Prefix Sum</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+class MatrixPrefixSum {
+    vector&lt;vector&lt;int&gt;&gt; pref;
+
+public:
+    MatrixPrefixSum(const vector&lt;vector&lt;int&gt;&gt;& matrix) {
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        // 1-indexed padding simplifies boundary checks
+        pref.assign(rows + 1, vector&lt;int&gt;(cols + 1, 0));
+
+        for (int r = 1; r &lt;= rows; r++) {
+            for (int c = 1; c &lt;= cols; c++) {
+                pref[r][c] = matrix[r - 1][c - 1]
+                           + pref[r - 1][c]
+                           + pref[r][c - 1]
+                           - pref[r - 1][c - 1];
+            }
+        }
+    }
+
+    // Query 0-indexed submatrix from (r1, c1) to (r2, c2)
+    int sumRegion(int r1, int c1, int r2, int c2) {
+        r1++; c1++; r2++; c2++; // Shift to 1-indexed
+        return pref[r2][c2] - pref[r1 - 1][c2] - pref[r2][c1 - 1] + pref[r1 - 1][c1 - 1];
+    }
+};
+
+int main() {
+    vector&lt;vector&lt;int&gt;&gt; grid = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+    MatrixPrefixSum solver(grid);
+    // Submatrix (1,1) to (2,2) -> elements 5, 6, 8, 9 = 28
+    cout &lt;&lt; "Submatrix sum: " &lt;&lt; solver.sumRegion(1, 1, 2, 2) &lt;&lt; "\n";
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- 5. Difference Array -->
+            <section id="difference-array">
+                <h1>5. Difference Array Technique (Range Updates)</h1>
+
+                <div class="definition-box">
+                    <div class="definition-title">Reverse Prefix Sum</div>
+                    <div class="definition-heading">Range Updates in \(O(1)\) Time</div>
+                    <div class="definition-content">
+                        Suppose you are asked to perform <code>Q</code> range updates: <em>"Add value \(V\) to all elements in range \([L, R]\)"</em>. A naive loop takes \(O(N)\) per update, total \(O(Q \times N)\).
+                        With a <strong>Difference Array</strong>, each range update takes <strong>\(O(1)\) time</strong>, and the final array is reconstructed in \(O(N)\) with a single prefix sum sweep!
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-header">💡 The Difference Array Rule</div>
+                    <div class="tip-content">
+                        To add value <code>val</code> to range <code>[L, R]</code>:
+                        <br>
+                        1. <code>diff[L] += val;</code> (adds val to all indices &ge; L during prefix sum)
+                        <br>
+                        2. <code>if (R + 1 &lt; n) diff[R + 1] -= val;</code> (cancels the addition for indices &gt; R)
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="language">C++ Implementation: Difference Array Technique</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+class DifferenceArray {
+    vector&lt;int&gt; diff;
+    int n;
+
+public:
+    DifferenceArray(const vector&lt;int&gt;& arr) {
+        n = arr.size();
+        diff.assign(n + 1, 0);
+        
+        // Build initial difference array
+        diff[0] = arr[0];
+        for (int i = 1; i &lt; n; i++) {
+            diff[i] = arr[i] - arr[i - 1];
+        }
+    }
+
+    // Range update: Add 'val' to arr[L...R] in O(1)
+    void update(int L, int R, int val) {
+        diff[L] += val;
+        if (R + 1 &lt; n) {
+            diff[R + 1] -= val;
+        }
+    }
+
+    // Reconstruct final array in O(N)
+    vector&lt;int&gt; getResult() {
+        vector&lt;int&gt; res(n);
+        res[0] = diff[0];
+        for (int i = 1; i &lt; n; i++) {
+            res[i] = res[i - 1] + diff[i];
+        }
+        return res;
+    }
+};
+
+int main() {
+    vector&lt;int&gt; arr = {10, 5, 20, 40};
+    DifferenceArray da(arr);
+
+    da.update(1, 3, 10); // Add 10 to indices 1..3
+    da.update(0, 1, 5);  // Add 5 to indices 0..1
+
+    vector&lt;int&gt; finalArr = da.getResult();
+    cout &lt;&lt; "Updated Array: ";
+    for (int x : finalArr) cout &lt;&lt; x &lt;&lt; " "; // Output: 15 20 30 50
+    cout &lt;&lt; "\n";
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- 6. Two Pointer -->
+            <section id="two-pointer">
+                <h1>6. Two Pointer Technique</h1>
+
+                <p>The <strong>Two Pointer</strong> technique uses two integer indices to traverse an array simultaneously. Instead of checking every pair with nested loops in \(O(N^2)\), we leverage problem constraints (such as monotonicity or sorted order) to narrow the search space in a single linear pass \(O(N)\).</p>
+
+                <div class="diagram-card">
+                    <div class="diagram-title">🎯 Pattern 1: Converging Pointers (Opposite Ends)</div>
+                    <div class="diagram-subtitle">Left pointer starts at 0, Right pointer starts at N-1, moving towards each other</div>
+
+                    <div class="two-pointer-track">
+                        <div class="ptr-node">
+                            <span class="ptr-flag ptr-left">Left</span>
+                            <div class="ptr-box">2</div>
+                            <span class="ptr-idx">[0]</span>
+                        </div>
+                        <div class="ptr-node">
+                            <div class="ptr-box">7</div>
+                            <span class="ptr-idx">[1]</span>
+                        </div>
+                        <div class="ptr-node">
+                            <div class="ptr-box">11</div>
+                            <span class="ptr-idx">[2]</span>
+                        </div>
+                        <div class="ptr-node">
+                            <div class="ptr-box">15</div>
+                            <span class="ptr-idx">[3]</span>
+                        </div>
+                        <div class="ptr-node">
+                            <span class="ptr-flag ptr-right">Right</span>
+                            <div class="ptr-box">20</div>
+                            <span class="ptr-idx">[4]</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Key Two-Pointer Archetypes</h3>
+                <ul>
+                    <li><strong>Converging Pointers (Opposite ends):</strong> Used when arrays are sorted. Examples: Pair with Target Sum, Container With Most Water, Valid Palindrome, Reversing an Array.</li>
+                    <li><strong>Fast & Slow Pointers (Same direction):</strong> Both pointers move rightward at varying speeds or conditions. Examples: Remove duplicates from sorted array, Move zeroes to end, Cycle detection.</li>
+                </ul>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="language">C++ Implementation: Classic Two-Pointer Applications</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+// Application 1: Two Sum in Sorted Array - O(N) Time | O(1) Space
+bool pairWithTargetSum(const vector&lt;int&gt;& sortedArr, int target, int &idx1, int &idx2) {
+    int left = 0;
+    int right = sortedArr.size() - 1;
+
+    while (left &lt; right) {
+        int currentSum = sortedArr[left] + sortedArr[right];
+        if (currentSum == target) {
+            idx1 = left;
+            idx2 = right;
+            return true;
+        } else if (currentSum &lt; target) {
+            left++; // Need a larger sum, move left pointer rightward
+        } else {
+            right--; // Need a smaller sum, move right pointer leftward
+        }
+    }
+    return false;
+}
+
+// Application 2: Remove Duplicates in-place (Fast/Slow Pointer) - O(N) Time | O(1) Space
+int removeDuplicates(vector&lt;int&gt;& nums) {
+    if (nums.empty()) return 0;
+    int slow = 0; // Tracks position of unique elements
+
+    for (int fast = 1; fast &lt; (int)nums.size(); fast++) {
+        if (nums[fast] != nums[slow]) {
+            slow++;
+            nums[slow] = nums[fast];
+        }
+    }
+    return slow + 1; // Length of unique array
+}
+
+// Application 3: Container With Most Water - O(N) Time | O(1) Space
+int maxWaterArea(const vector&lt;int&gt;& height) {
+    int left = 0, right = height.size() - 1;
+    int maxWater = 0;
+
+    while (left &lt; right) {
+        int width = right - left;
+        int h = min(height[left], height[right]);
+        maxWater = max(maxWater, width * h);
+
+        // Always discard the shorter bar because it bottlenecks the area
+        if (height[left] &lt; height[right]) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+    return maxWater;
+}
+
+int main() {
+    vector&lt;int&gt; sorted = {2, 7, 11, 15, 20};
+    int i1, i2;
+    if (pairWithTargetSum(sorted, 18, i1, i2)) {
+        cout &lt;&lt; "Pair found at indices " &lt;&lt; i1 &lt;&lt; " and " &lt;&lt; i2 
+             &lt;&lt; " (" &lt;&lt; sorted[i1] &lt;&lt; " + " &lt;&lt; sorted[i2] &lt;&lt; " = 18)\n";
+    }
+
+    vector&lt;int&gt; dupes = {1, 1, 2, 2, 3, 4, 4};
+    int len = removeDuplicates(dupes);
+    cout &lt;&lt; "Unique count: " &lt;&lt; len &lt;&lt; "\n";
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- 7. Sliding Window -->
+            <section id="sliding-window">
+                <h1>7. Sliding Window Technique</h1>
+
+                <div class="definition-box">
+                    <div class="definition-title">Algorithmic Pattern</div>
+                    <div class="definition-heading">What is the Sliding Window Technique?</div>
+                    <div class="definition-content">
+                        The <strong>Sliding Window</strong> technique transforms nested-loop subarray problems from \(O(N \times K)\) or \(O(N^2)\) down to linear <strong>\(O(N)\) time</strong>. It works by sliding a computational window (fixed or dynamic) across the array, adding the newly entered element on the right and subtracting the exiting element on the left without recomputing from scratch.
+                    </div>
+                </div>
+
+                <div class="diagram-card">
+                    <div class="diagram-title">🪟 Fixed Sliding Window of Size K = 3</div>
+                    <div class="diagram-subtitle">Window advances by dropping the leftmost element and including the next incoming element</div>
+
+                    <div class="sliding-window-demo">
+                        <div class="window-row">
+                            <span class="window-label">Step 1:</span>
+                            <div class="window-item active-window">2</div>
+                            <div class="window-item active-window">1</div>
+                            <div class="window-item active-window">5</div>
+                            <div class="window-item">1</div>
+                            <div class="window-item">3</div>
+                            <div class="window-item">2</div>
+                            <span style="font-weight:700; color:#2563EB;">Sum = 2+1+5 = 8</span>
+                        </div>
+                        <div class="window-row">
+                            <span class="window-label">Step 2:</span>
+                            <div class="window-item">2</div>
+                            <div class="window-item active-window">1</div>
+                            <div class="window-item active-window">5</div>
+                            <div class="window-item active-window">1</div>
+                            <div class="window-item">3</div>
+                            <div class="window-item">2</div>
+                            <span style="font-weight:700; color:#2563EB;">Sum = 8 - 2 + 1 = 7</span>
+                        </div>
+                        <div class="window-row">
+                            <span class="window-label">Step 3:</span>
+                            <div class="window-item">2</div>
+                            <div class="window-item">1</div>
+                            <div class="window-item active-window">5</div>
+                            <div class="window-item active-window">1</div>
+                            <div class="window-item active-window">3</div>
+                            <div class="window-item">2</div>
+                            <span style="font-weight:700; color:#10B981;">Sum = 7 - 1 + 3 = 9 (Max!)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="language">C++ Implementation: Fixed & Variable Sliding Window</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;climits&gt;
+#include &lt;unordered_map&gt;
+using namespace std;
+
+// 1. Fixed Window: Maximum Sum Subarray of size K - O(N) Time | O(1) Space
+int maxSumSubarrayK(const vector&lt;int&gt;& arr, int k) {
+    int n = arr.size();
+    if (n &lt; k) return -1;
+
+    // Calculate sum of initial window
+    int windowSum = 0;
+    for (int i = 0; i &lt; k; i++) {
+        windowSum += arr[i];
+    }
+
+    int maxSum = windowSum;
+
+    // Slide window: subtract arr[i - k] and add arr[i]
+    for (int i = k; i &lt; n; i++) {
+        windowSum += arr[i] - arr[i - k];
+        maxSum = max(maxSum, windowSum);
+    }
+    return maxSum;
+}
+
+// 2. Variable Window: Minimum Size Subarray Sum >= Target - O(N) Time | O(1) Space
+int minSubArrayLen(int target, const vector&lt;int&gt;& nums) {
+    int n = nums.size();
+    int minLen = INT_MAX;
+    int currentSum = 0;
+    int left = 0;
+
+    for (int right = 0; right &lt; n; right++) {
+        currentSum += nums[right];
+
+        // Shrink window from the left while condition holds
+        while (currentSum &gt;= target) {
+            minLen = min(minLen, right - left + 1);
+            currentSum -= nums[left];
+            left++;
+        }
+    }
+    return (minLen == INT_MAX) ? 0 : minLen;
+}
+
+int main() {
+    vector&lt;int&gt; arr = {2, 1, 5, 1, 3, 2};
+    cout &lt;&lt; "Max Sum of size 3: " &lt;&lt; maxSumSubarrayK(arr, 3) &lt;&lt; "\n"; // Expected: 9
+
+    vector&lt;int&gt; nums = {2, 3, 1, 2, 4, 3};
+    cout &lt;&lt; "Min length with sum >= 7: " &lt;&lt; minSubArrayLen(7, nums) &lt;&lt; "\n"; // Expected: 2 ([4,3])
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- 8. 2D Matrix Traversal -->
+            <section id="matrix-traversal">
+                <h1>8. 2D Arrays & Matrix Traversals</h1>
+
+                <div class="definition-box">
+                    <div class="definition-title">Multi-Dimensional Memory Layout</div>
+                    <div class="definition-heading">Row-Major vs Column-Major Layout in C++</div>
+                    <div class="definition-content">
+                        In C++, 2D arrays are stored in <strong>Row-Major Order</strong> in linear RAM. Row 0 is stored first in its entirety, immediately followed by Row 1, then Row 2.
+                        <br><br>
+                        <code>Address(matrix[r][c]) = Base + (r × Total_Columns + c) × sizeof(Element)</code>
+                        <br><br>
+                        Therefore, iterating <strong>row-by-row (outer loop row, inner loop column)</strong> traverses memory sequentially, maximizing CPU cache lines! Iterating column-by-column jumps across rows, resulting in severe cache thrashing.
+                    </div>
+                </div>
+
+                <div class="diagram-card">
+                    <div class="diagram-title">🧱 3 × 4 Matrix Visual Representation</div>
+                    <div class="diagram-subtitle">Click or hover over cells to inspect coordinate indices</div>
+                    
+                    <div class="matrix-container">
+                        <div class="matrix-grid">
+                            <div class="matrix-cell">1<span class="matrix-coord">[0,0]</span></div>
+                            <div class="matrix-cell">2<span class="matrix-coord">[0,1]</span></div>
+                            <div class="matrix-cell">3<span class="matrix-coord">[0,2]</span></div>
+                            <div class="matrix-cell">4<span class="matrix-coord">[0,3]</span></div>
+
+                            <div class="matrix-cell">5<span class="matrix-coord">[1,0]</span></div>
+                            <div class="matrix-cell">6<span class="matrix-coord">[1,1]</span></div>
+                            <div class="matrix-cell">7<span class="matrix-coord">[1,2]</span></div>
+                            <div class="matrix-cell">8<span class="matrix-coord">[1,3]</span></div>
+
+                            <div class="matrix-cell">9<span class="matrix-coord">[2,0]</span></div>
+                            <div class="matrix-cell">10<span class="matrix-coord">[2,1]</span></div>
+                            <div class="matrix-cell">11<span class="matrix-coord">[2,2]</span></div>
+                            <div class="matrix-cell">12<span class="matrix-coord">[2,3]</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Key Matrix Traversal Patterns</h3>
+                <ul>
+                    <li><strong>Row-Wise Traversal:</strong> Standard nested loop <code>for r: for c: process(mat[r][c])</code>. Optimal cache locality.</li>
+                    <li><strong>Column-Wise Traversal:</strong> Outer loop over columns, inner loop over rows.</li>
+                    <li><strong>Wave / Snake Traversal:</strong> Even rows traversed left-to-right, odd rows traversed right-to-left.</li>
+                    <li><strong>Matrix Transpose:</strong> Swap <code>mat[r][c]</code> with <code>mat[c][r]</code> across the main diagonal.</li>
+                </ul>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="language">C++ Implementation: Row, Column, Wave Traversal & Transpose</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+// 1. Wave / Snake Traversal: O(R * C) Time | O(1) Auxiliary Space
+void waveTraversal(const vector&lt;vector&lt;int&gt;&gt;& matrix) {
+    int rows = matrix.size();
+    int cols = matrix[0].size();
+    cout &lt;&lt; "Wave Traversal: ";
+
+    for (int r = 0; r &lt; rows; r++) {
+        if (r % 2 == 0) {
+            // Even row: Left to Right
+            for (int c = 0; c &lt; cols; c++) cout &lt;&lt; matrix[r][c] &lt;&lt; " ";
+        } else {
+            // Odd row: Right to Left
+            for (int c = cols - 1; c &gt;= 0; c--) cout &lt;&lt; matrix[r][c] &lt;&lt; " ";
+        }
+    }
+    cout &lt;&lt; "\n";
+}
+
+// 2. In-place Transpose of N x N Matrix: O(N^2) Time | O(1) Space
+void transposeMatrix(vector&lt;vector&lt;int&gt;&gt;& mat) {
+    int n = mat.size();
+    for (int i = 0; i &lt; n; i++) {
+        for (int j = i + 1; j &lt; n; j++) {
+            swap(mat[i][j], mat[j][i]);
+        }
+    }
+}
+
+// 3. Rotate Matrix 90 degrees Clockwise: Transpose + Reverse each row
+void rotate90Clockwise(vector&lt;vector&lt;int&gt;&gt;& mat) {
+    transposeMatrix(mat);
+    for (auto &row : mat) {
+        reverse(row.begin(), row.end());
+    }
+}
+
+int main() {
+    vector&lt;vector&lt;int&gt;&gt; grid = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+
+    waveTraversal(grid);
+    rotate90Clockwise(grid);
+
+    cout &lt;&lt; "After 90 deg clockwise rotation:\n";
+    for (const auto &row : grid) {
+        for (int val : row) cout &lt;&lt; val &lt;&lt; " ";
+        cout &lt;&lt; "\n";
+    }
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- 9. Spiral Order -->
+            <section id="spiral-matrix">
+                <h1>9. Spiral Order Matrix Traversal</h1>
+
+                <p>Spiral Matrix traversal is one of the most frequently asked 2D array interview questions. The challenge is visiting all elements of an \(M \times N\) matrix in spiral order (outer perimeter peeling inward until all layers are consumed).</p>
+
+                <div class="note-box">
+                    <div class="note-header">The 4-Boundary Pointer Algorithm</div>
+                    <div class="note-content">
+                        We maintain 4 moving boundaries:
+                        <br>
+                        1. <strong>top = 0, bottom = rows - 1</strong>
+                        <br>
+                        2. <strong>left = 0, right = cols - 1</strong>
+                        <br><br>
+                        At each iteration, we execute 4 controlled sweeps:
+                        <br>
+                        • <strong>Left &rarr; Right</strong> along <code>top</code>, then <code>top++</code>
+                        <br>
+                        • <strong>Top &rarr; Bottom</strong> along <code>right</code>, then <code>right--</code>
+                        <br>
+                        • <strong>Right &rarr; Left</strong> along <code>bottom</code>, then <code>bottom--</code> (only if <code>top &le; bottom</code>)
+                        <br>
+                        • <strong>Bottom &rarr; Top</strong> along <code>left</code>, then <code>left++</code> (only if <code>left &le; right</code>)
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="language">C++ Implementation: Spiral Order Traversal</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+vector&lt;int&gt; spiralOrder(const vector&lt;vector&lt;int&gt;&gt;& matrix) {
+    vector&lt;int&gt; result;
+    if (matrix.empty() || matrix[0].empty()) return result;
+
+    int top = 0, bottom = matrix.size() - 1;
+    int left = 0, right = matrix[0].size() - 1;
+
+    while (top &lt;= bottom && left &lt;= right) {
+        // 1. Traverse Right
+        for (int c = left; c &lt;= right; c++) {
+            result.push_back(matrix[top][c]);
+        }
+        top++;
+
+        // 2. Traverse Down
+        for (int r = top; r &lt;= bottom; r++) {
+            result.push_back(matrix[r][right]);
+        }
+        right--;
+
+        // 3. Traverse Left (if top boundary still valid)
+        if (top &lt;= bottom) {
+            for (int c = right; c &gt;= left; c--) {
+                result.push_back(matrix[bottom][c]);
+            }
+            bottom--;
+        }
+
+        // 4. Traverse Up (if left boundary still valid)
+        if (left &lt;= right) {
+            for (int r = bottom; r &gt;= top; r--) {
+                result.push_back(matrix[r][left]);
+            }
+            left++;
+        }
+    }
+    return result;
+}
+
+int main() {
+    vector&lt;vector&lt;int&gt;&gt; mat = {
+        { 1,  2,  3,  4 },
+        { 5,  6,  7,  8 },
+        { 9, 10, 11, 12 }
+    };
+
+    vector&lt;int&gt; spiral = spiralOrder(mat);
+    cout &lt;&lt; "Spiral Traversal: ";
+    for (int x : spiral) cout &lt;&lt; x &lt;&lt; " ";
+    cout &lt;&lt; "\n";
+    // Output: 1 2 3 4 8 12 11 10 9 5 6 7
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- 10. Efficient 2D Search -->
+            <section id="matrix-search">
+                <h1>10. Efficient 2D Matrix Search (\(O(M + N)\))</h1>
+
+                <p>When searching for a target in a matrix where rows and columns are sorted independently in ascending order, a brute force check takes \(O(M \times N)\). By taking advantage of the sorted properties, we can start at the <strong>top-right corner</strong> (or bottom-left) and eliminate an entire row or column in each step, solving the problem in <strong>\(O(M + N)\) time</strong>!</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="language">C++ Implementation: Staircase Search in 2D Sorted Matrix</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// Search in row-wise and column-wise sorted matrix: O(M + N) Time | O(1) Space
+bool searchMatrix(const vector&lt;vector&lt;int&gt;&gt;& matrix, int target) {
+    if (matrix.empty() || matrix[0].empty()) return false;
+
+    int rows = matrix.size();
+    int cols = matrix[0].size();
+
+    // Start at Top-Right corner
+    int r = 0;
+    int c = cols - 1;
+
+    while (r &lt; rows && c &gt;= 0) {
+        if (matrix[r][c] == target) {
+            return true; // Target found!
+        } else if (matrix[r][c] &gt; target) {
+            c--; // Target is smaller, eliminate current column
+        } else {
+            r++; // Target is larger, eliminate current row
+        }
+    }
+    return false;
+}
+
+int main() {
+    vector&lt;vector&lt;int&gt;&gt; sortedGrid = {
+        { 1,  4,  7, 11, 15 },
+        { 2,  5,  8, 12, 19 },
+        { 3,  6,  9, 16, 22 },
+        { 10, 13, 14, 17, 24 },
+        { 18, 21, 23, 26, 30 }
+    };
+
+    cout &lt;&lt; boolalpha;
+    cout &lt;&lt; "Is 5 present? " &lt;&lt; searchMatrix(sortedGrid, 5) &lt;&lt; "\n";   // true
+    cout &lt;&lt; "Is 20 present? " &lt;&lt; searchMatrix(sortedGrid, 20) &lt;&lt; "\n"; // false
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- 11. Master Time Complexity Table -->
+            <section id="time-complexity-table">
+                <h1>11. Master Time & Space Complexity Table</h1>
+
+                <p>This master cheat sheet summarizes the exact asymptotic bounds for all array operations, algorithms, and 2D matrix techniques discussed throughout this guide.</p>
+
+                <div class="table-container">
+                    <table class="complexity-table">
+                        <thead>
+                            <tr>
+                                <th>Operation / Algorithm</th>
+                                <th>Best Case Time</th>
+                                <th>Average Case Time</th>
+                                <th>Worst Case Time</th>
+                                <th>Space Complexity</th>
+                                <th>Key Takeaway</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Index Access (arr[i])</strong></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td>Instantaneous direct memory calculation.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Append at End (Static Array)</strong></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td>Constant time if capacity permits.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Arbitrary Insert / Delete</strong></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-on">O(N)</span></td>
+                                <td><span class="badge-on">O(N)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td>Requires shifting trailing elements.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Linear Search</strong></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-on">O(N)</span></td>
+                                <td><span class="badge-on">O(N)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td>Works on unsorted arrays.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Binary Search</strong></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-ologn">O(log N)</span></td>
+                                <td><span class="badge-ologn">O(log N)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td>Requires strictly sorted array.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>1D Prefix Sum Build</strong></td>
+                                <td><span class="badge-on">O(N)</span></td>
+                                <td><span class="badge-on">O(N)</span></td>
+                                <td><span class="badge-on">O(N)</span></td>
+                                <td><span class="badge-on">O(N)</span></td>
+                                <td>Single linear preprocessing pass.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>1D Prefix Sum Query</strong></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td>Instantaneous subtraction of 2 prefix values.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Difference Array Update</strong></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-on">O(N)</span></td>
+                                <td>Modify boundaries, reconstruct in O(N).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Two Pointer (Converging)</strong></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-on">O(N)</span></td>
+                                <td><span class="badge-on">O(N)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td>Replaces O(N^2) nested loops on sorted data.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sliding Window (Fixed K)</strong></td>
+                                <td><span class="badge-on">O(N)</span></td>
+                                <td><span class="badge-on">O(N)</span></td>
+                                <td><span class="badge-on">O(N)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td>Maintains running window sum/state.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sliding Window (Variable)</strong></td>
+                                <td><span class="badge-on">O(N)</span></td>
+                                <td><span class="badge-on">O(N)</span></td>
+                                <td><span class="badge-on">O(N)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td>Both left & right pointers advance &le; N times.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Matrix Row / Col Traversal</strong></td>
+                                <td><span class="badge-on">O(R × C)</span></td>
+                                <td><span class="badge-on">O(R × C)</span></td>
+                                <td><span class="badge-on">O(R × C)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td>Visits every element exactly once.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Spiral Matrix Traversal</strong></td>
+                                <td><span class="badge-on">O(R × C)</span></td>
+                                <td><span class="badge-on">O(R × C)</span></td>
+                                <td><span class="badge-on">O(R × C)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td>Peels boundaries inward without revisiting.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2D Sorted Matrix Search</strong></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-on">O(R + C)</span></td>
+                                <td><span class="badge-on">O(R + C)</span></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td>Staircase search from top-right corner.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 12. Common Pitfalls -->
+            <section id="common-pitfalls">
+                <h1>12. Common Pitfalls & Traps</h1>
+
+                <div class="warning-box">
+                    <div class="warning-header">⚠ Trap 1: Array Index Out of Bounds & Buffer Overflow</div>
+                    <div class="warning-content">
+                        In C++, arrays perform <strong>zero bounds checking</strong> at runtime for raw pointers or built-in arrays. Accessing <code>arr[-1]</code> or <code>arr[n]</code> results in <strong>Undefined Behavior (UB)</strong>: reading garbage, memory corruption, or Segmentation Fault.
+                        <br><strong>Best Practice:</strong> Always verify loop conditions like <code>i &lt; n</code>, or use <code>std::vector::at(i)</code> during development which throws <code>std::out_of_range</code>.
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div class="warning-header">⚠ Trap 2: Integer Overflow in Prefix Sums</div>
+                    <div class="warning-content">
+                        When summing arrays with large numbers (e.g. \(10^5\) elements each of value \(10^9\)), the prefix sum quickly exceeds <code>2,147,483,647</code> (max 32-bit signed int), causing silent negative overflow!
+                        <br><strong>Best Practice:</strong> Always typecast prefix arrays to <code>long long</code> in C++.
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div class="warning-header">⚠ Trap 3: Off-by-One Errors in Sliding Window</div>
+                    <div class="warning-content">
+                        When calculating window length between indices <code>left</code> and <code>right</code>, remember that the number of elements is <code>right - left + 1</code>, NOT <code>right - left</code>!
+                    </div>
+                </div>
+            </section>
+
+            <!-- 13. Top Interview Questions -->
+            <section id="interview-questions">
+                <h1>13. Top Interview Questions & Practice Problems</h1>
+
+                <p>Sharpen your conceptual clarity by solving these classic interview problems covering every technique discussed:</p>
+
+                <div class="practice-grid">
+                    <div class="practice-card">
+                        <div>
+                            <div class="practice-header">
+                                <span class="difficulty-tag diff-easy">Easy</span>
+                                <span style="font-size:0.8rem; color:#64748B;">LeetCode #1</span>
+                            </div>
+                            <h4>Two Sum (Sorted Variant)</h4>
+                            <p>Find two indices whose values sum to a specific target in a sorted array using two converging pointers.</p>
+                        </div>
+                        <a href="https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/" target="_blank" rel="noopener">Solve Problem →</a>
+                    </div>
+
+                    <div class="practice-card">
+                        <div>
+                            <div class="practice-header">
+                                <span class="difficulty-tag diff-medium">Medium</span>
+                                <span style="font-size:0.8rem; color:#64748B;">LeetCode #11</span>
+                            </div>
+                            <h4>Container With Most Water</h4>
+                            <p>Maximize water containment between two vertical lines using greedy two-pointer inward movement.</p>
+                        </div>
+                        <a href="https://leetcode.com/problems/container-with-most-water/" target="_blank" rel="noopener">Solve Problem →</a>
+                    </div>
+
+                    <div class="practice-card">
+                        <div>
+                            <div class="practice-header">
+                                <span class="difficulty-tag diff-medium">Medium</span>
+                                <span style="font-size:0.8rem; color:#64748B;">LeetCode #209</span>
+                            </div>
+                            <h4>Minimum Size Subarray Sum</h4>
+                            <p>Find minimal length subarray with sum &ge; target using dynamic sliding window expansion and contraction.</p>
+                        </div>
+                        <a href="https://leetcode.com/problems/minimum-size-subarray-sum/" target="_blank" rel="noopener">Solve Problem →</a>
+                    </div>
+
+                    <div class="practice-card">
+                        <div>
+                            <div class="practice-header">
+                                <span class="difficulty-tag diff-medium">Medium</span>
+                                <span style="font-size:0.8rem; color:#64748B;">LeetCode #54</span>
+                            </div>
+                            <h4>Spiral Matrix</h4>
+                            <p>Return all elements of an M x N matrix in clockwise spiral order using 4 boundary pointers.</p>
+                        </div>
+                        <a href="https://leetcode.com/problems/spiral-matrix/" target="_blank" rel="noopener">Solve Problem →</a>
+                    </div>
+
+                    <div class="practice-card">
+                        <div>
+                            <div class="practice-header">
+                                <span class="difficulty-tag diff-medium">Medium</span>
+                                <span style="font-size:0.8rem; color:#64748B;">LeetCode #240</span>
+                            </div>
+                            <h4>Search a 2D Matrix II</h4>
+                            <p>Search target in an M x N matrix sorted row-wise and column-wise in O(M + N) time.</p>
+                        </div>
+                        <a href="https://leetcode.com/problems/search-a-2d-matrix-ii/" target="_blank" rel="noopener">Solve Problem →</a>
+                    </div>
+
+                    <div class="practice-card">
+                        <div>
+                            <div class="practice-header">
+                                <span class="difficulty-tag diff-medium">Medium</span>
+                                <span style="font-size:0.8rem; color:#64748B;">LeetCode #304</span>
+                            </div>
+                            <h4>Range Sum Query 2D - Immutable</h4>
+                            <p>Compute sum of elements inside submatrix defined by top-left and bottom-right in O(1) time using 2D prefix sums.</p>
+                        </div>
+                        <a href="https://leetcode.com/problems/range-sum-query-2d-immutable/" target="_blank" rel="noopener">Solve Problem →</a>
+                    </div>
+                </div>
+            </section>
+
+        </section>
+    </main>
+
+    <!-- ================= SCRIPTS ================= -->
+    <script src="blog-components/copy.js"></script>
+    <script src="js/blog.js"></script>
+</body>
+</html>

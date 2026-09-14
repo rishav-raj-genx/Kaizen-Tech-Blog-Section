@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Pointers, Pointer Arithmetic & Memory in C++ | Kaizen Tech Blog</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/pointers.css">
+    <link rel="stylesheet" href="blog-components/components.css">
+    <link rel="shortcut icon" href="asset/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <header id="nav">
+        <div class="header">
+            <div class="header-left">
+                <img src="asset/logo.png" class="header-logo" alt="Kaizen Tech Logo">
+                <h2>Kaizen Tech</h2>
+            </div>
+            <div class="header-right">
+                <a href="index.html">← Back to Blog</a>
+            </div>
+        </div>
+        <hr>
+    </header>
+
+    <!-- ================= HERO SECTION ================= -->
+    <section class="hero">
+        <div class="hero-left-top">
+            <h1>Master Pointers, Pointer Arithmetic & Memory in C++</h1>
+            <p>An in-depth guide to raw memory addresses, pointer arithmetic scaling, program segments (Stack vs Heap), Dynamic Memory Allocation, memory leak prevention, and modern C++ smart pointers.</p>
+            
+            <div class="hero-badges">
+                <div class="hero-badge-card">
+                    <span>Difficulty</span>
+                    <h4>Intermediate → Advanced</h4>
+                </div>
+                <div class="hero-badge-card">
+                    <span>Reading Time</span>
+                    <h4>55-65 Minutes</h4>
+                </div>
+                <div class="hero-badge-card">
+                    <span>Prerequisites</span>
+                    <h4>Functions & Variables</h4>
+                </div>
+                <div class="hero-badge-card">
+                    <span>Language</span>
+                    <h4>C++ 17 / 20</h4>
+                </div>
+                <div class="hero-badge-card">
+                    <span>Author</span>
+                    <h4>Shubham Rai</h4>
+                </div>
+            </div>
+        </div>
+        <div class="hero-right">
+            <img src="asset/image.png" alt="C++ Pointers and Memory" onerror="this.style.display='none'">
+        </div>
+    </section>
+
+    <!-- Mobile Floating TOC Toggle Button -->
+    <button class="toc-toggle" id="tocToggle">
+        <span>☰</span> Table of Contents
+    </button>
+    <div class="toc-overlay" id="tocOverlay"></div>
+
+    <!-- ================= MAIN BLOG LAYOUT ================= -->
+    <main class="blog-layout">
+
+        <!-- Left Sticky Sidebar (TOC) -->
+        <aside class="toc-sidebar">
+            <div class="toc-header">
+                <h2><span class="toc-header-icon">🧭</span> Table of Contents</h2>
+                <button class="toc-close" id="tocClose" aria-label="Close Table of Contents">✕</button>
+            </div>
+            <nav class="toc-links">
+                <a href="#introduction">1. What is a Pointer?</a>
+                <a href="#operators">2. The & and * Operators</a>
+                <a href="#pointer-types">3. Special Pointer Types</a>
+                <a href="#pointer-arithmetic">4. Pointer Arithmetic Rules</a>
+                <a href="#pointers-and-arrays">5. Pointers & Arrays Equivalence</a>
+                <a href="#memory-architecture">6. C++ Memory Architecture</a>
+                <a href="#stack-vs-heap">7. Stack Memory vs Heap Memory</a>
+                <a href="#dynamic-allocation">8. Dynamic Memory Allocation</a>
+                <a href="#dynamic-2d-arrays">9. Dynamic 2D Arrays (Double Pointers)</a>
+                <a href="#memory-pitfalls">10. Dangerous Memory Bugs & Traps</a>
+                <a href="#smart-pointers">11. Modern C++ Smart Pointers</a>
+                <a href="#time-complexity-table">12. Pointer Complexity & Overhead Table</a>
+                <a href="#interview-questions">13. Tricky Interview Questions</a>
+            </nav>
+        </aside>
+
+        <!-- Right Blog Content -->
+        <section class="blog-content">
+
+            <!-- 1. Introduction -->
+            <section id="introduction">
+                <h1>1. What is a Pointer?</h1>
+
+                <div class="text-file">
+                    <div class="text-file-header">
+                        The Soul of C and C++
+                    </div>
+                    <div class="text-file-content">
+                        <p>⦿ In languages like Python, Java, and JavaScript, the runtime virtual machine shields you from physical memory hardware. In C++, you operate at the bare metal: every variable resides at a physical, hexadecimal location in RAM.</p>
+                        <p>⦿ A <strong>Pointer</strong> is simply a variable whose value is the <strong>memory address of another variable</strong>.</p>
+                        <p>⦿ Pointers enable high-performance data structures (Linked Lists, Binary Trees, Graphs), direct hardware interaction, dynamic heap allocation, and zero-copy parameter passing.</p>
+                    </div>
+                </div>
+
+                <div class="definition-box">
+                    <div class="definition-title">Formal Definition</div>
+                    <div class="definition-heading">Pointer Declaration & Size</div>
+                    <div class="definition-content">
+                        A pointer variable of type <code>T*</code> holds the address of a memory block of type <code>T</code>.
+                        <br><br>
+                        <strong>Memory Footprint of a Pointer:</strong>
+                        <br>
+                        Regardless of what it points to (<code>char*</code>, <code>int*</code>, or a massive <code>struct LargeData*</code>), the pointer itself is merely an address:
+                        <br>
+                        • <strong>4 bytes</strong> on 32-bit architectures
+                        <br>
+                        • <strong>8 bytes</strong> on modern 64-bit architectures
+                    </div>
+                </div>
+
+                <div class="diagram-card">
+                    <div class="diagram-title">🔍 Visualizing Pointers in RAM: Variable vs Pointer Variable</div>
+                    <div class="diagram-subtitle">The pointer 'ptr' holds the hexadecimal memory address of variable 'x'</div>
+
+                    <div class="pointer-viz-container">
+                        <div class="pointer-box">
+                            <div class="box-label">Pointer: int* ptr</div>
+                            <div class="box-val">0x7ffe04</div>
+                            <div class="box-addr">Address: 0x7ffe20</div>
+                        </div>
+
+                        <div class="pointer-arrow-flow">
+                            <span>Points To</span>
+                            <span class="arrow-icon">➔</span>
+                            <span>Dereferences</span>
+                        </div>
+
+                        <div class="pointer-box target-box">
+                            <div class="box-label">Target: int x</div>
+                            <div class="box-val">42</div>
+                            <div class="box-addr">Address: 0x7ffe04</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Operators -->
+            <section id="operators">
+                <h1>2. The Address-of (&) and Dereference (*) Operators</h1>
+
+                <p>Two complementary operators form the core of all pointer mechanics in C++:</p>
+                <ul>
+                    <li><strong>Address-of Operator (<code>&</code>):</strong> Extracts the memory address where a variable is stored.</li>
+                    <li><strong>Dereference / Indirection Operator (<code>*</code>):</strong> Accesses or modifies the value stored at the memory address held by the pointer.</li>
+                </ul>
+
+                <div class="tip-box">
+                    <div class="tip-header">💡 The Duality of the Asterisk (*)</div>
+                    <div class="tip-content">
+                        Don't confuse pointer declaration with dereferencing!
+                        <br>
+                        • In declaration: <code>int* ptr;</code> &rarr; <code>*</code> means <em>"ptr is a pointer type"</em>.
+                        <br>
+                        • In expressions: <code>*ptr = 100;</code> &rarr; <code>*</code> means <em>"go to the address in ptr and modify the value"</em>.
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="language">C++ Demonstration: Address-of and Dereferencing</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int num = 42;
+    int* ptr = &amp;num; // Store address of num in ptr
+
+    cout &lt;&lt; "Value of num:                 " &lt;&lt; num &lt;&lt; "\n";
+    cout &lt;&lt; "Address of num (&amp;num):         " &lt;&lt; &amp;num &lt;&lt; "\n";
+    cout &lt;&lt; "Value stored in ptr (ptr):     " &lt;&lt; ptr &lt;&lt; "\n";
+    cout &lt;&lt; "Address of pointer (&amp;ptr):     " &lt;&lt; &amp;ptr &lt;&lt; "\n";
+    cout &lt;&lt; "Dereferenced value (*ptr):     " &lt;&lt; *ptr &lt;&lt; "\n";
+
+    // Modifying value via pointer:
+    *ptr = 99; // Direct memory manipulation
+    cout &lt;&lt; "\nAfter executing *ptr = 99:\n";
+    cout &lt;&lt; "Value of num: " &lt;&lt; num &lt;&lt; "\n"; // num is now 99!
+
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- 3. Special Pointer Types -->
+            <section id="pointer-types">
+                <h1>3. Special Pointer Types (nullptr, Void, Wild, Dangling)</h1>
+
+                <div class="definition-box">
+                    <div class="definition-title">Taxonomy of Pointers</div>
+                    <div class="definition-heading">Understanding Special Pointer States</div>
+                    <div class="definition-content">
+                        C++ provides specialized pointer types and concepts that every competitive programmer and systems developer must know:
+                    </div>
+                </div>
+
+                <h3>1. Null Pointer (<code>nullptr</code>)</h3>
+                <p>A pointer that points to nothing (address <code>0x0</code>). In modern C++ (C++11 onwards), always use <code>nullptr</code> instead of <code>NULL</code> or <code>0</code> because <code>nullptr</code> has type <code>std::nullptr_t</code>, avoiding ambiguous overload resolutions between integers and pointers.</p>
+
+                <h3>2. Void Pointer (Generic Pointer: <code>void*</code>)</h3>
+                <p>A pointer that can hold the address of any data type, but has no associated data type. Because the compiler does not know the size of the underlying data, <strong>you cannot directly dereference a <code>void*</code></strong> without explicit typecasting!</p>
+
+                <h3>3. Wild Pointer (Uninitialized Pointer)</h3>
+                <p>A pointer declared without initialization: <code>int* p;</code>. It contains random garbage bits pointing to an arbitrary memory address. Dereferencing it is catastrophic.</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="language">C++ Code: nullptr, void* and Typecasting</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+void printValue(void* ptr, char type) {
+    if (ptr == nullptr) {
+        cout &lt;&lt; "Null pointer received!\n";
+        return;
+    }
+    // Must explicitly cast void* before dereferencing
+    if (type == 'i') {
+        cout &lt;&lt; "Integer: " &lt;&lt; *(static_cast&lt;int*&gt;(ptr)) &lt;&lt; "\n";
+    } else if (type == 'd') {
+        cout &lt;&lt; "Double:  " &lt;&lt; *(static_cast&lt;double*&gt;(ptr)) &lt;&lt; "\n";
+    }
+}
+
+int main() {
+    int a = 100;
+    double b = 3.14159;
+
+    int* safePtr = nullptr; // Clean, modern practice
+    printValue(safePtr, 'i');
+
+    printValue(&a, 'i');
+    printValue(&b, 'd');
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- 4. Pointer Arithmetic -->
+            <section id="pointer-arithmetic">
+                <h1>4. Pointer Arithmetic Rules</h1>
+
+                <div class="definition-box">
+                    <div class="definition-title">Under the Hood</div>
+                    <div class="definition-heading">Pointer Arithmetic is Scaled by Type Size!</div>
+                    <div class="definition-content">
+                        When you add 1 to an integer <code>x = 5; x + 1</code>, it becomes 6.
+                        <br>
+                        When you add 1 to a pointer <code>ptr + 1</code>, it does <strong>NOT</strong> increment by 1 byte! It advances by <strong><code>1 × sizeof(*ptr)</code> bytes</strong>!
+                        <br><br>
+                        <code>New_Address = Current_Address + (n × sizeof(Data_Type))</code>
+                    </div>
+                </div>
+
+                <div class="diagram-card">
+                    <div class="diagram-title">📏 Pointer Arithmetic Step Progression (int* on 4-byte boundaries)</div>
+                    <div class="diagram-subtitle">Each increment shifts the address forward by exactly 4 bytes</div>
+
+                    <div class="arithmetic-track">
+                        <div class="arithmetic-cell">
+                            <span class="arith-header">ptr + 0</span>
+                            <span class="arith-val">10</span>
+                            <span class="arith-addr">0x7ffe00</span>
+                            <span class="arith-delta">Base</span>
+                        </div>
+                        <div class="arithmetic-cell">
+                            <span class="arith-header">ptr + 1</span>
+                            <span class="arith-val">20</span>
+                            <span class="arith-addr">0x7ffe04</span>
+                            <span class="arith-delta">+4 Bytes</span>
+                        </div>
+                        <div class="arithmetic-cell">
+                            <span class="arith-header">ptr + 2</span>
+                            <span class="arith-val">30</span>
+                            <span class="arith-addr">0x7ffe08</span>
+                            <span class="arith-delta">+8 Bytes</span>
+                        </div>
+                        <div class="arithmetic-cell">
+                            <span class="arith-header">ptr + 3</span>
+                            <span class="arith-val">40</span>
+                            <span class="arith-addr">0x7ffe0c</span>
+                            <span class="arith-delta">+12 Bytes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Valid vs Invalid Pointer Operations</h3>
+                <div class="text-file">
+                    <div class="text-file-header">Legal Operations</div>
+                    <div class="text-file-content">
+                        <p>✔ <strong>Addition of Integer:</strong> <code>ptr + k</code> moves forward by <code>k × sizeof(T)</code> bytes.</p>
+                        <p>✔ <strong>Subtraction of Integer:</strong> <code>ptr - k</code> moves backward by <code>k × sizeof(T)</code> bytes.</p>
+                        <p>✔ <strong>Difference between Two Pointers:</strong> <code>ptr2 - ptr1</code> yields the <em>number of elements</em> between them (type <code>ptrdiff_t</code>), NOT raw byte count.</p>
+                        <p>✔ <strong>Pointer Comparison:</strong> <code>ptr1 &lt; ptr2</code> or <code>ptr1 == ptr2</code> verifies relative positioning within the same array.</p>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div class="warning-header">⚠ Prohibited Pointer Operations in C++</div>
+                    <div class="warning-content">
+                        The following operations are illegal in C++ and will not compile:
+                        <br>
+                        ❌ <strong>Adding two pointers:</strong> <code>ptr1 + ptr2</code> (meaningless concept).
+                        <br>
+                        ❌ <strong>Multiplying or dividing pointers:</strong> <code>ptr * 2</code>, <code>ptr / ptr2</code>.
+                        <br>
+                        ❌ <strong>Bitwise operations on pointers:</strong> <code>ptr &lt;&lt; 2</code>, <code>ptr & 0xFF</code>.
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="language">C++ Implementation: Pointer Arithmetic & Distance Calculation</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int arr[] = {100, 200, 300, 400, 500};
+    int* p1 = arr;        // Points to arr[0]
+    int* p2 = &arr[3];    // Points to arr[3]
+
+    cout &lt;&lt; "*p1:                 " &lt;&lt; *p1 &lt;&lt; "\n";       // 100
+    cout &lt;&lt; "*(p1 + 2):           " &lt;&lt; *(p1 + 2) &lt;&lt; "\n"; // 300
+    cout &lt;&lt; "p2 - p1 (distance):  " &lt;&lt; (p2 - p1) &lt;&lt; "\n"; // 3 (3 elements apart!)
+    
+    // Traversing array using pointer arithmetic:
+    cout &lt;&lt; "Traversing via pointer: ";
+    for (int* ptr = arr; ptr &lt; arr + 5; ptr++) {
+        cout &lt;&lt; *ptr &lt;&lt; " ";
+    }
+    cout &lt;&lt; "\n";
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- 5. Pointers and Arrays -->
+            <section id="pointers-and-arrays">
+                <h1>5. Pointers & Arrays Equivalence</h1>
+
+                <div class="answer-box">
+                    <div class="answer-header">💡 The Secret Behind arr[i] in C++</div>
+                    <div class="answer-content">
+                        In C++, the array name decays to a pointer to its first element: <code>arr == &arr[0]</code>.
+                        <br><br>
+                        When you write <code>arr[i]</code>, the compiler translates it internally to:
+                        <br>
+                        <code>*(arr + i)</code>
+                        <br><br>
+                        Because addition is commutative: <code>*(arr + i) == *(i + arr)</code>, you can actually write <code>i[arr]</code> in C++ and it compiles identically!
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="language">C++ Proof: Subscript vs Pointer Arithmetic</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int arr[4] = {10, 20, 30, 40};
+
+    cout &lt;&lt; "arr[2]:   " &lt;&lt; arr[2] &lt;&lt; "\n";       // Standard subscript notation: 30
+    cout &lt;&lt; "*(arr+2): " &lt;&lt; *(arr + 2) &lt;&lt; "\n";   // Pointer notation: 30
+    cout &lt;&lt; "2[arr]:   " &lt;&lt; 2[arr] &lt;&lt; "\n";       // Valid C++! *(2 + arr) = 30
+
+    // Key Difference: An array name is a CONSTANT pointer!
+    int* p = arr;
+    p++;        // Allowed: p now points to arr[1]
+    // arr++;   // ERROR! Compilation error: array name cannot be reassigned
+
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- 6. Memory Architecture -->
+            <section id="memory-architecture">
+                <h1>6. C++ Memory Architecture (5 Segments)</h1>
+
+                <p>When an operating system loads your compiled C++ binary into memory, it assigns a dedicated <strong>Virtual Address Space</strong> partitioned into 5 fundamental segments:</p>
+
+                <div class="diagram-card">
+                    <div class="diagram-title">🗺️ Anatomy of Process Virtual Memory</div>
+                    <div class="diagram-subtitle">From Low Memory Addresses to High Memory Addresses</div>
+
+                    <div class="memory-segments-stack">
+                        <div class="segment-row segment-stack">
+                            <div>
+                                <span class="segment-name">Stack Segment</span>
+                                <div class="segment-desc">Local variables, function call frames, return addresses</div>
+                            </div>
+                            <span class="segment-dir">Grows Downward ↓</span>
+                        </div>
+
+                        <div class="segment-row segment-heap">
+                            <div>
+                                <span class="segment-name">Heap Segment</span>
+                                <div class="segment-desc">Dynamically allocated memory (new, malloc), runtime sizes</div>
+                            </div>
+                            <span class="segment-dir">Grows Upward ↑</span>
+                        </div>
+
+                        <div class="segment-row segment-bss">
+                            <div>
+                                <span class="segment-name">BSS Segment (Uninitialized Data)</span>
+                                <div class="segment-desc">Uninitialized global and static variables (zero-filled by OS)</div>
+                            </div>
+                            <span class="segment-dir">Fixed</span>
+                        </div>
+
+                        <div class="segment-row segment-data">
+                            <div>
+                                <span class="segment-name">Data Segment (Initialized Data)</span>
+                                <div class="segment-desc">Initialized global and static variables (e.g. static int count = 5)</div>
+                            </div>
+                            <span class="segment-dir">Fixed</span>
+                        </div>
+
+                        <div class="segment-row segment-text">
+                            <div>
+                                <span class="segment-name">Text / Code Segment</span>
+                                <div class="segment-desc">Compiled CPU machine instructions, string literals (Read-Only)</div>
+                            </div>
+                            <span class="segment-dir">Read-Only</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Stack vs Heap -->
+            <section id="stack-vs-heap">
+                <h1>7. Stack Memory vs Heap Memory</h1>
+
+                <p>Understanding the fundamental architectural differences between Stack and Heap is critical for avoiding memory leaks, crashes, and performance bottlenecks:</p>
+
+                <div class="table-container">
+                    <table class="complexity-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Stack Memory</th>
+                                <th>Heap Memory</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Allocation Mechanism</strong></td>
+                                <td>Automatic by compiler (push stack pointer).</td>
+                                <td>Manual by programmer via <code>new</code> / <code>delete</code>.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Speed</strong></td>
+                                <td>Blazing fast (\(O(1)\) CPU instruction).</td>
+                                <td>Slower (OS memory manager search, syscall).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lifetime</strong></td>
+                                <td>Tied to scope (freed when function exits).</td>
+                                <td>Persistent until explicitly freed with <code>delete</code>.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Size Limit</strong></td>
+                                <td>Small (typically 1MB - 8MB default).</td>
+                                <td>Vast (limited only by available system RAM).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fragmentation</strong></td>
+                                <td>Zero fragmentation (strict LIFO order).</td>
+                                <td>Susceptible to heap fragmentation over time.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Risk</strong></td>
+                                <td>Stack Overflow (deep recursion, huge local arrays).</td>
+                                <td>Memory Leaks, Dangling Pointers, Out-of-Memory.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 8. Dynamic Memory Allocation -->
+            <section id="dynamic-allocation">
+                <h1>8. Dynamic Memory Allocation in C++</h1>
+
+                <p>In standard arrays, the size must be known at compile-time: <code>int arr[100];</code>. When array size depends on user input or runtime conditions, we allocate dynamically on the <strong>Heap</strong> using the <code>new</code> and <code>delete</code> operators.</p>
+
+                <div class="note-box">
+                    <div class="note-header">The Golden Rule of Dynamic Memory</div>
+                    <div class="note-content">
+                        Every single <code>new</code> MUST be matched with a <code>delete</code>!
+                        <br>
+                        Every single <code>new[]</code> (array) MUST be matched with a <code>delete[]</code>!
+                        <br><br>
+                        Mismatches cause severe memory leaks or undefined behavior crashes.
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="language">C++ Code: new, delete, and Dynamic Arrays</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    // 1. Allocating single primitive on Heap
+    int* pScalar = new int(42); // Allocate and initialize to 42
+    cout &lt;&lt; "Heap integer: " &lt;&lt; *pScalar &lt;&lt; "\n";
+    delete pScalar;             // Free heap memory
+    pScalar = nullptr;          // Prevent dangling pointer!
+
+    // 2. Allocating dynamic array on Heap
+    int n;
+    cout &lt;&lt; "Enter dynamic array size: ";
+    if (!(cin &gt;&gt; n) || n &lt;= 0) n = 5;
+
+    int* heapArray = new int[n]; // Allocated on Heap at runtime
+
+    for (int i = 0; i &lt; n; i++) {
+        heapArray[i] = (i + 1) * 10;
+    }
+
+    cout &lt;&lt; "Dynamically allocated array: ";
+    for (int i = 0; i &lt; n; i++) {
+        cout &lt;&lt; heapArray[i] &lt;&lt; " ";
+    }
+    cout &lt;&lt; "\n";
+
+    // 3. Deallocating array with delete[]
+    delete[] heapArray;
+    heapArray = nullptr; // Reset to safe state
+
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- 9. Dynamic 2D Arrays -->
+            <section id="dynamic-2d-arrays">
+                <h1>9. Dynamic 2D Arrays (Double Pointers: int**)</h1>
+
+                <p>When the number of rows and columns are decided at runtime, we construct a 2D matrix using a <strong>pointer to pointers (<code>int**</code>)</strong>.</p>
+
+                <div class="diagram-card">
+                    <div class="diagram-title">🧬 Structure of Dynamic 2D Array in Memory</div>
+                    <div class="diagram-subtitle">Stack pointer -> Heap array of pointers -> Heap row data arrays</div>
+
+                    <div style="background:#F8FAFC; padding:16px; border-radius:10px; font-family:monospace; line-height:1.7;">
+                        Stack: <strong>int** matrix</strong> [0x7ffe10] &rarr; points to Heap Row-Pointers Array<br>
+                        Heap Index 0: <strong>matrix[0]</strong> &rarr; points to [10, 20, 30]<br>
+                        Heap Index 1: <strong>matrix[1]</strong> &rarr; points to [40, 50, 60]<br>
+                        Heap Index 2: <strong>matrix[2]</strong> &rarr; points to [70, 80, 90]
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="language">C++ Implementation: Allocation & Deallocation of 2D Dynamic Matrix</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int rows = 3, cols = 4;
+
+    // Step 1: Allocate an array of int* pointers (one for each row)
+    int** matrix = new int*[rows];
+
+    // Step 2: Allocate each individual row array
+    for (int r = 0; r &lt; rows; r++) {
+        matrix[r] = new int[cols];
+    }
+
+    // Step 3: Populate and access matrix[r][c]
+    int count = 1;
+    for (int r = 0; r &lt; rows; r++) {
+        for (int c = 0; c &lt; cols; c++) {
+            matrix[r][c] = count++;
+        }
+    }
+
+    cout &lt;&lt; "Dynamic 2D Matrix:\n";
+    for (int r = 0; r &lt; rows; r++) {
+        for (int c = 0; c &lt; cols; c++) {
+            cout &lt;&lt; matrix[r][c] &lt;&lt; "\t";
+        }
+        cout &lt;&lt; "\n";
+    }
+
+    // Step 4: Deallocation in REVERSE order!
+    // Free each individual row first:
+    for (int r = 0; r &lt; rows; r++) {
+        delete[] matrix[r];
+        matrix[r] = nullptr;
+    }
+    // Free the master row pointer array:
+    delete[] matrix;
+    matrix = nullptr;
+
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- 10. Memory Pitfalls -->
+            <section id="memory-pitfalls">
+                <h1>10. Dangerous Memory Bugs & Traps</h1>
+
+                <div class="warning-box">
+                    <div class="warning-header">☠ Bug 1: Memory Leak</div>
+                    <div class="warning-content">
+                        <strong>Cause:</strong> Memory allocated on the heap via <code>new</code> that is never released with <code>delete</code>, and the pointer holding its address goes out of scope or is overwritten.
+                        <br>
+                        <strong>Consequence:</strong> The process continues consuming RAM until system memory is exhausted and the operating system kills your program (OOM Killer).
+                        <br>
+                        <strong>Fix:</strong> Always call <code>delete</code> before losing pointer reference, or use Smart Pointers.
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div class="warning-header">☠ Bug 2: Dangling Pointer</div>
+                    <div class="warning-content">
+                        <strong>Cause:</strong> A pointer pointing to memory that has already been deallocated by <code>delete</code>, or pointing to a local stack variable whose function scope has ended.
+                        <br>
+                        <strong>Consequence:</strong> Dereferencing a dangling pointer reads corrupted data or crashes with a Segmentation Fault.
+                        <br>
+                        <strong>Fix:</strong> Immediately assign <code>ptr = nullptr;</code> right after calling <code>delete ptr;</code>.
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div class="warning-header">☠ Bug 3: Double Free Error</div>
+                    <div class="warning-content">
+                        <strong>Cause:</strong> Calling <code>delete</code> or <code>delete[]</code> twice on the same heap memory address.
+                        <br>
+                        <strong>Consequence:</strong> Corrupts internal memory manager free-lists, triggering an instant runtime abort or security vulnerability.
+                        <br>
+                        <strong>Fix:</strong> Setting <code>ptr = nullptr;</code> after deletion protects you, because calling <code>delete nullptr;</code> is safely guaranteed by C++ standards to be a no-op!
+                    </div>
+                </div>
+            </section>
+
+            <!-- 11. Smart Pointers -->
+            <section id="smart-pointers">
+                <h1>11. Modern C++ Smart Pointers (RAII)</h1>
+
+                <div class="tip-box">
+                    <div class="tip-header">💡 Why Modern C++ Prefers Smart Pointers</div>
+                    <div class="tip-content">
+                        Modern C++ (C++11/14/17/20) advocates the <strong>RAII (Resource Acquisition Is Initialization)</strong> idiom. Smart pointers wrapped in <code>&lt;memory&gt;</code> automatically deallocate heap memory the instant their owner goes out of scope—eliminating memory leaks forever without manual <code>delete</code>!
+                    </div>
+                </div>
+
+                <h3>1. <code>std::unique_ptr</code> (Exclusive Ownership)</h3>
+                <p>Ensures that only <em>one</em> pointer owns the heap resource at any time. Cannot be copied, only moved (<code>std::move</code>). Destroys resource when leaving scope. Zero memory overhead compared to raw pointer!</p>
+
+                <h3>2. <code>std::shared_ptr</code> (Shared Ownership)</h3>
+                <p>Maintains an atomic reference counter. Multiple pointers can share the same resource. When the last <code>shared_ptr</code> goes out of scope, the heap object is deleted automatically.</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="language">C++ Implementation: Modern Smart Pointers in Action</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code>#include &lt;iostream&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+class Entity {
+public:
+    Entity() { cout &lt;&lt; "Entity Created!\n"; }
+    ~Entity() { cout &lt;&lt; "Entity Automatically Destroyed!\n"; }
+    void doSomething() { cout &lt;&lt; "Entity doing work...\n"; }
+};
+
+int main() {
+    cout &lt;&lt; "--- 1. Testing std::unique_ptr ---\n";
+    {
+        // make_unique is safe and clean (C++14+)
+        unique_ptr&lt;Entity&gt; uPtr = make_unique&lt;Entity&gt;();
+        uPtr-&gt;doSomething();
+        // Leaving block: Destructor automatically called! No memory leak!
+    }
+
+    cout &lt;&lt; "\n--- 2. Testing std::shared_ptr ---\n";
+    {
+        shared_ptr&lt;Entity&gt; sPtr1 = make_shared&lt;Entity&gt;();
+        cout &lt;&lt; "Reference Count: " &lt;&lt; sPtr1.use_count() &lt;&lt; "\n"; // 1
+        {
+            shared_ptr&lt;Entity&gt; sPtr2 = sPtr1; // Share ownership
+            cout &lt;&lt; "Reference Count: " &lt;&lt; sPtr1.use_count() &lt;&lt; "\n"; // 2
+        }
+        // sPtr2 destroyed, but entity remains alive because sPtr1 exists!
+        cout &lt;&lt; "Reference Count after inner scope: " &lt;&lt; sPtr1.use_count() &lt;&lt; "\n"; // 1
+    }
+    // sPtr1 leaves scope: Entity Destroyed!
+
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- 12. Complexity Table -->
+            <section id="time-complexity-table">
+                <h1>12. Pointer Complexity & Memory Overhead Table</h1>
+
+                <div class="table-container">
+                    <table class="complexity-table">
+                        <thead>
+                            <tr>
+                                <th>Operation / Mechanism</th>
+                                <th>Time Complexity</th>
+                                <th>Space Overhead</th>
+                                <th>Architectural Behavior</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Pointer Dereference (*p)</strong></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-bytes">0 Bytes</span></td>
+                                <td>Single indirect memory load instruction.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pointer Arithmetic (p + k)</strong></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-bytes">0 Bytes</span></td>
+                                <td>Direct CPU multiplication and addition.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Address Extraction (&x)</strong></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-bytes">0 Bytes</span></td>
+                                <td>Known at compile-time or stack pointer offset.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Stack Allocation (int x)</strong></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-bytes">4 Bytes</span></td>
+                                <td>Instant stack pointer register adjustment.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Heap Allocation (new int)</strong></td>
+                                <td><span class="badge-o1">Amortized O(1)</span></td>
+                                <td><span class="badge-bytes">4B + Metadata</span></td>
+                                <td>System memory allocator search overhead.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Heap Deallocation (delete p)</strong></td>
+                                <td><span class="badge-o1">Amortized O(1)</span></td>
+                                <td><span class="badge-bytes">Freed</span></td>
+                                <td>Returns block to allocator free-list.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Raw Pointer Storage (int*)</strong></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-bytes">8 Bytes (64-bit)</span></td>
+                                <td>Holds a 64-bit memory address in RAM.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>std::unique_ptr</strong></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-bytes">8 Bytes (64-bit)</span></td>
+                                <td>Zero-overhead abstraction over raw pointer.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>std::shared_ptr</strong></td>
+                                <td><span class="badge-o1">O(1)</span></td>
+                                <td><span class="badge-bytes">16 Bytes + Control Block</span></td>
+                                <td>Pointer to object + pointer to control block.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 13. Interview Questions -->
+            <section id="interview-questions">
+                <h1>13. Tricky Interview Questions & Exercises</h1>
+
+                <div class="practice-grid">
+                    <div class="practice-card">
+                        <div>
+                            <div class="practice-header">
+                                <span class="difficulty-tag diff-easy">Tricky Output</span>
+                                <span style="font-size:0.8rem; color:#64748B;">Core Concept</span>
+                            </div>
+                            <h4>What is the output?</h4>
+                            <p><code>int a = 10; int* p = &amp;a; *p += 5; cout &lt;&lt; a;</code><br>
+                            <strong>Answer:</strong> 15. Because <code>*p</code> dereferences <code>a</code> directly, mutating the original variable in place.</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-card">
+                        <div>
+                            <div class="practice-header">
+                                <span class="difficulty-tag diff-medium">Pointer Arithmetic</span>
+                                <span style="font-size:0.8rem; color:#64748B;">Array Decay</span>
+                            </div>
+                            <h4>Subscripts & Pointer Math</h4>
+                            <p><code>int arr[] = {10, 20, 30}; int* p = arr + 1; cout &lt;&lt; p[1];</code><br>
+                            <strong>Answer:</strong> 30. <code>p</code> points to <code>arr[1]</code> (20). <code>p[1]</code> evaluates to <code>*(p + 1)</code>, pointing to <code>arr[2]</code> (30).</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-card">
+                        <div>
+                            <div class="practice-header">
+                                <span class="difficulty-tag diff-hard">Double Pointer</span>
+                                <span style="font-size:0.8rem; color:#64748B;">Indirection</span>
+                            </div>
+                            <h4>Double Dereference Trap</h4>
+                            <p><code>int x = 5; int* p = &amp;x; int** q = &amp;p; **q = 25;</code><br>
+                            <strong>Answer:</strong> <code>x</code> is now 25. <code>*q</code> gives <code>p</code>, and <code>**q</code> dereferences <code>p</code> to access <code>x</code>.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </section>
+    </main>
+
+    <!-- ================= SCRIPTS ================= -->
+    <script src="blog-components/copy.js"></script>
+    <script src="js/blog.js"></script>
+</body>
+</html>
